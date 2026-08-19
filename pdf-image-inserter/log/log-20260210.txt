@@ -1,0 +1,64 @@
+========================================
+2026-02-10 09:20:03 処理開始
+ℹ️  NASがマウントされていません。処理をスキップします。
+2026-02-10 09:20:03 処理スキップ（NAS未接続）
+
+========================================
+2026-02-10 10:55:40 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260205.pdf
+  📥 コピー: 20260206.pdf
+  📥 コピー: 20260209.pdf
+📁 処理対象: 3 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260206.pdf → Stamped/20260206_Stamped.pdf
+✅ 20260205.pdf → Stamped/20260205_Stamped.pdf
+✅ 20260209.pdf → Stamped/20260209_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260205_Stamped.pdf
+  📤 転送完了: 20260206_Stamped.pdf
+  📤 転送完了: 20260209_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20190828.pdf
+  📥 コピー: 20190829.pdf
+  📥 コピー: 20190830.pdf
+  📥 コピー: 20190830Stamped.pdf
+  📥 コピー: 20190905.pdf
+  📥 コピー: 20260127.pdf
+  📥 コピー: 20260202.pdf
+  📥 コピー: 20260205.pdf
+  📥 コピー: 20260206.pdf
+  📥 コピー: 20260209.pdf
+📁 処理対象: 10 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20190830.pdf → Stamped/20190830_Stamped.pdf
+✅ 20260206.pdf → Stamped/20260206_Stamped.pdf
+✅ 20260205.pdf → Stamped/20260205_Stamped.pdf
+✅ 20260202.pdf → Stamped/20260202_Stamped.pdf
+✅ 20260209.pdf → Stamped/20260209_Stamped.pdf
+✅ 20190829.pdf → Stamped/20190829_Stamped.pdf
+✅ 20190828.pdf → Stamped/20190828_Stamped.pdf
+✅ 20260127.pdf → Stamped/20260127_Stamped.pdf
+✅ 20190905.pdf → Stamped/20190905_Stamped.pdf
+✅ 20190830Stamped.pdf → Stamped/20190830Stamped_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190828_Stamped.pdf
+  📤 転送完了: 20190829_Stamped.pdf
+  📤 転送完了: 20190830Stamped_Stamped.pdf
+  📤 転送完了: 20190830_Stamped.pdf
+  📤 転送完了: 20190905_Stamped.pdf
+  📤 転送完了: 20260127_Stamped.pdf
+  📤 転送完了: 20260202_Stamped.pdf
+  📤 転送完了: 20260205_Stamped.pdf
+  📤 転送完了: 20260206_Stamped.pdf
+  📤 転送完了: 20260209_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-02-10 10:57:25 全処理完了
+

@@ -1,0 +1,41 @@
+========================================
+2026-02-16 09:20:03 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260210.pdf
+  📥 コピー: 20260212.pdf
+  📥 コピー: 20260213.pdf
+📁 処理対象: 3 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260213.pdf → Stamped/20260213_Stamped.pdf
+✅ 20260212.pdf → Stamped/20260212_Stamped.pdf
+✅ 20260210.pdf → Stamped/20260210_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260210_Stamped.pdf
+  📤 転送完了: 20260212_Stamped.pdf
+  📤 転送完了: 20260213_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20260210.pdf
+  📥 コピー: 20260212 (2).pdf
+  📥 コピー: 20260212.pdf
+  📥 コピー: 20260213.pdf
+📁 処理対象: 4 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260212 (2).pdf → Stamped/20260212 (2)_Stamped.pdf
+✅ 20260213.pdf → Stamped/20260213_Stamped.pdf
+✅ 20260212.pdf → Stamped/20260212_Stamped.pdf
+✅ 20260210.pdf → Stamped/20260210_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260210_Stamped.pdf
+  📤 転送完了: 20260212 (2)_Stamped.pdf
+  📤 転送完了: 20260212_Stamped.pdf
+  📤 転送完了: 20260213_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-02-16 09:24:03 全処理完了
+

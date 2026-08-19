@@ -1,0 +1,29 @@
+========================================
+2026-07-22 09:20:01 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260710.pdf
+  📥 コピー: 20260713.pdf
+  📥 コピー: 20260714.pdf
+  📥 コピー: 20260715.pdf
+  📥 コピー: 20260716.pdf
+  📥 コピー: 20260717.pdf
+📁 処理対象: 5 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260714.pdf → Stamped/20260714_Stamped.pdf
+✅ 20260715.pdf → Stamped/20260715_Stamped.pdf
+✅ 20260716.pdf → Stamped/20260716_Stamped.pdf
+✅ 20260713.pdf → Stamped/20260713_Stamped.pdf
+✅ 20260710.pdf → Stamped/20260710_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260710_Stamped.pdf
+  📤 転送完了: 20260713_Stamped.pdf
+  📤 転送完了: 20260714_Stamped.pdf
+  📤 転送完了: 20260715_Stamped.pdf
+  📤 転送完了: 20260716_Stamped.pdf
+  ✅ 配達 処理完了
+⚠️  フォルダが見つかりません: /Volumes/帳票保存/出荷
+2026-07-22 10:09:32 全処理完了
+

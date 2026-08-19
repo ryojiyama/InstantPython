@@ -1,0 +1,59 @@
+========================================
+2026-04-15 09:20:03 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260414.pdf
+  📥 コピー: 20260414134702.pdf
+  📥 コピー: 20260414135238.pdf
+  📥 コピー: 20260414135942.pdf
+  📥 コピー: 20260414140803.pdf
+📁 処理対象: 5 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260414134702.pdf → Stamped/20260414134702_Stamped.pdf
+✅ 20260414.pdf → Stamped/20260414_Stamped.pdf
+✅ 20260414140803.pdf → Stamped/20260414140803_Stamped.pdf
+✅ 20260414135238.pdf → Stamped/20260414135238_Stamped.pdf
+✅ 20260414135942.pdf → Stamped/20260414135942_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260414134702_Stamped.pdf
+  📤 転送完了: 20260414135238_Stamped.pdf
+  📤 転送完了: 20260414135942_Stamped.pdf
+  📤 転送完了: 20260414140803_Stamped.pdf
+  📤 転送完了: 20260414_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20260414144447.pdf
+  📥 コピー: 20260414145249.pdf
+  📥 コピー: 20260414150309.pdf
+  📥 コピー: 20260414151044.pdf
+  📥 コピー: 20260414152334.pdf
+  📥 コピー: 20260414154911.pdf
+  📥 コピー: 20260414161116.pdf
+  📥 コピー: 20260414162202.pdf
+📁 処理対象: 8 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260414152334.pdf → Stamped/20260414152334_Stamped.pdf
+✅ 20260414145249.pdf → Stamped/20260414145249_Stamped.pdf
+✅ 20260414161116.pdf → Stamped/20260414161116_Stamped.pdf
+✅ 20260414150309.pdf → Stamped/20260414150309_Stamped.pdf
+✅ 20260414144447.pdf → Stamped/20260414144447_Stamped.pdf
+✅ 20260414154911.pdf → Stamped/20260414154911_Stamped.pdf
+✅ 20260414151044.pdf → Stamped/20260414151044_Stamped.pdf
+✅ 20260414162202.pdf → Stamped/20260414162202_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260414144447_Stamped.pdf
+  📤 転送完了: 20260414145249_Stamped.pdf
+  📤 転送完了: 20260414150309_Stamped.pdf
+  📤 転送完了: 20260414151044_Stamped.pdf
+  📤 転送完了: 20260414152334_Stamped.pdf
+  📤 転送完了: 20260414154911_Stamped.pdf
+  📤 転送完了: 20260414161116_Stamped.pdf
+  📤 転送完了: 20260414162202_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-04-15 09:21:35 全処理完了
+

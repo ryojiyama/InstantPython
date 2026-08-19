@@ -1,0 +1,98 @@
+========================================
+2026-05-07 09:20:03 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260414134702.pdf
+  📥 コピー: 20260414135238.pdf
+  📥 コピー: 20260414135942.pdf
+  📥 コピー: 20260414140803.pdf
+  📥 コピー: 20260416140349.pdf
+  📥 コピー: 20260416140835.pdf
+  📥 コピー: 20260416141716.pdf
+  📥 コピー: 20260416142144.pdf
+  📥 コピー: 20260416143105.pdf
+  📥 コピー: 20260420130346.pdf
+  📥 コピー: 20260421132355.pdf
+  📥 コピー: 20260422145150.pdf
+  📥 コピー: 20260423155758.pdf
+  📥 コピー: 20260424155507.pdf
+  📥 コピー: 20260427135230.pdf
+  📥 コピー: 20260428135141.pdf
+  📥 コピー: 20260430152127.pdf
+  📥 コピー: 20260501145617.pdf
+📁 処理対象: 18 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260416140835.pdf → Stamped/20260416140835_Stamped.pdf
+✅ 20260416140349.pdf → Stamped/20260416140349_Stamped.pdf
+✅ 20260414134702.pdf → Stamped/20260414134702_Stamped.pdf
+✅ 20260427135230.pdf → Stamped/20260427135230_Stamped.pdf
+✅ 20260422145150.pdf → Stamped/20260422145150_Stamped.pdf
+✅ 20260414140803.pdf → Stamped/20260414140803_Stamped.pdf
+✅ 20260428135141.pdf → Stamped/20260428135141_Stamped.pdf
+✅ 20260420130346.pdf → Stamped/20260420130346_Stamped.pdf
+✅ 20260501145617.pdf → Stamped/20260501145617_Stamped.pdf
+✅ 20260416143105.pdf → Stamped/20260416143105_Stamped.pdf
+✅ 20260414135238.pdf → Stamped/20260414135238_Stamped.pdf
+✅ 20260416142144.pdf → Stamped/20260416142144_Stamped.pdf
+✅ 20260423155758.pdf → Stamped/20260423155758_Stamped.pdf
+✅ 20260430152127.pdf → Stamped/20260430152127_Stamped.pdf
+✅ 20260424155507.pdf → Stamped/20260424155507_Stamped.pdf
+✅ 20260421132355.pdf → Stamped/20260421132355_Stamped.pdf
+✅ 20260414135942.pdf → Stamped/20260414135942_Stamped.pdf
+✅ 20260416141716.pdf → Stamped/20260416141716_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260414134702_Stamped.pdf
+  📤 転送完了: 20260414135238_Stamped.pdf
+  📤 転送完了: 20260414135942_Stamped.pdf
+  📤 転送完了: 20260414140803_Stamped.pdf
+  📤 転送完了: 20260416140349_Stamped.pdf
+  📤 転送完了: 20260416140835_Stamped.pdf
+  📤 転送完了: 20260416141716_Stamped.pdf
+  📤 転送完了: 20260416142144_Stamped.pdf
+  📤 転送完了: 20260416143105_Stamped.pdf
+  📤 転送完了: 20260420130346_Stamped.pdf
+  📤 転送完了: 20260421132355_Stamped.pdf
+  📤 転送完了: 20260422145150_Stamped.pdf
+  📤 転送完了: 20260423155758_Stamped.pdf
+  📤 転送完了: 20260424155507_Stamped.pdf
+  📤 転送完了: 20260427135230_Stamped.pdf
+  📤 転送完了: 20260428135141_Stamped.pdf
+  📤 転送完了: 20260430152127_Stamped.pdf
+  📤 転送完了: 20260501145617_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20260427164820.pdf
+  📥 コピー: 20260427165028.pdf
+  📥 コピー: 20260430101440.pdf
+  📥 コピー: 20260430101709.pdf
+  📥 コピー: 20260430162914.pdf
+  📥 コピー: 20260430163111.pdf
+  📥 コピー: 20260501163657.pdf
+  📥 コピー: 20260501164459.pdf
+📁 処理対象: 8 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260501163657.pdf → Stamped/20260501163657_Stamped.pdf
+✅ 20260501164459.pdf → Stamped/20260501164459_Stamped.pdf
+✅ 20260427165028.pdf → Stamped/20260427165028_Stamped.pdf
+✅ 20260430101709.pdf → Stamped/20260430101709_Stamped.pdf
+✅ 20260430101440.pdf → Stamped/20260430101440_Stamped.pdf
+✅ 20260427164820.pdf → Stamped/20260427164820_Stamped.pdf
+✅ 20260430162914.pdf → Stamped/20260430162914_Stamped.pdf
+✅ 20260430163111.pdf → Stamped/20260430163111_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260427164820_Stamped.pdf
+  📤 転送完了: 20260427165028_Stamped.pdf
+  📤 転送完了: 20260430101440_Stamped.pdf
+  📤 転送完了: 20260430101709_Stamped.pdf
+  📤 転送完了: 20260430162914_Stamped.pdf
+  📤 転送完了: 20260430163111_Stamped.pdf
+  📤 転送完了: 20260501163657_Stamped.pdf
+  📤 転送完了: 20260501164459_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-05-07 09:29:33 全処理完了
+

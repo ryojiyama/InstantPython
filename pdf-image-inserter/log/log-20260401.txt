@@ -1,0 +1,145 @@
+========================================
+2026-04-01 09:20:03 処理開始
+ℹ️  NASがマウントされていません。処理をスキップします。
+2026-04-01 09:20:03 処理スキップ（NAS未接続）
+
+========================================
+2026-04-01 10:32:12 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260210.pdf
+  📥 コピー: 20260212.pdf
+  📥 コピー: 20260213.pdf
+  📥 コピー: 20260216.pdf
+  📥 コピー: 20260217.pdf
+  📥 コピー: 20260310.pdf
+  📥 コピー: 20260311.pdf
+  📥 コピー: 20260312.pdf
+  📥 コピー: 20260313.pdf
+  📥 コピー: 20260316.pdf
+  📥 コピー: 20260317.pdf
+  📥 コピー: 20260318.pdf
+  📥 コピー: 20260319.pdf
+  📥 コピー: 20260323.pdf
+  📥 コピー: 20260324.pdf
+  📥 コピー: 20260325.pdf
+  📥 コピー: 20260326.pdf
+  📥 コピー: 20260327.pdf
+  📥 コピー: 20260330.pdf
+  📥 コピー: 20260331.pdf
+📁 処理対象: 20 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260310.pdf → Stamped/20260310_Stamped.pdf
+✅ 20260311.pdf → Stamped/20260311_Stamped.pdf
+✅ 20260313.pdf → Stamped/20260313_Stamped.pdf
+✅ 20260312.pdf → Stamped/20260312_Stamped.pdf
+✅ 20260316.pdf → Stamped/20260316_Stamped.pdf
+✅ 20260317.pdf → Stamped/20260317_Stamped.pdf
+✅ 20260213.pdf → Stamped/20260213_Stamped.pdf
+✅ 20260212.pdf → Stamped/20260212_Stamped.pdf
+✅ 20260210.pdf → Stamped/20260210_Stamped.pdf
+✅ 20260216.pdf → Stamped/20260216_Stamped.pdf
+✅ 20260217.pdf → Stamped/20260217_Stamped.pdf
+✅ 20260319.pdf → Stamped/20260319_Stamped.pdf
+✅ 20260325.pdf → Stamped/20260325_Stamped.pdf
+✅ 20260331.pdf → Stamped/20260331_Stamped.pdf
+✅ 20260330.pdf → Stamped/20260330_Stamped.pdf
+✅ 20260324.pdf → Stamped/20260324_Stamped.pdf
+✅ 20260318.pdf → Stamped/20260318_Stamped.pdf
+✅ 20260326.pdf → Stamped/20260326_Stamped.pdf
+✅ 20260327.pdf → Stamped/20260327_Stamped.pdf
+✅ 20260323.pdf → Stamped/20260323_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260210_Stamped.pdf
+  📤 転送完了: 20260212_Stamped.pdf
+  📤 転送完了: 20260213_Stamped.pdf
+  📤 転送完了: 20260216_Stamped.pdf
+  📤 転送完了: 20260217_Stamped.pdf
+  📤 転送完了: 20260310_Stamped.pdf
+  📤 転送完了: 20260311_Stamped.pdf
+  📤 転送完了: 20260312_Stamped.pdf
+  📤 転送完了: 20260313_Stamped.pdf
+  📤 転送完了: 20260316_Stamped.pdf
+  📤 転送完了: 20260317_Stamped.pdf
+  📤 転送完了: 20260318_Stamped.pdf
+  📤 転送完了: 20260319_Stamped.pdf
+  📤 転送完了: 20260323_Stamped.pdf
+  📤 転送完了: 20260324_Stamped.pdf
+  📤 転送完了: 20260325_Stamped.pdf
+  📤 転送完了: 20260326_Stamped.pdf
+  📤 転送完了: 20260327_Stamped.pdf
+  📤 転送完了: 20260330_Stamped.pdf
+  📤 転送完了: 20260331_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20260210.pdf
+  📥 コピー: 20260310.pdf
+  📥 コピー: 20260311.pdf
+  📥 コピー: 20260312.pdf
+  📥 コピー: 20260313.pdf
+  📥 コピー: 20260316.pdf
+  📥 コピー: 20260317.pdf
+  📥 コピー: 20260318 (2).pdf
+  📥 コピー: 20260318.pdf
+  📥 コピー: 20260318_Stamped (2).pdf
+  📥 コピー: 20260319.pdf
+  📥 コピー: 20260323 (2).pdf
+  📥 コピー: 20260323.pdf
+  📥 コピー: 20260324.pdf
+  📥 コピー: 20260325 (2).pdf
+  📥 コピー: 20260325.pdf
+  📥 コピー: 20260326.pdf
+  📥 コピー: 20260327.pdf
+  📥 コピー: 20260330165646.pdf
+  📥 コピー: 20260331164540.pdf
+📁 処理対象: 20 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260310.pdf → Stamped/20260310_Stamped.pdf
+✅ 20260311.pdf → Stamped/20260311_Stamped.pdf
+✅ 20260313.pdf → Stamped/20260313_Stamped.pdf
+✅ 20260312.pdf → Stamped/20260312_Stamped.pdf
+✅ 20260316.pdf → Stamped/20260316_Stamped.pdf
+✅ 20260318 (2).pdf → Stamped/20260318 (2)_Stamped.pdf
+✅ 20260331164540.pdf → Stamped/20260331164540_Stamped.pdf
+✅ 20260317.pdf → Stamped/20260317_Stamped.pdf
+✅ 20260325 (2).pdf → Stamped/20260325 (2)_Stamped.pdf
+✅ 20260210.pdf → Stamped/20260210_Stamped.pdf
+✅ 20260330165646.pdf → Stamped/20260330165646_Stamped.pdf
+✅ 20260318_Stamped (2).pdf → Stamped/20260318_Stamped (2)_Stamped.pdf
+✅ 20260319.pdf → Stamped/20260319_Stamped.pdf
+✅ 20260325.pdf → Stamped/20260325_Stamped.pdf
+✅ 20260324.pdf → Stamped/20260324_Stamped.pdf
+✅ 20260318.pdf → Stamped/20260318_Stamped.pdf
+✅ 20260326.pdf → Stamped/20260326_Stamped.pdf
+✅ 20260327.pdf → Stamped/20260327_Stamped.pdf
+✅ 20260323.pdf → Stamped/20260323_Stamped.pdf
+✅ 20260323 (2).pdf → Stamped/20260323 (2)_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260210_Stamped.pdf
+  📤 転送完了: 20260310_Stamped.pdf
+  📤 転送完了: 20260311_Stamped.pdf
+  📤 転送完了: 20260312_Stamped.pdf
+  📤 転送完了: 20260313_Stamped.pdf
+  📤 転送完了: 20260316_Stamped.pdf
+  📤 転送完了: 20260317_Stamped.pdf
+  📤 転送完了: 20260318 (2)_Stamped.pdf
+  📤 転送完了: 20260318_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260318_Stamped.pdf
+  📤 転送完了: 20260319_Stamped.pdf
+  📤 転送完了: 20260323 (2)_Stamped.pdf
+  📤 転送完了: 20260323_Stamped.pdf
+  📤 転送完了: 20260324_Stamped.pdf
+  📤 転送完了: 20260325 (2)_Stamped.pdf
+  📤 転送完了: 20260325_Stamped.pdf
+  📤 転送完了: 20260326_Stamped.pdf
+  📤 転送完了: 20260327_Stamped.pdf
+  📤 転送完了: 20260330165646_Stamped.pdf
+  📤 転送完了: 20260331164540_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-04-01 10:50:31 全処理完了
+

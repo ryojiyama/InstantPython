@@ -1,0 +1,332 @@
+========================================
+2026-07-21 09:20:03 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260710.pdf
+  📥 コピー: 20260713.pdf
+  📥 コピー: 20260714.pdf
+  📥 コピー: 20260715.pdf
+  📥 コピー: 20260716.pdf
+  📥 コピー: 20260717.pdf
+📁 処理対象: 6 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260714.pdf → Stamped/20260714_Stamped.pdf
+✅ 20260715.pdf → Stamped/20260715_Stamped.pdf
+✅ 20260717.pdf → Stamped/20260717_Stamped.pdf
+✅ 20260716.pdf → Stamped/20260716_Stamped.pdf
+✅ 20260713.pdf → Stamped/20260713_Stamped.pdf
+✅ 20260710.pdf → Stamped/20260710_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260710_Stamped.pdf
+  📤 転送完了: 20260713_Stamped.pdf
+  📤 転送完了: 20260714_Stamped.pdf
+  📤 転送完了: 20260715_Stamped.pdf
+  📤 転送完了: 20260716_Stamped.pdf
+  📤 転送完了: 20260717_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20190208 (2).pdf
+  📥 コピー: 20190208.pdf
+  📥 コピー: 20190212 (2).pdf
+  📥 コピー: 20190212.pdf
+  📥 コピー: 20190213 (2).pdf
+  📥 コピー: 20190213.pdf
+  📥 コピー: 20190214 (2).pdf
+  📥 コピー: 20190214.pdf
+  📥 コピー: 20190215 (2).pdf
+  📥 コピー: 20190215.pdf
+  📥 コピー: 20190218 (2).pdf
+  📥 コピー: 20190218.pdf
+  📥 コピー: 20190729 (2).pdf
+  📥 コピー: 20190729.pdf
+  📥 コピー: 20190730.pdf
+  📥 コピー: 20190731 (2).pdf
+  📥 コピー: 20190731.pdf
+  📥 コピー: 20190731_Stamped (2).pdf
+  📥 コピー: 20190731_Stamped (3).pdf
+  📥 コピー: 20190801 (2).pdf
+  📥 コピー: 20190801.pdf
+  📥 コピー: 20190801_Stamped (2).pdf
+  📥 コピー: 20190802 (2).pdf
+  📥 コピー: 20190802.pdf
+  📥 コピー: 20260624 (2).pdf
+  📥 コピー: 20260624.pdf
+  📥 コピー: 20260624145024.pdf
+  📥 コピー: 20260624145118.pdf
+  📥 コピー: 20260624145245.pdf
+  📥 コピー: 20260624145343.pdf
+  📥 コピー: 20260624145530.pdf
+  📥 コピー: 20260624145617.pdf
+  📥 コピー: 20260624145752.pdf
+  📥 コピー: 20260624145922.pdf
+  📥 コピー: 20260624150006.pdf
+  📥 コピー: 20260624150148.pdf
+  📥 コピー: 20260624150212.pdf
+  📥 コピー: 20260624150724.pdf
+  📥 コピー: 20260624150757.pdf
+  📥 コピー: 20260624150928.pdf
+  📥 コピー: 20260624150940.pdf
+  📥 コピー: 20260624151107.pdf
+  📥 コピー: 20260624151152.pdf
+  📥 コピー: 20260624151303.pdf
+  📥 コピー: 20260624151410.pdf
+  📥 コピー: 20260624151819.pdf
+  📥 コピー: 20260624152101.pdf
+  📥 コピー: 20260624152129.pdf
+  📥 コピー: 20260624152256.pdf
+  📥 コピー: 20260625.pdf
+  📥 コピー: 20260625085549.pdf
+  📥 コピー: 20260626.pdf
+  📥 コピー: 20260629.pdf
+  📥 コピー: 20260630.pdf
+  📥 コピー: 20260701 (2).pdf
+  📥 コピー: 20260701.pdf
+  📥 コピー: 20260702 (2).pdf
+  📥 コピー: 20260702.pdf
+  📥 コピー: 20260703.pdf
+  📥 コピー: 20260706 (2).pdf
+  📥 コピー: 20260706 (3).pdf
+  📥 コピー: 20260706.pdf
+  📥 コピー: 20260707 (2).pdf
+  📥 コピー: 20260707 (3).pdf
+  📥 コピー: 20260707.pdf
+  📥 コピー: 20260708 (2).pdf
+  📥 コピー: 20260708 (3).pdf
+  📥 コピー: 20260708.pdf
+  📥 コピー: 20260708_Stamped (2).pdf
+  📥 コピー: 20260708_Stamped (3).pdf
+  📥 コピー: 20260709 (2).pdf
+  📥 コピー: 20260709.pdf
+  📥 コピー: 20260709_Stamped (2).pdf
+  📥 コピー: 20260710 (2).pdf
+  📥 コピー: 20260710.pdf
+  📥 コピー: 20260710_Stamped (2).pdf
+  📥 コピー: 20260713 (2).pdf
+  📥 コピー: 20260713 (3).pdf
+  📥 コピー: 20260713.pdf
+  📥 コピー: 20260714 (2).pdf
+  📥 コピー: 20260714 (3).pdf
+  📥 コピー: 20260714.pdf
+  📥 コピー: 20260714_Stamped (2).pdf
+  📥 コピー: 20260714_Stamped (3).pdf
+  📥 コピー: 20260715 (2).pdf
+  📥 コピー: 20260715 (3).pdf
+  📥 コピー: 20260715 (4).pdf
+  📥 コピー: 20260715 (5).pdf
+  📥 コピー: 20260715.pdf
+  📥 コピー: 20260716 (2).pdf
+  📥 コピー: 20260716 (3).pdf
+  📥 コピー: 20260716 (4).pdf
+  📥 コピー: 20260716 (5).pdf
+  📥 コピー: 20260716 (6).pdf
+  📥 コピー: 20260716.pdf
+  📥 コピー: 20260717164846.pdf
+  📥 コピー: 20260717165012.pdf
+  📥 コピー: 20260717165024.pdf
+📁 処理対象: 98 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20190729.pdf → Stamped/20190729_Stamped.pdf
+✅ 20260707 (3).pdf → Stamped/20260707 (3)_Stamped.pdf
+✅ 20260714.pdf → Stamped/20260714_Stamped.pdf
+✅ 20260624151410.pdf → Stamped/20260624151410_Stamped.pdf
+✅ 20260706 (2).pdf → Stamped/20260706 (2)_Stamped.pdf
+✅ 20260716 (2).pdf → Stamped/20260716 (2)_Stamped.pdf
+✅ 20260701.pdf → Stamped/20260701_Stamped.pdf
+✅ 20260715.pdf → Stamped/20260715_Stamped.pdf
+✅ 20260624150928.pdf → Stamped/20260624150928_Stamped.pdf
+✅ 20260715 (4).pdf → Stamped/20260715 (4)_Stamped.pdf
+✅ 20260703.pdf → Stamped/20260703_Stamped.pdf
+✅ 20260624150724.pdf → Stamped/20260624150724_Stamped.pdf
+✅ 20260716.pdf → Stamped/20260716_Stamped.pdf
+✅ 20260702.pdf → Stamped/20260702_Stamped.pdf
+✅ 20260624145922.pdf → Stamped/20260624145922_Stamped.pdf
+✅ 20260714_Stamped (2).pdf → Stamped/20260714_Stamped (2)_Stamped.pdf
+✅ 20190214 (2).pdf → Stamped/20190214 (2)_Stamped.pdf
+✅ 20260714_Stamped (3).pdf → Stamped/20260714_Stamped (3)_Stamped.pdf
+✅ 20260706.pdf → Stamped/20260706_Stamped.pdf
+✅ 20260713.pdf → Stamped/20260713_Stamped.pdf
+✅ 20260707.pdf → Stamped/20260707_Stamped.pdf
+✅ 20190215 (2).pdf → Stamped/20190215 (2)_Stamped.pdf
+✅ 20260715 (5).pdf → Stamped/20260715 (5)_Stamped.pdf
+✅ 20260624152256.pdf → Stamped/20260624152256_Stamped.pdf
+✅ 20260706 (3).pdf → Stamped/20260706 (3)_Stamped.pdf
+✅ 20260716 (3).pdf → Stamped/20260716 (3)_Stamped.pdf
+✅ 20260710.pdf → Stamped/20260710_Stamped.pdf
+✅ 20260707 (2).pdf → Stamped/20260707 (2)_Stamped.pdf
+✅ 20260624151819.pdf → Stamped/20260624151819_Stamped.pdf
+✅ 20260717164846.pdf → Stamped/20260717164846_Stamped.pdf
+✅ 20190212.pdf → Stamped/20190212_Stamped.pdf
+✅ 20190213.pdf → Stamped/20190213_Stamped.pdf
+✅ 20260714 (3).pdf → Stamped/20260714 (3)_Stamped.pdf
+✅ 20260717165024.pdf → Stamped/20260717165024_Stamped.pdf
+✅ 20260716 (4).pdf → Stamped/20260716 (4)_Stamped.pdf
+✅ 20260624151303.pdf → Stamped/20260624151303_Stamped.pdf
+✅ 20260715 (2).pdf → Stamped/20260715 (2)_Stamped.pdf
+✅ 20260629.pdf → Stamped/20260629_Stamped.pdf
+✅ 20260715 (3).pdf → Stamped/20260715 (3)_Stamped.pdf
+✅ 20190214.pdf → Stamped/20190214_Stamped.pdf
+✅ 20260716 (5).pdf → Stamped/20260716 (5)_Stamped.pdf
+✅ 20260624150757.pdf → Stamped/20260624150757_Stamped.pdf
+✅ 20260624145617.pdf → Stamped/20260624145617_Stamped.pdf
+✅ 20260714 (2).pdf → Stamped/20260714 (2)_Stamped.pdf
+✅ 20190215.pdf → Stamped/20190215_Stamped.pdf
+✅ 20260624151107.pdf → Stamped/20260624151107_Stamped.pdf
+✅ 20260708 (2).pdf → Stamped/20260708 (2)_Stamped.pdf
+✅ 20260709_Stamped (2).pdf → Stamped/20260709_Stamped (2)_Stamped.pdf
+✅ 20190213 (2).pdf → Stamped/20190213 (2)_Stamped.pdf
+✅ 20260717165012.pdf → Stamped/20260717165012_Stamped.pdf
+✅ 20260710_Stamped (2).pdf → Stamped/20260710_Stamped (2)_Stamped.pdf
+✅ 20190218.pdf → Stamped/20190218_Stamped.pdf
+✅ 20260624145752.pdf → Stamped/20260624145752_Stamped.pdf
+✅ 20260701 (2).pdf → Stamped/20260701 (2)_Stamped.pdf
+✅ 20260624150940.pdf → Stamped/20260624150940_Stamped.pdf
+✅ 20190729 (2).pdf → Stamped/20190729 (2)_Stamped.pdf
+✅ 20260716 (6).pdf → Stamped/20260716 (6)_Stamped.pdf
+✅ 20260624 (2).pdf → Stamped/20260624 (2)_Stamped.pdf
+✅ 20260624145343.pdf → Stamped/20260624145343_Stamped.pdf
+✅ 20190801 (2).pdf → Stamped/20190801 (2)_Stamped.pdf
+✅ 20260624150148.pdf → Stamped/20260624150148_Stamped.pdf
+✅ 20260630.pdf → Stamped/20260630_Stamped.pdf
+✅ 20260624.pdf → Stamped/20260624_Stamped.pdf
+✅ 20190802.pdf → Stamped/20190802_Stamped.pdf
+✅ 20260624150212.pdf → Stamped/20260624150212_Stamped.pdf
+✅ 20260710 (2).pdf → Stamped/20260710 (2)_Stamped.pdf
+✅ 20260624145024.pdf → Stamped/20260624145024_Stamped.pdf
+✅ 20260625.pdf → Stamped/20260625_Stamped.pdf
+✅ 20190208.pdf → Stamped/20190208_Stamped.pdf
+✅ 20190731 (2).pdf → Stamped/20190731 (2)_Stamped.pdf
+✅ 20190801_Stamped (2).pdf → Stamped/20190801_Stamped (2)_Stamped.pdf
+✅ 20190212 (2).pdf → Stamped/20190212 (2)_Stamped.pdf
+✅ 20260709 (2).pdf → Stamped/20260709 (2)_Stamped.pdf
+✅ 20190801.pdf → Stamped/20190801_Stamped.pdf
+✅ 20260624150006.pdf → Stamped/20260624150006_Stamped.pdf
+✅ 20260626.pdf → Stamped/20260626_Stamped.pdf
+✅ 20260708 (3).pdf → Stamped/20260708 (3)_Stamped.pdf
+✅ 20260624145530.pdf → Stamped/20260624145530_Stamped.pdf
+✅ 20260702 (2).pdf → Stamped/20260702 (2)_Stamped.pdf
+✅ 20260709.pdf → Stamped/20260709_Stamped.pdf
+✅ 20260625085549.pdf → Stamped/20260625085549_Stamped.pdf
+✅ 20260708.pdf → Stamped/20260708_Stamped.pdf
+✅ 20260713 (3).pdf → Stamped/20260713 (3)_Stamped.pdf
+✅ 20190802 (2).pdf → Stamped/20190802 (2)_Stamped.pdf
+✅ 20260708_Stamped (3).pdf → Stamped/20260708_Stamped (3)_Stamped.pdf
+✅ 20190731_Stamped (3).pdf → Stamped/20190731_Stamped (3)_Stamped.pdf
+✅ 20190731_Stamped (2).pdf → Stamped/20190731_Stamped (2)_Stamped.pdf
+✅ 20260708_Stamped (2).pdf → Stamped/20260708_Stamped (2)_Stamped.pdf
+✅ 20260624151152.pdf → Stamped/20260624151152_Stamped.pdf
+✅ 20260624145245.pdf → Stamped/20260624145245_Stamped.pdf
+✅ 20260713 (2).pdf → Stamped/20260713 (2)_Stamped.pdf
+✅ 20190218 (2).pdf → Stamped/20190218 (2)_Stamped.pdf
+✅ 20190731.pdf → Stamped/20190731_Stamped.pdf
+✅ 20190208 (2).pdf → Stamped/20190208 (2)_Stamped.pdf
+✅ 20260624152101.pdf → Stamped/20260624152101_Stamped.pdf
+✅ 20260624152129.pdf → Stamped/20260624152129_Stamped.pdf
+✅ 20260624145118.pdf → Stamped/20260624145118_Stamped.pdf
+✅ 20190730.pdf → Stamped/20190730_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190208 (2)_Stamped.pdf
+  📤 転送完了: 20190208_Stamped.pdf
+  📤 転送完了: 20190212 (2)_Stamped.pdf
+  📤 転送完了: 20190212_Stamped.pdf
+  📤 転送完了: 20190213 (2)_Stamped.pdf
+  📤 転送完了: 20190213_Stamped.pdf
+  📤 転送完了: 20190214 (2)_Stamped.pdf
+  📤 転送完了: 20190214_Stamped.pdf
+  📤 転送完了: 20190215 (2)_Stamped.pdf
+  📤 転送完了: 20190215_Stamped.pdf
+  📤 転送完了: 20190218 (2)_Stamped.pdf
+  📤 転送完了: 20190218_Stamped.pdf
+  📤 転送完了: 20190729 (2)_Stamped.pdf
+  📤 転送完了: 20190729_Stamped.pdf
+  📤 転送完了: 20190730_Stamped.pdf
+  📤 転送完了: 20190731 (2)_Stamped.pdf
+  📤 転送完了: 20190731_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20190731_Stamped (3)_Stamped.pdf
+  📤 転送完了: 20190731_Stamped.pdf
+  📤 転送完了: 20190801 (2)_Stamped.pdf
+  📤 転送完了: 20190801_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20190801_Stamped.pdf
+  📤 転送完了: 20190802 (2)_Stamped.pdf
+  📤 転送完了: 20190802_Stamped.pdf
+  📤 転送完了: 20260624 (2)_Stamped.pdf
+  📤 転送完了: 20260624145024_Stamped.pdf
+  📤 転送完了: 20260624145118_Stamped.pdf
+  📤 転送完了: 20260624145245_Stamped.pdf
+  📤 転送完了: 20260624145343_Stamped.pdf
+  📤 転送完了: 20260624145530_Stamped.pdf
+  📤 転送完了: 20260624145617_Stamped.pdf
+  📤 転送完了: 20260624145752_Stamped.pdf
+  📤 転送完了: 20260624145922_Stamped.pdf
+  📤 転送完了: 20260624150006_Stamped.pdf
+  📤 転送完了: 20260624150148_Stamped.pdf
+  📤 転送完了: 20260624150212_Stamped.pdf
+  📤 転送完了: 20260624150724_Stamped.pdf
+  📤 転送完了: 20260624150757_Stamped.pdf
+  📤 転送完了: 20260624150928_Stamped.pdf
+  📤 転送完了: 20260624150940_Stamped.pdf
+  📤 転送完了: 20260624151107_Stamped.pdf
+  📤 転送完了: 20260624151152_Stamped.pdf
+  📤 転送完了: 20260624151303_Stamped.pdf
+  📤 転送完了: 20260624151410_Stamped.pdf
+  📤 転送完了: 20260624151819_Stamped.pdf
+  📤 転送完了: 20260624152101_Stamped.pdf
+  📤 転送完了: 20260624152129_Stamped.pdf
+  📤 転送完了: 20260624152256_Stamped.pdf
+  📤 転送完了: 20260624_Stamped.pdf
+  📤 転送完了: 20260625085549_Stamped.pdf
+  📤 転送完了: 20260625_Stamped.pdf
+  📤 転送完了: 20260626_Stamped.pdf
+  📤 転送完了: 20260629_Stamped.pdf
+  📤 転送完了: 20260630_Stamped.pdf
+  📤 転送完了: 20260701 (2)_Stamped.pdf
+  📤 転送完了: 20260701_Stamped.pdf
+  📤 転送完了: 20260702 (2)_Stamped.pdf
+  📤 転送完了: 20260702_Stamped.pdf
+  📤 転送完了: 20260703_Stamped.pdf
+  📤 転送完了: 20260706 (2)_Stamped.pdf
+  📤 転送完了: 20260706 (3)_Stamped.pdf
+  📤 転送完了: 20260706_Stamped.pdf
+  📤 転送完了: 20260707 (2)_Stamped.pdf
+  📤 転送完了: 20260707 (3)_Stamped.pdf
+  📤 転送完了: 20260707_Stamped.pdf
+  📤 転送完了: 20260708 (2)_Stamped.pdf
+  📤 転送完了: 20260708 (3)_Stamped.pdf
+  📤 転送完了: 20260708_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260708_Stamped (3)_Stamped.pdf
+  📤 転送完了: 20260708_Stamped.pdf
+  📤 転送完了: 20260709 (2)_Stamped.pdf
+  📤 転送完了: 20260709_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260709_Stamped.pdf
+  📤 転送完了: 20260710 (2)_Stamped.pdf
+  📤 転送完了: 20260710_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260710_Stamped.pdf
+  📤 転送完了: 20260713 (2)_Stamped.pdf
+  📤 転送完了: 20260713 (3)_Stamped.pdf
+  📤 転送完了: 20260713_Stamped.pdf
+  📤 転送完了: 20260714 (2)_Stamped.pdf
+  📤 転送完了: 20260714 (3)_Stamped.pdf
+  📤 転送完了: 20260714_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260714_Stamped (3)_Stamped.pdf
+  📤 転送完了: 20260714_Stamped.pdf
+  📤 転送完了: 20260715 (2)_Stamped.pdf
+  📤 転送完了: 20260715 (3)_Stamped.pdf
+  📤 転送完了: 20260715 (4)_Stamped.pdf
+  📤 転送完了: 20260715 (5)_Stamped.pdf
+  📤 転送完了: 20260715_Stamped.pdf
+  📤 転送完了: 20260716 (2)_Stamped.pdf
+  📤 転送完了: 20260716 (3)_Stamped.pdf
+  📤 転送完了: 20260716 (4)_Stamped.pdf
+  📤 転送完了: 20260716 (5)_Stamped.pdf
+  📤 転送完了: 20260716 (6)_Stamped.pdf
+  📤 転送完了: 20260716_Stamped.pdf
+  📤 転送完了: 20260717164846_Stamped.pdf
+  📤 転送完了: 20260717165012_Stamped.pdf
+  📤 転送完了: 20260717165024_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-07-21 09:34:10 全処理完了
+

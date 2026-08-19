@@ -1,0 +1,34 @@
+========================================
+2026-01-26 09:20:03 処理開始
+ℹ️  NASがマウントされていません。処理をスキップします。
+2026-01-26 09:20:03 処理スキップ（NAS未接続）
+
+========================================
+2026-01-26 13:48:52 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260123.pdf
+  📥 コピー: 20260126115940.pdf
+📁 処理対象: 2 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260126115940.pdf → Stamped/20260126115940_Stamped.pdf
+✅ 20260123.pdf → Stamped/20260123_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260123_Stamped.pdf
+  📤 転送完了: 20260126115940_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20260123155121.pdf
+📁 処理対象: 1 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260123155121.pdf → Stamped/20260123155121_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260123155121_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-01-26 13:49:06 全処理完了
+

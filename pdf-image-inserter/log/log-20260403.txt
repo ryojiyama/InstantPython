@@ -1,0 +1,26 @@
+========================================
+2026-04-03 09:20:03 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260402.pdf
+📁 処理対象: 1 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260402.pdf → Stamped/20260402_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260402_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20260402162636.pdf
+📁 処理対象: 1 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260402162636.pdf → Stamped/20260402162636_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260402162636_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-04-03 09:20:24 全処理完了
+

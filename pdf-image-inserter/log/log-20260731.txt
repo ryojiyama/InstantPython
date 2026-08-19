@@ -1,0 +1,55 @@
+========================================
+2026-07-31 09:20:01 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260710.pdf
+  📥 コピー: 20260713.pdf
+  📥 コピー: 20260714.pdf
+  📥 コピー: 20260715.pdf
+  📥 コピー: 20260716.pdf
+  📥 コピー: 20260717.pdf
+  📥 コピー: 20260721.pdf
+  📥 コピー: 20260722.pdf
+  📥 コピー: 20260723.pdf
+  📥 コピー: 20260724.pdf
+  📥 コピー: 20260727.pdf
+  📥 コピー: 20260728.pdf
+  📥 コピー: 20260729.pdf
+  📥 コピー: 20260730.pdf
+📁 処理対象: 14 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260728.pdf → Stamped/20260728_Stamped.pdf
+✅ 20260714.pdf → Stamped/20260714_Stamped.pdf
+✅ 20260715.pdf → Stamped/20260715_Stamped.pdf
+✅ 20260729.pdf → Stamped/20260729_Stamped.pdf
+✅ 20260717.pdf → Stamped/20260717_Stamped.pdf
+✅ 20260716.pdf → Stamped/20260716_Stamped.pdf
+✅ 20260713.pdf → Stamped/20260713_Stamped.pdf
+✅ 20260710.pdf → Stamped/20260710_Stamped.pdf
+✅ 20260721.pdf → Stamped/20260721_Stamped.pdf
+✅ 20260722.pdf → Stamped/20260722_Stamped.pdf
+✅ 20260723.pdf → Stamped/20260723_Stamped.pdf
+✅ 20260727.pdf → Stamped/20260727_Stamped.pdf
+✅ 20260730.pdf → Stamped/20260730_Stamped.pdf
+✅ 20260724.pdf → Stamped/20260724_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260710_Stamped.pdf
+  📤 転送完了: 20260713_Stamped.pdf
+  📤 転送完了: 20260714_Stamped.pdf
+  📤 転送完了: 20260715_Stamped.pdf
+  📤 転送完了: 20260716_Stamped.pdf
+  📤 転送完了: 20260717_Stamped.pdf
+  📤 転送完了: 20260721_Stamped.pdf
+  📤 転送完了: 20260722_Stamped.pdf
+  📤 転送完了: 20260723_Stamped.pdf
+  📤 転送完了: 20260724_Stamped.pdf
+  📤 転送完了: 20260727_Stamped.pdf
+  📤 転送完了: 20260728_Stamped.pdf
+  📤 転送完了: 20260729_Stamped.pdf
+  📤 転送完了: 20260730_Stamped.pdf
+  ✅ 配達 処理完了
+⚠️  フォルダが見つかりません: /Volumes/帳票保存/出荷
+2026-07-31 09:47:08 全処理完了
+

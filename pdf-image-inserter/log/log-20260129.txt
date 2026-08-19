@@ -1,0 +1,77 @@
+========================================
+2026-01-29 09:20:02 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20191002_3.pdf
+  📥 コピー: 20191003.pdf
+  📥 コピー: 20260127.pdf
+  📥 コピー: 20260127_2.pdf
+  📥 コピー: 20260128152620.pdf
+📁 処理対象: 5 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260127.pdf → Stamped/20260127_Stamped.pdf
+✅ 20260127_2.pdf → Stamped/20260127_2_Stamped.pdf
+✅ 20260128152620.pdf → Stamped/20260128152620_Stamped.pdf
+✅ 20191002_3.pdf → Stamped/20191002_3_Stamped.pdf
+✅ 20191003.pdf → Stamped/20191003_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20191002_3_Stamped.pdf
+  📤 転送完了: 20191003_Stamped.pdf
+  📤 転送完了: 20260127_2_Stamped.pdf
+  📤 転送完了: 20260127_Stamped.pdf
+  📤 転送完了: 20260128152620_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20190905.pdf
+  📥 コピー: 20191001 (2).pdf
+  📥 コピー: 20191001.pdf
+  📥 コピー: 20260127.pdf
+  📥 コピー: 20260128140206.pdf
+  📥 コピー: 20260128140658.pdf
+  📥 コピー: 20260128141111.pdf
+  📥 コピー: 20260128141714.pdf
+  📥 コピー: 20260128142406.pdf
+  📥 コピー: 20260128142948.pdf
+  📥 コピー: 20260128150508.pdf
+  📥 コピー: 20260128151350.pdf
+  📥 コピー: 20260128152008.pdf
+  📥 コピー: 20260128153206.pdf
+📁 処理対象: 14 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260128142406.pdf → Stamped/20260128142406_Stamped.pdf
+✅ 20260128140206.pdf → Stamped/20260128140206_Stamped.pdf
+✅ 20260128140658.pdf → Stamped/20260128140658_Stamped.pdf
+✅ 20260128151350.pdf → Stamped/20260128151350_Stamped.pdf
+✅ 20260128150508.pdf → Stamped/20260128150508_Stamped.pdf
+✅ 20260128153206.pdf → Stamped/20260128153206_Stamped.pdf
+✅ 20260127.pdf → Stamped/20260127_Stamped.pdf
+✅ 20260128152008.pdf → Stamped/20260128152008_Stamped.pdf
+✅ 20191001 (2).pdf → Stamped/20191001 (2)_Stamped.pdf
+✅ 20190905.pdf → Stamped/20190905_Stamped.pdf
+✅ 20260128141714.pdf → Stamped/20260128141714_Stamped.pdf
+✅ 20191001.pdf → Stamped/20191001_Stamped.pdf
+✅ 20260128141111.pdf → Stamped/20260128141111_Stamped.pdf
+✅ 20260128142948.pdf → Stamped/20260128142948_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190905_Stamped.pdf
+  📤 転送完了: 20191001 (2)_Stamped.pdf
+  📤 転送完了: 20191001_Stamped.pdf
+  📤 転送完了: 20260127_Stamped.pdf
+  📤 転送完了: 20260128140206_Stamped.pdf
+  📤 転送完了: 20260128140658_Stamped.pdf
+  📤 転送完了: 20260128141111_Stamped.pdf
+  📤 転送完了: 20260128141714_Stamped.pdf
+  📤 転送完了: 20260128142406_Stamped.pdf
+  📤 転送完了: 20260128142948_Stamped.pdf
+  📤 転送完了: 20260128150508_Stamped.pdf
+  📤 転送完了: 20260128151350_Stamped.pdf
+  📤 転送完了: 20260128152008_Stamped.pdf
+  📤 転送完了: 20260128153206_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-01-29 09:22:03 全処理完了
+

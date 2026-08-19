@@ -1,0 +1,68 @@
+========================================
+2026-04-14 09:20:03 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20260413.pdf
+  📥 コピー: 20260413141746.pdf
+  📥 コピー: 20260413141948.pdf
+  📥 コピー: 20260413162107.pdf
+📁 処理対象: 4 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260413.pdf → Stamped/20260413_Stamped.pdf
+✅ 20260413141948.pdf → Stamped/20260413141948_Stamped.pdf
+✅ 20260413141746.pdf → Stamped/20260413141746_Stamped.pdf
+✅ 20260413162107.pdf → Stamped/20260413162107_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260413141746_Stamped.pdf
+  📤 転送完了: 20260413141948_Stamped.pdf
+  📤 転送完了: 20260413162107_Stamped.pdf
+  📤 転送完了: 20260413_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20260413143236.pdf
+  📥 コピー: 20260413143906.pdf
+  📥 コピー: 20260413144911.pdf
+  📥 コピー: 20260413145942.pdf
+  📥 コピー: 20260413151329.pdf
+  📥 コピー: 20260413151720.pdf
+  📥 コピー: 20260413152302.pdf
+  📥 コピー: 20260413153047.pdf
+  📥 コピー: 20260413154728.pdf
+  📥 コピー: 20260413155856.pdf
+  📥 コピー: 20260413160711.pdf
+  📥 コピー: 20260413165027.pdf
+📁 処理対象: 12 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20260413151329.pdf → Stamped/20260413151329_Stamped.pdf
+✅ 20260413145942.pdf → Stamped/20260413145942_Stamped.pdf
+✅ 20260413144911.pdf → Stamped/20260413144911_Stamped.pdf
+✅ 20260413155856.pdf → Stamped/20260413155856_Stamped.pdf
+✅ 20260413143236.pdf → Stamped/20260413143236_Stamped.pdf
+✅ 20260413165027.pdf → Stamped/20260413165027_Stamped.pdf
+✅ 20260413152302.pdf → Stamped/20260413152302_Stamped.pdf
+✅ 20260413154728.pdf → Stamped/20260413154728_Stamped.pdf
+✅ 20260413153047.pdf → Stamped/20260413153047_Stamped.pdf
+✅ 20260413160711.pdf → Stamped/20260413160711_Stamped.pdf
+✅ 20260413143906.pdf → Stamped/20260413143906_Stamped.pdf
+✅ 20260413151720.pdf → Stamped/20260413151720_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20260413143236_Stamped.pdf
+  📤 転送完了: 20260413143906_Stamped.pdf
+  📤 転送完了: 20260413144911_Stamped.pdf
+  📤 転送完了: 20260413145942_Stamped.pdf
+  📤 転送完了: 20260413151329_Stamped.pdf
+  📤 転送完了: 20260413151720_Stamped.pdf
+  📤 転送完了: 20260413152302_Stamped.pdf
+  📤 転送完了: 20260413153047_Stamped.pdf
+  📤 転送完了: 20260413154728_Stamped.pdf
+  📤 転送完了: 20260413155856_Stamped.pdf
+  📤 転送完了: 20260413160711_Stamped.pdf
+  📤 転送完了: 20260413165027_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-04-14 09:22:35 全処理完了
+

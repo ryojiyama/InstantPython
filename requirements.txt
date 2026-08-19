@@ -1,0 +1,23 @@
+# --- データ処理・CSV関連 ---
+pandas
+numpy
+
+# --- 画像処理・OCR関連 ---
+Pillow
+pytesseract
+opencv-python
+
+# --- PDF操作関連 ---
+pypdf
+PyMuPDF
+pdf2image
+pikepdf
+pdfminer.six
+
+# --- Office文書操作関連 ---
+openpyxl
+python-docx
+
+# --- 汎用ユーティリティ ---
+requests
+python-dotenv

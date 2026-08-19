@@ -1,0 +1,119 @@
+========================================
+2026-04-10 07:54:34 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20191213.pdf
+  📥 コピー: 20191216.pdf
+  📥 コピー: 20191217.pdf
+  📥 コピー: 20191218.pdf
+  📥 コピー: 20191219.pdf
+  📥 コピー: 20191220.pdf
+  📥 コピー: 20260409.pdf
+📁 処理対象: 7 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20191219.pdf → Stamped/20191219_Stamped.pdf
+✅ 20191218.pdf → Stamped/20191218_Stamped.pdf
+✅ 20191220.pdf → Stamped/20191220_Stamped.pdf
+✅ 20260409.pdf → Stamped/20260409_Stamped.pdf
+✅ 20191213.pdf → Stamped/20191213_Stamped.pdf
+✅ 20191216.pdf → Stamped/20191216_Stamped.pdf
+✅ 20191217.pdf → Stamped/20191217_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20191213_Stamped.pdf
+  📤 転送完了: 20191216_Stamped.pdf
+  📤 転送完了: 20191217_Stamped.pdf
+  📤 転送完了: 20191218_Stamped.pdf
+  📤 転送完了: 20191219_Stamped.pdf
+  📤 転送完了: 20191220_Stamped.pdf
+  📤 転送完了: 20260409_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20190926_Stamped (2).pdf
+  📥 コピー: 20191101 (2).pdf
+  📥 コピー: 20191101.pdf
+  📥 コピー: 20191105 (2).pdf
+  📥 コピー: 20191105.pdf
+  📥 コピー: 20191106 (2).pdf
+  📥 コピー: 20191106.pdf
+  📥 コピー: 20191107 (2).pdf
+  📥 コピー: 20191107.pdf
+  📥 コピー: 20191108.pdf
+  📥 コピー: 20191111_Stamped (2).pdf
+  📥 コピー: 20191112_Stamped (2).pdf
+  📥 コピー: 20191113_Stamped (2).pdf
+  📥 コピー: 20191114_Stamped (2).pdf
+  📥 コピー: 20191115_Stamped (2).pdf
+  📥 コピー: 20191118_Stamped (2).pdf
+  📥 コピー: 20191213_Stamped (2).pdf
+  📥 コピー: 20191216_Stamped (2).pdf
+  📥 コピー: 20191217_Stamped (2).pdf
+  📥 コピー: 20191218.pdf
+  📥 コピー: 20191219_Stamped (2).pdf
+  📥 コピー: 20191220_Stamped (2).pdf
+  📥 コピー: 20260402.pdf
+  📥 コピー: 20260409.pdf
+📁 処理対象: 24 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20191218.pdf → Stamped/20191218_Stamped.pdf
+✅ 20191106 (2).pdf → Stamped/20191106 (2)_Stamped.pdf
+✅ 20191114_Stamped (2).pdf → Stamped/20191114_Stamped (2)_Stamped.pdf
+✅ 20191107 (2).pdf → Stamped/20191107 (2)_Stamped.pdf
+✅ 20191113_Stamped (2).pdf → Stamped/20191113_Stamped (2)_Stamped.pdf
+✅ 20190926_Stamped (2).pdf → Stamped/20190926_Stamped (2)_Stamped.pdf
+✅ 20191220_Stamped (2).pdf → Stamped/20191220_Stamped (2)_Stamped.pdf
+✅ 20191105 (2).pdf → Stamped/20191105 (2)_Stamped.pdf
+✅ 20191213_Stamped (2).pdf → Stamped/20191213_Stamped (2)_Stamped.pdf
+✅ 20191112_Stamped (2).pdf → Stamped/20191112_Stamped (2)_Stamped.pdf
+✅ 20260402.pdf → Stamped/20260402_Stamped.pdf
+✅ 20191115_Stamped (2).pdf → Stamped/20191115_Stamped (2)_Stamped.pdf
+✅ 20191108.pdf → Stamped/20191108_Stamped.pdf
+✅ 20191105.pdf → Stamped/20191105_Stamped.pdf
+✅ 20260409.pdf → Stamped/20260409_Stamped.pdf
+✅ 20191101 (2).pdf → Stamped/20191101 (2)_Stamped.pdf
+✅ 20191106.pdf → Stamped/20191106_Stamped.pdf
+✅ 20191107.pdf → Stamped/20191107_Stamped.pdf
+✅ 20191118_Stamped (2).pdf → Stamped/20191118_Stamped (2)_Stamped.pdf
+✅ 20191219_Stamped (2).pdf → Stamped/20191219_Stamped (2)_Stamped.pdf
+✅ 20191216_Stamped (2).pdf → Stamped/20191216_Stamped (2)_Stamped.pdf
+✅ 20191101.pdf → Stamped/20191101_Stamped.pdf
+✅ 20191217_Stamped (2).pdf → Stamped/20191217_Stamped (2)_Stamped.pdf
+✅ 20191111_Stamped (2).pdf → Stamped/20191111_Stamped (2)_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190926_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191101 (2)_Stamped.pdf
+  📤 転送完了: 20191101_Stamped.pdf
+  📤 転送完了: 20191105 (2)_Stamped.pdf
+  📤 転送完了: 20191105_Stamped.pdf
+  📤 転送完了: 20191106 (2)_Stamped.pdf
+  📤 転送完了: 20191106_Stamped.pdf
+  📤 転送完了: 20191107 (2)_Stamped.pdf
+  📤 転送完了: 20191107_Stamped.pdf
+  📤 転送完了: 20191108_Stamped.pdf
+  📤 転送完了: 20191111_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191112_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191113_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191114_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191115_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191118_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191213_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191216_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191217_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191218_Stamped.pdf
+  📤 転送完了: 20191219_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191220_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260402_Stamped.pdf
+  📤 転送完了: 20260409_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-04-10 08:01:55 全処理完了
+
+========================================
+2026-04-10 09:20:01 処理開始
+⚠️  フォルダが見つかりません: /Volumes/帳票保存/配達
+⚠️  フォルダが見つかりません: /Volumes/帳票保存/出荷
+2026-04-10 09:20:01 全処理完了
+

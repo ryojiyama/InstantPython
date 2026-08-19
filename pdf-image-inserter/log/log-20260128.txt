@@ -1,0 +1,76 @@
+========================================
+2026-01-28 09:20:03 処理開始
+ℹ️  NASがマウントされていません。処理をスキップします。
+2026-01-28 09:20:03 処理スキップ（NAS未接続）
+
+========================================
+2026-01-28 12:11:53 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20190930.pdf
+  📥 コピー: 20191001.pdf
+  📥 コピー: 20191002.pdf
+  📥 コピー: 20191007.pdf
+  📥 コピー: 20260127.pdf
+  📥 コピー: 20260127143145.pdf
+  📥 コピー: 20260127143555.pdf
+  📥 コピー: 20260128121001.pdf
+📁 処理対象: 8 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20190930.pdf → Stamped/20190930_Stamped.pdf
+✅ 20260128121001.pdf → Stamped/20260128121001_Stamped.pdf
+✅ 20260127.pdf → Stamped/20260127_Stamped.pdf
+✅ 20260127143145.pdf → Stamped/20260127143145_Stamped.pdf
+✅ 20260127143555.pdf → Stamped/20260127143555_Stamped.pdf
+✅ 20191007.pdf → Stamped/20191007_Stamped.pdf
+✅ 20191001.pdf → Stamped/20191001_Stamped.pdf
+✅ 20191002.pdf → Stamped/20191002_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190930_Stamped.pdf
+  📤 転送完了: 20191001_Stamped.pdf
+  📤 転送完了: 20191002_Stamped.pdf
+  📤 転送完了: 20191007_Stamped.pdf
+  📤 転送完了: 20260127143145_Stamped.pdf
+  📤 転送完了: 20260127143555_Stamped.pdf
+  📤 転送完了: 20260127_Stamped.pdf
+  📤 転送完了: 20260128121001_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20190930 (2).pdf
+  📥 コピー: 20190930.pdf
+  📥 コピー: 20191002_Stamped (2).pdf
+  📥 コピー: 20191003_Stamped (2).pdf
+  📥 コピー: 20191004_Stamped (2).pdf
+  📥 コピー: 20191007_Stamped (2).pdf
+  📥 コピー: 20260127141629.pdf
+  📥 コピー: 20260127142149.pdf
+  📥 コピー: 20260127153729.pdf
+📁 処理対象: 9 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20190930.pdf → Stamped/20190930_Stamped.pdf
+✅ 20191002_Stamped (2).pdf → Stamped/20191002_Stamped (2)_Stamped.pdf
+✅ 20260127141629.pdf → Stamped/20260127141629_Stamped.pdf
+✅ 20191003_Stamped (2).pdf → Stamped/20191003_Stamped (2)_Stamped.pdf
+✅ 20190930 (2).pdf → Stamped/20190930 (2)_Stamped.pdf
+✅ 20260127153729.pdf → Stamped/20260127153729_Stamped.pdf
+✅ 20191004_Stamped (2).pdf → Stamped/20191004_Stamped (2)_Stamped.pdf
+✅ 20260127142149.pdf → Stamped/20260127142149_Stamped.pdf
+✅ 20191007_Stamped (2).pdf → Stamped/20191007_Stamped (2)_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190930 (2)_Stamped.pdf
+  📤 転送完了: 20190930_Stamped.pdf
+  📤 転送完了: 20191002_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191003_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191004_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20191007_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260127141629_Stamped.pdf
+  📤 転送完了: 20260127142149_Stamped.pdf
+  📤 転送完了: 20260127153729_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-01-28 12:14:08 全処理完了
+

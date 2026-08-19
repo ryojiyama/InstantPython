@@ -1,0 +1,101 @@
+========================================
+2026-02-05 09:20:03 処理開始
+📁 配達 フォルダを処理中...
+  📥 コピー: 20190829.pdf
+  📥 コピー: 20190830.pdf
+  📥 コピー: 20190905.pdf
+  📥 コピー: 20190906.pdf
+  📥 コピー: 20190909.pdf
+  📥 コピー: 20190910.pdf
+  📥 コピー: 20190911.pdf
+  📥 コピー: 20260129.pdf
+  📥 コピー: 20260130.pdf
+  📥 コピー: 20260202133801.pdf
+  📥 コピー: 20260204.pdf
+📁 処理対象: 11 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20190909.pdf → Stamped/20190909_Stamped.pdf
+✅ 20260129.pdf → Stamped/20260129_Stamped.pdf
+✅ 20190830.pdf → Stamped/20190830_Stamped.pdf
+✅ 20260204.pdf → Stamped/20260204_Stamped.pdf
+✅ 20190829.pdf → Stamped/20190829_Stamped.pdf
+✅ 20260202133801.pdf → Stamped/20260202133801_Stamped.pdf
+✅ 20190906.pdf → Stamped/20190906_Stamped.pdf
+✅ 20260130.pdf → Stamped/20260130_Stamped.pdf
+✅ 20190910.pdf → Stamped/20190910_Stamped.pdf
+✅ 20190905.pdf → Stamped/20190905_Stamped.pdf
+✅ 20190911.pdf → Stamped/20190911_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190829_Stamped.pdf
+  📤 転送完了: 20190830_Stamped.pdf
+  📤 転送完了: 20190905_Stamped.pdf
+  📤 転送完了: 20190906_Stamped.pdf
+  📤 転送完了: 20190909_Stamped.pdf
+  📤 転送完了: 20190910_Stamped.pdf
+  📤 転送完了: 20190911_Stamped.pdf
+  📤 転送完了: 20260129_Stamped.pdf
+  📤 転送完了: 20260130_Stamped.pdf
+  📤 転送完了: 20260202133801_Stamped.pdf
+  📤 転送完了: 20260204_Stamped.pdf
+  ✅ 配達 処理完了
+📁 出荷 フォルダを処理中...
+  📥 コピー: 20190905.pdf
+  📥 コピー: 20190905_Stamped (2).pdf
+  📥 コピー: 20190906_Stamped (2).pdf
+  📥 コピー: 20190909_Stamped (2).pdf
+  📥 コピー: 20190910_Stamped (2).pdf
+  📥 コピー: 20190911_Stamped (2).pdf
+  📥 コピー: 20260127.pdf
+  📥 コピー: 20260129.pdf
+  📥 コピー: 20260130.pdf
+  📥 コピー: 20260202163423.pdf
+  📥 コピー: 20260202163633.pdf
+  📥 コピー: 20260203161441.pdf
+  📥 コピー: 20260204154617.pdf
+  📥 コピー: 20260204155312.pdf
+  📥 コピー: 20260204163214.pdf
+  📥 コピー: Merged from 20260129155531.pdf
+📁 処理対象: 16 ファイル
+🖼️  ハンコ画像: qcm_yama.png
+📂 出力先: /Users/rjmbp/Develop/InstantPython/pdf-image-inserter/OriginPDF/Stamped
+
+✅ 20190905_Stamped (2).pdf → Stamped/20190905_Stamped (2)_Stamped.pdf
+✅ 20260204154617.pdf → Stamped/20260204154617_Stamped.pdf
+✅ 20260129.pdf → Stamped/20260129_Stamped.pdf
+✅ 20260202163633.pdf → Stamped/20260202163633_Stamped.pdf
+✅ 20260203161441.pdf → Stamped/20260203161441_Stamped.pdf
+✅ 20260202163423.pdf → Stamped/20260202163423_Stamped.pdf
+✅ Merged from 20260129155531.pdf → Stamped/Merged from 20260129155531_Stamped.pdf
+✅ 20190906_Stamped (2).pdf → Stamped/20190906_Stamped (2)_Stamped.pdf
+✅ 20190909_Stamped (2).pdf → Stamped/20190909_Stamped (2)_Stamped.pdf
+✅ 20190910_Stamped (2).pdf → Stamped/20190910_Stamped (2)_Stamped.pdf
+✅ 20260204163214.pdf → Stamped/20260204163214_Stamped.pdf
+✅ 20260127.pdf → Stamped/20260127_Stamped.pdf
+✅ 20260204155312.pdf → Stamped/20260204155312_Stamped.pdf
+✅ 20260130.pdf → Stamped/20260130_Stamped.pdf
+✅ 20190905.pdf → Stamped/20190905_Stamped.pdf
+✅ 20190911_Stamped (2).pdf → Stamped/20190911_Stamped (2)_Stamped.pdf
+
+🎉 処理完了！
+  📤 転送完了: 20190905_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20190905_Stamped.pdf
+  📤 転送完了: 20190906_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20190909_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20190910_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20190911_Stamped (2)_Stamped.pdf
+  📤 転送完了: 20260127_Stamped.pdf
+  📤 転送完了: 20260129_Stamped.pdf
+  📤 転送完了: 20260130_Stamped.pdf
+  📤 転送完了: 20260202163423_Stamped.pdf
+  📤 転送完了: 20260202163633_Stamped.pdf
+  📤 転送完了: 20260203161441_Stamped.pdf
+  📤 転送完了: 20260204154617_Stamped.pdf
+  📤 転送完了: 20260204155312_Stamped.pdf
+  📤 転送完了: 20260204163214_Stamped.pdf
+  📤 転送完了: Merged from 20260129155531_Stamped.pdf
+  ✅ 出荷 処理完了
+2026-02-05 09:26:02 全処理完了
+
