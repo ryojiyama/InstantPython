@@ -44,12 +44,27 @@ log = logging.getLogger("extract")
 
 INPUT_DIR, OUTPUT_DIR = "input", "output"
 CELL_DIR, MODEL_PATH, LABEL_CSV = "cells", "classifier.pkl", "labels.csv"
+REVIEW_CSV = "review.csv"      # 交差検証で誤分類したセルの一覧
 
 TIMINGS = ["2ヶ月", "4ヶ月", "8ヶ月", "1年", "1年4ヶ月", "1年8ヶ月", "2年"]
 TIMING_MONTHS = [2, 4, 8, 12, 16, 20, 24]
+
+
+def timings_for(n_cols: int):
+    """列数から保管期間の見出しを決める。
+    6列の旧様式は先頭の (2ヶ月) が無い形なので、2列目以降を割り当てる。"""
+    n = n_cols - 2                      # 品番・受入日を除いた列数
+    if n == len(TIMINGS):
+        return TIMINGS, TIMING_MONTHS
+    if n == len(TIMINGS) - 1:
+        return TIMINGS[1:], TIMING_MONTHS[1:]
+    raise RuntimeError(f"保管期間の列数 {n} に対応する見出しが定義されていません。")
 CLASSES = ["空欄", "○", "◎", "×", "—", "在庫なし"]
 
-N_COLS = 9          # 品番 + 受入日 + 保管期間7列
+# 保管期間の列数は様式により異なる。運用開始直後の旧様式には (2ヶ月) 欄が無い。
+# 実測: 新様式 = 品番 + 受入日 + 7列 = 9列 / 旧様式 = 品番 + 受入日 + 6列 = 8列
+VALID_N_COLS = (8, 9)
+MIN_LINE_LENGTH_RATIO = 0.55   # 最長の縦罫線に対する比。押印欄の仕切り線を除くため
 COL_ITEM, COL_DATE, COL_FIRST_RESULT = 0, 1, 2
 THUMB = 32          # 分類器へ渡すセル画像の正規化サイズ
 CROP_MARGIN = 10    # 罫線を巻き込まないための内側マージン(px)
@@ -168,6 +183,43 @@ def _find_header_bottom(ver: np.ndarray, ys: List[int]) -> int:
     return min(cands) if cands else ys[0]
 
 
+def _columns_are_uniform(xs: List[int], tol: float = 0.12) -> bool:
+    """保管期間の列が等幅かを確かめる。実測では誤差1px以内で揃っている。
+    押印欄の仕切り線などが混ざった組み合わせを弾くための構造チェック。"""
+    widths = [xs[i + 1] - xs[i] for i in range(COL_FIRST_RESULT, len(xs) - 1)]
+    if len(widths) < 3:
+        return False
+    med = float(np.median(widths))
+    return med > 0 and all(abs(w - med) <= med * tol for w in widths)
+
+
+def _select_column_lines(ver: np.ndarray) -> List[int]:
+    """縦罫線を「線の長さ」で選ぶ。
+
+    押印欄の仕切り線は表の罫線の半分以下しかない(実測 255px 対 600px)ので、
+    濃さの相対閾値ではなく長さで切るのが本筋。ただし付箋などで罫線が
+    途切れたページでは長さがばらつくため、比率を段階的に緩めながら
+    「列数が妥当で、保管期間の列が等幅」になる組み合わせを探す。"""
+    proj = ver.sum(0) / 255.0
+    cand = _peaks(proj, 0.20)
+    if not cand:
+        raise RuntimeError("縦罫線が検出できません。")
+
+    longest = max(proj[x] for x in cand)
+    tried = []
+    for ratio in (0.55, 0.45, 0.38, 0.32, 0.26, 0.20):
+        xs = [x for x in cand if proj[x] >= longest * ratio]
+        tried.append((ratio, len(xs) - 1))
+        if len(xs) - 1 in VALID_N_COLS and _columns_are_uniform(xs):
+            if ratio != 0.55:
+                log.info("  縦罫線の選別を %.2f まで緩めました(罫線のかすれ or 遮蔽)", ratio)
+            return xs
+
+    raise RuntimeError(
+        f"表の列数を確定できません(期待 {VALID_N_COLS} 列)。試行: {tried}。"
+        " 'python extract.py diagnose <PDF> <ページ>' で確認してください。")
+
+
 def detect_grid(img: np.ndarray) -> Tuple[List[int], List[int], set]:
     """縦罫線x座標・行境界y座標・境界を補完した行indexを返す。"""
     h, w = img.shape[:2]
@@ -181,21 +233,21 @@ def detect_grid(img: np.ndarray) -> Tuple[List[int], List[int], set]:
         bw, cv2.MORPH_OPEN,
         cv2.getStructuringElement(cv2.MORPH_RECT, (1, max(h // 25, 3))))
 
-    xs = _peaks(ver.sum(0) / 255, 0.35)
-    if len(xs) != N_COLS + 1:
-        raise RuntimeError(
-            f"縦罫線が {len(xs)} 本しか取れません(期待 {N_COLS + 1} 本)。"
-            "様式が異なるか、スキャン品質に問題があります。")
+    xs = _select_column_lines(ver)
 
     ys_all = _peaks(hor.sum(1) / 255, 0.20)
     if len(ys_all) < 3:
         raise RuntimeError("横罫線が検出できません。")
 
-    # 表の下端は「保管期間列の縦罫線が存在する範囲」で決める。
-    # これをしないと、表の下の凡例・押印欄・余白まで等ピッチで格子が延長されてしまう。
-    inner = ver[:, xs[COL_FIRST_RESULT]:xs[COL_FIRST_RESULT + 1]].sum(1)
-    on = np.where(inner > inner.max() * 0.3)[0] if inner.max() > 0 else []
-    tbl_bottom = int(on[-1]) if len(on) else ys_all[-1]
+    # 表の下端は「表の全幅にわたる横罫線」の最後で決める。
+    # 押印欄の罫線は全幅に届かない(実測カバー率0.78)ので、表の罫線(1.00)と区別できる。
+    # 縦罫線の範囲で判定すると、押印欄の縦線がx方向で重なって誤判定する。
+    tbl_bottom = ys_all[-1]
+    for y in reversed(ys_all):
+        band = hor[max(0, y - 3):y + 4, xs[0]:xs[-1]]
+        if band.size and float((band > 0).any(axis=0).mean()) > 0.95:
+            tbl_bottom = y
+            break
 
     head_bottom = _find_header_bottom(ver, ys_all)
     body = [y for y in ys_all if head_bottom <= y <= tbl_bottom + 5]
@@ -220,19 +272,26 @@ def detect_grid(img: np.ndarray) -> Tuple[List[int], List[int], set]:
     return xs, ys, interpolated
 
 
-def crop(img: np.ndarray, xs, ys, r: int, c: int, m: int = CROP_MARGIN) -> np.ndarray:
-    y0, y1 = ys[r] + m, ys[r + 1] - m
-    x0, x1 = xs[c] + m, xs[c + 1] - m
+def crop(img: np.ndarray, xs, ys, r: int, c: int, m: Optional[int] = None) -> np.ndarray:
+    """セルを罫線を巻き込まずに切り出す。
+    マージンは固定pxではなくセル寸法比。行ピッチは帳票により 44〜129px と幅があり、
+    固定10pxだと低ピッチのページでセルの内容まで削ってしまう。"""
+    mh = m if m is not None else max(2, int(round((ys[r + 1] - ys[r]) * 0.08)))
+    mw = m if m is not None else max(2, int(round((xs[c + 1] - xs[c]) * 0.04)))
+    y0, y1 = ys[r] + mh, ys[r + 1] - mh
+    x0, x1 = xs[c] + mw, xs[c + 1] - mw
     if y1 <= y0 or x1 <= x0:            # マージンでセルが潰れる場合は無マージン
         y0, y1, x0, x1 = ys[r], ys[r + 1], xs[c], xs[c + 1]
     return img[y0:y1, x0:x1]
 
 
 def crop_span(img: np.ndarray, xs, ys, r0: int, r1: int, c: int,
-              m: int = CROP_MARGIN) -> np.ndarray:
+              m: Optional[int] = None) -> np.ndarray:
     """行 r0〜r1(inclusive) にまたがる縦結合セルをまとめて切り出す。"""
-    y0, y1 = ys[r0] + m, ys[r1 + 1] - m
-    x0, x1 = xs[c] + m, xs[c + 1] - m
+    mh = m if m is not None else max(2, int(round((ys[r0 + 1] - ys[r0]) * 0.08)))
+    mw = m if m is not None else max(2, int(round((xs[c + 1] - xs[c]) * 0.04)))
+    y0, y1 = ys[r0] + mh, ys[r1 + 1] - mh
+    x0, x1 = xs[c] + mw, xs[c + 1] - mw
     if y1 <= y0 or x1 <= x0:
         y0, y1, x0, x1 = ys[r0], ys[r1 + 1], xs[c], xs[c + 1]
     return img[y0:y1, x0:x1]
@@ -353,18 +412,68 @@ def darkness(cell: np.ndarray) -> float:
     return float(255 - gray[ink].mean()) if ink.any() else 0.0
 
 
+def _clean_ink(gray: np.ndarray) -> np.ndarray:
+    """インクのマスクを作り、スキャンのゴミ(数画素の孤立点)を除去する。
+    ゴミが残ると外接矩形が不当に広がり、薄い — や ○ の形が壊れる。"""
+    ink = (gray < 228).astype(np.uint8)
+    if ink.sum() == 0:
+        return ink
+    n, lbl, stats, _ = cv2.connectedComponentsWithStats(ink, 8)
+    min_area = max(3, int(0.0006 * gray.size))
+    keep = np.zeros(n, bool)
+    for i in range(1, n):
+        keep[i] = stats[i, cv2.CC_STAT_AREA] >= min_area
+    return keep[lbl].astype(np.uint8)
+
+
 def features(cell: np.ndarray) -> np.ndarray:
-    """32x32 濃度マップ + インク量 + 濃さ + 赤成分。
-    字形が機械印字で個体差ゼロに近いため、少数データで十分な精度が出る。"""
+    """記号の形を、セルの縦横比とスキャナ濃度に依存しない形で表現する。
+
+    セルの縦横比は帳票により大きく変わる(行ピッチ 44〜129px の実績)。
+    セル全体をそのまま32x32に潰すと、同じ○が別物に見えてしまう。
+    そこでインクの外接矩形を正方形にパディングしてから正規化し、
+    「セル内でどれだけの幅・高さを占めるか」は別のスカラー特徴として渡す。
+
+    薄い記号を空欄として切り捨てないこと。以前は少量のインクをゼロベクトルに
+    潰していたため、薄い — や ○ が空欄と区別できなくなっていた。
+    判断は分類器に任せ、ここではゴミ除去だけを行う。"""
+    n = THUMB * THUMB + 8
     if cell.size == 0:
-        return np.zeros(THUMB * THUMB + 3, np.float32)
+        return np.zeros(n, np.float32)
+
     gray = cv2.cvtColor(cell, cv2.COLOR_BGR2GRAY)
-    norm = cv2.resize(255 - gray, (THUMB, THUMB)).astype(np.float32) / 255.0
-    ink = gray < 228
-    dark = (255 - gray[ink].mean()) / 255.0 if ink.any() else 0.0
-    return np.concatenate(
-        [norm.ravel(), [float(ink.mean()), float(dark), red_ratio(cell)]]
-    ).astype(np.float32)
+    h, w = gray.shape
+    ink = _clean_ink(gray)
+    n_ink = int(ink.sum())
+    if n_ink == 0:
+        return np.zeros(n, np.float32)
+
+    ys_, xs_ = np.where(ink > 0)
+    y0, y1 = int(ys_.min()), int(ys_.max()) + 1
+    x0, x1 = int(xs_.min()), int(xs_.max()) + 1
+    patch = ((255 - gray[y0:y1, x0:x1]).astype(np.float32)
+             * ink[y0:y1, x0:x1])
+
+    bh, bw = patch.shape
+    side = max(bh, bw)
+    canvas = np.zeros((side, side), np.float32)
+    canvas[(side - bh) // 2:(side - bh) // 2 + bh,
+           (side - bw) // 2:(side - bw) // 2 + bw] = patch
+    peak = float(patch.max()) or 1.0
+    norm = cv2.resize(canvas, (THUMB, THUMB)) / peak      # 濃さで割り、形だけを見る
+
+    n_comp = int(cv2.connectedComponentsWithStats(ink, 8)[0]) - 1
+    return np.concatenate([
+        norm.ravel(),
+        [n_ink / gray.size,            # セルに占めるインクの量
+         (255 - gray[ink > 0].mean()) / 255.0,   # 平均の濃さ
+         peak / 255.0,                 # 最も濃い画素(かすれの判定に効く)
+         red_ratio(cell),
+         bw / w,                       # セル幅に対する記号の幅(在庫なし=広い)
+         bh / h,                       # セル高に対する記号の高さ(—=低い)
+         bw / max(bh, 1),              # 記号自体の縦横比
+         min(n_comp, 8) / 8.0],        # 連結成分の数(在庫なし=複数文字)
+    ]).astype(np.float32)
 
 
 LABEL_ALIASES = {
@@ -415,7 +524,31 @@ def guess_label(cell: np.ndarray) -> str:
     return "◎" if darkness(cell) > 105 else "○"
 
 
-DARK_BOLD = 100.0   # これを超える濃さの○は「今回追加分(◎)」。実測: ○≦47 / ◎≧189
+def otsu_threshold(values: List[float]) -> Optional[float]:
+    """1次元Otsu法。クラス間分散が最大になる境界を返す。"""
+    v = np.sort(np.asarray(values, dtype=float))
+    if len(v) < 4 or v[-1] - v[0] < 1e-6:
+        return None
+    best_score, best_t = -1.0, None
+    for i in range(1, len(v)):
+        a, b = v[:i], v[i:]
+        score = len(a) * len(b) * (a.mean() - b.mean()) ** 2
+        if score > best_score:
+            best_score, best_t = score, (a.max() + b.min()) / 2.0
+    return best_t
+
+
+# 太字と細字の濃さの比がこれ未満なら、そのページには片方しか無いと判断する
+BOLD_SEPARATION_RATIO = 1.35
+
+
+def _confusion_summary(true, pred, top: int = 8) -> str:
+    """誤分類の内訳を「正解→予測 件数」の形で多い順に並べる。"""
+    from collections import Counter
+    c = Counter((a, b) for a, b in zip(true, pred) if a != b)
+    if not c:
+        return "誤分類なし"
+    return " / ".join(f"{a}→{b} {n}" for (a, b), n in c.most_common(top))
 
 
 class SymbolClassifier:
@@ -425,33 +558,47 @@ class SymbolClassifier:
 
     def __init__(self, model=None):
         self.model = model
+        self.cv_pred = None      # 交差検証の予測(誤分類の書き出しに使う)
+        self.cv_true = None
+        self.cv_names = None
 
     @staticmethod
-    def train(X: np.ndarray, y: np.ndarray) -> "SymbolClassifier":
+    def train(X: np.ndarray, y: np.ndarray,
+              names: Optional[List[str]] = None) -> "SymbolClassifier":
         from sklearn.neighbors import KNeighborsClassifier
         from sklearn.model_selection import LeaveOneOut, cross_val_predict
         y_shape = np.array(["○" if v == "◎" else v for v in y])
         counts = pd.Series(y_shape).value_counts()
         k = max(int(min(3, counts.min())), 1)
         clf = KNeighborsClassifier(n_neighbors=k, weights="distance")
-        if len(counts) > 1 and len(y_shape) <= 3000:
-            pred = cross_val_predict(clf, X, y_shape, cv=LeaveOneOut())
-            acc = float((pred == y_shape).mean())
-            log.info("Leave-One-Out精度: %.4f (%d/%d)",
-                     acc, int((pred == y_shape).sum()), len(y_shape))
-            for f, a, b in zip(range(len(y_shape)), y_shape, pred):
-                if a != b:
-                    log.warning("  誤分類: index=%d 正解=%s 予測=%s", f, a, b)
-        clf.fit(X, y_shape)
-        return SymbolClassifier(clf)
 
-    def predict(self, cell: np.ndarray) -> Tuple[str, float]:
+        pred = None
+        if len(counts) > 1 and len(y_shape) <= 4000:
+            pred = cross_val_predict(clf, X, y_shape, cv=LeaveOneOut())
+            log.info("Leave-One-Out精度: %.4f (%d/%d)",
+                     float((pred == y_shape).mean()),
+                     int((pred == y_shape).sum()), len(y_shape))
+            log.info("混同(正解→予測): %s", _confusion_summary(y_shape, pred))
+
+        clf.fit(X, y_shape)
+        model = SymbolClassifier(clf)
+        model.cv_pred = pred
+        model.cv_true = y_shape
+        model.cv_names = names
+        return model
+
+    def predict(self, cell: np.ndarray,
+                bold_threshold: Optional[float] = None) -> Tuple[str, float]:
+        """形状を分類し、○は濃さで ○(過去分) / ◎(今回追加分) に分ける。
+        濃さの絶対値は帳票ごとに大きく違う(○が41〜50の帳票と104〜120の帳票が実在)ため、
+        閾値は固定値ではなくページごとに算出したものを渡すこと。"""
         f = features(cell).reshape(1, -1)
         proba = self.model.predict_proba(f)[0]
         i = int(proba.argmax())
         label = str(self.model.classes_[i])
-        if label == "○" and darkness(cell) > DARK_BOLD:
-            label = "◎"          # 濃い○ = 今回追加分
+        if label == "○" and bold_threshold is not None \
+                and darkness(cell) > bold_threshold:
+            label = "◎"
         return label, float(proba[i])
 
     def save(self, path: str) -> None:
@@ -465,6 +612,28 @@ class SymbolClassifier:
 
 
 # ================================================================ Stage 4 検証ルール
+
+SHEET_NO_RE = re.compile(r"No\s*[.．]?\s*(\d{1,4})")
+
+
+def read_sheet_meta(img: np.ndarray, xs, ys, fallback: dict) -> dict:
+    """帳票日付(表の上・右寄り)と帳票番号(表の下・右下)をページごとに読む。
+    1つのPDFに複数の帳票が綴じられており、ページごとに値が異なるため必須。"""
+    h, w = img.shape[:2]
+    meta = dict(fallback)
+
+    top = img[0:max(ys[0] - 5, 1), int(w * 0.50):w]
+    d = parse_date(ocr_cell(top))
+    if d:
+        meta["帳票日付"] = d.strftime("%Y.%m.%d")
+
+    bottom = img[min(ys[-1] + 5, h - 1):h, int(w * 0.55):w]
+    m = SHEET_NO_RE.search(ocr_cell(bottom))
+    if m:
+        meta["帳票番号"] = f"No.{m.group(1)}"
+
+    return meta
+
 
 EARLIEST_DATE = datetime(2017, 1, 1)   # 帳票の運用開始(2017.7.31打合せ)より前の日付はありえない
 
@@ -495,7 +664,7 @@ def validate(rec: dict, sheet_date: Optional[datetime]) -> List[str]:
     """帳票の運用ルールで機械的に検算する。VLM丸投げでは作れない防御線。"""
     w: List[str] = []
     d = rec.get("_date")
-    months = TIMING_MONTHS[TIMINGS.index(rec["検査タイミング"])]
+    months = TIMING_MONTHS[TIMINGS.index(rec["検査タイミング"])]  # 全体表で引く
 
     if d:
         if d < EARLIEST_DATE:
@@ -516,14 +685,69 @@ def validate(rec: dict, sheet_date: Optional[datetime]) -> List[str]:
 
 # ================================================================ 抽出本体
 
+def _page_bold_threshold(img: np.ndarray, xs, ys,
+                         clf: Optional[SymbolClassifier],
+                         data_rows: List[int], n_timings: int) -> Optional[float]:
+    """ページ内の記入済みセルの濃さから、太字(今回追加分)と細字(過去分)の境界を求める。
+    見出し行の印字は濃いので必ず除外すること。含めると閾値が高く出て◎を取り逃がす。"""
+    if clf is None:
+        return None
+    vals = []
+    for r in data_rows:
+        for ci in range(n_timings):
+            cell = crop(img, xs, ys, r, COL_FIRST_RESULT + ci)
+            label, _ = clf.predict(cell)          # 閾値なし = 形状のみ
+            if label != "空欄":
+                vals.append(darkness(cell))
+
+    t = otsu_threshold(vals)
+    if t is None:
+        return None
+    v = np.asarray(vals)
+    lo, hi = v[v <= t], v[v > t]
+    # 片方のクラスしか無いページでは、Otsuが無意味な位置で分割してしまう。
+    # 境界値どうしではなく各クラスの平均で比べる(境界付近に値が連続していても
+    # 二峰性は成り立つため、境界値の比では分離を過小評価してしまう)。
+    if len(lo) < 2 or len(hi) < 2 \
+            or hi.mean() / max(lo.mean(), 1e-6) < BOLD_SEPARATION_RATIO:
+        log.info("  太字/細字の分離が不明瞭なため、すべて過去分として扱います")
+        return None
+    log.info("  太字判定のしきい値: 濃さ %.1f (細字%d件 平均%.0f / 太字%d件 平均%.0f)",
+             t, len(lo), lo.mean(), len(hi), hi.mean())
+    return float(t)
+
+
 def extract_pdf(pdf_path: str, clf: Optional[SymbolClassifier],
                 meta: dict) -> List[dict]:
-    img = prepare(pdf_path)
+    """PDF内の全ページを処理する。1PDF=1帳票とは限らず、
+    複数の帳票(No.10〜No.1 など)が綴じられている場合がある。"""
+    rows: List[dict] = []
+    doc = fitz.open(pdf_path)
+    n_pages = len(doc)
+    doc.close()
+
+    for page_no in range(n_pages):
+        try:
+            rows.extend(extract_page(pdf_path, page_no, clf, meta))
+        except RuntimeError as e:
+            # 様式違い(列数が合わない等)はページ単位でスキップし、処理は続行する。
+            log.warning("  p%d/%d をスキップ: %s", page_no + 1, n_pages, e)
+    return rows
+
+
+def extract_page(pdf_path: str, page_no: int, clf: Optional[SymbolClassifier],
+                 fallback_meta: dict) -> List[dict]:
+    img = prepare(pdf_path, page_no)
     xs, ys, interp = detect_grid(img)
 
+    timings, timing_months = timings_for(len(xs) - 1)
     src = os.path.basename(pdf_path)
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    meta = read_sheet_meta(img, xs, ys, fallback_meta)
     sheet_date = parse_date(meta.get("帳票日付", ""))
+    log.info("  p%d: %s / %s / %d行 / 保管期間%d列",
+             page_no + 1, meta.get("帳票番号", "?"), meta.get("帳票日付", "?"),
+             len(ys) - 1, len(timings))
 
     # 品番は縦結合セル。行ごとではなくブロック単位で一度だけ読む。
     item_of_row: dict = {}
@@ -560,6 +784,13 @@ def extract_pdf(pdf_path: str, clf: Optional[SymbolClassifier],
             # 巻き添えにして誤検出が連鎖する。
             prev = d
 
+    # 「今回追加分は太字」という規則は○だけでなく全記号に適用されている。
+    # ページ内の記入済みセルすべての濃さからOtsu法で太字/細字の境界を決める。
+    # 濃さの絶対値はスキャナと様式で大きく変わるので、固定閾値は使えない。
+    data_rows = [r for r in range(len(ys) - 1)
+                 if re.search(r"\d", date_raw_of_row.get(r, ""))]
+    bold_threshold = _page_bold_threshold(img, xs, ys, clf, data_rows, len(timings))
+
     rows: List[dict] = []
 
     for r in range(len(ys) - 1):
@@ -575,22 +806,22 @@ def extract_pdf(pdf_path: str, clf: Optional[SymbolClassifier],
         knh = red_ratio(date_cell) > 0.0008
 
         stopped = False
-        for ci, timing in enumerate(TIMINGS):
+        for ci, timing in enumerate(timings):
             cell = crop(img, xs, ys, r, COL_FIRST_RESULT + ci)
             if clf:
-                label, conf = clf.predict(cell)
+                label, conf = clf.predict(cell, bold_threshold)
             else:
                 label, conf = ("空欄" if darkness(cell) < 5 else "要判定"), 0.0
             if label == "空欄":
                 continue
 
-            months = TIMING_MONTHS[ci]
+            months = timing_months[ci]
             due = due_date(d, months)
             rec = {
                 "ソースファイル": src,
                 "帳票番号": meta.get("帳票番号", ""),
                 "帳票日付": meta.get("帳票日付", ""),
-                "ページ": 1,
+                "ページ": page_no + 1,
                 "行": r + 1,
                 "キー": make_key(current_item, d, months),
                 "品番": current_item,
@@ -634,26 +865,37 @@ def cmd_calibrate(pdf_paths: List[str]) -> None:
         stem = re.sub(r"[^0-9A-Za-z_-]", "_", os.path.splitext(
             os.path.basename(pdf_path))[0])
         log.info("キャリブレーション: %s", os.path.basename(pdf_path))
-        img = prepare(pdf_path)
-        xs, ys, _ = detect_grid(img)
+        doc = fitz.open(pdf_path)
+        n_pages = len(doc)
+        doc.close()
 
-        dbg = img.copy()
-        for x in xs:
-            cv2.line(dbg, (x, ys[0]), (x, ys[-1]), (0, 200, 0), 4)
-        for y in ys:
-            cv2.line(dbg, (xs[0], y), (xs[-1], y), (255, 0, 0), 4)
-        path = os.path.join(OUTPUT_DIR, f"grid_check_{stem}.png")
-        cv2.imwrite(path, cv2.resize(dbg, (img.shape[1] // 3, img.shape[0] // 3)))
-        log.info("  格子確認画像: %s", path)
+        for page_no in range(n_pages):
+            tag = stem if n_pages == 1 else f"{stem}_p{page_no + 1:02d}"
+            try:
+                img = prepare(pdf_path, page_no)
+                xs, ys, _ = detect_grid(img)
+            except RuntimeError as e:
+                log.warning("  p%d/%d をスキップ: %s", page_no + 1, n_pages, e)
+                continue
 
-        for r in range(len(ys) - 1):
-            for ci, timing in enumerate(TIMINGS):
-                cell = crop(img, xs, ys, r, COL_FIRST_RESULT + ci)
-                name = f"{stem}_r{r + 1:02d}_c{ci + 1}.png"
-                cv2.imwrite(os.path.join(CELL_DIR, name), cell)
-                recs.append({"file": name, "帳票": stem, "行": r + 1, "列": timing,
-                             "濃さ": round(darkness(cell), 1),
-                             "推定": guess_label(cell), "label": ""})
+            dbg = img.copy()
+            for x in xs:
+                cv2.line(dbg, (x, ys[0]), (x, ys[-1]), (0, 200, 0), 4)
+            for y in ys:
+                cv2.line(dbg, (xs[0], y), (xs[-1], y), (255, 0, 0), 4)
+            path = os.path.join(OUTPUT_DIR, f"grid_check_{tag}.png")
+            cv2.imwrite(path, cv2.resize(dbg, (img.shape[1] // 3, img.shape[0] // 3)))
+            log.info("  p%d: %d行 / 格子確認画像 %s", page_no + 1, len(ys) - 1, path)
+
+            timings, _ = timings_for(len(xs) - 1)
+            for r in range(len(ys) - 1):
+                for ci, timing in enumerate(timings):
+                    cell = crop(img, xs, ys, r, COL_FIRST_RESULT + ci)
+                    name = f"{tag}_r{r + 1:02d}_c{ci + 1}.png"
+                    cv2.imwrite(os.path.join(CELL_DIR, name), cell)
+                    recs.append({"file": name, "帳票": tag, "行": r + 1, "列": timing,
+                                 "濃さ": round(darkness(cell), 1),
+                                 "推定": guess_label(cell), "label": ""})
 
     log.info("← 先に必ず grid_check_*.png を目視し、線が罫線に乗っているか確認してください")
     new = pd.DataFrame(recs)
@@ -717,7 +959,7 @@ def cmd_train(use_guess: bool = False) -> None:
         log.error("動作だけ先に確かめたい場合: python extract.py train --use-guess")
         return
 
-    X, y = [], []
+    X, y, names = [], [], []
     for f, lab in zip(df["file"], df["_label"]):
         im = cv2.imread(os.path.join(CELL_DIR, f))
         if im is None:
@@ -725,11 +967,28 @@ def cmd_train(use_guess: bool = False) -> None:
             continue
         X.append(features(im))
         y.append(lab)
+        names.append(f)
 
     X, y = np.array(X), np.array(y)
     log.info("学習データ %d件 / 内訳 %s", len(y), dict(pd.Series(y).value_counts()))
-    SymbolClassifier.train(X, y).save(MODEL_PATH)
+    model = SymbolClassifier.train(X, y, names=names)
+    model.save(MODEL_PATH)
     log.info("分類器を %s に保存しました。", MODEL_PATH)
+
+    # 誤分類したセルを review.csv に書き出す。
+    # ラベルの付け間違いか、本当に難しいセルかを目で確かめるための入口。
+    if model.cv_pred is not None:
+        bad = [(nm, t, p) for nm, t, p in
+               zip(names, model.cv_true, model.cv_pred) if t != p]
+        if bad:
+            rv = pd.DataFrame(bad, columns=["file", "現在のlabel", "予測"])
+            rv = rv.merge(df[["file", "帳票", "行", "列", "濃さ"]], on="file", how="left")
+            rv["確信度"] = ""
+            rv = rv[["file", "帳票", "行", "列", "濃さ", "予測", "確信度",
+                     "現在のlabel"]].sort_values(["帳票", "行", "列"])
+            rv.to_csv(REVIEW_CSV, index=False, encoding="utf-8-sig")
+            log.info("誤分類 %d件を %s に書き出しました。", len(rv), REVIEW_CSV)
+            log.info("確認するには: python make_label_ui.py %s", REVIEW_CSV)
 
 
 def cmd_run(meta: dict) -> None:
@@ -782,6 +1041,47 @@ def cmd_run(meta: dict) -> None:
         log.info("要確認★の行は原本と突合してください。")
 
 
+def cmd_diagnose(pdf_path: str, page_no: int = 0) -> None:
+    """格子検出が失敗するページを調べる。縦罫線の候補を強度つきで並べ、
+    検出した線を重ねた画像を出力する。様式違いなのか閾値の問題なのかを切り分ける。"""
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    img = prepare(pdf_path, page_no)
+    h, w = img.shape[:2]
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    bw = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
+                               cv2.THRESH_BINARY_INV, 25, 15)
+    ver = cv2.morphologyEx(
+        bw, cv2.MORPH_OPEN,
+        cv2.getStructuringElement(cv2.MORPH_RECT, (1, max(h // 25, 3))))
+    hor = cv2.morphologyEx(
+        bw, cv2.MORPH_OPEN,
+        cv2.getStructuringElement(cv2.MORPH_RECT, (max(w // 25, 3), 1)))
+
+    proj = ver.sum(0) / 255.0
+    log.info("画像サイズ: %dx%d", w, h)
+    log.info("しきい値ごとの縦罫線の本数:")
+    for t in (0.20, 0.25, 0.30, 0.35, 0.40, 0.50, 0.60):
+        xs = _peaks(proj, t)
+        log.info("  %.2f -> %2d本  %s", t, len(xs), xs)
+
+    xs = _peaks(proj, 0.35)
+    log.info("各候補の高さ(縦方向の長さ, px):")
+    for x in xs:
+        log.info("  x=%5d  長さ=%5d  (画像高の%.0f%%)",
+                 x, int(proj[x]), 100 * proj[x] / h)
+
+    dbg = img.copy()
+    for x in xs:
+        cv2.line(dbg, (x, 0), (x, h), (0, 0, 255), 3)
+    for y in _peaks(hor.sum(1) / 255.0, 0.20):
+        cv2.line(dbg, (0, y), (w, y), (255, 0, 0), 2)
+    name = re.sub(r"[^0-9A-Za-z_-]", "_",
+                  os.path.splitext(os.path.basename(pdf_path))[0])
+    out = os.path.join(OUTPUT_DIR, f"diagnose_{name}_p{page_no + 1:02d}.png")
+    cv2.imwrite(out, cv2.resize(dbg, (w // 3, h // 3)))
+    log.info("診断画像: %s", out)
+
+
 def main() -> None:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "run"
     if cmd == "calibrate":
@@ -789,12 +1089,18 @@ def main() -> None:
             log.error("使い方: python extract.py calibrate <PDFパス> [PDFパス...]")
             return
         cmd_calibrate(sys.argv[2:])
+    elif cmd == "diagnose":
+        if len(sys.argv) < 3:
+            log.error("使い方: python extract.py diagnose <PDFパス> [ページ番号]")
+            return
+        cmd_diagnose(sys.argv[2],
+                     int(sys.argv[3]) - 1 if len(sys.argv) > 3 else 0)
     elif cmd == "train":
         cmd_train(use_guess="--use-guess" in sys.argv)
     elif cmd == "run":
         cmd_run(SHEET_META)
     else:
-        log.error("不明なコマンド: %s (calibrate / train / run)", cmd)
+        log.error("不明なコマンド: %s (calibrate / train / run / diagnose)", cmd)
 
 
 if __name__ == "__main__":

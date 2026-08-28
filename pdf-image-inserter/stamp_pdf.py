@@ -22,10 +22,10 @@ def add_stamp_to_pdf(pdf_path, stamp_image_path, output_path):
     page_width = page_rect.width
     page_height = page_rect.height
 
-    # ランダムなずれを追加（±3mm、±3度）
-    random_offset_x = mm_to_points(random.uniform(-3, 3))
-    random_offset_y = mm_to_points(random.uniform(-3, 3))
-    random_rotation = random.uniform(-3, 3)
+    # ランダムなずれを追加（ゆらぎ幅拡大：±8mm、±10度）
+    random_offset_x = mm_to_points(random.uniform(-8, 8))
+    random_offset_y = mm_to_points(random.uniform(-8, 8))
+    random_rotation = random.uniform(-10, 10)
 
     # PILで画像を開いて回転
     pil_img = Image.open(stamp_image_path)
@@ -50,9 +50,22 @@ def add_stamp_to_pdf(pdf_path, stamp_image_path, output_path):
     base_x = mm_to_points(25)
     base_y = page_height - mm_to_points(25)  # PDFは上が原点なので変換
 
-    # 最終的な配置位置（左下基準）
+    # 最終的な配置位置の計算（左下基準）
     final_x = base_x + random_offset_x
     final_y = base_y + random_offset_y
+
+    # --- はみ出し防止ガード処理 ---
+    margin_min_x = mm_to_points(5)  # ページの左右端から最低5mmの余白
+    margin_min_y = mm_to_points(5)  # ページの上下端から最低5mmの余白
+
+    # X座標：左端の限界と右端の限界の間に収める
+    final_x = max(margin_min_x, min(final_x, page_width - stamp_width - margin_min_x))
+
+    # Y座標：PDFのY座標は「上が0、下が最大値」であり、final_y は画像の「下端」となる。
+    # 上端にはみ出さないよう(stamp_height + margin_min_y)を下限とし、
+    # 下端にはみ出さないよう(page_height - margin_min_y)を上限とする。
+    final_y = min(page_height - margin_min_y, max(final_y, stamp_height + margin_min_y))
+    # ------------------------------
 
     # 画像を配置する矩形を定義（左下基準なので y - height）
     image_rect = fitz.Rect(
