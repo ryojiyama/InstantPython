@@ -1,0 +1,30 @@
+Chapter4_Part1-13.md — 目視確認が必要な箇所 9 件
+============================================================
+
+[ブロック 141] 段落が長すぎる可能性 (429 文字)
+「Umm, please don't misunderstand, but we respect the Director too. Although it looks plain, measurement accuracy is the foundation of everything, so if that improves, it contributes to all the technol…
+
+[ブロック 251] 段落が長すぎる可能性 (466 文字)
+「Ah, I forgot to explain. By the way, what I want you to actually make is not the spheres, but molds for the spheres. Six of those, and also these two shapes simultaneously, onto a brick-sized piece o…
+
+[ブロック 331] 段落が長すぎる可能性 (488 文字)
+「She is ノエル・ジュアルゼン, an alchemist from the Magic Dormitory. What I want to make is a new carriage improved by her hands. That carriage will have an increased load capacity and a longer travel distance.…
+
+[ブロック 361] 段落が長すぎる可能性 (586 文字)
+「In this way, friction also occurs between the axle and the bearing. In the case of a carriage, would you understand if I said it wastes the horse's power? Moreover, in this format, because the axle c…
+
+[ブロック 381] 段落が長すぎる可能性 (417 文字)
+「Neither Magic-Conducting Gold nor magical power is used in this object itself. What I was made to... what I made, is this.」 With a clunking sound, ノエル placed a rectangular metal emitting a platinum g…
+
+[ブロック 409] 段落が長すぎる可能性 (531 文字)
+「Yes. First, we will start by replacing only the area around the axles of existing carriages. As I said earlier, this bearing requires know-how for installation. It will lead to craftsmen concentratin…
+
+[ブロック 1886] カギ括弧の開閉が不一致 (開 1 / 閉 0)
+「また新しい女の子ですか？
+
+[ブロック 1887] カギ括弧の開閉が不一致 (開 0 / 閉 1)
+ あんまりミーアに心配かけちゃダメでしょ」
+
+[ブロック 2233] 段落が長すぎる可能性 (405 文字)
+"The workshop in ベルトルド is strictly just repairing the undercarriage. ちなみに、錬金金型の所有権はヴィンダー商会に有り。The firm acknowledges the right to use the mold, based on a contract, to the ベルトルド workshop overseen by ボー…
+
