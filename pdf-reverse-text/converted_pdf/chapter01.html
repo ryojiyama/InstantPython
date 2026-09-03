@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="王女アルフィーナの予言を聞いたリカルドは、ふとしたきっかけで不吉な未来の対策を立てることに...">
+<title>1章　『災害は予防が肝心』</title>
+<style>
+:root{
+  --paper:#FCFBF7;
+  --page:#EFEBE2;
+  --ink:#2E2A24;
+  --rubric:#9A3B2E;
+  --en:#7A4A2F;
+  --rule:#E3DED2;
+  --faint:#B9AC90;   /* 装飾記号のみ。本文テキストには使わない */
+  --muted:#7C6F50;   /* 読ませる淡色。背景に対して 4.78:1 */
+  --wash:#F5F1E7;
+  --serif: Georgia,"Times New Roman","Hiragino Mincho ProN","Yu Mincho","YuMincho",serif;
+  --mono: ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono CJK JP",monospace;
+}
+*{box-sizing:border-box;}
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:var(--serif);
+  -webkit-text-size-adjust:100%;
+  font-kerning:normal;
+}
+.sheet{
+  max-width:42rem; margin:0 auto; background:var(--paper);
+  border-left:1px solid var(--rule); border-right:1px solid var(--rule);
+  min-height:100vh; padding:44px 40px 96px;
+  display:flow-root;          /* フロートを内包し、選択範囲の描画を親幅に広げない */
+  position:relative;
+}
+.rubric{ color:var(--rubric); font-size:12px; letter-spacing:.3em; }
+h1{ font-size:26px; font-weight:normal; margin:6px 0 4px; letter-spacing:.04em; }
+h2{ font-size:17px; font-weight:normal; margin:0 0 4px; letter-spacing:.02em; }
+h3{ font-size:15px; font-weight:normal; color:var(--rubric);
+    margin:2em 0 .8em; letter-spacing:.03em; }
+.lede{ color:#6E6255; font-size:13px; line-height:1.9; margin:10px 0 0; }
+hr.rule{ border:0; border-top:1px solid var(--rule); margin:18px 0 24px; }
+
+nav.toc{ margin:0 0 8px; }
+nav.toc ol{ list-style:none; margin:0; padding:0; }
+nav.toc li{ border-bottom:1px solid var(--rule); }
+nav.toc li:first-child{ border-top:1px solid var(--rule); }
+nav.toc a{
+  display:flex; gap:14px; align-items:baseline;
+  padding:11px 4px; text-decoration:none; color:var(--ink);
+}
+nav.toc a:hover, nav.toc a:focus-visible{ background:var(--wash); }
+nav.toc .num{ color:var(--rubric); font-size:11px; letter-spacing:.18em; min-width:3.4em; }
+nav.toc .lbl{ font-size:15px; }
+nav.toc .pending{ color:var(--muted); }
+nav.toc li.off a{ pointer-events:none; }
+
+.bar{
+  position:sticky; top:0; z-index:5; background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  padding:9px 0; margin-bottom:26px;
+}
+.bar a{ color:var(--rubric); text-decoration:none; font-size:12px; letter-spacing:.14em; }
+.bar a:hover{ text-decoration:underline; }
+.bar .sp{ flex:1; }
+button{
+  font-family:var(--serif); font-size:12px; color:var(--ink);
+  background:transparent; border:1px solid var(--rule); border-radius:3px;
+  padding:5px 11px; cursor:pointer;
+}
+button:hover{ background:var(--wash); }
+button:focus-visible, a:focus-visible{ outline:2px solid var(--rubric); outline-offset:2px; }
+
+.progress{
+  position:fixed; inset:0 auto auto 0; height:2px; width:0;
+  background:var(--rubric); z-index:9; transition:width .1s linear;
+}
+@media (prefers-reduced-motion:reduce){ .progress{ transition:none; } }
+
+section.ep{ margin:0 0 62px; scroll-margin-top:60px; display:flow-root; }
+section.ep .rubric{ display:block; margin-bottom:6px; }
+p{ font-size:15px; line-height:1.9; margin:0 0 1.15em; text-align:justify;
+   word-break:normal; overflow-wrap:anywhere; line-break:strict; }
+p.first{ display:flow-root; }
+p.first::first-letter{
+  float:left; font-size:44px; line-height:.9; color:var(--rubric);
+  padding:4px 10px 0 0;
+}
+.en{ color:var(--en); }
+body.plain .en{ color:var(--ink); }
+
+section.ep ul, section.ep ol{ margin:0 0 1.3em; padding-left:1.6em; }
+section.ep li{ font-size:15px; line-height:1.9; margin:.2em 0; }
+section.ep li::marker{ color:var(--rubric); }
+
+blockquote{
+  margin:1.6em 0; padding:.2em 0 .2em 1.2em;
+  border-left:2px solid var(--faint); color:var(--muted);
+}
+blockquote p{ margin:0; font-size:14px; }
+
+code{
+  font-family:var(--mono); font-size:.86em;
+  background:var(--wash); border:1px solid var(--rule); border-radius:3px;
+  padding:.1em .35em;
+}
+pre{
+  margin:1.6em 0; padding:14px 16px; overflow-x:auto;
+  background:var(--wash); border:1px solid var(--rule); border-radius:4px;
+}
+pre code{ background:none; border:0; padding:0; font-size:13px; line-height:1.7; }
+
+.tw{ overflow-x:auto; margin:1.6em 0; }
+table{ border-collapse:collapse; width:100%; font-size:14px; }
+th, td{ border-bottom:1px solid var(--rule); padding:8px 10px; }
+th{ color:var(--rubric); font-weight:normal; letter-spacing:.06em;
+    border-bottom:1px solid var(--faint); }
+tbody tr:hover{ background:var(--wash); }
+
+img{ max-width:100%; height:auto; display:block; margin:1.6em auto; }
+ruby rt{ font-size:.5em; color:var(--muted); letter-spacing:0; }
+strong{ font-weight:600; }
+em{ font-style:italic; }
+del{ color:var(--muted); }
+a{ color:var(--rubric); }
+
+::selection{ background:#DCC9A0; color:var(--ink); }
+::-moz-selection{ background:#DCC9A0; color:var(--ink); }
+
+.star{ text-align:center; color:var(--faint); font-size:11px; letter-spacing:.4em; margin:30px 0; }
+.top{ display:block; text-align:center; font-size:12px; letter-spacing:.16em;
+      color:var(--rubric); text-decoration:none; margin-top:8px; }
+.top:hover{ text-decoration:underline; }
+
+@media (max-width:640px){
+  .sheet{ padding:30px 20px 80px; border:0; }
+  h1{ font-size:22px; }
+  p{ text-align:left; }
+  p.first::first-letter{ font-size:38px; }
+}
+@media print{
+  body{ background:#fff; }
+  .sheet{ border:0; max-width:none; }
+  .bar, .top, .progress{ display:none; }
+  section.ep{ page-break-inside:auto; }
+  pre, blockquote, table{ page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+<div class="progress" role="presentation"></div>
+<div class="bar"><a href="index.html">← 章の目次</a><span class="sp"></span><button id="tint" aria-pressed="true">英文の色分け：ON</button></div>
+<div class="rubric">CHAPTER I ・ 1章</div>
+<h1>『災害は予防が肝心』</h1>
+<p class="lede">王女アルフィーナの予言を聞いたリカルドは、ふとしたきっかけで不吉な未来の対策を立てることに...</p>
+<hr class="rule">
+<nav class="toc" aria-label="話の目次"><ol>
+<li><a href="#sec01"><span class="num">01</span><span class="lbl">（無題）</span></a></li>
+<li><a href="#sec02"><span class="num">02</span><span class="lbl">３話：前半　悪巧み</span></a></li>
+<li><a href="#sec03"><span class="num">03</span><span class="lbl">３話：後半　再会</span></a></li>
+<li><a href="#sec04"><span class="num">04</span><span class="lbl">４話　栞</span></a></li>
+<li><a href="#sec05"><span class="num">05</span><span class="lbl">５話：前半　一次情報は大切だ</span></a></li>
+<li><a href="#sec06"><span class="num">06</span><span class="lbl">５話：後半　ファンタジーな仮説</span></a></li>
+<li><a href="#sec07"><span class="num">07</span><span class="lbl">６話：前半　専門家の活用方法</span></a></li>
+<li><a href="#sec08"><span class="num">08</span><span class="lbl">６話：後半　異世界生態系</span></a></li>
+<li><a href="#sec09"><span class="num">09</span><span class="lbl">７話　崖の縁のピクニック</span></a></li>
+<li><a href="#sec10"><span class="num">10</span><span class="lbl">８話：前半　予言から予測に</span></a></li>
+<li><a href="#sec11"><span class="num">11</span><span class="lbl">８話：後半　実験から政治へ</span></a></li>
+<li><a href="#sec12"><span class="num">12</span><span class="lbl">９話：前半　プレゼンテーション</span></a></li>
+<li><a href="#sec13"><span class="num">13</span><span class="lbl">９話：後半　大きな葛籠と小さな葛籠</span></a></li>
+<li><a href="#sec14"><span class="num">14</span><span class="lbl">１０話　祝賀会のパンチボウルを片付けたい</span></a></li>
+</ol></nav>
+<section class="ep" id="sec01">
+<div class="star">＊</div>
+<p><span class="en">Ten days left until the New Year Festival, and three days until the spring holiday.</span> この国の最高学府、王立学院の廊下は少し浮ついていた。</p>
+<p>「ふぁ、あああ……」</p>
+<p><span class="en">　I let out a big yawn.</span> 入学して一年、馴れたとはいえ中学校レベルの内容に辟易する。 <span class="en">The history and the social system here are their own, but I studied them hard before entering.</span> 数学においては、この世界の最高峰は俺じゃないかと思う。</p>
+<p><span class="en">　Well, that is only thanks to the memories of my past life, which came back when I was five, so I cannot really call it my achievement.</span> ちなみに前世では大学院でマクロ経済学と企業統治を専攻していた。 My old professor liked to say, 「経済予測は世界で最も信じてはいけない学問だが、だからこそ燃える」. <span class="en">What I learned from him may be useful here after all.</span></p>
+<p><span class="en">　I died before finishing my course, though, so my knowledge is only half done.</span></p>
+<p><span class="en">　This is another world, and it does have magic.</span> 平民らしく魔力など使えないので授業は取ってない。 <span class="en">Magic is not practical without the help of magic crystals, and this country produces almost none, so you rarely see it.</span> 騎士団の魔獣退治に使われるのが最大にして最重要な用途だ。</p>
+<p><span class="en">　There are two reasons why I attend this academy.</span> 一つ目は、他の学生と変わらない。 <span class="en">Building connections.</span> 貴族だけでなく優秀な平民が入学を許される学院は、保守的な王国で唯一と言ってよい身分間の交流がある場所だ。</p>
+<p><span class="en">　On paper, a student is just a student, and his birth does not matter.</span> もちろん、出身身分によって学生の中で”序列”が組み上がるだけの話だし、卒業後を考えれば自ずと態度は決まる。 <span class="en">Who would pay a high tuition just to make his future superiors dislike him?</span></p>
+<p>　平民は将来のパトロンを探し、貴族は優秀な平民を囲い込む。 <span class="en">I am here for the same reason: to find someone I can work with in the future.</span> だが、この点では俺は苦戦していた。 <span class="en">Most of the fault, I admit, lies with my poor social skills.</span></p>
+<p>「端を歩け平民」</p>
+<p>「…………建前ぐらい守れよ。一応君も平民だろう」</p>
+<p><span class="en">　I turned around with a tired face.</span> ふっくらとした体型の、いかにもお坊ちゃまという男子学生が俺を睨んでいる。 <span class="en">The son of an honorary baron is not officially a noble.</span> 貴族相手には平民として、平民相手には貴族であるように振る舞う器用なやつだ。 <span class="en">As a man who has carried social awkwardness since his past life, I am almost impressed by how fast he switches.</span> だからといって尊敬しないが。</p>
+<p>「貧乏人と一緒にするな。ドレファノが学院にどれだけの寄付をしているかしらないのか。つまり、君たちはいわば僕達のおこぼれで学んでる身なんだぞ」</p>
+<p><span class="en">　Maybe it comes from his father, but he has been hard on me since the day I entered.</span> <span class="en">Then I beat him once in a class debate, and now look at him.</span> 俺を見る目は歪んでいる。 <span class="en">He believes he is only using a right that belongs to him.</span> むしろ俺がそれを理解していないことに苛立っているのだろう。</p>
+<p><span class="en">　If he wants to think I am below him, that is fine.</span> こいつの中の俺の評価はこいつのものだ、好きにすればいい。 <span class="en">To be honest, an accurate opinion of me would be more trouble.</span> 理解できないのは、今まさに俺のことを敵だと公言しているのに、俺から反撃されると思っていないことだ。</p>
+<p><span class="en">　It tires me out, this mind that can truly believe it carries no risk.</span> もちろん、立場が強ければ強いほど反撃される可能性は減る。 <span class="en">That much is reasonable.</span> だが、どれだけ強い立場の人間でもリスクはゼロにはならない。 <span class="en">A strong man is not strong for all 365 days — here it is 360 days — without a break.</span> 弱った隙を衝かれれば弱者に足元を掬われる危険はある。</p>
+<p><span class="en">　In fact, it is exactly the man who has something who becomes worth the time and effort to attack.</span> 詐欺師が貧乏人を一生懸命騙そうとするか？</p>
+<p><span class="en">　The target is always someone whose property is worth the long work of cheating.</span> そんな当たり前の保身的常識をどうしてわからない。</p>
+<p><span class="en">　And even if you were a hundred times better than me, to me, a stranger, that means nothing.</span> お前がお前を第一に考えているように、他人はそれぞれ自分を第一に考えているんだぞ。 <span class="en">For everyone, he himself is the center of the world.</span></p>
+<p><span class="en">　I only realized that people are equal in that one sense after I turned twenty in my old world, so I am in no place to lecture anyone.</span></p>
+<p>「その者が行商人の息子か」</p>
+<p>「はい。ロワン様」</p>
+<p><span class="en">　An arrogant voice cut in.</span> 体格の良い男子生徒が現れる。 <span class="en">There was silver embroidery on the shirt showing under his uniform sleeve.</span> ドレファノは一瞬にして腰をかがめた。 <span class="en">The way he looked at me was the same as ドレファノ&#x27;s — no, worse.</span> 自分の乗馬にはもっと温かい目を向けるだろう。</p>
+<p><span class="en">　I did my best to keep calm.</span> ドレファノが後ろ盾を誇示するのは珍しいことでは無いが、これまでは農務卿ゴート侯爵の息子だった。 <span class="en">That link was obvious, so it was never useful information.</span> ロワン伯爵は確か騎士団関係だったか。</p>
+<p><span class="en">　If the sons are connected, then almost certainly the fathers are connected too.</span> 食料のドレファノと騎士団の繋がりは何を意味するのか。 <span class="en">For a merchant, information is the strongest weapon.</span> 弱者にとってもしかり。 <span class="en">You hide your own information and take theirs.</span> こんな都合のいい関係は、向こうが油断している時にしか成立しないのだ。</p>
+<p>「味も香りもない蜂蜜もどきを売っているそうではないか」</p>
+<p><span class="en">　He must have heard it from ドレファノ.</span> 我がヴィンダーの主力商品のことを口にした。 <span class="en">The oldest sweet food of mankind exists in this world too, and it is valued even more than sugar.</span> ミツバチが特定の樹木のウロにしか巣を作らない上、魔獣の領域である森や林に入るのが命がけだからだ。</p>
+<p><span class="en">　So, of course, only nobles can buy it.</span> そして、貴族への販路はドレファノのような大商人が独占している。 <span class="en">In this world, where most people spend over eighty percent of their money on food and the noble class holds nearly all the spare income, a connection to nobles decides everything.</span> 当然、大商人達は利益と同じくらいその参入障壁、シェア維持に血道をあげる。 <span class="en">So a custom is built in which only old, respected merchant houses are allowed to serve the nobility. ○○伯御用達という看板を掲げる。</span></p>
+<p>　They still tell the story of an old guild head who said, 「妻を寝取られることが許せても、御用看板を取られることは許せない」.</p>
+<p><span class="en">　In other words, even if you develop beekeeping and get honey from the fields, the big houses will beat your price down, learn your secret, and then throw you away.</span> 最後には秘密を守るため○○というコースだ。 To stop that, here is what I came up with: 「水で薄めたまがい物の蜜で庶民を騙しているのです」</p>
+<p><span class="en">　I chose to lower our own reputation on purpose.</span> 一体どんな花が蜜源になってるのかしらないが、従来の蜂蜜には柑橘系の風味がある。 <span class="en">So I used the clean taste and pale color of our honey and sold it to ordinary people as something similar but different, not worth a noble&#x27;s mouth.</span> 天然と養殖の違いなのだが、イクラと人工イクラの違いと認識させたわけだ。 <span class="en">By making a new market, I avoided a fight with ドレファノ and bought time to grow stronger.</span></p>
+<p><span class="en">　Spreading bad words about my own goods together with my rival was a long, painful job, but the real honey does taste different, so it worked.</span> 市場では金の蜜に対して、銅の蜜と呼ばれているらしい。 <span class="en">Nobles use gold coins and common people use copper ones — that is where the name comes from.</span></p>
+<p>「嘆かわしいことに庶民は風味の違いなどわかりません。それで、籠背負ごときが増長したのです」</p>
+<p><span class="en">　&quot;Basket carrier&quot; is an insult for a traveling merchant.</span> 父親を馬鹿にされるのは流石に腹が立つ。 <span class="en">Do you have any idea how much work it took to make the cooks under your own family believe our honey was a cheap, boring thing?</span></p>
+<p><span class="en">　One day I will teach him a concept from another world: the innovator&#x27;s dilemma.</span> 資本調達手段と生産拡大手段に溢れた地球と違って、ここでそれをやるには何十年掛かるかわからないけど。</p>
+<p>「まあ、私は賞味したことがありますけど、すっきりした風味がとても美味でしたよ」</p>
+<p><span class="en">　While I was talking inside my head, a calm and gentle voice reached me.</span> 覚悟の上とはいえ、自分が育てた商品を散々けなされた後だ。 <span class="en">After all that, the kind words sounded even kinder.</span> 素直な風味は俺が考えるレンゲ蜜の長所。 <span class="en">To think that someone here would give it a fair judgement —</span></p>
+<p><span class="en">　I turned around, and a girl with blue-silver hair smiled at me.</span> 真っ直ぐなロングヘアが窓の光を反射して、平民の目には豪華な学院の廊下ですら、彼女にはみすぼらしいと錯覚した。</p>
+<p><span class="en">　But the moment I realized who she was, the blood left my face.</span></p>
+<p>「なっ、あのようなまがい物をアルフィーナ様が口になされたのですか」</p>
+<p><span class="en">　The only member of the royal family in our year had appeared, and the students who had been watching us with grins began to whisper.</span> 引きつりそうな顔を必死で繕う俺の横で、ドレファノが唖然とした声を上げた。 <span class="en">It is funny, but right at this moment, he and I want exactly the same thing.</span> 何てことを言ってくれるんだこのお姫様は。 <span class="en">If a rumor spreads that the princess uses our honey, ヴィンダー is far too small to survive the harm — or even the benefit.</span></p>
+<p><span class="en">　Bad.</span> <span class="en">This is bad.</span> <span class="en">This is really bad.</span> だが、何故だ？</p>
+<p><span class="en">　Every word from a royal is politics.</span> この姫様はどんな思惑があってこんなことを言い出した。</p>
+<p><span class="en">　She is my classmate, but she is also the shrine princess, and she comes to the academy less than half the week.</span> 学院でもお付の女生徒に守られて、俺は付き合いどころか言葉を交わしたことすらない。 <span class="en">Why would she break the rules of rank to protect the son of a tiny merchant house?</span></p>
+<p><span class="en">　Could she have seen more of Project Renge than just the honey?</span></p>
+<p><span class="en">　No, there is no way she could know at this point.</span> 大半はまだ俺の脳内にしかない。 <span class="en">I made my head work as fast as it could.</span></p>
+<p>「な、なるほど。清貧が尊ばれる聖堂では、当家の水割り蜜がお役に立てるのかもしれません」</p>
+<p><span class="en">　Needless to say, the temple does not value a poor and simple life, and anyone who can taste honey at all is already far from poor.</span> 地方はともかく、王都の大聖堂など貴族出身者の巣窟だ。 <span class="en">Still, I somehow managed to put those words together.</span></p>
+<p>「そんなことはありません。私は本当に……」</p>
+<p>「姫様。このようなものと軽々しく言葉をかわしてはなりません」</p>
+<p><span class="en">　A girl with red hair in a ponytail stepped between us, as if to protect her master.</span> ほぼ同じ高さからの鋭い目が俺を睨みつける。 <span class="en">Her look said that a commoner coming near was itself an insult.</span> 彼女の後ろで王女の顔が曇った。</p>
+<p>「クラウ。私達は同じ学生ですよ」</p>
+<p>「いえ。王族の恵みに取りすがろうとする平民は少なくありません。姫さまのお優しさに付け込もうとする者もいます。今の言葉とて、聖堂への納入を狙った詐術やもしれないのです」</p>
+<p><span class="en">　She says whatever she likes.</span> だが、これはある意味助け舟だ。 <span class="en">This annoying woman, who fully believes in the order of ranks, is easier to handle than a princess whose thoughts I cannot read at all.</span></p>
+<p>　今一番大事なことは、王女の評価という地雷を処理することだ。 <span class="en">There is a risk, but I will provoke her and stir the water.</span> くそ、なんで保身第一の俺がこんなことに……。</p>
+<p>「すると、騎士団への納入を狙う場合は伯爵家にすがる、そういうわけですか」</p>
+<p><span class="en">　I said it while looking at ロワン and ドレファノ, not at クラウディア.</span></p>
+<p>「なっ」</p>
+<p>「貴様」</p>
+<p><span class="en">　The two of them, who had become background, got angry.</span> 俺が王女に取り入ろうとしたなら、ドレファノはロワンに取り入ってるのはどうするという皮肉だ。 <span class="en">And she cannot say it out loud — the second daughter of アデル家 cannot correct the second son of ロワン家, not in the order of rank.</span> 怒りのあまり髪の毛のように真っ赤になったクラウディアに俺は内心ほくそ笑んだ。</p>
+<p><span class="en">　Now, how will the princess move?</span> いくら公平を装っても、側近の肩を持つに違いない。 <span class="en">Then I will bow my head, and the whole matter of the honey will be washed away.</span> 難しい綱渡りだ。 <span class="en">To be fair, my words got too sharp because I could not stand a fool who is sure of his own rightness.</span> <span class="en">That is my own weakness.</span></p>
+<p>「ヴィンダー君の言葉は正論です。証拠もなく疑ったことは感心できません。クラウが私を守ろうとする忠誠は信じていますが。ヴィンダー君に謝罪すべきです」</p>
+<p>「ひ、姫さま。わ、私は……」</p>
+<p><span class="en">　I was stunned.</span> この王女はどうしてこちらの思惑を外すんだ。 <span class="en">No, no — I am still on the rope.</span> クラウディアは最悪頭を下げればそれで済む。 <span class="en">She may never want to bow, but bowing will not kill her.</span> 一方、こっちは下げた頭が胴から離れて地面に転がりかねない。</p>
+<p><span class="en">　I have to prepare a new place to land.</span> 茶番を創りださなければいけない。 <span class="en">I put strength into my stomach.</span> だからなんで保身を心がける俺が…………。</p>
+<p>「確かに我が家の蜜は風味も色合いもドレファノ商会の金の蜂蜜に比べると物足りないでしょう。ですが己が扱う商品に誇りを持てなければ、商人は立ち行きません。それは……ドレファノ君もよく知っていることでしょう」</p>
+<p><span class="en">　I said it, and ドレファノ, carried by the mood, nodded at the new point I had forced into the talk.</span> どうせ何も考えてなかっただろうが。 <span class="en">I turned my eyes to the knight girl.</span></p>
+<p>「クラウディア殿」</p>
+<p>「……なんだ」</p>
+<p>「高貴な方の威を借りんとする者を、側近であるクラウディア殿が警戒することは当然です。姫様が仰られたようにクラウディア殿の忠義なのでしょう。私などには理解が及ばぬ、王国の藩屏の誇りなのでしょう」</p>
+<p>「…………うむ。そのとおりだ。だが、証拠もなく疑ったのは行きすぎだったかもしれんな」</p>
+<p><span class="en">　クラウディア nodded in a grand way.</span> 自分が悪いなど欠片も思っていない。 <span class="en">Even so, the air of the place loosened.</span> キーワードは誇りだ。 <span class="en">Everyone did it for the sake of pride — that is the play we now perform.</span> 誰も信じてなくても、皆がその幻想を支持すればいい。 <span class="en">That is what &quot;the air&quot; means.</span> 自然に空気を読めないからこそ、空気が何かを論理的に追求してきた俺の技能だ。</p>
+<p><span class="en">　And there is no need for any of them to worry.</span> 王族なんてボラティリティーの高い生き物を利用するつもりなど無い。 <span class="en">Now, the last problem.</span> <span class="en">Please, do not stir the water any further.</span></p>
+<p>「アルフィーナ様、我が商会の”誇り”を救っていただいてありがとうございました」</p>
+<p>「私は本当に……。いえ、ヴィンダーくんの言葉はもっともですね」</p>
+<p><span class="en">　The princess answered in a slightly confused voice.</span> 場が完全に弛緩した。 <span class="en">A commoner thanks a merciful princess and bows his head deeply.</span> この国のあるべき姿だ。 <span class="en">And for me, it is better than bowing to anyone else here.</span></p>
+<p><span class="en">　…………Ah.</span> <span class="en">I forgot one person.</span> 俺は恐る恐る体格のいい男子生徒を見た。</p>
+<p>「話は終わりだな」</p>
+<p><span class="en">　ロワン&#x27;s face twisted for a second, and then he walked away as if he had lost interest.</span> ドレファノがこれ幸いと後ろに付き従う。 <span class="en">That was a little surprising.</span> <span class="en">I thought he would at least defend himself in front of the princess.</span></p>
+<p><span class="en">　Well, never mind.</span> ドレファノとロワンの繋がりは要注意だ。 <span class="en">I never understood what the princess was aiming at, but from now on I should be careful to avoid her.</span></p>
+<p><span class="en">　The spring holiday starts soon.</span> それで有耶無耶になってくれればいい。</p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec02">
+<div class="star">＊</div>
+<div class="rubric">02</div>
+<h2>３話：前半　悪巧み</h2>
+<hr class="rule">
+<p>「……全く羨ましくないリア充＆セレブリティー光景だ」</p>
+<p><span class="en">　Walking down a quiet corridor, I looked out of the window.</span> 中庭に並ぶ東屋の屋根が見えた。 <span class="en">Students who had finished their classes were enjoying an elegant tea party.</span> 日本だったら、放課後のファーストフードだろう。 <span class="en">The difference is that for them it is a serious match with their future on the line.</span></p>
+<p>　平民は未来のパトロン、貴族達は将来の部下を見立てる。 <span class="en">Commoners trade information with each other, and nobles form and break groups along their parents&#x27; factions.</span> 誰が誰を招いたのか、そこでどんな会話がかわされたのかが大きな意味を持つ。 <span class="en">It looks bright and pleasant, but they say it is a battlefield called society.</span></p>
+<p><span class="en">　After the trouble with ドレファノ three days ago, another layer was added to my label as a rude commoner, so this world has nothing to do with me.</span></p>
+<p><span class="en">　I admit my communication skills are broken.</span> だけど頼むから数字で話の通じる人間をくれ。 <span class="en">One or two would be enough.</span> 友達百人なんて言わない、それだけ作ると経済的に破綻する。 <span class="en">There is even a legend about a commoner who became close to a great noble, was invited to a birthday party, and went bankrupt.</span> 今はもう一つの目的に勤しもう。 <span class="en">That work suits me far better than dealing with people, and I have a subordinate who handles human relations normally.</span></p>
+<p>「先輩」</p>
+<p>「ああ、ミーアいいところに」</p>
+<p><span class="en">　Just as the library door came into view at the end of the corridor, a black-haired head appeared beside me.</span> 肩までの黒髪を小さなおさげにした小柄な少女だ。 <span class="en">Her face is well shaped, and still a little childish.</span> 華やかさを良しとする上流階級の女生徒達と比べると地味。 <span class="en">But I know she has the charm of a wildflower and the toughness of a weed.</span></p>
+<p><span class="en">　She calls me senior, but we are in the same year.</span> ヴィンダー商会メンバーとして先輩だから先輩らしい。 <span class="en">Her birth year is not even certain, so she may in fact be a year or two younger.</span></p>
+<p><span class="en">　Her school uniform, which looks like something from a mission school, is a world away from the patched clothes she wore five years ago.</span> 親父などは悪い虫が付かないかと本気で心配し始めている。 <span class="en">There was talk of adopting her, but he refused, saying it should wait until I marry.</span></p>
+<p><span class="en">　Apparently his reason is this: I look likely to be fooled by a bad woman, and if she became my sister, she would have no choice but to call that woman her sister-in-law.</span> <span class="en">He hates that idea.</span> 理由が間接的すぎてわからん。</p>
+<p><span class="en">　In my past life all my siblings were boys.</span> <span class="en">Here I am an only child.</span> 女の子の気持ちなんてわからないか。</p>
+<p><span class="en">　She is a true genius who entered this academy on a scholarship.</span> 俺も一緒だが、何しろこっちは実質的に年齢詐称。<span class="en">ミーア&#x27;s ability, especially in mathematics, is the real thing.</span></p>
+<p><span class="en">　And though it is several steps below that, she still has more social skill than I do.</span> 平民学生のネットワークにちゃんと入っているんだから。 <span class="en">If it were not for ドレファノ&#x27;s interference, I would have at least one friend by now…………</span></p>
+<p>「ロワン伯爵家の情報収集が終わりました。当主は第二騎士団の副将、長男も部隊長の地位に有ります。あの女の父親、アデル家の当主も第二騎士団の部隊長ですね」</p>
+<p>「あの女ってクラウディアのことか、人前では言うなよ」</p>
+<p>「ご心配なく、第四王女の前で伯爵家次男とギルド長の跡継ぎに喧嘩を売る先輩ではありませんから」</p>
+<p><span class="en">　ミーア gave me a flat, cold look.</span></p>
+<p>「あれは予定外だったんだ。それよりも、ドレファノは第二騎士団の軍需に食い込もうって腹なのか？」</p>
+<p>「おそらくは、王都の守護が役目の第一騎士団とちがって、第二騎士団には東方の魔獣氾濫への対処という遠征任務がありますから」</p>
+<p><span class="en">　I see.</span> <span class="en">Fifty years have passed since the last foreign war.</span> 元は五つ在った騎士団も三つに半減。 <span class="en">There was some talk about the third prince joining the smallest one, the Third Knight Order.</span></p>
+<p><span class="en">　Cutting the army means cutting people, so it happens slowly.</span> ガチガチの縦割りシェアで生きている大商人にとっては、真綿で首を絞められる感じだったはずだ。</p>
+<p><span class="en">　And to push into that with the power of a guild head…</span></p>
+<p>「……それまで遠征任務の需要を満たしていた商家があるよな」</p>
+<p>「はい。食料ギルド長をドレファノと争ったケンウェル商会が絡んでいました」</p>
+<p>「なるほど。となると、ケンウェルはドレファノに恨みを持ったが、今は逆らえない状況……」</p>
+<p><span class="en">　A hidden weakness of ドレファノ, found.</span> 顕在化する条件がなければ役に立たないが、タイミング良くつつければ……。</p>
+<p>「仮に役に立つ可能性が１０パーセントでも、同じ条件の情報を十揃えれば……」</p>
+<p>「０．９の１０乗ですから、ひっくり返して６５パーセントの可能性で役立ちますね」</p>
+<p><span class="en">　What is she, a calculator?</span> さすが数字に色が、数式が形に見えるだけのことはある。 <span class="en">Actually, I only took her in after I happened to find that out.</span> ただし……。</p>
+<p>「…………」</p>
+<p>「私、間違いましたか？」</p>
+<p><span class="en">　ミーア tilted her head.</span></p>
+<p>「いや、計算は正しい。でも、現実ではその十の要件は独立してないから」</p>
+<p><span class="en">　Huge banks were once tied together by complex financial products, and someone calculated their chances of failing one by one.</span> <span class="en">The world almost broke because of it.</span> タイヤのパンクは普通めったに起こらない。 <span class="en">If the chance of one tire going flat is 0.01 percent, then two at the same time is one in a hundred million.</span> 予備のタイヤ一つあれば、修理工場までは間違いなく持つ。</p>
+<p><span class="en">　But if someone spreads spikes across the road, none of that matters.</span> しかも、高速道路で車間距離ほぼゼロで疾走している状況で起きたら？</p>
+<p>「それは先輩の案件ですね。…………それで、第四王女はどうしましょう」</p>
+<p>「そっちは急がなくていい。あれから何にもないしな」</p>
+<p>「分かりました。ドレファノと第二騎士団、そしてケンウェルを追加調査します」</p>
+<p><span class="en">　I nodded.</span> <span class="en">She gave a small nod back and quietly walked away.</span> 目の前には廊下の端、図書館へのドアがある。 <span class="en">This is the second reason I come to such a troublesome place.</span></p>
+<p><span class="en">　I pushed open the carved door, and a quiet space opened in front of me.</span> 真ん中に閲覧席が並び、その周囲に本棚が並ぶ配置。 <span class="en">The room is about the size of a large university lecture hall.</span> 物音一つしないのは人一人居ないからだ。</p>
+<p>　この世界では、最強の暗殺拳でなくても、ほんの小さな技術が一子相伝など珍しくもない。 <span class="en">Knowledge moves from person to person, and only a very small part of it is ever collected in books.</span> 何しろ識字率が低い上に、技術と森林資源の乏しさで紙が高い。</p>
+<p><span class="en">　Most of the books here were written by odd nobles who wanted to record their hobbies.</span> 記述の不正確さ、体系にまとめる努力の欠如。 <span class="en">To put it plainly, they write freely from imagination.</span> ＳＦと科学書の区別がないと言える。</p>
+<p><span class="en">　The kind of economic data that was published in my old world is here a state secret.</span> <span class="en">Or it simply does not exist.</span> 貴族の脱税への警告か収穫量の荒いデータはあるが、どの程度の信頼性があるか。</p>
+<p><span class="en">　Even so, within my reach, there is no place with more information than this.</span> 求めているのはいわゆる博物学、この世界の動植物の知識だ。</p>
+<p><span class="en">　My method is this.</span> <span class="en">First I look for a book that describes correctly the areas I know myself.</span> その本の中に欲しい情報を探す。 <span class="en">If it is not there, I look for another book by the same writer.</span> 書籍と言っても、結局属人的だ。 <span class="en">Maybe that was true in my old world as well.</span></p>
+<p><span class="en">　What I am looking for are plants and animals that can become goods — cacao, silkworms, rubber.</span> こっちに都合良く存在する保証はないが、勝算はある。 <span class="en">The plants, the animals, and the people of this world all came from Earth.</span> レンゲの花が夏に咲く様に、全く同じではない。 <span class="en">But their basic structure as living things is far too similar.</span></p>
+<p><span class="en">　I was reborn here, but there was probably a large &quot;transfer&quot; between this world and Earth.</span> 地球の先史時代あたりに一回起こり、人間が来た。 <span class="en">It seems to have happened several times in even older ages, because there are creatures like giant reptiles and huge beasts.</span></p>
+<p><span class="en">　If I could examine DNA, I would know when each transfer happened and how large it was.</span></p>
+<p><span class="en">　By the way, the animals that came in older ages have lived here for so long that they fit this world better.</span></p>
+<p><span class="en">　My eyes stopped on one page.</span> そこには、額に大きな石を付けた動物が描かれている。 <span class="en">A giant wolf.</span> 記述を信じるなら体長は人間と同じ、体高は七掛けといったところか。 <span class="en">A thin, hairless, ape-like animal that walks on the ground in a gorilla&#x27;s posture.</span> 象の牙くらいありそうな長い犬歯を持ったトラ。</p>
+<p><span class="en">　And a reptile that is less a dinosaur than a dragon.</span> ブレスを吐くらしい、本当に地球原産かちょっと自信がなくなる。</p>
+<p><span class="en">　These are 魔物, creatures that adapted to magic power, which does not exist on Earth.</span> 魔物は魔力源から離れて活動できず、魔力は山脈に沿って流れている。 <span class="en">There are great mountain ranges in the east and the west of this country, and the monsters live in those mountains and in the ルーベル・ヴァルト林 beside them.</span> まるで紅葉のような真っ赤な葉の樹木が特徴であり、赤い森と呼ばれる。</p>
+<p><span class="en">　No one from this country goes in there.</span> 例外的に、東方では山麓の森から魔物の群れが現れることがあり、予兆が出るたびに騎士団が討伐に向かい暴発前に片付ける。</p>
+<p><span class="en">　So even if something useful grew there, it would be like a treasure inside a war zone.</span> とてもじゃないけど手を出せるものじゃない。</p>
+<p><span class="en">　The empire on our northwestern border is a mountainous land, so they deal with monsters far more often.</span> <span class="en">They must hold a different kind of knowledge over there.</span></p>
+<p>「魔物とかある意味ロマンだけど。もっと手近な新しい商品の種を見つけないと」</p>
+<p><span class="en">　Growing the honey business comes first, but to negotiate I need a second and a third arrow.</span> 強者相手には継続して利益を得られると思わせなければ交渉にならない。 <span class="en">And if they betray me and take only the information, I have no way to strike back.</span> 対等な交渉など存在しない、対等じゃないと交渉が成り立たない。</p>
+<p><span class="en">　If I can win in at least one part, I can create a kind of equality under certain conditions.</span></p>
+<p><span class="en">　Information has no shape.</span> 隠し持っていれば誰にもばれないが使えない、表に出せば簡単に盗まれる。 <span class="en">It is hard to handle, but there is no other way.</span></p>
+<p>「なんだよ、肝心なところで記述が途切れてるじゃないか」</p>
+<p><span class="en">　I stood up.</span> 確か書庫には同じ作者の本が有ったはずだ。</p>
+<p><span class="en">　When I opened the door of the stacks, dusty air reached my nose.</span> 明かり取りの窓の光だけの空間は薄暗い。 <span class="en">I am probably the only one who ever comes in here.</span></p>
+<p><span class="en">　I looked hard at the shelves, where books were pushed in without any order.</span> やっと見つけた一冊の図鑑を確認するため、隅の窓に近づいた。</p>
+<p><span class="en">　And there, I stopped completely.</span> まさかの先客だ。</p>
+<p><span class="en">　Under the window there was a chair, and a girl with blue-silver hair was sitting on it.</span> 廊下で見た時と違って、長い髪は束ねられ肩から前にたらされている。 <span class="en">She had a book open in her hands.</span></p>
+<p><span class="en">　Thin white fingers turned the pages slowly.</span> 降り注ぐ光に浮き上がる美貌、無邪気な瞳が一心に本に注がれている。</p>
+<p><span class="en">　Nothing could be more out of place than this.</span> 人知れず降臨した天使を見つけたような気分だ。</p>
+<p>「なんで……」</p>
+<p>「だ、誰ですか？」</p>
+<p><span class="en">　The words came out before I could stop them.</span> 王女は慌てて本を閉じると、俺を見た。 <span class="en">But I had been staring at her, and I could not move at all.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec03">
+<div class="star">＊</div>
+<div class="rubric">03</div>
+<h2>３話：後半　再会</h2>
+<hr class="rule">
+<p>「これは、おじゃまして申し訳ありません」</p>
+<p>「……もしかして、リカルド君ですか？」</p>
+<p><span class="en">　Like an office worker mistaken for a groping suspect, I raised both hands without thinking.</span> 王女は俺が誰か解ったのか、少しホッとした顔になっている。</p>
+<p>「くすっ。ここは学生なら誰でも使える場所ですよ」</p>
+<p><span class="en">　The princess&#x27;s smile broke the spell that had frozen me.</span> 二人きりというシチュエーション。 Her hair, tied more simply than usual, actually looked…いやいやそんな場合じゃない、この王女はどこから入ったのだろう。 <span class="en">I doubt she was in the library before me.</span></p>
+<p>「王女殿下はどうしてこのようなところに？」</p>
+<p><span class="en">　At once, her white cheeks turned pink.</span></p>
+<p>「その、私は本当はフルシー先生の講義を受けているはずの時間なのです……」</p>
+<p>「フルシー先生…………。ああ、図書館長の」</p>
+<p><span class="en">　Looking again, I saw another door at the back of the stacks, different from the one I had come through.</span> 位置からいって館長室に繋がるのだろう。 <span class="en">I had not known about it.</span></p>
+<p>「恥ずかしいのですが。この時間はここで読書をしていることが多いのです。聖堂ではあまりそういう時間が取れないので」</p>
+<p>「ご心配なく。殿下に会ったことは決して口外いたしません」</p>
+<p>「ありがとうございます。リカルド君はどうしてここに？」</p>
+<p><span class="en">　I was about to turn back, thinking I should not disturb her secret reading time, when she asked me that.</span> こういうのが一番困る。 <span class="en">With my abilities, I cannot tell whether she is asking out of politeness or real interest.</span> 異性相手じゃなおさらだ。</p>
+<p><span class="en">　Her eyes were on the book in my hand.</span> <span class="en">So the interest seemed real after all.</span></p>
+<p>「はい私はこの本を探しに……」</p>
+<p><span class="en">　I showed her the cover, and a moment later I remembered who the writer was.</span> <span class="en">Cold sweat ran down my back.</span> クアトル・フェルバッハはニ十年前に反逆を起こしたフェルバッハ公爵の一族なのだ。 <span class="en">The man himself was said to have taken no part in it, but he died ten years ago, still under confinement.</span> 正直、惜しい人材だと言わざるをえないが、問題はそんなことではない。</p>
+<p>　フェルバッハの乱は安定を誇る王国にとって大事件、歴史上の汚点なのだ。 <span class="en">And how would it look to a member of the royal family — a man hiding in the stacks to read a book by one of that family?</span> 俺の保身は風前の灯だ。</p>
+<p>「わ、我が商会の商品は、西方の気候や植生などと関わっておりまして。この学院の素晴らしい書籍で勉強させていただいているのです」</p>
+<p>「あっ、もしかしたら蜂蜜のですか？」</p>
+<p>「……はい。もちろんそれだけではなく、西方の動植物が事細かに記されたこの書籍には、参考になる点が多々ありまして」</p>
+<p><span class="en">　To make clear that this was business, I praised the book honestly.</span> 俺の能力なら、こういう時は真実をそのまま話すのが一番いい。 <span class="en">The princess had shown interest in the honey anyway.</span></p>
+<p><span class="en">　Still, this was only the safest step inside a minefield.</span></p>
+<p><span class="en">　The village where I taught beekeeping used to belong to a relative of フェルバッハ, and even after it became crown land, it was treated coldly.</span> だからこそ藁にもすがる思いで俺、実際に説得したのは親父、の提案に乗ったのだ。</p>
+<p><span class="en">　One wrong word, and it could sound like criticism of the government.</span></p>
+<p><span class="en">　I checked her face.</span> <span class="en">The princess was still smiling.</span> いや、さっきまでよりも心なしか嬉しそうなのはなぜだろうか。</p>
+<p>　「私はこの本です」</p>
+<p><span class="en">　She lifted her book with both hands, up to the height of my eyes.</span> 茶色の革表紙に、日にあたったこともないのではないかという白い手が眩しい。</p>
+<p>「『コーンウェル公子の旅』ですか。実は私も読んだことが有ります」</p>
+<p>「本当ですか」</p>
+<p><span class="en">　Her face lit up.</span> 『コーンウェル公子の旅』は吟遊詩人の書いた旅行記的な恋愛小説だ。 <span class="en">A duke&#x27;s son disguises himself as a poet, travels from town to town, and saves a heroine in each of them.</span> やたらと色っぽい盗賊が出てきたり、食べ物に目がないうっかり者の下男が居たりする。</p>
+<p><span class="en">　Of course the hero is not a cheerful old man with a stick, but a handsome young noble with a rapier at his side.</span></p>
+<p><span class="en">　I only read it as a study of what appeals to people in this world, so I am not the fellow fan she hopes for.</span></p>
+<p>「舞台が西方ですからね、父と行商で行った町や村を思い出します」</p>
+<p>「まあ。リカルド君は西方のことに詳しいのですね。私は王都を出る、出たことがありません。この本の中の「見渡す限り一面の赤紫の花畑」というのは本当なのでしょうか。赤紫の花というのは私は見たことがありません」</p>
+<p><span class="en">　She asked with shining eyes.</span> 野草の花畑が珍しいとか、どんな箱入りだ。 <span class="en">The roses and lilies of the capital&#x27;s gardens, big and showy, are the real exceptions.</span> ちなみにバラは青い。 <span class="en">Anyway, to a villager these flowers are nothing special.</span> 耕作には向かない、あるいは開拓が進んでない場所は殆ど草原だ。</p>
+<p>「そうですね、小さな花とは言え、白から赤へのグラデーションが見渡す限りの地面を覆う光景は見ものでは有ります」</p>
+<p>「まあ、それはきっと夢のように美しいでしょうね……」</p>
+<p><span class="en">　I am still walking the rope.</span> 赤紫の花が珍しいのは本当だ。 <span class="en">But for me that flower is the source of my honey — not a money tree, but a money grass.</span> 牧草にもなるし、緑肥にもなるという万能植物だ。 <span class="en">This subject also needs the greatest care.</span> これだから上流階級との話はめんどくさいんだ。</p>
+<p><span class="en">　I glanced at the princess&#x27;s face.</span> <span class="en">Her eyes were wide, and she was listening with her whole heart.</span> どうにも調子を崩される。</p>
+<p><span class="en">　The renge flower only grows along the red forest in the southwest, near that village.</span> 一番近い都市はたしか……。</p>
+<p>「ベルトルドの大聖堂ならば、移動の合間に見れるかもしれません」</p>
+<p>「ベルトルドですか。叔母上の領地です！」</p>
+<p>「そ、そうなのですか。それならば機会があるのでは……」</p>
+<p><span class="en">　She is a princess indeed.</span> <span class="en">Even her relatives are on another level.</span> ベルトルドは西部では第一の都市だぞ。 <span class="en">No, wait — why does everything connect like this?</span> 俺は再びお姫様の表情を伺う。 <span class="en">But she only smiled sadly.</span></p>
+<p>「でも、勤めのある私が王都を離れるのはむずかしいですね。この学院に通うことも、エウフィリア叔母様のお陰でかなった我儘ですから」</p>
+<p><span class="en">　Whatever is going on inside this dreamy princess&#x27;s head, her aunt&#x27;s thoughts are a complete mystery.</span> ミーアに調べさせるか。コンコン、コンコン。</p>
+<p><span class="en">　Suddenly there was a knock.</span> 館長室に通じるドアが叩かれたようだ。 <span class="en">I remembered the sharp eyes of the knight girl and went stiff, but the door did not open.</span></p>
+<p><span class="en">　アルフィーナ closed her book slowly.</span></p>
+<p>「今日は楽しいお話を聞かせてくれてありがとうございました」</p>
+<p><span class="en">　She rose with a soft rustle of cloth, and I hurried to stand as well.</span> ガタッと椅子が音を立てた。 <span class="en">A perfect contrast between a noble princess and a commoner.</span> アルフィーナは咎めることもなく、俺に右手を差し出した。</p>
+<p>「良かったらまたお話を聞かせてください」</p>
+<p>「い、……光栄です」</p>
+<p><span class="en">　I took the white hand.</span> 絹のような感触と仄かな体温が、掌と意識を侵食する。 <span class="en">Then her hand left mine, and アルフィーナ went away through the door.</span> その背中を見ながら、掌の暖かさが消えていくのを何故か惜しいと思った。 <span class="en">I had finally been set free, and yet there I was, staring at the closed door as if I resented it.</span></p>
+<p>「住む世界が違う女の子なんかどうでもいいだろ……」</p>
+<p><span class="en">　I muttered that and headed for the proper exit.</span></p>
+<p><span class="en">　When I came out of the stacks, I saw ミーア in the reading room.</span> 何人かの女生徒、身なりからして俺達と同じく平民学生、と一緒だ。 <span class="en">She stood up casually and came over to me behind a bookshelf.</span></p>
+<p>「…………優先順位を変える。第四王女を急いでくれ。特にベルトルド大公との関わりだ」</p>
+<p>「分かりました」</p>
+<p><span class="en">　ミーア took the order with a slightly puzzled look.</span> 同級生の背景を調べる、ドレファノに偏っていたとはいえ、今までもしてきたことだ。</p>
+<p><span class="en">　But something bitter began to seep out from deep in my chest. …………いや、俺は必要なことをしている。</span></p>
+<p>「……あと、確か荷物の中に村の子供たちからの土産が有ったよな…………」</p>
+<p><span class="en">　To shake that feeling off, I added a small errand.</span></p>
+<p>　新年祭まで、一週間を残すばかりの日だった。</p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec04">
+<div class="star">＊</div>
+<div class="rubric">04</div>
+<h2>４話　栞</h2>
+<hr class="rule">
+<p class="first"><span class="en">The spring holiday at the academy lasts a month.</span> 新学期が始まって三週間がたった放課後、俺はミーアと中庭のベンチに座っていた。</p>
+<p><span class="en">　By the feeling of Earth, June is almost here.</span> 午後の日差しは夏へのスタートダッシュをかけようとしている。 <span class="en">I had no plans with anyone, and yet here I was, because I wanted to see how a certain classmate was doing — one who had not shown her face once since the new term began.</span></p>
+<p>「身分は絶対じゃなかったのか？」</p>
+<p><span class="en">　I kept my voice from growing sharp.</span> 視界の端に捉えた東屋の中には、青銀の髪の女生徒が一人座り、入り口で肩を怒らせたポニーテールの女生徒が立っている。</p>
+<p>「新学期になって”予言”を話題にする学生は皆無だったことは先輩も気がついていましたよね」</p>
+<p><span class="en">　It was true.</span> <span class="en">Not one student had said a single word about the prophecy.</span> いつもどおりの学院に拍子抜けしたくらいだ。 <span class="en">But under the surface, the picture seems to have been very different.</span></p>
+<p>「元々派閥とは無縁の方です。茶会を主催することも月に一度程度でした。ただ、これまでなら義理その他で参加していた者が四五人はいたのですが」</p>
+<p>「また断りか。でも、これだけ綺麗に手のひらを返されてるのはおかしくないか？」</p>
+<p><span class="en">　A student entered the pavilion.</span> 姫が穏やかな顔でうなずき、女騎士が怒りを露わにする。 <span class="en">The student, who had been made to carry the message, left as if escaping.</span> ドレファノの妨害で態度を一変させたかつての取引先と重なる光景だ。</p>
+<p>「王家から一代に一人出さなければいけない巫女姫ですが、クゥエルの水晶を光らせる資質が必要な上、一度任じられれば少なくとも二十年は引退できませんから」</p>
+<p>「そりゃたまらないな。結婚もできない」</p>
+<p><span class="en">　Perhaps it is close to the old Japanese saigū.</span> この世界の女性の結婚適齢期は１６から２０。 <span class="en">After that, you are considered too late.</span> アラサーはもちろん、アラフォーとなれば話にもならない。 <span class="en">Even in modern Japan, people said childbirth carried more danger after forty.</span></p>
+<p>「あの方がクラウンハイトを名乗るのは二年前からです」</p>
+<p>「王家には養女として入ったってことか……」</p>
+<p>「正確には継承権がないので猶子ですね。父方は現王の弟にあたる故ベルトルド大公ですが、母親がフェルバッハ公爵家の出でした。父親は隠居後に病死。母親は三年前に病死しています。現ベルトルド大公は父親の妹、当主が女性なのはフェルバッハとの繋がりの濃淡が継承に影響したようです」</p>
+<p>「反乱を起こした公爵がフェルバッハだったな。あの姫さまは反逆者の血筋ってことか。それがどうして王族に……、ああそういうことか」</p>
+<p>「はい、資質があったので、誰もやりたがらない巫女姫にするためでしょう」</p>
+<p>「つまり、予言云々の前から体のいい出家だったってことか」</p>
+<p><span class="en">　In Japanese history too, it was common to make the family of a traitor enter a temple.</span> 寺に押しこめ、聖職者は結婚しないから血筋も断てる。</p>
+<p>「実際、王族女性に与えられる化粧料などもありません。むろん、建前としては聖職者がそのようなものを持つことはない、ですが」</p>
+<p>「思った以上の冷遇ぶりだな。反乱からもう二十年だから、お姫様は生まれてもいないだろうに。しかも、母親だって公式に罰せられたわけじゃないんだよな」</p>
+<p>「どうなさいますか？」</p>
+<p><span class="en">　At ミーア&#x27;s words, I opened the fist I had unknowingly clenched.</span> 今の説明なら、彼女に影響力は皆無どころかマイナスだ。 <span class="en">For me, the biggest problem is our honey becoming famous sooner than planned.</span> そういう意味では、一安心ともいえる。 <span class="en">The rest solves itself, as long as I keep my distance as planned.</span></p>
+<p><span class="en">　I should simply do nothing extra.</span> 俺は懐にしまった紙包みを意識から遠ざけた。</p>
+<p>「近づくのは危険かと思われます」</p>
+<p>「……今そう判断してたところだ」</p>
+<p><span class="en">　I had told ミーア about meeting her by chance in the stacks.</span> 最初からそんな気はなかったが、庇護どころか王家に睨まれる完全な地雷だ。</p>
+<p><span class="en">　But one question remains.</span> 保身を第一に考える俺には理解し難い。</p>
+<p>「そんなきつい立場でなんでまた、あんな危ない真似をしたんだ……」</p>
+<p><span class="en">　The pavilion with only the princess and her knight; noble students walking around it in a wide circle.</span> 近づくことすら憚る平民学生。 <span class="en">The courtyard after class looked bright and lively, and only the space around that one pavilion was empty.</span></p>
+<p>　薄暗い書庫の明るい窓の下、野草の花の話に顔をほころばせていた同級生の顔が蘇る。 <span class="en">At that moment, she had looked genuinely happy just to be able to attend the academy.</span></p>
+<p>「先輩？」</p>
+<p>「せっかく用意した物だからな……」</p>
+<p><span class="en">　I stood up under ミーア&#x27;s doubtful eyes.</span> 懐から小さな紙包を取り出し、ゆっくりと人気のない東屋に近づく。</p>
+<p><span class="en">　It was more of a nuisance than a help, but アルフィーナ did defend my work that day.</span> 王族に借りを作ったままなど精神衛生上最悪だ。 <span class="en">If I act now, this &quot;worthless little thing&quot; may clear the debt.</span> そう、これはチャンスだ。</p>
+<p>「何のようだ」</p>
+<p><span class="en">　I stopped in front of the entrance, and クラウディア came out with a stiff face.</span> 俺の顔を確認するなり苛立ちを隠さない声をぶつけた。 <span class="en">Still, her master&#x27;s difficult position must be weighing on her, because she did not simply drive me away.</span></p>
+<p>「先日のお礼にアルフィーナ様に持参したものがあるのですが、取り次いでもらえますか」</p>
+<p>「先日……、持参した物だと……」</p>
+<p>「リカルドくんですか？」</p>
+<p>「アルフィーナ様。このような時だからこそ平民などを軽々しく近づけられてはなりません」</p>
+<p><span class="en">　As if remembering who she was, クラウディア spread both arms and blocked the entrance.</span> そうだろうな。 <span class="en">Inviting a new commoner student while you are falling only makes the fall look worse.</span> 不遇の友が真の友という言葉があるが、世界はそんな単純ではない。</p>
+<p>「入ってもらいましょう。お茶もお菓子も余っているのですから」</p>
+<p>「いえ、女性のお茶会に男がしゃしゃり出るわけにはまいりません。私はただこれを受け取っていただければと」</p>
+<p><span class="en">　I have no intention of going deeper.</span> せっかく用意した物を無駄にしたくないだけだ。</p>
+<p><span class="en">　I held out the paper packet to アルフィーナ, who had come to the entrance.</span> クラウディアがそれをつかみとると中を改める。 <span class="en">She frowned, then handed it to her master as if it pained her.</span></p>
+<p><span class="en">　The princess must have guessed something, because her face brightened.</span></p>
+<p>「白から赤へ流れる色が可憐ですね。これがレンゲの花ですか」</p>
+<p>「はい」</p>
+<p>「このような花が野原一面に咲き誇るのですね」</p>
+<p><span class="en">　Holding the bookmark close to her chest, アルフィーナ smiled from the heart.</span> その笑顔に思わず頬が緩んだ。 <span class="en">But クラウディア&#x27;s face only grew harder.</span></p>
+<p>「野草を貼り付けた紙切れとは、姫さまを愚弄しているのはあるまいな」</p>
+<p>「クラウ。レンゲの花を見てみたいといったのは私なのです」</p>
+<p>「しかし、王家ならば花は薔薇を用いるのが格式……」</p>
+<p>「私は聖堂に入った身ですよ。それに、とても可憐ではないですか」</p>
+<p>「しかし、このようなときに近づいてくるのはあまりに……。そもそも、そのような話をいつ……」</p>
+<p><span class="en">　クラウディア was growing more and more suspicious.</span> クラウディアだけではない。 <span class="en">When I looked around, more people were watching us from a distance.</span></p>
+<p>「お喜びいただいて嬉しく思います。それではこれで失礼します」</p>
+<p>「はい、ありがとうございましたリカルド、、君、、」</p>
+<p><span class="en">　When I said I would take my leave, アルフィーナ seemed ready to let me go without trouble.</span> だが、もう一度栞に目を落とすと、表情を驚きに染めた。</p>
+<p>「如何なさいましたか。何か不備でも……」</p>
+<p>「リカルドくん。この赤い花が野一面に咲く、そういった光景が西方では見られるのですよね」</p>
+<p>「はい。西方南部の赤い森の近くですが。それが……」</p>
+<p><span class="en">　The face that had been smiling a moment ago was clouded again.</span> なにかまずったか。</p>
+<p>「…………いえ。リカルドくん。心から御礼を申し上げます。早速今日から使わせていただきますね」</p>
+<p><span class="en">　アルフィーナ found her smile again.</span></p>
+<p>「光栄にございます」</p>
+<p><span class="en">　クラウディア looked close to her limit.</span> 俺はあらためて一礼してから背を向けた。<span class="en">ミーア, standing a little way off, got to her feet — probably with a sigh.</span></p>
+<p>「クラウ。今日はここにいても意味は無いでしょう。せっかく時間があるのですからフルシー先生のところに参ります」</p>
+<p>「分かりました」</p>
+<p><span class="en">　Just as I was going to join ミーア, I heard that exchange between mistress and servant behind me.</span> 思わず止まりそうになった足。 <span class="en">Seeing the worry on ミーア&#x27;s face, I somehow kept my calm and left the courtyard. ◇◇</span></p>
+<p>「図書館ですか？　しかし、今日の予定では……」</p>
+<p>「ああ……。いや、多分勘違いだけど、ちょっと確認しておきたい事ができてな」</p>
+<p><span class="en">　There were two students in the reading room when I entered the library.</span> そのうちの一人がミーアに気がついて小さく手を降った。 <span class="en">I nodded, and ミーア went over to them, still looking as if she wanted to say something.</span></p>
+<p><span class="en">　My own eyes went to the far end of the shelves, to the door of the stacks.</span></p>
+<p><span class="en">　After class, called out to a quiet place by a girl.</span> 元の世界では一度としてなかったシチュエーションだ。 <span class="en">No — I am thinking far too much of myself.</span> 単なる勘違いだと思うべきだ。 <span class="en">She is a princess.</span> <span class="en">There is no way a cheap present like that would win her over.</span></p>
+<p><span class="en">　But there were those eyes looking down at the bookmark.</span> <span class="en">And the words about using it from today.</span> 気になる。</p>
+<p>「万が一ってこともあるし。下手な恨みを買うのは一番危険だからな……」</p>
+<p><span class="en">　I muttered that and slowly opened the door of the stacks.</span> 薄暗い書庫の中、光の方向に向かう。 <span class="en">The chair stood where it had before, and a girl was standing in front of it.</span></p>
+<p>「来てくれたのですね」</p>
+<p><span class="en">　So it was neither a mistake nor my imagination.</span> だが、一体何の用事だ。 <span class="en">In her current position, gaining me as an ally means nothing — or worse than nothing.</span></p>
+<p>「この花のことでお聞きしたいことが有ります」</p>
+<p><span class="en">　In アルフィーナ&#x27;s hand was the bookmark I had given her only a short while ago.</span> 俺は首を傾げた。 <span class="en">It was true that she had shown interest in the flower.</span> だが、それはどちらかと言えば漠然とした外へのあこがれのようなものだと考えていたのだが。</p>
+<p><span class="en">　For a moment I wondered whether the flower carried some strange meaning here, something about a promise of love, and shook my head.</span> アルフィーナの真剣な表情には、そう言った色はないように見える。 <span class="en">What I had glimpsed earlier now covered her beautiful face completely.</span> まるで深刻な危機を憂うような、そんな表情だ。</p>
+<p>「私には見えたのです。この花を踏みしだいて逃げ惑う人々の姿が」</p>
+<p><span class="en">　She said it to me as I stood there.</span> 俺はますます混乱する。 <span class="en">People running for their lives?</span> <span class="en">What on earth is she talking about?</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec05">
+<div class="star">＊</div>
+<div class="rubric">05</div>
+<h2>５話：前半　一次情報は大切だ</h2>
+<hr class="rule">
+<p>「私には見えたのです。この花を踏みしだいて逃げる人々の姿が」</p>
+<p><span class="en">　On the beautiful face holding the bookmark I had given her, there was nothing but desperation.</span> 俺は唖然とした。 <span class="en">What on earth is this about?</span></p>
+<p>「申し訳ありません。私にはアルフィーナ様のおっしゃっている意味がよくわからないのです」</p>
+<p>「えっ!? あの、ですから………………、私に予言のことを教えてくださるのではないのですか？」</p>
+<p>「予言、ですか？」</p>
+<p><span class="en">　The princess looked at me with confused eyes.</span> その瞳には同じくらい困惑した俺が写っているだろう。 <span class="en">The word &quot;prophecy&quot; had come out of nowhere, and my confusion only grew deeper.</span> いや、予言の意味はわかる。 <span class="en">Since she is the one saying it, it can only be the prophecy from the New Year Festival.</span></p>
+<p><span class="en">　There is nothing I can teach her.</span> 宗教的儀式に対する俺の知識など、この世界の一般人以下だ。 <span class="en">To me it was about as serious as drawing a fortune slip at New Year.</span></p>
+<p>「申し訳ありません。私にはやはりお役に立てるような心あたりがないのですが」</p>
+<p>「でも栞の花は！」</p>
+<p><span class="en">　My instinct for self-protection was screaming.</span> 心のなかで警報が鳴り響く。 <span class="en">What have I been dragged into?</span></p>
+<p><span class="en">　This is not the princess who stood alone and proud in the courtyard.</span> 頼りない明かりの下、縋るような目で俺を見る同級生の少女が目の前にいる。</p>
+<p>「予言、というのは新年祭でアルフィーナ様が告げられた予言でしょうか」</p>
+<p>「そうです」</p>
+<p>「栞の花というのはレンゲの押し花のことですね」</p>
+<p>「はい」</p>
+<p>「あの花が、予言に関わるとおっしゃるのですか？」</p>
+<p>「はい。あの、あれは私に対する合図ではないのですか……」</p>
+<p>「いえ、レンゲの花は当家の商売先の村に咲いております。今年の開花はまだですが、押し花になったものが手元にあったのを思い出したものですから」</p>
+<p><span class="en">　The village children made it for me long ago, and all I did was turn it into a bookmark.</span></p>
+<p>「…………でも、あの状況の私に近づくのは…………」</p>
+<p>「アルフィーナ様にはドレファノとロワン公子からかばっていただきましたから。あの状況の私に手を差し伸べるメリットはなかったと思いますが」</p>
+<p><span class="en">　My finishing move: we are even, so let us leave it there.</span> コミュ障の俺は人間関係の利害の軽重を感覚的に把握できる技能はないのだ。</p>
+<p>　「で、では、本当に私を慰めようと……」</p>
+<p><span class="en">　アルフィーナ&#x27;s face was somewhere between crying and laughing.</span> ぐっ、おかしな方向に転がった。 <span class="en">How am I supposed to answer that?</span></p>
+<p>「先輩、これは？」</p>
+<p><span class="en">　A third voice, equally confused, reached the two of us where we stood frozen.</span> 慌てて振り返ると、そこには冷たい目で俺を見るミーアが居た。</p>
+<p>「それではアルフィーナ様が先輩を逢引に呼び出されたわけではないと」</p>
+<p>「ミーア。アルフィーナ様は巫女姫としての御役目を果たそうとしただけだぞ」</p>
+<p><span class="en">　After hearing the explanation from both of us, ミーア said that.</span> 真っ赤になってしまったアルフィーナに代わって、俺は両手を振って代弁を試みた。</p>
+<p>「では先輩は何を期待してアルフィーナ様のお招きに応じたのでしょうか」</p>
+<p>「い、いや、それは…………」</p>
+<p><span class="en">　This time she turned the cold eyes on me.</span> 冷や汗が背中を流れる。 <span class="en">But be fair — if I had told you &quot;the princess seems to have called me somewhere quiet in secret, so I am going,&quot; you would have thought I had lost my mind.</span></p>
+<p>「先輩が不用意に贈った栞がアルフィーナ様の災厄の予言に関わるということでしたが」</p>
+<p><span class="en">　She looked between us, sighed, and brought the talk back to the point.</span></p>
+<p>「そ、そうでした。この花が咲いている場所を詳しく教えていただきたいのです」</p>
+<p><span class="en">　アルフィーナ laid the bookmark face up on the table.</span> 頼りないくらい小さな赤紫の花が五本並んでいる。</p>
+<p><span class="en">　The chosen shrine princess shuts herself in a room of the temple, from four days before the New Year Festival until the day before it.</span> 予言の間と呼ばれるその場所で、魔道具である水晶に触れると、頭のなかにイメージが浮かぶ。 <span class="en">Over three days the image slowly grows clearer, and her duty is to report the final image as the prophecy.</span></p>
+<p><span class="en">　And what she saw there was a crowd of villagers running, trampling red-purple flowers under their feet.</span></p>
+<p><span class="en">　She cannot see the disaster itself, and even &quot;the west&quot; is only the rough direction from which the image comes.</span> 予言らしい、絶妙な残念さ加減だ。</p>
+<p>「最初に見えたのは、去年と同じ豊かに実る麦畑でした。陛下はそのことだけを話せばいいと」</p>
+<p>　アルフィーナ said it sadly. <span class="en">ミーア looked at me.</span> やはり、王の意向に逆らって予言を公表したのだ。 <span class="en">Getting involved in this carries a serious risk — no, an unbelievable one.</span> すぐにでもここから立ち去りたいくらいだ。</p>
+<p><span class="en">　But there are two reasons why I cannot.</span></p>
+<p><span class="en">　The first is my own interest, or rather ヴィンダー&#x27;s.</span> 万が一予言が本当で、災厄の中心地があの村の近くだった場合、ヴィンダーはとてつもないダメージを負う。 <span class="en">Everything I built up in beekeeping would be lost.</span> そしてもう一つ、ミーアにとってあの村は生まれ故郷だ。</p>
+<p><span class="en">　But even so…</span></p>
+<p>「私に出来るお礼ならどのようなことでもします。もちろん、貴方から聞いたことは誰にもいいません」</p>
+<p><span class="en">　She clearly understands that she is asking me to carry a risk.</span> 確かに、彼女は誰にも知られないように俺を呼び出した。 <span class="en">There is none of that arrogance I hate most — the belief that because I am doing the right thing, everyone must help me without question.</span></p>
+<p><span class="en">　She opened her mouth knowing that her own position would become dangerous.</span> 誰にも望まれない、押し付けられた役割をはたすためにリスクを取ったのだ。 <span class="en">It does not look like showing off, born from being disliked.</span></p>
+<p><span class="en">　At the very least, she is saying what she believes to be true.</span> そう信じ……、判断しよう。</p>
+<p><span class="en">　So what do I do?</span></p>
+<p><span class="en">　The safest choice is to answer only what she asked and leave.</span> あまり価値はないが、お姫様に恩を売ることができる。 <span class="en">The risk would be that the village draws attention.</span></p>
+<p><span class="en">　My sleeve was pulled under the table.</span> わかっている、早く決めないとどんどんまずい方向に行くのだ。 <span class="en">I made my decision.</span></p>
+<p>「わかりました。レンゲが咲いている場所を教えます。ですが一つ質問をしてもいいでしょうか？」</p>
+<p>「は、はい。なんでも聞いてください」</p>
+<p><span class="en">　Hm?</span> <span class="en">Just now… No, wait, maybe not.</span> このお姫様の脳内はお花畑すぎる。 <span class="en">That is nowhere near enough to earn my cooperation.</span></p>
+<p>「私が場所を教えたとして、その後どうするのですか？」</p>
+<p>「もちろん、村の人々に避難を呼びかけます」</p>
+<p><span class="en">　She answered as if it were obvious.</span></p>
+<p>「誰が、どのようにですか？」</p>
+<p>「えっ！　その私が……」</p>
+<p>「収穫間近の畑を捨てて逃げることをどうやって説得するおつもりですか？」</p>
+<p>「そ、それは、その場所は危険だから……」</p>
+<p>「どう危険なのですか？」</p>
+<p>「それは、災厄が……」</p>
+<p>「どんな災厄ですか？」</p>
+<p>「そ、それはわかりませんけど…………」</p>
+<p><span class="en">　Her voice grew smaller and smaller.</span></p>
+<p>「質問を変えましょう。避難といっても、どこまで逃げればいいのでしょうか、どれくらいの期間でしょうか。その間の食料と住居はどう準備されるのでしょうか？」</p>
+<p>「…………」</p>
+<p><span class="en">　At last, アルフィーナ said nothing at all.</span> テーブルの下で足が蹴られた。 <span class="en">Come on, she was just being so thoughtless that my tone got a little rough.</span></p>
+<p>「コホン。食料の備蓄の放出、地方領主や騎士団の協力など、国家主導の計画になりますね」</p>
+<p><span class="en">　She would have to persuade the king himself.</span> だが今のところの材料は、彼女が見た曖昧なイメージだけ。 <span class="en">If prophecies were taken seriously, this situation would never have happened in the first place.</span> 如何に異世界でも曖昧な予言で国家は動かないということだ。 <span class="en">And I think that is how it should be.</span></p>
+<p><span class="en">　I did not say it aloud, but there is another important question: who takes responsibility if the disaster never comes?</span> その第一候補は目の前の……。 <span class="en">No, I have no room to worry about someone else&#x27;s safety.</span></p>
+<p>「アルフィーナ様の曖昧なイメージだけでは国が動かないのは道理です」</p>
+<p>「そんな、私は……」</p>
+<p><span class="en">　She started to say something, then closed her mouth.</span> 俺は立ち上がった。<span class="en">ミーア looked at me as if to ask what on earth I was doing.</span> わかっている、こんなこと言うくらいなら適当に質問にだけ答えてここを出れば良かったのだ。</p>
+<p>「ただ、曖昧な予言を明確な情報にする手が無いわけではありません」</p>
+<p><span class="en">　I took a map and an illustrated book from the shelf and came back to the table.</span> アルフィーナは俺が戻ってきたことに驚き、ミーアは改めてため息を付いた。 <span class="en">Well, what else can I do?</span> <span class="en">After saying that much, I have to help.</span> 予言など専門外もいいところだが、それも一つの情報と捉えれば処理するステップには覚えありだ。</p>
+<p><span class="en">　Besides, whatever I decide to do later, I should pull out more information now.</span> 万が一予言が事実なら、あの村とプロジェクト・レンゲはおしまいだ。 <span class="en">I could take the information and handle the rest on my own.</span></p>
+<p><span class="en">　アルフィーナ&#x27;s eyes went to the map and the book, waiting to see what would begin.</span> だが、俺はそれをテーブルの脇に避けると、予言の巫女をまっすぐ見た。 <span class="en">The most important thing is the primary source.</span> この場合はアルフィーナの見た災厄のイメージ。</p>
+<p><span class="en">　…………Calling a subjective image &quot;primary information&quot; is such a contradiction that it almost makes me cry.</span></p>
+<p>「いくつか質問させていただけますか」</p>
+<p>「は、はい」</p>
+<p><span class="en">　She nodded with a serious face.</span></p>
+<p>「アルフィーナ様の見たイメージの中の花ですが、レンゲに間違いがないのでしょうか。よく似た別の花ということは？　あっ、その栞を確認するのはダメです。なるべく具体的に、イメージの中の花の色や形を言ってください」</p>
+<p>「……申し訳ありません。頭のなかに浮かんだイメージでは、そこまで細かいところはわかりません。色は間違いなく赤紫でした。花びらの形は、王都の庭園などに生えているような花の形ではなくて、えっと馬車の車輪のような……」</p>
+<p><span class="en">　She spoke while glancing at the face-down bookmark.</span> 人間のイメージなど簡単に塗り替えられてしまう。 <span class="en">Even with no intention to lie, the way a question is asked can easily produce the opposite answer.</span></p>
+<p><span class="en">　The features match.</span> この世界ではマメ科植物の有用性が知られていない。 <span class="en">From my own long search, I judge that her words are highly reliable.</span></p>
+<p><span class="en">　Now to check it from another angle.</span></p>
+<p>「では、逃げていく人々はどんな服装をしていましたか？　王都とはいささか趣の違う服装だったと思いますが」</p>
+<p><span class="en">　The princess closed her eyes in silence.</span></p>
+<p>「…………女の人は皆、腰に帯をしていました。王都では見たことがない広い帯でした。帯にはまっすぐな線の模様が入っていました。浅葱色の帯に、翡翠色の線だったと思います」</p>
+<p><span class="en">　As you might expect, women&#x27;s clothing stays in her memory better.</span> 俺はミーアを見た。 <span class="en">She nodded, though not happily.</span> ちなみにその線は模様ではない。 <span class="en">The women of the village are not rich enough to wear dyed patterns.</span> あの地域の女性は広めの帯の上に、細い紐を締めるのだ。 <span class="en">The color pairs differ between married and unmarried women.</span></p>
+<p>「他にその土地の特徴を表すような建物などは有りましたか？」</p>
+<p>「……村の近くに水車のようなものが見えたかもしれません」</p>
+<p>「…………」</p>
+<p>「…………」</p>
+<p><span class="en">　ミーア and I both made a face.</span> アルフィーナは水車など珍しいと思っていないのだろう。 <span class="en">But in a country where timber is precious, a water wheel in a small village is rare.</span> レンゲの分布と人々の服装、そして水車。 <span class="en">There is exactly one area where all three exist together, and it is a single point on the map.</span></p>
+<p><span class="en">　After all, we are the ones who put a small water wheel in that village, to collect honey from the hives more efficiently.</span> 俺は図鑑を広げた。</p>
+<p>「先ほど質問した帯ですが、実際にはこのようなものでは……」</p>
+<p>「……これです！」</p>
+<p><span class="en">　Next I opened the map and traced the plain near the mountains of the western border with my finger.</span></p>
+<p>「レンゲはこの地域に分布しています。そして、アルフィーナ様がおっしゃった帯の特徴は、その中で南部のベルゲン郡の更に南部に限られ。そこにある村は三つ……」</p>
+<p><span class="en">　I narrowed the area down, and then my finger stopped on one point.</span></p>
+<p>「…………その中の一つ、レイリアには水車が有ります。ですから…………。ア、アルフィーナ様」</p>
+<p><span class="en">　A white palm had come to rest on my hand where it held down the map.</span> 驚いてアルフィーナを見ると、涙ぐんだ目で見つめられた。</p>
+<p>「すごいです。貴方に相談してよかった。私の言葉を信じてくれるのですね」</p>
+<p><span class="en">　Her hand tightened, and thin white fingers slipped between my spread ones.</span> 緊張していたのか、体温の引いたヒンヤリとした掌が気持ちいい。 <span class="en">Then, where our skin touched, our warmth slowly mixed together.</span></p>
+<p>「コホン。アルフィーナ様は先輩のことを誤解していると思います。先輩は甘いですが、人を信じたりしません」</p>
+<p><span class="en">　What kind of broken personality is she describing?</span> 俺はただリアリストとして、自分が動かせるのは自分だけだという信念をだな。<span class="en">……Damn it.</span> <span class="en">She may be right.</span></p>
+<p>「……そうですね。私が今していることは、災厄の予言を信じたからではなく、信じるかどうかを検証するための一ステップです」</p>
+<p>「検証ですか？　いえ、でも、私の話をちゃんと聞いてくれたのは貴方が初めてだから。やはりお礼を言いたいです…………」</p>
+<p>「時間は限られていますから、次のステップに進むべきだと思います」</p>
+<p>「そ、そうでした」</p>
+<p><span class="en">　Noticing ミーア&#x27;s eyes, アルフィーナ quickly pulled her hand away.</span> 俺も反射的に手を引いた。 <span class="en">The map started to close, and ミーア reached over from beside me to hold the page down.</span></p>
+<p><span class="en">　This is hard to work in.</span> <span class="en">Let us move on quickly.</span> これで、予言から場所という情報を引き出した。 <span class="en">The next step is to use that information to narrow down the kind of disaster.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec06">
+<div class="star">＊</div>
+<div class="rubric">06</div>
+<h2>５話：後半　ファンタジーな仮説</h2>
+<hr class="rule">
+<p>「次のステップ…………。そうです、場所が特定できたのですから、避難の……」</p>
+<p>「違います」</p>
+<p>「王国を説得するにはまだ不十分です」</p>
+<p><span class="en">　The prophecy itself is not being taken seriously, so even a smaller area will probably not move anyone to act.</span> 第一、アルフィーナの見たイメージは限定的だ。 <span class="en">There is no guarantee that レイリア is the only place that will be hit.</span></p>
+<p>「災厄の種類の特定です」</p>
+<p>「で、でも、予言は災厄そのものを見ることが出来ないんです」</p>
+<p>「新しく災厄が起こる地域の情報が得られました。つまり、周囲の地理などから起こりうる災厄の候補を絞り込めます。どんな災厄が起こるのかの仮説を立てることが出来るわけです」</p>
+<p>「仮説……ですか？」</p>
+<p><span class="en">　She looked doubtful.</span> 予言に対して仮説をたてるなんて、俺だって違和感バリバリだ。</p>
+<p>「まずは起こりうる災厄の候補を挙げていきます。村人が逃げていくというのが大きなヒントです。ここから解ることは……」</p>
+<p>「豊作の畑を捨てて逃げるのですからよほどのことです。冷害や干ばつなら村人にも予兆がわかります」</p>
+<p>「そうだな、突発的な出来事だ。少なくとも村人にとってはそうだったということだ」</p>
+<p><span class="en">　For this kind of thing, ミーア&#x27;s instinct is far more reliable than mine.</span> 十歳まであそこに居たんだから。</p>
+<p>「自然災害と人為的災害の両方が考えられますが…………。まずは人的要因から検討します」</p>
+<p><span class="en">　ミーア nodded at my words, and アルフィーナ&#x27;s face clouded over.</span> 西方、正確には西北、には帝国との国境がある。 <span class="en">The empire, most of whose land is mountains, has always wanted food.</span> 過去には大きな争いが有った。 <span class="en">The long peace we have now holds because the empire&#x27;s internal problems and the profits of trade balance each other.</span></p>
+<p>「アルフィーナ様が口止めをされた理由の一つが「帝国を刺激しないため」ではないですか？」</p>
+<p>「……その通りです」</p>
+<p><span class="en">　There is no good or evil between nations, so I believe there is no country that can afford to stop watching its neighbor.</span> 帝国だって勿論こちらを警戒するべきだし、しているはずだ。 <span class="en">And for the same reason, avoiding careless provocation is only natural.</span> それ自体は間違っていない。</p>
+<p><span class="en">　If the story grows that the kingdom is watching the west, the empire raises its own guard.</span> それが王国の警戒を引き上げ。 <span class="en">In the end, a rumor walks off on its own: 「件の予言とは帝国の侵攻である」</span>. 五十年の平和など一瞬で破れかねない。</p>
+<p><span class="en">　But fearing that, and refusing to consider an invasion as a possibility, are two completely different things.</span> だから、検討はする。</p>
+<p>「しかし、可能性は高くないでしょう」</p>
+<p><span class="en">　I pointed at the map.</span> 帝国と隣接するのは西方北部。 <span class="en">And the roads that a large army could march along run east, east, toward the capital.</span> 純粋に食料そのものが目当てでも、南方より北方が目的にかなう。 <span class="en">It is also hard to believe there would be no warning at all before an imperial army reached レイリア from the border.</span> それに……。</p>
+<p>「イメージの確認です。家屋は倒れたりしていましたか？　地平線の向こうに煙などは見えませんでしたか？」</p>
+<p>「いえ、そういったイメージは浮かびませんでした。晴天で、だからこそ逃げ惑う人たちが余計に……」</p>
+<p><span class="en">　Every question I ask may force her to remember a terrible image.</span> だが大事な情報だ。 <span class="en">If it were war, there would surely be smoke somewhere.</span> 侵略なら村が燃やされる、あるいは敵に食料を与えないため燃やす。</p>
+<p>「次の可能性は大規模な反乱が起こることです」</p>
+<p><span class="en">　At my words her face went even paler.</span> 彼女の家系を考えればそれもわかるが、検討しない訳にはいかない。 <span class="en">Because of the rebellion twenty years ago, this region is still disliked by the capital.</span> 税率などもキツ目だ。 <span class="en">But a rebellion that might get every villager killed takes something extreme.</span> レイリアもその周囲も、そこまで追い詰められていない。 <span class="en">Especially in a good harvest year.</span></p>
+<p>「これも考えづらいです」</p>
+<p><span class="en">　ミーア nodded at my explanation.</span> <span class="en">She knows farming villages better than anyone here.</span> アルフィーナは安心した顔になる。</p>
+<p>「次は天災です。地震、洪水、火山の噴火……」</p>
+<p><span class="en">　There is no large river near that village, and no record of any mountain erupting.</span> もちろん噴火するかもしれないが火山の噴火など、現代日本でも十分な精度で予測など出来なかった。 <span class="en">The same goes for earthquakes.</span> 俺は地図を指差しながら、一つ一つ可能性を消していく。</p>
+<p>「疫病の流行も考えづらいでしょう……」</p>
+<p><span class="en">　With the population density of this age, abandoning a village because of disease is hard to imagine.</span> 疫病が起こった時、走って逃げるだろうか。 <span class="en">I stared at the map.</span> <span class="en">ミーア nodded, and アルフィーナ raised no objection.</span></p>
+<p>「では次の可能性は……、次は、次の……」</p>
+<p>「リカルド君？」</p>
+<p>「先輩？」</p>
+<p><span class="en">　Two girls turned their eyes on me as I fell silent.</span> 困った、可能性は大方検討してしまった。 <span class="en">What other natural disasters are left?</span> <span class="en">A tidal wave?</span> <span class="en">We do not touch the sea.</span> 隕石の落下、イメージと合わないし文字通り杞憂だ。 <span class="en">Wait.</span> <span class="en">What if there is some kind of meteor-summoning magic…</span></p>
+<p>　Or a demon lord summoned from another world. ……俺の中に魔王的何かが有ってそれが突然目覚めるとかじゃあるまいな。 <span class="en">If that kind of cheat existed, I would want it myself.</span> 検討する気にもならない。 <span class="en">If a demon lord appears, I can only pray that a hero comes with him.</span> <span class="en">And no, I refuse to be the hero.</span></p>
+<p><span class="en">　…………This is bad.</span> <span class="en">My thinking is drifting further and further into fantasy.</span> 俺は頭を振った。 <span class="en">But something caught in my mind.</span></p>
+<p>「待てよ、ここはファンタジー世界だ…………」</p>
+<p><span class="en">　Whether man-made or natural, my ideas are all based on Earth.</span></p>
+<p><span class="en">　But what I must think about is a disaster that can happen in this world.</span> ファンタジーという言葉が理解できないアルフィーナとミーアが怪訝そうに見る中、指がページをめくっていく。 <span class="en">My finger stopped near the back of the book, on a page of creatures that do not exist on Earth.</span></p>
+<p><span class="en">　My other hand reached for the map.</span> レイリア村に置いた人差し指がまっすぐ横に動いた。 <span class="en">The mountains were drawn in brown and the forest in red.</span> 普通は人間とは交わらない魔物の領域。 <span class="en">But there is an exception.</span> 赤い林から大量のモンスターが溢れる現象。</p>
+<p>「魔獣氾濫（モンスターフラッド）……」</p>
+<p><span class="en">　The word came out of my mouth, though it felt like nothing real to me.</span> 元の世界のゲームのイベントでも話しているような錯覚に襲われる。</p>
+<p>「魔獣氾濫ですか。モンスターの群れなら、少なくとも積極的に放火はしませんし。食料を奪われるのを恐れて自ら燃やすこともありません。でも……」</p>
+<p>「西方で魔獣氾濫が起こったという記録はありません」</p>
+<p><span class="en">　ミーア and アルフィーナ said it one after the other.</span> 確かに、俺だってレンゲプロジェクトに起こりうる災害の検討ぐらいした。 <span class="en">By probability, a monster flood belongs with volcanoes and floods — a candidate you cross off the list.</span></p>
+<p>「でも、考えてみたらなんでだ、なんで西方では魔獣氾濫が起こらない？」</p>
+<p><span class="en">　I opened the map showing the whole kingdom.</span> 王国の東西はどちらも山脈がある。 <span class="en">The red forest beside the mountains marks the area touched by their magic power, where monsters live.</span> 東西の地形は対称、そして東方では数年おきに魔獣氾濫が起こる。</p>
+<p><span class="en">　I turned to the pages about monsters.</span> ただでさえ貧弱な記述の中、人間が入りこむことが殆ど無いモンスター生態系の情報は乏しい。 <span class="en">And of course I cannot type &quot;causes of monster floods&quot; into a search box and be done with it.</span></p>
+<p>「検討するには、情報が少ないな。別の本は……」</p>
+<p>「先輩。魔獣氾濫に対応するのは騎士団の役割です」</p>
+<p>「軍事情報か」</p>
+<p><span class="en">　Information is valuable enough already.</span> ある情報を得ようと思えば、その情報を”知っている人”を”知っている人”を”知っている人”を探すという感覚だ。 <span class="en">So, shall I go looking for such a person?</span></p>
+<p><span class="en">　A man who takes the side of a prophecy that shakes the kingdom — I am neutral, but no one else would see it that way — tries to reach military information.</span> 死亡確定だ。</p>
+<p><span class="en">　I held my head in my hands, and ミーア shook hers.</span> だが、「あの、魔獣氾濫の知識でしたら誰よりも詳しい方がいます……」とアルフィーナが言った。 <span class="en">Her fingertip was pointing at the door that did not lead to the reading room — the one, for some reason, connected to the stacks.</span></p>
+<p>「図書館長は引退した宮廷魔術師ですね」</p>
+<p>　said ミーア. そんな前歴だったのか。 <span class="en">I had never once seen the man, so I had never given him a thought.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec07">
+<div class="star">＊</div>
+<div class="rubric">07</div>
+<h2>６話：前半　専門家の活用方法</h2>
+<hr class="rule">
+<p>「西方では魔獣氾濫は起こらぬ」</p>
+<p><span class="en">　The old man had watched アルフィーナ explain everything as hard as she could.</span> だが、俺に向き直った後のセリフはにべもなかった。 <span class="en">Where had the kind old grandfather gone, the one stroking his long white beard?</span></p>
+<p><span class="en">　Three days after our meeting in the stacks.</span> 図書館長の部屋に俺、ミーア、そしてアルフィーナが居た。 <span class="en">The master of the room sat facing us.</span> 年齢は七十くらい。 <span class="en">For a fourth son of a baron&#x27;s house, they say his career was unusually successful.</span></p>
+<p><span class="en">　Still, considering that he invented the method for predicting monster floods, this post is far too small for him.</span> そう同情していた自分を呪いたい。</p>
+<p><span class="en">　From what I looked up over these three days, I thought he was an interesting man.</span> <span class="en">Unfortunately, he does not find the commoner boy beside the princess interesting at all.</span> ちなみに、この場には平民は二人いるが、ミーアは茶菓子を勧められたりした。 <span class="en">The moment アルフィーナ introduced me as a friend, his attitude froze solid.</span> かわいい孫娘についた悪い虫ってところか？</p>
+<p><span class="en">　Please, be fair — I was just as surprised to be called a friend.</span> だが、それ以外に説明しようとすると、扇動者とか君側の奸とかのタグが付きそうだ。</p>
+<p><span class="en">　Actually, inside his head those tags are probably already attached.</span></p>
+<p><span class="en">　You can stop glaring.</span> <span class="en">There is nothing to worry about.</span> 住む世界が違うなんてわかってる。 <span class="en">To begin with, I feel no longing at all for the world she lives in.</span> 王女なんていう地雷物件じゃなければ一目惚れ必至の美少女なのは確かだけど、こうなったのは偶然の産物だ。</p>
+<p><span class="en">　If anything, I tried hard to keep my distance, and somehow this is where it led.</span></p>
+<p><span class="en">　I ran through excuses I could never say aloud, and worked on turning my sour face into a gentle one.</span> ちなみに仏の顔も三度までというが、この世界では平民が三度も貴族に”怒らされたら”高確率で本物の仏になる。</p>
+<p>「状況から考えられる、最も高い可能性が魔獣氾濫です。ですから館長のお知恵を是非とも……」</p>
+<p>「机上の空論などいくらでも考えられる。災厄が起こるとして、それが魔獣氾濫である可能性はいかほどと思っているのだ？」</p>
+<p><span class="en">　When I added those words, he rested his chin on his hands and answered as if it bored him.</span></p>
+<p>「そうですね、十に三つあれば御の字でしょうか」</p>
+<p>「えっ！？」</p>
+<p>「…………」</p>
+<p><span class="en">　アルフィーナ was the one who was shocked.</span> まあそうだろう、最も高い可能性が三分の一にも満たないのはあまりに頼りない。 <span class="en">But that is how it is.</span> 俺はまっすぐフルシーを見た。 <span class="en">The words the old man had just chosen were interesting.</span> 態度とは裏腹に、こちらの流儀の通じる相手であることを示している。</p>
+<p>「その程度の仮説を検討する理由は？」</p>
+<p>「先ほど言ったように、それでも最大の可能性であること。そして、魔獣氾濫は予防可能。つまりその背景にあるメカニズムがある程度わかっていることです。つまり、この仮説は検証可能だ」</p>
+<p>「ある程度、な」</p>
+<p>「い、言い換えれば。あなたの知恵を借りれば、仮説は百パーセントか零パーセントにすることが出来る。魔獣氾濫が起こるとわかればそれでよし。そうでなければ、次の仮説を検討できるわけです」</p>
+<p><span class="en">　I answered without looking away.</span></p>
+<p>「そのためにここに来たと。なるほどなるほど、、、、」</p>
+<p><span class="en">　At last フルシー lifted his chin.</span> 片目を釣り上げてにやりと笑う。</p>
+<p>「姫からは我が知恵を借りたいと聞いていたが。お前は儂の知恵も、判断も必要ない。知識だけよこせと。実はそう言っておるわけじゃな」</p>
+<p>「そんなことはありません。リカルドくんは……」</p>
+<p>「正解です。それが専門家の活用方法ですから」</p>
+<p>「リカルドくん！？　あのですから……」</p>
+<p><span class="en">　アルフィーナ&#x27;s face went pale with alarm.</span> フルシーは俺を睨むと黙って席を立った。 <span class="en">She half rose from her seat, trying to stop him.</span></p>
+<p>「魔脈である山脈とその周囲の赤い森はモンスターの領域じゃ。普段、魔物どもはそこから出ることはない。魔獣氾濫とは魔物が突如群れをなして平地、つまり人間の領域に襲いかかることじゃ。二百年前、東部の赤い森から起こった大規模な魔獣氾濫が旧王朝の滅亡を引き起こした、そう言われているのは歴史で習ったじゃろう」</p>
+<p><span class="en">　The old scholar stopped in front of the stone board on the wall and suddenly began a lecture.</span> 隣には王国全土を描いた地図が貼られており、東方の山脈に多くの印がつけられている。</p>
+<p>「そこまで大規模なものはその後発生していないが、今でも東方では平均して六年に一度の小規模の魔獣氾濫、十年に一度の中規模な魔獣氾濫が起こっておる。そして、その原因は……」</p>
+<p><span class="en">　He pointed at the eastern mountains.</span></p>
+<p>「魔脈の変動だ。魔物のエネルギーの半分を担う瘴気、つまり乱雑な魔力は地の底から湧いてくる。従って、山脈の構造はそのまま魔力の流れと言って良い。見ての通り、東方の山脈は複雑に入り組んでおる」</p>
+<p><span class="en">　Several red lines were drawn along the eastern range, with circles where they crossed.</span> なるほど、山を魔力が流れる川と考えればいいのか。</p>
+<p>「その結果、魔力の流れが打ち消し合って穏やかな時期と、重なって荒れる時期が出来る。魔力に依存するモンスターの生態系に影響を与えるわけじゃ。簡単にいえば魔力が増えれば魔物も増える。その後で魔力が減れば魔物は飢える。その結果が魔獣氾濫じゃ」</p>
+<p><span class="en">　Ordinary living things, humans included, are built on the energy of sunlight.</span> だが、魔物はそれだけではなく地から湧いてくる魔力も取り込むことによって生きている。 <span class="en">On Earth, too, there were ecosystems that took their energy from deep-sea vents instead of the sun.</span></p>
+<p>「一方、西方山脈は単純じゃ。東部の様な魔力の大きな変動は起こりえない。そなたらが知りたいことはこういうことじゃろう」</p>
+<p><span class="en">　So what will you do now?</span> <span class="en">— his eyes were asking me.</span> なるほど、大きさは東方に匹敵するが、西方山脈は南から北へまっすぐ延びている。 <span class="en">The explanation makes sense.</span> 災厄が西方からくる以上、それが魔獣氾濫である可能性は高くない。</p>
+<p><span class="en">　If I drop my attachment to my own idea and apply the same standard I used to rule out floods and volcanoes, that is the correct judgement.</span></p>
+<p><span class="en">　アルフィーナ turned a troubled face toward me.</span> 可能性が修正されれば仮説は撤回する。 <span class="en">I meant what I said about that.</span> <span class="en">But…</span></p>
+<p>「石板をお借りしていいですか。ミーア、あのデータを説明してくれ」</p>
+<p><span class="en">　ミーア and I had not been idle for those three days either.</span> ミーアはフルシーと入れ替わるように石板の前に立った。</p>
+<p>「王国の天候は安定しており、気温は東西でほぼ変わりません。ある程度違いがあるのは降雨量だけで、収穫量は降雨量とよく一致します。相関係数は０．８６」</p>
+<p><span class="en">　ミーア began her explanation.</span> フルシーは何が始まるのかと首をひねった。 <span class="en">This was not part of the plan, so アルフィーナ looked lost as well.</span></p>
+<p>「相関係数とは？」</p>
+<p>「簡単にいえば、二つの量が関連する強さを数値化したものです。例えば、収穫量と高級嗜好品の売れ行きの関係などですね。このような簡単な計算で示されます」</p>
+<p><span class="en">　She wrote the formula on the board.</span></p>
+<p>「面白い計算方法じゃな。理にかなっておる。じゃが、肝心の収穫量が信用できるのか？　間違ったデータをどれだけ見事に計算しても、間違いが増幅するだけじゃぞ」</p>
+<p><span class="en">　Harvest figures are closely tied to taxes.</span> <span class="en">In other words, the nobles try to hide them.</span> ちなみにこのフルシーの言葉はわりとヤバメだ。 <span class="en">Everyone knows tax evasion is everywhere, and no one is allowed to say it out loud.</span> ミーアが俺を見た。 <span class="en">She was asking whether we could go that far.</span> <span class="en">I nodded.</span></p>
+<p>「貴族領に関しては信用できません。ですが、貴族領を牽制する意味でも、役人により管理されている直轄領の収穫量はある程度信用できます。それは、収穫量の分散からも明らかです」</p>
+<p><span class="en">　ミーア pinned a sheet of paper to the board, with the harvests of noble land and crown land marked as points.</span> 貴族領の収穫は正規分布していない、何らかの要因、いや都合か、で歪んでいますと言ってるようなものだ。</p>
+<p>「貴族領の収穫量はその分散が不自然です。一方直轄領はそれよりは自然に近い。その結果はこの計算式で示され、明白に差があります。今回のデータとしては直轄領を用いています」</p>
+<p><span class="en">　This data is a bomb, because it points the way to catching noble tax evasion.</span> だが、今回はこの老人の関心を買うことを優先する。 <span class="en">I can only trust my instinct that this is a man who speaks in numbers.</span></p>
+<p>「面白いな。平均との差を表現するのに、掛けあわせてその後。いやまて、あるべき偶然という概念の数式化じゃと…………」</p>
+<p><span class="en">　Sure enough, フルシー was completely absorbed in the calculation.</span></p>
+<p>「本題に戻ります。東方と西方で分けると、西端が相関係数０．９。ほぼ降雨量と収穫量が一致するのに対して、東端は０．７まで下がります。理由は一致しない”豊作”の年が存在するからです。直近では、王国歴３２４年、３１４年、３０９年ですね。これらの年では収穫量が降雨量から予測されるよりも”高く”なっています」</p>
+<p><span class="en">　フルシー put a hand to his beard.</span></p>
+<p>「東方で魔獣氾濫が起こった年か」</p>
+<p>「アルフィーナ様の予言によれば、今年は西方は豊作とのことです。一方、東方はそうではない。つまり、災厄の予言だけでなく豊作の予言も奇妙なのです」</p>
+<p><span class="en">　Both of them were surprised at her words.</span> <span class="en">We were surprised too, when we found it.</span> 魔獣氾濫という災害と豊作に関係があるとは。 <span class="en">I keep saying primary information matters, and yet this had been my blind spot.</span></p>
+<p><span class="en">　The next part is my job.</span> <span class="en">I stood up and pointed at the map.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec08">
+<div class="star">＊</div>
+<div class="rubric">08</div>
+<h2>６話：後半　異世界生態系</h2>
+<hr class="rule">
+<p>「つまり、気候とは関係なく収穫量を左右する要因が東部にだけ存在するということです。そして、その要因は魔獣氾濫の可能性が高い」</p>
+<p><span class="en">　I said it to フルシー, who was still eyeing ミーア&#x27;s formula with obvious regret.</span></p>
+<p>「予兆が出れば騎士団によって潰される魔獣氾濫が、収穫量を増す効果があると。…………理由とはなんじゃ？」</p>
+<p><span class="en">　He turned back to me with a sour face.</span> 相手にされるだけ、マシになったな。</p>
+<p>「魔物の領域である赤い森と平地の耕作地は、間に林を挟んで繋がっています。赤い森の生態系の変化は林の生態系に、そして林の生態系の変化は平原の生態系の変化に影響するはずだ。一番可能性があるのが害獣の存在です。夜間に林から現れ、畑を荒らす大ネズミの害は馬鹿にできない。低級の魔物は普通の動物も餌にします。個体数が増加して魔力が減った状態、つまり飢餓になればなおさらだ。森から林に漏れ出した魔物、具体的には魔狼あたりかな。これが畑にとっては害獣である林の動物を減らした。俺はそう考えています。さてでは、今年西方が豊作になる理由は何でしょう」</p>
+<p>「西方で魔獣氾濫が起こる、そういいたいのだな。…………忌々しいが一理ある。予言である災厄を予言の豊作で裏付けるのは半分インチキじゃがな」</p>
+<p><span class="en">　He noticed, of course.</span></p>
+<p>「なにより、肝心な部分がまだじゃ。魔脈の魔力が変動しないかぎり、そもそも魔獣氾濫は起こらん。違うか」</p>
+<p><span class="en">　フルシー had gone straight to the weak point in the logic.</span> <span class="en">And he was right.</span> 状況証拠がいくつか揃えば、人間は簡単に因果関係を創りだす。 <span class="en">You do not need to be a novelist; people simply love a story.</span></p>
+<p><span class="en">　But no matter how many pedestrians ignore the signal, there is no car accident on a road with no cars.</span> いくらもっともらしくても根本原因がなければ起こらないものは起こらないのだ。</p>
+<p><span class="en">　Statistics works the other way around: it puts chance at the base.</span> <span class="en">But never mind that now.</span></p>
+<p>「そこで、検証可能性の問題です。西方でも魔脈の魔力量が変動している可能性はある。ちなみに、東方で魔獣氾濫の予測はどういう方法で行われているのですか」</p>
+<p>「魔脈から湧き出す魔力は乱雑じゃ。一方、資質をもった人間が使う魔具の魔力は整っている。つまり、魔具に魔力を流し、それがどの程度乱されるかを魔力に反応する紙に写しとるのじゃ。きちんと基準を決めて、しっかりと数値化したデータとしてな」</p>
+<p><span class="en">　The old man puffed out his chest.</span> やはりこの爺さんはやる。 <span class="en">The method is stricter than I had hoped.</span></p>
+<p>「では、西方でも同じ測定を行えば、魔獣氾濫が起こることを示せるのですね」</p>
+<p><span class="en">　アルフィーナ said it with excitement.</span> <span class="en">But I shook my head.</span></p>
+<p>「そうはいかないでしょう。魔力の変動と魔獣氾濫の間には時間の差があるでしょうね」</p>
+<p><span class="en">　I was remembering a graph from a school science book, showing how the numbers of predators and prey rise and fall.</span> この二つはズレて連動する。</p>
+<p>「そのとおりじゃ。魔獣氾濫の予兆とは単年の魔力量ではなく、魔力のピークとその後の減少という相対的なパターンに基づく。これは数年を要する。東方ではこれまでの四十年以上の魔力量の測定をしておる。じゃが、これまで魔獣氾濫が起こっていない西方には記録が存在しない。仮に今から西方の魔力量を測定しても、今年の魔獣氾濫は予測できぬということじゃ」</p>
+<p>「そんな……」</p>
+<p><span class="en">　アルフィーナ&#x27;s face filled with despair.</span> ここまで可能性が高まった魔獣氾濫の証拠を出せないのだ。 <span class="en">But of course, I had something in mind.</span></p>
+<p><span class="en">　This world has four seasons too, so data must pile up year by year.</span> 純粋にデータの質だけなら、西方の山脈の氷河だろうが、生命がいくらあっても足りない。 <span class="en">So what does that leave…</span></p>
+<p><span class="en">　That is right.</span> <span class="en">Around that village grow trees of a very distinctive color.</span></p>
+<p><span class="en">　There are plenty of problems, though.</span> その記録の経年劣化、そもそも間接的な測定になるのだから精度が確保できるのか。 <span class="en">Even so, there is a chance.</span></p>
+<p>「測定はどれくらいの誤差を含みますか？」</p>
+<p>「一割前後じゃな、それがどうした」</p>
+<p>「考案者である館長が直々に実験すれば？」</p>
+<p>「儂の知識だけがいるんじゃなかったのか？」</p>
+<p>「若者に失敗はつきものです」</p>
+<p><span class="en">　It is a hard line to use on classmates, but against a man who has lived twice my total years, it works fine.</span></p>
+<p>「ふん、儂が方法を確立して四十年近く。後任の者達はやり方を全く変えず測定を繰り返すだけじゃ。それで何が面白いのか。王宮はこれ以上の精度など必要ないと、研究費を打ち切りよった。じゃが、儂は改良を続けている」</p>
+<p>「つまり」</p>
+<p>「儂なら更に一桁下の精度で判断できるわい」</p>
+<p><span class="en">　He took a sheet of black paper out of a drawer.</span></p>
+<p>「ではその過去のデータを取りにいきます。戻り次第、館長にはサンプルの測定をお願いしたい」</p>
+<p>「過去を知る方法が本当に有るというのか……」</p>
+<p>「確証はありません。でも、うまく行けば過去数十年くらいの記録は取れるでしょう。あとは比較のため、東方でも同種のサンプルが必要なのですが――」</p>
+<p><span class="en">　For the sampling I need a thin metal cylinder.</span> 王都付近の普通の木をネガティブコントロール。 <span class="en">The trees of the east will be the positive control.</span> 俺は博物学の図鑑を開いた。 <span class="en">There was a picture of a tree as red as autumn leaves.</span> <span class="en">But this tree stays that color in every season.</span></p>
+<p>　赤葉樹、赤い森とその周辺の限られた範囲にしか生えない、生存に魔力を必要とする樹木なのだ。</p>
+<p>「ふん、まあ儂も一応は教育者ということになっておるからな。学生の戯言に付き合うのも一興じゃろう。……姫の頼みでもあるからな」</p>
+<p><span class="en">　As he said it, フルシー&#x27;s lips curled upward. ◇◇</span></p>
+<p><span class="en">　When the lecture was over, I left the office through the stacks.</span> ミーアは先程の計算式の話でフルシーに捕まったままだ。</p>
+<p><span class="en">　That could not be helped.</span> <span class="en">But for some reason, アルフィーナ came with me.</span></p>
+<p>「リカルドくんは本当にすごいですね」</p>
+<p><span class="en">　Even in the dim stacks, the beautiful girl seemed to shine, and she looked at me with respect.</span> あまり無邪気に期待しないで欲しい。 <span class="en">In principle I think it will work, but it is a walk on a very thin rope.</span> 失敗した時の反応を考えただけで胃が痛くなる。</p>
+<p>「リカルドくんがレイリア村まで出向くのですよね」</p>
+<p>「ええ、直接目で見たいですし。あそこはヴィンダーの商売相手で、村長とも知り合いですから」</p>
+<p>「そうなのですね……」</p>
+<p><span class="en">　アルフィーナ stopped walking.</span> そして、意を決したように顔を上げ、真っ直ぐな瞳で俺を見た。 <span class="en">I had a bad feeling.</span> <span class="en">Whenever this classmate shows her own will, my safety collapses with high probability.</span> その相関たるや、計算するまでもないくらいだ。</p>
+<p>「私も連れて行ってください」</p>
+<p>「えっ？」</p>
+<p>「リカルドくんばかりに苦労をかけさせるわけにはいきませんから」</p>
+<p>「お、お心遣いはありがたいのですが、家業のついでですのでお気になさるには及びません」</p>
+<p><span class="en">　She had said something outrageous.</span> 俺がまた別の異世界に転生したらどうする。</p>
+<p>「でも……。予言で見たのがその村か私なら確認できます。実際に見ればもっと詳細なイメージを思い出せるかもしれません。一次情報、ですか。大事なのですよね」</p>
+<p>「それは……」</p>
+<p><span class="en">　She had hit a painful spot.</span> 仮説の大前提、もっとも重要な確認事項だ。 <span class="en">And she is the only one who can do it.</span></p>
+<p>「し、しかし、ご自身が遠出は難しいとおっしゃっていたではありませんか」</p>
+<p>「簡単ではありませんけど、叔母上にお願いしてみます」</p>
+<p><span class="en">　We had reached the exit of the stacks.</span> アルフィーナは意志を込めた瞳で俺をじっと見る。 <span class="en">It was a clear statement of will from a gentle girl, and the light in her eyes stopped my feet.</span></p>
+<p><span class="en">　Then the door opened without warning.</span> 黒い影が、書庫に入ってきた。 <span class="en">I stepped in front of アルフィーナ without thinking.</span> 閲覧室からの光がシルエットを映した。 <span class="en">A woman with a ponytail.</span> <span class="en">Something long and thin caught the light in her hand.</span></p>
+<p>「なぜ貴様が姫様と一緒にいる！」</p>
+<p><span class="en">　She had drawn before she spoke.</span> そういえばさっき背後でノックの音がした気がする。 <span class="en">She must have come to fetch her mistress and been told she was in the stacks.</span> ミーアの姿は見られたのだろうか。 <span class="en">If so, &quot;we met here by chance&quot; will not work.</span></p>
+<p>「クラウ。リカルドくんは私のお願いに応えてくれただけです」</p>
+<p>「なっ。そ、そんな……。き、貴様……」</p>
+<p><span class="en">　クラウディア turned bright red.</span> 一体何を想像したのか抜身の刃がプルプルと震えている。 <span class="en">An unmarried mistress alone with a man in a closed room, and the bodyguard who walks in on it.</span> これはまずい。 <span class="en">Here, a noble who lashes out in anger can walk away without punishment.</span></p>
+<p>「落ち着いてくださいクラウディア殿。アルフィーナ様、その言い方では誤解を招くかと」</p>
+<p>「…………あっ！　ええっと、その……、そうです、リカルド君はご実家の商売で西方の土地に明るいのです。それで、予言のことについて助言してもらったのです。フルシー先生に聞いてもらえばわかりますから」</p>
+<p><span class="en">　アルフィーナ may be the only classmate worse at acting than I am, and her words came out in a mess.</span> だが、それを聞いたクラウディアは俺を押しのける。</p>
+<p>「姫さま。予言のことはもう口に出してはなりません」</p>
+<p>「クラウ。でも……。リカルド君、私は……」</p>
+<p><span class="en">　It was far too strong a tone to use with one&#x27;s mistress.</span> さっきの俺に対する警戒心よりも強い不安が宿っているようだ。 <span class="en">Even so, アルフィーナ tried to come closer to me.</span></p>
+<p>「リカルド。姫様が予言を気にしておられるなど、決して口外するな」</p>
+<p>「約束する。アルフィーナ様、今回はご一緒できて光栄でした」</p>
+<p><span class="en">　Pushed by クラウディア&#x27;s eyes, I left the stacks.</span> 二人は出てこない。 <span class="en">They must be going back through the office and out into the corridor.</span></p>
+<p><span class="en">　For some reason, I was biting my lip.</span> 話が有耶無耶になったことにほっとしていいはずだ。 <span class="en">My self-protection gauge is already at zero — no, well below it.</span></p>
+<p><span class="en">　And taking a princess out to a village is far too much to begin with.</span> アルフィーナの叔母はベルトルド大公、大貴族だ。 <span class="en">She will surely make a sensible decision.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec09">
+<div class="star">＊</div>
+<div class="rubric">09</div>
+<h2>７話　崖の縁のピクニック</h2>
+<hr class="rule">
+<p><span class="en">Seven days had passed since our unofficial, unapproved disaster meeting.</span> 空は晴天。 <span class="en">A pleasant wind touched my skin.</span> 眼前には揺れる麦の青葉が見える。 <span class="en">In front of us lay the perfectly ordinary scene of a farming village, in the season where spring turns into summer.</span></p>
+<p><span class="en">　It was the kind of view an impressionist painter would want to paint, so peaceful that it made me want to stretch.</span> だが、俺の心境は違う。</p>
+<p>「これがパンの畑なのですね」</p>
+<p><span class="en">　said the trainee priestess standing beside me.</span> 白皙の顔には汗ひとつない。 <span class="en">Her blue-silver hair showed a little from under the hood.</span> 明らかに着古した濃紺のワンピースは野暮ったい。 <span class="en">But whatever is inside those clothes betrays her small effort to hide.</span> ああなるほど、持てる者というのは、それを隠した時にも別の魅力を出すんだ。</p>
+<p><span class="en">　If anything, she now feels closer and easier to reach, which creates a pull that makes you want to put out a hand…ファンタジーＲＰＧで村娘が可愛く見えるあれだろうか。</span></p>
+<p>「その発言はかなりまずいのでどうかお控えを、アルフィーナ様」</p>
+<p><span class="en">　I warned her in a low voice.</span> <span class="en">France may have produced the impressionists, but this girl looks more likely to start the revolution.</span></p>
+<p>「そうなのですか？　それよりリカルド君こそ。私のことはフィーナと呼んでくれないと」</p>
+<p>「偽名としても微妙すぎて…………。わかりましたフ、フィーナ」</p>
+<p>「はい、フィーナです」</p>
+<p><span class="en">　&quot;アル&quot;フィーナ smiled brightly.</span> やたらと浮かれ気味なのはトラベラーズハイだろか。 <span class="en">She told me in the shabby carriage from ベルトルド that in the fine carriage from the capital, she had not even been allowed to open the window.</span></p>
+<p>「と、とにかく。最初に村長に因果を含め……じゃなくて。挨拶しますので」</p>
+<p><span class="en">　Four days ago, I set out for レイリア with a merchant caravan, as planned.</span> ベルトルドで一泊したのも予定通りだ。 <span class="en">I met ジェイコブ and his four companions, ヴィンダー&#x27;s contract adventurers, exactly on schedule.</span> 冒険者は流石にプロであり、予定通りの行動は俺を安心させる。</p>
+<p><span class="en">　Everything went to plan until the next morning, when a messenger from the grand duchess arrived at the inn.</span></p>
+<p><span class="en">　Power does not care about a small merchant&#x27;s plans — it does not even know such plans exist.</span> 俺の旅は、ベルトルド大聖堂の見習い神官を一人伴うことになった。 <span class="en">The official reason is a charming one: visiting the orphans of the village.</span></p>
+<p><span class="en">　The grand duchess proposed that アルフィーナ take a rest, and the king, who wants his adopted daughter far away while the prophecy is fresh, apparently approved.</span> クラウディアはどうしたのかというと、親に呼び出されているという。 <span class="en">Useless at the one moment she was needed.</span></p>
+<p><span class="en">　I want to curse my own decision to leave ミーア in the capital for another investigation.</span></p>
+<p><span class="en">　I was going to say the carriage was full of cargo, so please arrange your own.</span> 何を勘違いしたのかジェイコブが屋根の上に荷物を移し、見習い神官を俺の隣に座らせた。 <span class="en">I nearly said, &quot;If anything goes wrong, you lose your job, and at worst you get dragged in and executed,&quot; but I managed to swallow it.</span></p>
+<p><span class="en">　So there I was, two hours in a not-very-wide carriage with the most beautiful girl in the academy.</span> 目的地に付くまでに、回復しかけていた俺の保身はぼろぼろだ。</p>
+<p>「リカルド兄ちゃん。久しぶりだな」</p>
+<p>「あーー、ミーアお姉ちゃんじゃない女を連れてる」</p>
+<p><span class="en">　As we crossed the square toward the village chief&#x27;s house, the children gathered and began committing innocent treason.</span> 待てお前ら、不用意な発言と行動は死につながるんだぞ。 <span class="en">At least do not take me down with you.</span></p>
+<p><span class="en">　I pushed past the noisy children and went into the chief&#x27;s house.</span></p>
+<p>「これはリカルドさ、、、コホン。リカルドじゃないか」</p>
+<p>「村長。お久しぶりです。水車の調子はどうですか？」</p>
+<p><span class="en">　I answered the slim middle-aged man with my widest smile.</span> 外からの出入りなど殆ど無い村だ。 <span class="en">The fact that he even tried to act is worth something.</span></p>
+<p>「ええ、とても良い調子で動いていますとも」</p>
+<p>「それは良かった。ただ、あまり負担をかけると寿命が縮むので、たまには休ませてください」</p>
+<p>「そうですな。ではそうしましょう」</p>
+<p><span class="en">　I signalled him to keep the beekeeping secret, introduced フィーナ as a trainee priestess, and told him we would look around the village and he should not mind us.</span> アルフィーナはなにか言いたそうな顔をしていた。 <span class="en">She probably wanted to warn them; her face had clouded when she saw the sash the chief&#x27;s daughter wore.</span></p>
+<p><span class="en">　Of course, I also suggested they increase their food stores.</span> それを含めた避難の相談はジェイコブたちに任せてある。 <span class="en">We can only share the smallest amount of information, so it is preparation for preparation.</span></p>
+<p><span class="en">　First of all, I had to check whether this village really matched her image.</span></p>
+<p><span class="en">　I led her to the border between the wheat fields and the pasture.</span> 青々とした麦畑。 <span class="en">Cattle grazing.</span> <span class="en">A water wheel turning slowly.</span> 周囲の光景は変わらず平和そのものだ。 <span class="en">The distant forest, red-leafed even in early summer, is eerie, but to the villagers it has been there since the day they were born.</span></p>
+<p><span class="en">　Are the monsters gathering in there right now, ready to spill out?</span></p>
+<p><span class="en">　アルフィーナ&#x27;s feet stopped dead.</span> 綺麗な顔が一瞬で引き締まった。 <span class="en">The smile she had given the flowers on the path a moment ago might never have existed.</span> 巫女姫は目をつぶって、キュッと両手を握りしめる。</p>
+<p>「間違いありません。私の見た予言はこの村です」</p>
+<p><span class="en">　She opened her eyes and said it clearly.</span></p>
+<p><span class="en">　I had to pull myself together too.</span> 最低でも王国が動かなくとも、村の人間をベルトルドの城壁内まで逃せるだけの準備が必要だ。</p>
+<p><span class="en">　But first, the goal is to make sure they never have to abandon the village at all.</span></p>
+<p>「サンプルを取りにいきます」</p>
+<p>「サンプルというのは赤い葉の木なのですよね。もしかして森に入るのですか」</p>
+<p>「いえ、この村のように赤い森に近い土地には、ポツポツと……、ほら」</p>
+<p><span class="en">　She looked uneasily at the red forest, and I pointed at the red trees around the village.</span> 深く根をはることで、魔脈からある程度離れたところでも生きていけるのだろう。 <span class="en">Timber is precious in this world, but people find these trees creepy and do not cut them, so they grow large.</span> 村長が物心ついたときにはすでに赤い葉をつけていたらしいので樹齢は十分。</p>
+<p><span class="en">　In this village, fuel comes from peat.</span></p>
+<p><span class="en">　Now, the two biggest ones stand to the west and to the east.</span> 西にはレンゲ畑がある。 <span class="en">I should keep the risk of exposing the beekeeping small.</span> そもそも、アルフィーナを連れてくる事自体が予定外なんだ。</p>
+<p><span class="en">　I glanced at her.</span> <span class="en">Her face was serious now, completely different from when we arrived.</span> 当然だ、遊びに来たんじゃないんだから。</p>
+<p>「リカルド君？」</p>
+<p>「あ、はい……」</p>
+<p><span class="en">　Bringing her was worth it.</span> <span class="en">Confirming the primary information matters a great deal.</span> もし予言が本当なら、彼女は村を救おうとした功労者で…………。</p>
+<p><span class="en">　No — I already granted her wish to see the renge flowers.</span> そもそも、栞を贈った時点で義理は果たしたはずだ。</p>
+<p>「あの丘の木にします」</p>
+<p><span class="en">　On a rise too low to be called a hill stood a red tree.</span> ちなみに、丘の向こうには小さくくぼんだ土地があり、中心を小川が流れている。 <span class="en">Perhaps it was a lake long ago.</span></p>
+<p><span class="en">　When I reached the trunk, I beckoned to アルフィーナ, who had followed me in silence.</span></p>
+<p>「リカルド君どうし…………。わぁ！」</p>
+<p><span class="en">　フィーナ pressed her hands together as if praying and looked down at the view below.</span> 花で作られた赤い絨毯。 <span class="en">A field of renge flowers.</span> 俺にとっては金の卵ならぬ銅の蜜を生む宝の山だ。</p>
+<p><span class="en">　But for someone who has never left a city of stone, it must be a rare sight.</span> まあ、前世日本人的には王都の西洋的な庭園よりも心にしみるものはあるか。</p>
+<p><span class="en">　Her profile had the smile of a girl her age again, and I forced my eyes away.</span> 彼女は役割を果たしたのだから、後は観光しててもらおう。</p>
+<p>「……さて、力仕事だ」</p>
+<p><span class="en">　I muttered that as I took the tool out of a leather bag.</span> 横から見たらＴ字型の金属棒だ。 <span class="en">The vertical bar is hollow, with grooves cut around the outside of the tip.</span> 横棒には滑り止めの布を巻きつけてある。</p>
+<p><span class="en">　I faced the great tree and pressed the tube against the trunk like a man holding a machine gun.</span> 中心と思われる方に角度を合わせる。 <span class="en">The sharp tip bit slightly into the hard wood.</span> Ｔの横棒を両手で掴むと、腕をひねった。</p>
+<p><span class="en">　With a dry creaking sound, the tube sank slowly, slowly into the trunk.</span> 水平に水平にと心のなかで念じる。 <span class="en">I studied economics; I have never taken a tree core in my life.</span></p>
+<p><span class="en">　My old professor liked to say that economics is the physics of one person, the chemistry between people, and the biology of the living thing called society.</span> おかげで、ゼミでは色々な分野の古典と呼ばれる論文を読まされた。</p>
+<p><span class="en">　The muscles in my upper arms began to cramp.</span> <span class="en">As I went to wipe the sweat from my forehead, a white hand came over mine from behind.</span></p>
+<p>「ごめんなさい。私もお手伝いしないと」</p>
+<p><span class="en">　She said it almost in my ear, and a thin arm that has probably never lifted anything heavier than a fork touched me.</span> 別の汗が背中を流れる。 <span class="en">I was truly grateful that priestly robes reach all the way to the back of the hand.</span> 厚そうな布地、暑くないのかと思ってたけど、もし薄着だったら俺の汗の方が酷いことになっただろう。</p>
+<p><span class="en">　I turned my arms without thinking, trying not to notice the sweet-smelling helper behind me.</span> 何度か背後の柔らかいものに肘の先がかすった気がするが、気のせいに違いない。 <span class="en">If it was not my imagination, several things become far too dangerous.</span></p>
+<p>「……こ、ここまでで十分だと思います」</p>
+<p><span class="en">　The white line I had drawn as a guide had disappeared into the trunk.</span> 物理的にはあまり意味がなかった助力も、精神的には結構な効果があったのだろう。</p>
+<p>「あの、今更ですが。これは何をしていたのでしょうか？」</p>
+<p>「見ていてください」</p>
+<p><span class="en">　I pushed a thin iron rod into the tube, and a sample about as thick as a straw came out.</span> 綺麗な横縞が並ぶ。 <span class="en">It seems I managed to cut almost horizontally toward the center.</span></p>
+<p>「木の模様がついていますね。なにか特別なものなのでしょうか？」</p>
+<p>　アルフィーナ looked blank. 年輪の存在くらいは知っているだろう。 <span class="en">Even in a culture of stone, timber is not unknown.</span> 東西の山脈ではない孤立した山の周囲には赤くない森も存在するのだから。</p>
+<p>「樹木は冬は成長を止めて、夏は成長するんです。その成長の差の跡がこの縞模様です。つまり、濃くて細い部分が冬、白くて広い部分が春から夏。ひいふうみい…………。今年の分は不完全ですが、ざっと五十年分の記録を、一年単位で判別できるわけです」</p>
+<p><span class="en">　In my old world, the width of the rings or the carbon isotopes would give you climate data.</span> こっちでは魔力の記録が残るという予測だ。</p>
+<p>「そんな方法が…………。すごい、これならきっと」</p>
+<p>「褒めるのは上手く行ってからです。データの精度とか、標準化とか。クリアすべき壁がいくらでもあるので」</p>
+<p>「でもリカルド君ならきっと大丈夫です。本当にすごいです。本当に」</p>
+<p>「私はフィーナに頼まれて知ってる知識を提供しただけですから」</p>
+<p><span class="en">　She looked at me with pure admiration.</span> <span class="en">It is far too generous.</span> 元となる方法を考えたのは俺じゃない。 <span class="en">Besides, protecting this village is in my own interest.</span></p>
+<p><span class="en">　And she is the one who found the courage to speak the prophecy when it brought her nothing but risk.</span> 俺は、リスクをとったことは正当に評価するんだ。</p>
+<p>「でも、耳を傾けてくれたのはリカルド君だけです」</p>
+<p>「いや、それも、ほら互いの勘違いみたいな感じだったじゃないですか」</p>
+<p>「はい、そうでしたね……」</p>
+<p><span class="en">　She closed her hands tightly in front of her chest and gazed at the view beyond the hill.</span> 今度は何だ。</p>
+<p>「それに、今日のことは私一生忘れません」</p>
+<p>「えっ！？」</p>
+<p>「この光景です。リカルド君。赤い木はもっと近くにも生えていました」</p>
+<p><span class="en">　アルフィーナ was holding my hand.</span> その笑顔はまるで高価な宝石でも贈られたようだ。 <span class="en">This girl is worryingly cheap to please.</span> 女騎士気取りをあんなにしたのは案外この気質じゃないのか。</p>
+<p><span class="en">　And the grand duchess of ベルトルド really ought to be more careful.</span> <span class="en">A sweet flower draws insects easily.</span></p>
+<p>「ま、まあ、なんにせよです。やるべきことは終わったわけですから。あとは館長に期待しましょう」</p>
+<p><span class="en">　I said it to アルフィーナ, who would not let go of my hand.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec10">
+<div class="star">＊</div>
+<div class="rubric">10</div>
+<h2>８話：前半　予言から予測に</h2>
+<hr class="rule">
+<p class="first"><span class="en">The day after I returned from レイリア.</span> 学生達の好奇と嘲笑の視線を背景に、俺は中庭で一仕事終えた。 <span class="en">From there I went straight to the room next to the library office.</span> もともとの館長室だったスペースを二つに分けて、一つが個人実験室になっているというのだ。</p>
+<p><span class="en">　Inside, thick curtains covered the window and the walls were painted black — a material that blocks magic, apparently.</span> 壁と同じ色の分厚い実験机。 <span class="en">Attached to it was a shelf lined with bottles of unknown things.</span> 壁には館長室と同じ石板がはまっている。</p>
+<p><span class="en">　Far more money has been spent here than in his rather plain office.</span> <span class="en">And this room is clearly larger.</span> 主の心の重心が、趣味と仕事のどちらに偏っているかが判る仕様だ。 <span class="en">No wonder I had never seen it, even though I rank in the top five library users.</span></p>
+<p><span class="en">　Are magic tools and the crystals that power them not supposed to be under state control?</span></p>
+<p><span class="en">　Say what you like about him — he really was a court magician.</span></p>
+<p><span class="en">　Across the workbench stood an old man in a black apron and black gloves.</span> 図書館長から学者に変わっている。 <span class="en">I stood facing him, with ミーア on my right and アルフィーナ on my left.</span></p>
+<p>「では、実験を始める」</p>
+<p><span class="en">　フルシー raised both hands like a surgeon before an operation and declared it.</span> 実験机には黒布に包まれた細長い物体と、俺が取ってきた中庭の木。 <span class="en">And a sheet of black paper.</span></p>
+<p><span class="en">　It looked like a student experiment led by an old professor, except that none of us can take part.</span> 俺の資質はほぼゼロ。<span class="en">ミーア is probably no different.</span></p>
+<p><span class="en">　Magic can only be used by someone with the talent who has mastered one particular tool.</span> アルフィーナは予言の水晶に特化。 <span class="en">The knights specialize in their own weapons and armor.</span></p>
+<p>「まずはこの”木”じゃな」</p>
+<p><span class="en">　フルシー picked up the wooden rod — the negative control.</span> 樹木そのものに魔力に反応する要素がないことを確認するためだ。 <span class="en">Ideally it would be the same species without magic in it, but that is impossible.</span></p>
+<p><span class="en">　He pressed the rod onto the black paper, took off his right glove, and extended two fingers.</span> 頼りなく小刻に震える枯れ木のような指。 <span class="en">On the middle finger was a ring with a small stone like an amethyst, and the metal was carved with a pattern like a maze.</span></p>
+<p><span class="en">　フルシー moved his mouth quietly, and white light spilled from the ring.</span> リングの模様がそれに合わせて光り、宝石に幾つかの模様が浮かび上がる。 <span class="en">At last the light covered his hand, and the trembling stopped completely.</span></p>
+<p><span class="en">　The magician pressed the sample onto the paper and moved his two fingers slowly from right to left, from the center of the trunk toward the bark.</span></p>
+<p><span class="en">　When the rod was lifted away, the black paper had turned white where it had been.</span> 全く均一。 <span class="en">It looked as if someone had painted it with white ink, and I let out a breath of relief.</span> 植物自体におかしな反応をされては、測定の難易度が跳ね上がる。</p>
+<p>「素直に通すようじゃな。次は標準の作成じゃ」</p>
+<p><span class="en">　He placed ten small square tiles on the paper.</span> 指輪が光り、真っ白からほぼ黒までの四角が現れた。</p>
+<p><span class="en">　The preparations were done.</span> <span class="en">Next came the positive control.</span></p>
+<p>「これが”わざわざ”東方から運ばせたサンプルじゃ」</p>
+<p><span class="en">　He untied the black cloth and took out a core from a red-leafed tree.</span> フルシーの伝で東方の測定所近くで採取されたらしい。</p>
+<p><span class="en">　His fingers moved from the right edge and off the left.</span> <span class="en">Then he looked at me.</span> 思わず固唾を呑んだ。 <span class="en">If it showed nothing at all, the whole idea of reading magic changes from tree rings would be dead.</span></p>
+<p><span class="en">　The sample was lifted slowly, and フルシー&#x27;s eyes flashed.</span></p>
+<p>「なるほど、こうなるか……。面白いぞ」</p>
+<p><span class="en">　A pattern like waves had appeared on the paper, and I let out a long breath.</span> 抜けが薄い部分、つまり黒い部分は乱雑な魔力である瘴気の量が多い。 <span class="en">The brightness is in inverse proportion to the amount of miasma — the principle is the same as an X-ray.</span> 魔樹が魔力の記録を残すメカニズムは解らないが、年によって濃淡が有ることは明らかだ。</p>
+<p><span class="en">　Toward the middle of the trunk, though — that is, in the older years — the light and dark bands became vague.</span></p>
+<p>「あまり古い年代は無理みたいですね。十年分くらいか……」</p>
+<p>「待て待て、もう少し感度を調節してみよう」</p>
+<p><span class="en">　Now fully absorbed, フルシー adjusted the ring, and a second pattern appeared beside the first, with a little more contrast.</span></p>
+<p>「ほれ、ましになった。それでも、三十年より以前のデーターは捨てるのが無難じゃろうな」</p>
+<p><span class="en">　Impressive.</span> <span class="en">His accuracy is said to be an order of magnitude better than the observation stations.</span> 直接測定だから、それで足りるんだろうが、赤葉樹相手ならアウトだった。</p>
+<p>「よし、これで数値化する。ミーア君は記録をとってくれ」</p>
+<p><span class="en">　ミーア took out a ruler and a pen and marked the paper against the rings of the core.</span> フルシーは拡大鏡を手に、年輪から年ごとの濃さを数値化していく。 <span class="en">They worked in perfect rhythm. …Well, she is my secretary.</span></p>
+<p><span class="en">　Beside me, アルフィーナ watched it all with a tense face.</span></p>
+<p><span class="en">　In the end, twenty-eight years of data lay on the paper.</span> フルシーは懐から巻物を出した。 <span class="en">He compared the numbers against it, keeping it where we could not see, and then tossed the scroll onto the desk.</span></p>
+<p>「あの先生、これ機密書類の印が付いてますが……」</p>
+<p><span class="en">　アルフィーナ pointed it out politely.</span> <span class="en">Of course — it must be a military secret.</span></p>
+<p>「機密の意味が無いわい。同じものが目の前に在りおる」</p>
+<p><span class="en">　I compared the two sets of numbers.</span> 二十八年前の観測値は３０、年輪の測定値は１４。 <span class="en">Naturally the raw numbers do not match, so each set has to be scaled against its own average.</span> 二倍強すれば対応しそうだ。</p>
+<p><span class="en">　Three years ago it was 24 against 12, exactly double, so there is some decay over time.</span> <span class="en">But this much is within tolerance.</span></p>
+<p><span class="en">　Without being asked, ミーア began converting everything into differences from the average.</span> 本来なら標準偏差や検定もすべきだろうが、サンプルの量的に意味が薄い。</p>
+<p>「まったく、こんな方法があるとはな。お主は一体何者じゃ」</p>
+<p>「運が良かったんですよ。まさかここまで綺麗なデータが取れるとは思いませんでした」</p>
+<p><span class="en">　A moment ago he had been playing with a new toy, but his eyes had turned sharp.</span> 俺は頬を引きつらせながら答えた。 <span class="en">I can hardly tell him it is knowledge from another world.</span> <span class="en">That would sound even less believable than a prophecy.</span></p>
+<p>「…………過去二十八年で、東方で起こった魔獣氾濫は中規模一回、小規模四回じゃ。これを見れば分かるように、魔獣氾濫の五年前から魔脈が活発化。三年前にピークを迎えて、二年間の減少の後に魔獣氾濫が発生する。対応する年輪のパターンはここじゃ」</p>
+<p><span class="en">　On the black paper, three marks&#x27; worth of band grew steadily darker.</span></p>
+<p>「すごいですね。リカルド君の言ったとおりになっています」</p>
+<p><span class="en">　アルフィーナ gripped my hand.</span> <span class="en">Her clear eyes were a little wet.</span> このお姫様は感情が顕になると、ちょっと反応が無邪気になるんだよな。</p>
+<p>「んっ、ん」</p>
+<p><span class="en">　ミーア cleared her throat, and アルフィーナ quickly let go.</span></p>
+<p>「……明確に予測可能なパターンを見出した館長の功績ですよ」</p>
+<p><span class="en">　As the magic rises, the monsters increase; their peak comes a little after the peak of the magic; and when the magic falls, the swollen population breaks loose.</span> <span class="en">That is roughly the picture.</span></p>
+<p>「ふん。……さて、年輪から得られた、四年前までの数値がこれじゃ。大きな変動はない。今日の実験だけで、今年魔獣氾濫は起こらないと予測できるということじゃな。もちろん、東方の場合、観測所のデータの裏書にすぎん。じゃが……」</p>
+<p><span class="en">　フルシー&#x27;s eyes fixed on the package in my hand.</span> そう、ここには未知の情報がある。 <span class="en">And it means far more than an academic record of magic levels in the west.</span></p>
+<p><span class="en">　I looked at アルフィーナ, and she nodded.</span> <span class="en">I handed him the sample the two of us had cut.</span></p>
+<p><span class="en">　Now for the real test.</span> <span class="en">A tense air filled the room.</span> フルシーは樹皮とは反対側、古い年代から棒を持ち上げる。 <span class="en">The white trace crept across the paper, stretching toward us as slowly as if it meant to tease.</span> だが、先ほどのサンプルならパターンが見え始める部分になっても紙は白いままだ。</p>
+<p><span class="en">　At last the bark edge left the paper.</span> <span class="en">I stared at it, but there was nothing there except white.</span></p>
+<p><span class="en">　So the magic never changed?</span> 予言が告げる災厄は魔獣氾濫ではないのか。 <span class="en">Do we have to go back and test the next hypothesis?</span> いやそもそも予言は…………。 <span class="en">My thoughts spun round and round.</span></p>
+<p>「おかしいのう。全く変動が無いというのも不自然じゃが。そなたちゃんと…………。しまった！　感度を戻してなかった」</p>
+<p>「おい、じい……頼みますよ館長」</p>
+<p><span class="en">　He scratched his head and turned the ring.</span> 年輪の上をもう一度指が動く。 <span class="en">The sample left the paper.</span> <span class="en">Still white… no, there was the faintest shadow.</span></p>
+<p>　白い線の中、末端近くに一箇所だけの薄いもやがあるように見える。</p>
+<p>「もう少し調整するぞ」</p>
+<p><span class="en">　Third time lucky.</span> フルシーは「ふう」と息を吐いて棒を置いた。 <span class="en">What appeared was the result we had wanted, and the result we should never have wanted.</span></p>
+<p><span class="en">　The center of the trunk was pure white; the middle, on closer look, waved faintly.</span> そして樹皮のすぐ側に一つだけある黒い帯。</p>
+<p><span class="en">　Placed beside the eastern sample, it was unmistakable.</span> 西方では確かに魔力は安定している。 <span class="en">But only up until five years ago.</span> 今から四年前に僅かに陰りが現れ、三年前、二年前とそれが濃くなっていく。 <span class="en">Then, one year ago, it returned to white.</span> 今年のデータは不完全だが、少なくとも影は見えない。</p>
+<p>「この感度で標準をつくり直すが。数値化するまでもないじゃろう。予兆が現れておる。おそらくは今年……」</p>
+<p>「西方で大いなる災い、魔獣氾濫が発生する、ということですね」</p>
+<p><span class="en">　There was no wind, and yet the lamplight wavered.</span></p>
+<p><span class="en">　At our conclusion, the two girls fell silent.</span> 一人は、生まれ故郷を襲う災害。 <span class="en">The other had just been shown proof that the terrible scene she saw would come true.</span></p>
+<p><span class="en">　From a mysterious, vague image to a prediction backed by numbers.</span> それは予言が情報へと姿を変えた瞬間だった。</p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec11">
+<div class="star">＊</div>
+<div class="rubric">11</div>
+<h2>８話：後半　実験から政治へ</h2>
+<hr class="rule">
+<p class="first"><span class="en">Everyone fell silent.</span> 机を囲んで、実験室に重い沈黙が生じた。 <span class="en">The experiment had succeeded — no, the silence came precisely because it had succeeded.</span> 曖昧な予言ではなく、確固たるデータとして現れた王国西部の危機。</p>
+<p><span class="en">　The peaceful village I had seen only days ago came back to me.</span> 今すぐにでも村に戻り、避難の準備を……。</p>
+<p>「そ、そうです、早くこの事実を公表して、村の皆さんに避難を……」</p>
+<p><span class="en">　アルフィーナ stood up, her face suddenly awake.</span> 彼女の必死な表情で頭が冷えた。 <span class="en">Her desperate expression cooled my head.</span> <span class="en">I steadied my breathing and spoke.</span></p>
+<p>「落ち着いてくださいアルフィーナ様」</p>
+<p>「リカルド君！？」</p>
+<p><span class="en">　<em>You are the one who predicted it</em> — that was written all over her stunned face.</span> 確かに今、俺達の仮説である「西方で魔獣氾濫の発生」が実験で検証された。</p>
+<p><span class="en">　We had turned a disaster only she could see into numbers anyone can see.</span> 正直ここまで綺麗に結果が出るとは思わなかった。 <span class="en">It went that well.</span> <span class="en">Up to here.</span></p>
+<p><span class="en">　But from here on, nothing will be simple.</span></p>
+<p><span class="en">　Nature is honest — at least within the range where it speaks honestly at all.</span> モンスターは魔力のパターンに素直に反応するだろう。 <span class="en">Even if no monster flood has ever happened there before.</span> だが、同じ物を見て人間はどうする。</p>
+<p>「東方では予兆が確定した段階で騎士団が派遣される、ですよね」</p>
+<p>「そうじゃ、群れの統制には中核となる上位個体が必要じゃ。これを排除できれば、魔獣は共食いを始める。氾濫する前に群れを崩壊させることができる」</p>
+<p>「騎士団の派遣となれば、閣議の結果、勅命という形を取るのでしょうね」</p>
+<p>　フルシー nodded. <span class="en">In other words, it goes all the way to the highest decision in the country.</span></p>
+<p>「東方で観測によりこのパターンが出れば、何の問題もなく騎士団の派遣が決まるじゃろう。だがな。今では当たり前になった騎士団の派遣も、最初に決まるまでに二度の被害が必要だったのじゃ」</p>
+<p><span class="en">　He said it in a flat voice, with no feeling showing at all.</span> だが、老人の目は孫娘のような少女を見た。</p>
+<p>「前例のない場所で。前例のない方法による予測。東方と同じように評価されるわけがない、ですね」</p>
+<p>「そんな、こんなにはっきりしているのですよ。前例がなくても……」</p>
+<p><span class="en">　The girl who would soon feel exactly what he had felt looked at the old man.</span> 魔獣氾濫の権威、フルシーのお墨付きは重要だ。 <span class="en">Without it, this is a student&#x27;s private project.</span> <span class="en">But—</span></p>
+<p>「この結論が間違いないと儂が保証することは約束しよう。たとえそれが誰相手であってもな。だが、王宮にとって儂は隠居した老人にすぎん。朝議に上げるとしたら、正式な手続きにかかる時間も問題じゃ。早くて数ヶ月は掛かる。その間に一度も却下されなかったとしてもじゃ。ついでに言えば、現在の観測の責任者とは折り合いが悪い。儂の考えた方法を一歩も発展させることも出来んくせにな」</p>
+<p><span class="en">　It is nowhere near enough to move the center of the state in time.</span></p>
+<p><span class="en">　Suppose, on modern Earth, where science is trusted, someone discovered a revolutionary way to predict earthquakes.</span> 学会は大騒ぎになる、専門家が発見者を称賛する。 <span class="en">But how long before it passes through the lawmakers and actually moves the government?</span> 数ヶ月というのも、楽観的すぎる予想だろう。</p>
+<p><span class="en">　I looked around at the people gathered here.</span> 予言の解析までは理想的なチームだった。 <span class="en">For analyzing the prophecy, this was the ideal team.</span> <span class="en">For carrying out a countermeasure, it is the worst possible one.</span></p>
+<p>「わ、私がもう一度陛下に進言します」</p>
+<p>「逆効果です」</p>
+<p><span class="en">　ミーア said it flatly, and unfortunately I agree.</span> アルフィーナは予言のせいで疎まれているのだ。</p>
+<p><span class="en">　And personally speaking, she has already taken enough risk and done enough.</span></p>
+<p>「これはもう。予言ではないのです。予測です。ここにいる全員で成し遂げた予測です」</p>
+<p>「リカルド君？　それは勿論です。だから、私がなんとしても……」</p>
+<p><span class="en">　She looked at me, confused.</span></p>
+<p>「小狡い策士の先輩がそんな言い方をすると、誤解されますよ」</p>
+<p>「そうじゃな。小僧はこう言っておるのよ。もう姫一人で背負わなくていい、とな」</p>
+<p>「リカルド君……」</p>
+<p>「ち、ちがいます。予測である以上、予言とは違う扱いが可能だということです。よほど吟味した相手に、よっぽど上手く伝えればですが、共有できる可能性があるって話。そういう話です」</p>
+<p><span class="en">　I waved both hands as I argued.</span> お姫様を守ろうとするナイトなんて、そんな役目を期待されたら保身がいくつ有っても足りない。</p>
+<p>「は、発言力のある人間が要ります。できれば、西方に領地を持つ大貴族。アルフィーナ様の言葉に最低限耳を傾ける。論理的な話が通じる。前例を覆すことを恐れない」</p>
+<p><span class="en">　I listed the conditions, and my face began to stiffen.</span> こういう場合、理想的な相手など期待しないから、上がった条件の中で優先順位を付けて候補者を絞る。 <span class="en">But this time there are too many minimum requirements, and each one is set too high.</span> この国のエスタブリッシュメントに不足している要素ばかりだ。</p>
+<p><span class="en">　フルシー tilted his head.</span> <span class="en">ミーア said nothing.</span> 俺の人脈などこの二人以下だ。</p>
+<p><span class="en">　At the critical moment, the bill for all my past years came due.</span> そもそも、俺がここに入った目的の一つは、数字が通じるお偉いさんを探すためだ。 <span class="en">And the joke is that I did not even notice フルシー himself.</span></p>
+<p><span class="en">　Silence spread through the room again, this time a heavy, stagnant one.</span></p>
+<p>「あの、この話が終わった後に渡そうと思ってたのですが」</p>
+<p><span class="en">　Then アルフィーナ suddenly put a sealed letter on the table.</span> 蜜蝋で封された正式な書状だ。 <span class="en">The name on it was… mine?</span></p>
+<p>「叔母上がその……、前のことで聞きたいことがあるからと」</p>
+<p>「この前のというと、アルフィーナ様が無理やり先輩の旅行についていった時のことでしょうか」</p>
+<p>「旅行じゃない仕事だ。そして、あくまでベルトルドからレイリアまでの案内をしただけだ。道中はジェイコブも一緒だったし……」</p>
+<p><span class="en">　I hurriedly broke the seal.</span> 思ったよりも平易な文章に目を通していく。 <span class="en">The wording was plain enough, but only the wording; in content it was a summons dressed up as an invitation.</span></p>
+<p>「日付が明日になってるんだけど。大貴族って時間に余裕を持つのが普通じゃないのか。慌てて呼びつけると、焦ってるみたいで格式に関わる、みたいな」</p>
+<p><span class="en">　I could not honestly say I never wanted to go, so I looked at アルフィーナ as if begging for rescue.</span></p>
+<p>「叔母上はあまりそういうことは気にしないのです」</p>
+<p><span class="en">　She smiled brightly.</span></p>
+<p>「だ、だけど、こっちだって予定が、ほら魔獣氾濫の対処……」</p>
+<p><span class="en">　I looked to ミーア for help.</span></p>
+<p>「…………」</p>
+<p>「先程の条件。ベルトルド大公ならうってつけじゃな」</p>
+<p>　said フルシー. 考えてみれば今回の目的にとっては理想的だ。 <span class="en">She fits every single condition.</span> <span class="en">This invitation is a gift walking in through the door.</span> だが、こちらがまな板の上の鯉の場合は？</p>
+<p><span class="en">　Then it is simply a fish being eaten.</span></p>
+<p><span class="en">　They want me to give a presentation to one of the highest nobles in the land.</span> <span class="en">With one day to prepare, which is far past unfair.</span></p>
+<p>「まあ、あれはあれで難物じゃからな。さて、推薦状の文句を考えるか……」</p>
+<p>「大丈夫です。リカルド君にとても興味を持っていましたから」</p>
+<p><span class="en">　フルシー spoke as if it had nothing to do with him.</span> 協力的に見えるが、押し付ける気まんまんだ。<span class="en">アルフィーナ&#x27;s hopeful eyes hurt as well.</span> その興味の方向性如何で平民の運命なんて簡単に吹き飛ぶんだ。</p>
+<p>「先輩、必要なデータと図表の形式を指示してください」</p>
+<p><span class="en">　ミーア began organizing the data as if it were the most natural thing in the world.</span> こんな凸凹の集団が、いつの間にかチームワークがバッチリになっている。 <span class="en">Everyone except me, who cannot keep up.</span></p>
+<p>「プレゼンは無茶苦茶苦手なんだが。やっぱりここは年の功で……」</p>
+<p>「招待されたのはお主じゃからな。…………そうじゃな、ここ十年の学生の中では傑出したと書いておこう。まあ、社交辞令として使われすぎて、付いてないとダメくらいじゃが……」</p>
+<p>「リカルドくんなら絶対に大丈夫です」</p>
+<p><span class="en">　The highest hurdle yet had been set, and I nodded with a stiff smile because there was nothing else to do.</span></p>
+<p><span class="en">　There was never a choice to begin with.</span> 小心者は選択肢がないと覚悟を決めるという。 <span class="en">They say a timid man finds courage when he has no way out.</span> <span class="en">But a man who lives for his own safety only feels the terror of having nowhere to run.</span></p>
+<p><span class="en">　Now then, the tricks of a good presentation.</span> 確かスライド一枚につきテーマは一つ、論旨の流れはシンプルに、結論を先に……。 <span class="en">Right, and do not overuse animations, that matters too… There is no PowerPoint here.</span></p>
+<p>「つまり。最も大事なことは情報が示す…………じゃない。情報って言葉はむしろ情報の価値を軽く見せてしまうから……。相手は大公、女性、アルフィーナの叔母、どれだと想定する？　はあ、もう時間がない」</p>
+<p><span class="en">　After coming home, I had been running the whole thing through my head for tomorrow.</span> 本来ならマナーの勉強からしなければいけないところだが。 <span class="en">For that part, I will have to rely on the princess.</span></p>
+<p><span class="en">　The date must be about to change.</span> 正確な時間がわからないのが不便なんだよな。コンコン</p>
+<p>「こんな時間に？」</p>
+<p><span class="en">　I turned around, and the door opened and ミーア came in.</span> ロウソクの明かりでは顔色は分からないが、表情にいつもの冷静さはない。 <span class="en">Besides, walking in without waiting for an answer is not like her at all.</span></p>
+<p>「先輩。ジェイコブが報告があると」</p>
+<p>「ジェイコブ？　ジェイコブは親父と一緒にレイリアだろ」</p>
+<p><span class="en">　My father is away in レイリア.</span> 実験により確定したのは今日だが、その前に動いてもらっていた。 <span class="en">I am polishing a presentation meant to move a country, but naturally I also plan for the case where it moves nothing.</span></p>
+<p><span class="en">　He should have finished delivering the supplies for the evacuation and be on his way back by now.</span></p>
+<p>「まさか、親父に何かあったのか」</p>
+<p><span class="en">　I asked ジェイコブ, who had come in behind her.</span></p>
+<p>「いえ、会長は無事ですよ。ただね……」</p>
+<p>「なんだ」</p>
+<p>「村の子供の一人が、見知らぬ男にさらわれかけた。幸いというか、俺達が居合わせたから事なきを得たがな。でだ、男は蜂蜜のことを嗅ぎまわっていたらしい。今回運んだ物資は、村への行商と言うには種類も規模もちょっと大きかったからな、そこら辺から情報が漏れたんだろ」</p>
+<p>「ドレファノか。ドレファノだな」</p>
+<p><span class="en">　Blood rushed to my head in an instant, and I slammed my fist onto the desk.</span> 置いていた羽ペンが空を舞い、床に落ちた。</p>
+<p>「落ち着いてください先輩」</p>
+<p><span class="en">　ミーア picked it up and held it out to me.</span></p>
+<p>「なんで、今回はたまたま被害が出なかったけど。っていうか…………くっ」</p>
+<p><span class="en">　A child of that village means someone she knows.</span> 彼女のほうがずっと心配しているはずだ。 <span class="en">I breathed deeply and steadied myself.</span></p>
+<p><span class="en">　It had been quiet lately, but ドレファノ is an enemy.</span> 敵が敵対的行動をしたことに動揺していたら、何も守れない。 <span class="en">I am allowed to be angry.</span> <span class="en">I am not allowed to be surprised.</span></p>
+<p>「…………後ろはどこまで分かった？　親父はなんて言っている」</p>
+<p><span class="en">　First, confirm the information.</span></p>
+<p>「会長はベルトルドに留まって、物資を仕入れた経路について調べてる。男は装備や技術から冒険者崩れだ。ベルトルドはウチのパーティーの拠点だったから、いろいろと伝がある。その線でレミが調べればなにか出るだろう。王都は俺が担当するよ」</p>
+<p><span class="en">　It is because the big merchants block us that we cannot expand the business.</span> 蜂蜜から得た利益は、殆どを人に投資している。 <span class="en">Sending ミーア and me to the academy is part of that, and ジェイコブ&#x27;s group are far better than a small trading house could normally hire.</span> 今はそれを信じるしかない。</p>
+<p>「……敵を絞り込むことを優先する。ドレファノが第一候補だ。金はいくら使っても……、とはいかないが今ある今年の予算の分は使いきっていい」</p>
+<p>「そう言ってくれると思ったぜ」</p>
+<p>「プレゼンの方は俺に任せて、ミーアはジェイコブの手伝いに回ってくれ。ただし、情報の整理にとどめて、絶対に一人で外には出るな」</p>
+<p>「分かりました。ジェイコブさん。ドレファノと関係悪化中のケンウェルの周囲もお願いします」</p>
+<p>「了解だ」</p>
+<p><span class="en">　The two of them went out through the door, still talking.</span></p>
+<p><span class="en">　I will not forgive this.</span> 許されないでも、許されるべきではない、でもない。 <span class="en">Not &quot;it cannot be forgiven,&quot; not &quot;it should not be forgiven.&quot;</span> <span class="en">I will not forgive it.</span> 実害が出なかったとかは関係ない。 <span class="en">The line was crossed the moment real harm became possible.</span></p>
+<p><span class="en">　There is a saying in the world I came from: even a tiny insect has a soul half an inch long — and, in my version, a revenge to match.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec12">
+<div class="star">＊</div>
+<div class="rubric">12</div>
+<h2>９話：前半　プレゼンテーション</h2>
+<hr class="rule">
+<p><span class="en">　The square fireplace was built of red brick.</span> 暖炉と調和するベージュの壁には冬の草原の絵が一枚かかっている。 <span class="en">A small bronze chandelier hung from the ceiling, and the table was a thick oval one of wood.</span></p>
+<p><span class="en">　アルフィーナ and I sat on the same side of it, both in our school uniforms.</span> 大公家にふさわしい服装なんていくら掛かるかわからない。 <span class="en">We are not planning to come here a second time anyway.</span></p>
+<p><span class="en">　I could not settle down.</span> 部屋のパーツは一つ一つの質は高いと思う。 <span class="en">But I cannot judge whether it is fitting for the house of a grand duke.</span> そして、豪華というよりも質実剛健な雰囲気は、屋敷の主が女性であることを考えると意外さを禁じ得ない。</p>
+<p><span class="en">　What I mean is that I cannot tell whether I am being welcomed, even for form&#x27;s sake, or being told that a peasant like me belongs in a room barely better than a storehouse.</span></p>
+<p>　I glanced at アルフィーナ. お茶を入れてくれたメイドはすぐに去ったので、部屋の中は二人だけ。 <span class="en">She smiled and tilted her head as if to ask what was wrong.</span> いつもと変わらないか、いつもよりも明るいように見える。 <span class="en">Well, to her this is a relative&#x27;s house.</span></p>
+<p><span class="en">　Come to think of it, asking a father for his daughter&#x27;s hand is a kind of job interview.</span> となると「お前にお義父さんと呼ばれる筋合いはない」は圧迫面接ってことになるか。</p>
+<p><span class="en">　Wait.</span> <span class="en">Guardian or not, the person coming is a woman.</span></p>
+<p>「あら、あなたが娘の彼氏？」って感じのフレンドリーな……。 <span class="en">No, no.</span> <span class="en">What am I thinking?</span> 現実逃避としても突拍子がなさ過ぎる。 <span class="en">I shook my head hard.</span></p>
+<p>「リカルド君？」</p>
+<p><span class="en">　My classmate set down the cup she had been drinking from and tilted her head slightly.</span> 俺とは上品さが違う。 <span class="en">Every small movement of hers fits naturally into this room.</span> どう考えても別の世界の住人です。いや、転生云々じゃなくて。</p>
+<p>「大貴族相手の振る舞いなんて全くわからないから。無礼でもやらかしたらと思うと。はは……」</p>
+<p><span class="en">　Saying that to a princess felt odd, but I reached for my cup anyway.</span> 俺の腕は持ち手に触れる前に止まった。 <span class="en">My arm stopped before my fingers touched the handle.</span> <span class="en">I had noticed the honey set beside the saucer.</span> 淡い色合いには大いに見覚えがある。</p>
+<p><span class="en">　It is ours, without a doubt.</span> 普通に考えたら歓迎の印。 <span class="en">Read normally, it is a sign of welcome.</span> <span class="en">It also looks like a jab: <em>I know who you are.</em></span></p>
+<p><span class="en">　This woman is going to be difficult.</span> 自分は十分な準備を整えて、こっちには準備の余裕を与えずに呼び出す。 <span class="en">Leaving nothing to chance against a harmless commoner is hardly a grown-up thing to do.</span></p>
+<p>「そんなに緊張しなくても。リカルドくんはお客様ですし。叔母上様は優しいお方ですから大丈夫ですよ」</p>
+<p><span class="en">　If you say so, madam, then I am sure that is exactly how it is — for you.</span></p>
+<p><span class="en">　This is bad.</span> <span class="en">Even my inner voice has switched to polite speech.</span></p>
+<p><span class="en">　アルフィーナ laid her hand over mine to encourage me.</span> スキンシップはずるい。 <span class="en">At home she seems even warmer than usual, and thanks to that my heart began to settle…</span></p>
+<p>「待たせたな」</p>
+<p><span class="en">　At that moment the door opened.</span> 侍女と執事を連れた貴婦人が入ってきた。<span class="en">アルフィーナ pulled her hand away in a hurry.</span></p>
+<p><span class="en">　The lady&#x27;s rich golden hair was bound in a spiral and hung over one shoulder.</span> 王冠でも被ったら女王と言われても信じそうだ。 <span class="en">She waved us back down as we started to rise, walked across the room in long strides, and sat opposite us.</span> 上品というよりも、颯爽とした動作。 <span class="en">I had heard she was in her early thirties, but she looks about twenty-five.</span></p>
+<p>　This is エウフィリア, grand duchess of ベルトルド. アルフィーナ&#x27;s aunt.</p>
+<p><span class="en">　The strong-willed woman in the dress opened a feather fan handed to her by her maid.</span> 雰囲気としてはフランス革命で処刑されそうになって、でも切り抜けました、という感じだ。</p>
+<p>「さて、よく来てくれたな。そして、この前は姪が世話になった。礼を言わねばな」</p>
+<p>「滅相もございません。姫さまの案内役を務める事ができ光栄の極みでございます」</p>
+<p>　*You are the one who pushed her onto me.*門限までにちゃんと返したのだし、やましいところなどなにもないぞ。 <span class="en">I barked all this inside my head at eyes that did not look as if they were smiling at all.</span> 負け犬の遠吠えは、まだ相手に聞こえるだけ立派だ。</p>
+<p>「姪はいささか箱入りの度合いが強すぎてな。妾も心配しておったのじゃ。多少の火遊びくらい経験しておかんとのう」</p>
+<p><span class="en">　The grand duchess said it with the fan hiding her mouth.</span></p>
+<p>「へっ！？」</p>
+<p>「叔母上様！？」</p>
+<p><span class="en">　I nearly knocked over the cup I had been reaching for.</span> アルフィーナも口をふさぐと慌ててカップを置いた。</p>
+<p>「うん？　そうではないのか。あの大人しいアルフィーが私をダシに逢引など。朝出てから、夕方に戻ってくるまでひいふう……」</p>
+<p>「大公閣下。ご冗談にも程が有りましょう。私は商会の仕事と、今日ご説明する実験のサンプルの採取で手一杯。アルフィーナ様も村ではずっと手伝って頂いておりました」</p>
+<p>「行き帰りの馬車ではどうじゃ。中に居たのは二人だけじゃろうが」</p>
+<p><span class="en">　So there <em>were</em> guards somewhere at a distance.</span> <span class="en">Well, that much I expected.</span> 確か、要人ともなれば防犯ブザーの魔具版みたいなのを持ってるんだよね。</p>
+<p>「とにかく、私など王女殿下の同級生というだけでも恐れ多いことなのです」</p>
+<p>「ほう、あの偏屈者の紹介状には、身分など毛先の価値も与えぬ生意気な小僧だと書いてあるぞ」</p>
+<p><span class="en">　That old man.</span> <span class="en">So much for a perfect letter of recommendation.</span> こちらの命の危機を、遊び心で演出されたらたまらない。</p>
+<p>「それに、アルフィーも、そなたは自分を王女として扱わないと、それは嬉しそうであったしな」</p>
+<p>「そ、それは、今回の件リカルドくんが協力してくれたのはあくまでその、私の身分に対して仕方なくではなく、えっと、検証可能な仮説があってのことだということで……」</p>
+<p><span class="en">　アルフィーナ&#x27;s cheeks had gone red.</span> <span class="en">She was being played with completely.</span></p>
+<p>「アルフィーナ様は聖女としての御役目を果たそうと、知識を求められました。その知識をたまたまフルシー館長と私が持っていたというだけのこと。また、我が商会にとってもあの村は大事な場所です。吹けば飛ぶような小商会なれば、商売相手を一つ失うことも大事なのです」</p>
+<p><span class="en">　I put the emphasis on interest, not loyalty.</span> 王女への忠誠を気取るつもりは無い。 <span class="en">No one would believe that anyway.</span> <span class="en">I certainly would never believe such a man.</span></p>
+<p><span class="en">　And it is an interest that touches this woman as well, as lord of ベルトルド.</span> 俺は、交渉者としての目で大貴族を見た。</p>
+<p>　「では、本題に移ろう。我が領地に迫る危機の話だったな。アルフィーナの予言。西方からもたらされる災厄の証拠が見つかったということじゃが。魔獣氾濫とはにわかには信じがたい話じゃな」</p>
+<p>「今から、我々がその結論に至った経路を説明させていただきます。ご判断はその後、閣下ご自身で下されますよう」</p>
+<p>「無論そのつもりじゃ。我が領土、ひいては王国の大事を、小僧一人の言葉で決めるわけがあるまい」</p>
+<p><span class="en">　Her eyes narrowed, and the light in them grew sharper.</span> 統治者の威圧感とでも言うのだろうか。 <span class="en">This is the weight of someone who carries the fate of thousands as a matter of daily routine.</span></p>
+<p>　あくまで俺の感覚だが、男爵が村長、子爵が町長、伯爵が市長、侯爵は県知事と言った感じだ。 <span class="en">And the woman in front of me is a grand duke.</span> <span class="en">In Japan I never once met even the mayor of my own city.</span></p>
+<p><span class="en">　Now it begins for real.</span></p>
+<p>「まずアルフィーナ様の見られた予言のイメージを元に、地理条件と風俗をもとに考慮した結果。予言に現れたのがレイリア村だと確定しました。この点は特に、アルフィーナ様ご自身で確認していただきました」</p>
+<p><span class="en">　アルフィーナ nodded, and I went on.</span> 災厄の候補の絞込、検証のための方法の検討、そして実験。 <span class="en">I laid out grounds and conclusions in order, keeping the turns of the argument clear in my mind.</span> 簡潔にまとめているつもりだが、一つ一つ説明するのは時間がかかる。</p>
+<p><span class="en">　Now and then I stopped to check her reaction.</span> だが、大公は口元を羽扇で覆ったまま表情を読ませない。 <span class="en">The only movement was a slight lift of her eyebrow at ミーア&#x27;s table of rainfall and harvest.</span></p>
+<p><span class="en">　Hard to work with.</span> <span class="en">I might almost prefer an argument.</span> まあ、俺のプレゼン力じゃ、口を挟まれた瞬間プチフリーズくらいはするだろうけど。</p>
+<p>「……得られた西方の魔脈のパターンから、今年魔獣氾濫が生じるという仮説は検証されました」</p>
+<p><span class="en">　I had reached the conclusion.</span> 大公は羽扇を閉じた。 <span class="en">I braced myself for objections.</span></p>
+<p>「そなたは予言についてどう思う？」</p>
+<p><span class="en">　What came flying at me was a question I had not expected.</span></p>
+<p>「はっきり言えば、予言というものを信じているのか、ということだ」</p>
+<p>「叔母上様。私は確かに……」</p>
+<p>「いえ、信じておりませんでした」</p>
+<p>「…………リカルド君」</p>
+<p><span class="en">　I said it deliberately, and it was not a lie.</span> だからこそ、予言を予想にすることに全力を注いだのだ。</p>
+<p>「そうじゃな。実を言えば、予言の水晶を読み解ける巫女姫など、この三代出ておらんのじゃ。予言はな、そなたらのやったように降雨量から作る。各地に魔具を配して雨の量を記録しておるからな。むろん、そなたらほど厳密な手法ではないがな。ちなみに、今年の予言の原案は東方西方ともに例年通りの収穫じゃ」</p>
+<p>「ですが、叔母上様。東方で魔獣氾濫が起これば予言は外れるのでは？」</p>
+<p>「今聞いた計算では差がでておるが、そこまで大きくはないだろう。例年通りの収穫が少しの豊作になって誰が文句を言う？」</p>
+<p><span class="en">　She exposed the inner workings of it all without the slightest hesitation.</span> 予言が茶番として扱われているのは、アルフィーナへの扱いを考えても明らかだ。 <span class="en">If anything, I am impressed that there was a trick behind it at all.</span></p>
+<p>「ですが、残念ながら”魔獣氾濫”は起こる可能性が高いのです。アルフィーナ様の予言をスタートとして、フルシー館長、ミーア、そして私がアルフィーナ様と作り上げた予測です。西方で災厄が起こるかどうかではなく、西方で魔獣氾濫が起こるかどうかをご判断ください」</p>
+<p><span class="en">　I said it plainly.</span></p>
+<p>「アルフィーの予言に関係なく、西方山脈から魔獣氾濫の徴候が出ている。王国の貴族として、西方に領土を持つ領主として、どうするのか。そう言いたいわけじゃな。なるほど、本当に生意気な小僧じゃ」</p>
+<p><span class="en">　I nodded.</span> 大公は羽扇を顎の下に当てて、沈黙した。</p>
+<p>「――予想される被害は？」</p>
+<p>「東方で討伐が無かった時代を参考に算出しています。小規模であっても赤い森から数十ガルジの範囲はモンスターの群れに飲まれます。その領域に有る村々はレイリアを含めて少なく見積もっても二十。城壁に守られたベルトルドはともかく、周囲の村は無事では済まないでしょう。無論そうなれば……」</p>
+<p><span class="en">　In any negotiation, the thing that matters most is the interest of the person across the table.</span> 全体の利害ではない。 <span class="en">Not the interest of the whole, because the person across the table almost always represents a part.</span> 仮に相手がトップでもそれは変わらない。</p>
+<p><span class="en">　And in the rare case that the person really does think of the whole, this still works.</span> 相手は勝手に全体に敷衍して考えてくれるだろう。</p>
+<p>「みなまで言わずとも良い。そもそも、周囲からの食料がなくなれば都市など滅びるだけじゃ」</p>
+<p><span class="en">　In this world, where transport costs time and labor, things are not as they were in Japan, where food could come from across the sea.</span> わずかでも距離が離れれば、仮に豊作の地域があっても飢えが襲う。 <span class="en">The kingdom escapes this not only because its harvests are large, but because they are stable.</span></p>
+<p>　もちろん、商人はその安定が崩れた時のためにいるというのは俺の信念だが。<span class="en">……It is a bit late to ask, but why am I the one caught up in this?</span></p>
+<p>「では、更に聞いておきたいことがある」</p>
+<p><span class="en">　She laid the fan on the table and began asking about the size of the knight force required and the kinds of monsters that might appear.</span> 予めフルシーから聞いていた知識を元に俺は答えた。</p>
+<p>「…………なるほど、お前の言いたいことは解った」</p>
+<p><span class="en">　She picked the fan up again, and two swallowed breaths sounded across the table.</span></p>
+<p>「よかろう。この結論妾も共有しよう。当然、王国にも共有させるように動く」</p>
+<p>「ありがとうございます」</p>
+<p>「ありがとうございます叔母上」</p>
+<p><span class="en">　アルフィーナ cried out with joy, and I bowed my head honestly.</span> 流石にホッとする。</p>
+<p>「ああ、アルフィーナはよく頑張った。そなたの言葉に耳を傾けなかったのは妾の不明であった」</p>
+<p><span class="en">　The grand duchess spread her fan and spoke with satisfaction, as if to say <em>well done</em>.</span></p>
+<p>「そんな。それにこれは全部リカルド君が中心になったからこそ出来たことです」</p>
+<p>「とんでもない。自らのお立場を顧みず、お役目を果たそうとしたアルフィーナ様。魔獣氾濫を予測する理論を打ち立てたフルシー館長……」</p>
+<p><span class="en">　My self-protection alarm suddenly began ringing, as if to punish me for relaxing.</span></p>
+<p>「そうじゃ、残った問題はそこよな」</p>
+<p><span class="en">　The snap of the closing fan cut my words short.</span> わざとらしく扇の先端を自分の眉間に当てて、大貴族は首を振った。</p>
+<p>「そなたの話は理解できた。じゃが、１５そこらの平民の小僧がどうやって今の説明を作れる。理解できん話じゃな」</p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec13">
+<div class="star">＊</div>
+<div class="rubric">13</div>
+<h2>９話：後半　大きな葛籠と小さな葛籠</h2>
+<hr class="rule">
+<p>「１５そこらの平民の小僧が、どうやって今の説明を作れる」</p>
+<p><span class="en">　The noblewoman who had kept a certain grace until a moment ago was not smiling at all now.</span></p>
+<p>「ああ、勘違いをするなよ。そなたが誰かの鸚鵡だと言っているのではない。そんなことはアルフィーナとフルシーの言葉で明白じゃ。どうしたらこんなことが可能なのかと聞いているのだ」</p>
+<p><span class="en">　It is as natural a question as &quot;why did you apply for this job?&quot;&quot; in an interview.</span> 幾つかパターンは用意していた。 <span class="en">The words would not come out well, because the woman in front of me was silently making it clear that no trick would work.</span> 問われているのが俺の頭のなかにある知識なら、いくらでも答えようがある。 <span class="en">But when what is being asked is <em>what I am</em>, that knowledge is powerless.</span></p>
+<p>「年輪に関しては、ゆ、夢で見たとしか言いようがありません……はは」</p>
+<p><span class="en">　What came out was the answer I had already rejected as unusable.</span> まるで予言者のようなことを言った自分を自嘲する。 <span class="en">I laughed at myself for sounding like a prophet, and of course her laugh was a cold one.</span></p>
+<p>「話を変えよう。この功績に対してどんな褒美を望む？　妾としては、正当に評価できぬなら殺してしまうしかないほどの功績と思うが」</p>
+<p><span class="en">　Cold sweat began a downhill run along my back.</span> 俺に向けた羽扇の先が顎の下を指すのだから恐ろしい。 <span class="en">I noticed that the butler, who I had thought never moved at all, was now standing behind me.</span></p>
+<p>「叔母上様、ご冗談が過ぎます。これは褒美の話なのですよね」</p>
+<p>「己の商売を守る。それ以外に何を望む？」</p>
+<p><span class="en">　アルフィーナ pressed her hands together and spoke against her guardian.</span> <span class="en">The grand duchess did not care.</span> そもそも、向こうは褒美の話を今する必要はない。 <span class="en">This is still the interview.</span></p>
+<p><span class="en">　It is not quite フルシー&#x27;s kind of scientific literacy, but this great noble understands that knowledge is power.</span> ならば身の丈に合わない知識を持つ俺の危険性について当然考えるだろう。 <span class="en">I would love to say that applying modern knowledge is never that easy, but right now those words would carry no weight at all.</span></p>
+<p>　So アルフィーナ is wrong. 褒美をやろうなんて寛大な言葉では断じてない。 <span class="en">My answer here decides what happens to me once the problem is solved.</span> 舌切雀の昔話が脳裏に蘇る。 <span class="en">I wonder what would have happened in that old tale if the kind old man had chosen the large basket.</span></p>
+<p><span class="en">　And in this case, unlike the story, choosing the small one does not save you either.</span></p>
+<p>「どうした？　答えは聞かせてもらえんのか」</p>
+<p><span class="en">　In her eyes I am something strange and unreadable.</span> 分からないというのはそれだけで警戒の対象。 <span class="en">Trying to look harmless would only make it worse.</span> 大公の警戒心は、俺にとっては理不尽で不当だが、まったく不思議ではないのだ。</p>
+<p>「普通の人間、特に平民は己の今の生活を守ることを第一に考える。そのために自ずと視野を狭める。起こるか起こらないかわからない災厄などという難しい問題は、信じるか、信じないかの二択に単純化する。まあ、それは妾たち貴族でもあまり変わらんがな。そなた、アルフィーナに協力したのは自分の小さな商売を守るためと言ったな」</p>
+<p><span class="en">　Her eyes narrowed.</span></p>
+<p>「そんな人間にあの絵は描けん」</p>
+<p><span class="en">　…………All right, that is quite enough of your accurate, one-sided guesswork.</span> だけど、それはあくまでそちらの一方的な判断に過ぎない。 <span class="en">Fine.</span> <span class="en">I will show you that my instinct for self-protection is the real thing.</span></p>
+<p>「三つあります」</p>
+<p><span class="en">　I said it.</span> <span class="en">I had prepared a draft.</span></p>
+<p>「聞こう」</p>
+<p>「一つ目、災厄を解決した後のレイリア村の扱いです。ある形で保護してください」</p>
+<p><span class="en">　Even after the monster flood is dealt with, that village will draw attention.</span> 最低でも、騎士団の行き来で中央の人間の目に触れる。 <span class="en">And then there was the attempted kidnapping.</span> これまでのように、秘密を守るでは通じない。 <span class="en">Keeping a secret is no longer enough; the village has to be protected in the literal sense.</span></p>
+<p><span class="en">　The grand duchess pointed at the honey beside her cup.</span></p>
+<p>「今回だけでなく終わった後も、これの産地を保護せよ。そういうわけじゃな。その形とは？」</p>
+<p>「災厄を防ぐことができれば、アルフィーナ様の評判は高まるでしょう。王族なら与えられているはずの采地がないことが問題になるはずです」</p>
+<p><span class="en">　If it becomes a princess&#x27;s own land, no ordinary hand can touch it.</span> そういう事態になることは本来はゴメンだが、言っていられなくなった。 <span class="en">If that is how it must be, I take the best of the bad options.</span></p>
+<p>「西方というのがネックじゃが、小さな村じゃからな。王もそのくらいならむしろほっとするかもしれん。その意見は通そう。代官は我が家から信頼できる者を出す」</p>
+<p><span class="en">　She nodded.</span> <span class="en">Which brings me to the next thing I have to do…</span></p>
+<p>「二つ目です。西方に派遣される騎士団は第三騎士団を推してください」</p>
+<p>「第三騎士団は規模も小さいぞ。財政的にも帝国を刺激しないという意味でも悪くないが……」</p>
+<p><span class="en">　She looked puzzled.</span></p>
+<p><span class="en">　The Third Order is more or less a reserve force.</span> 第二騎士団の討伐の補助もしているから、全く経験がないわけではないらしい。 <span class="en">But hunting a monster flood is the Second Order&#x27;s real profession.</span></p>
+<p><span class="en">　With twenty villages at stake, レイリア among them, safety should normally come before everything.</span></p>
+<p><span class="en">　But as things stand, the Second Order will most likely never march at all.</span></p>
+<p>「第二騎士団では、騎士団派遣の可能性そのものに障害が生じます」</p>
+<p><span class="en">　In a world with no spare capacity in production, gathering supplies takes time.</span> 対外戦争が終わって久しく、魔獣氾濫は予測できるこの国で、常時の備蓄は最初から少ない。 <span class="en">And right now, because of the quiet war between ドレファノ and ケンウェル, the Second Order&#x27;s stores are at crisis level.</span> ミーアとジェイコブの調査でわかった事実だ。 <span class="en">An unexpected prize from an unexpected place.</span></p>
+<p><span class="en">　If an emergency deployment is ordered, the two houses will pull each other down.</span> ロビー活動その他で、ただでさえ揉めるであろう派兵は更にかき回されるだろう。 <span class="en">At worst, they could block the decision itself.</span></p>
+<p><span class="en">　Put bluntly, defeating a monster flood means killing one superior individual; it is not a war against the whole swarm.</span> 人数は最重要ではないはずだ。 <span class="en">I confirmed this with フルシー beforehand.</span></p>
+<p>「ベルトルド大公家の騎士団長は元第一騎士団の部隊長とか……」</p>
+<p>「確かに、我が領からも援軍は出すが…………。どうして拘る。そなた、第三騎士団に何か繋がりでもあるのか？」</p>
+<p><span class="en">　Her eyes narrowed.</span> <span class="en">That is the wrong guess.</span> だが、第三騎士団の形式的なトップがもう一つの要点だ。</p>
+<p>「私は新年祭を見ていました。「たとえ災厄が訪れても”王”国はそれを退ける。これまでのように」でしたね」</p>
+<p>「…………第三騎士団の長は第三王子。災害を防いだ立役者は王子となるな。王家としては巫女姫の予言を否定した失態を補って余りある、いや王家が力を集結して災厄を防いだという絵か。アルフィーに対する風当たりも抑えられるな」</p>
+<p><span class="en">　By now, protecting アルフィーナ means protecting the village, protecting ヴィンダー, and protecting myself.</span></p>
+<p>「最後の一つは？」</p>
+<p>「この情報を広く明かすまで四日間の猶予を。おそらくですが、内々の根回しだけでそのくらいはかかるでしょう」</p>
+<p>「四日で済むわけがなかろう。まあ、徹底しよう。それで理由は？」</p>
+<p><span class="en">　She looked straight at me.</span></p>
+<p>「情報の独占は商家にとって何よりの利益、としか申し上げられません」</p>
+<p><span class="en">　This was the real test, because this one request served nothing but my own convenience.</span> 俺たちは互いに見つめ合う。</p>
+<p>「……………………良かろう。それも含めて報酬じゃ。アルフィーもこのことは決して口にするな。アデルの娘にもじゃぞ」</p>
+<p>「クラウにもですか。は、はい、わかりました……」</p>
+<p>「ありがとうございます」</p>
+<p><span class="en">　I bowed my head with several meanings behind it.</span> クラウディアに伝わったら、計画が台無しになってしまう。</p>
+<p>「あの、でも、それだけですか。私のことばかりで。リカルド君には何も……。そ、そうです。元々は私がお願いしたのですから。私に出来ることなら何でも……」</p>
+<p>「な、何でも、ですか」</p>
+<p><span class="en">　アルフィーナ nodded firmly, with a serious face.</span> 青銀の髪の毛が、控えめだが形の良い胸元に流れ落ちた。 <span class="en">I swallowed without meaning to.</span></p>
+<p>「ほう、やはりアルフィーと何か約束があったのか？」</p>
+<p>「ち、違います」</p>
+<p>「ふむ、ではそうじゃな。妾の遠縁の子爵家に年頃の一人娘がおる。家を継ぐ婿を探しておるのじゃが。もしよければ紹介してもよいぞ」</p>
+<p>「叔母様！」</p>
+<p><span class="en">　アルフィーナ stood up in surprise, which robbed me of my own chance to be surprised.</span></p>
+<p>「どうしたアルフィー。大事な友達の出世の話じゃぞ。こやつが親戚となれば今までよりも付き合いやすかろう」</p>
+<p>「そ、そういうことではなくて……。その、そういうことは当人の……」</p>
+<p>「うーむ。確かに、平民が婿候補となればルィーツアも不満を抱くかもしれんな」</p>
+<p>「そんなことは、、そうではなくて、これはリカルド君へのお礼の話のはずです、リカルド君の希望も聞かずに……、そんなのダメです」</p>
+<p><span class="en">　A childish note had crept into her voice.</span></p>
+<p>「そなたこそ、そやつの意思を無視しているのではないか？　妾は紹介してもよいと、希望を聞いておるのだ」</p>
+<p>「えっ、あ、その…………」</p>
+<p><span class="en">　アルフィーナ looked at me, troubled.</span> <span class="en">My answer was already decided.</span></p>
+<p>「当家は蜂蜜の商売に十年近い時間を掛けております。先ほど閣下は小さな商売とおっしゃいました。ヴィンダーは確かに小さいですが。子爵と引き換えるほど安くはございません」</p>
+<p><span class="en">　My goals are not small enough to leave me time for a side job as a noble.</span> どうせ、身分など毛先の価値も与えてないとバレているのだ。</p>
+<p><span class="en">　Still, I pray those words never reach that viscount&#x27;s daughter.</span></p>
+<p>「くくっ、ははははは」</p>
+<p><span class="en">　The lady opened her mouth wide and laughed, and then began slapping the table with her fan.</span> さっきまでの威圧感が綺麗に消えている。</p>
+<p>「そうか子爵ごときと交換はできんか。なるほど、ベルトルドの御用商人にでもしてやろうかと思ったが、それもいらんじゃろうな」</p>
+<p><span class="en">　I nodded.</span> <span class="en">It is not that I want nothing.</span> 間接的な保身ばかり求めるのは、逆に言えばヴィンダーに直接干渉するなということだ。 <span class="en">Safety on a noble&#x27;s leash does not match what I am aiming for.</span></p>
+<p><span class="en">　So this, at least, is my honest wish.</span> 相手を騙すほどの器がない以上、正直という武器で戦うしか無い。</p>
+<p>「ふん。ま、もう少し長い目で見てやろう。そなたがおれば姪をからかう楽しみも増えるというものだしな」◇◇</p>
+<p><span class="en">　Four days later, I was walking to the library as usual.</span></p>
+<p>「先輩」</p>
+<p>「ミーアか。準備はどうだ」</p>
+<p>「はい、噂については、市井にゆっくりと広がっております。ジェイコブが兵士くずれの冒険者達にも広めてますから、いずれ軍内にも届くでしょう」</p>
+<p>「反応は？」</p>
+<p>「予想通り、まともに相手にする者はおりません」</p>
+<p>「予定通り、だな」</p>
+<p><span class="en">　I said it while keeping my voice as flat as I could.</span> 中庭で小太りの少年が取り巻きの平民学生たちを従えて歩いている。</p>
+<p>「分かりました。ですが……」</p>
+<p>「どうした？」</p>
+<p>「王女殿下がことを知ればどう思うでしょうか」</p>
+<p>「…………それが今重要な事か？」</p>
+<p><span class="en">　I tried to sound calm.</span> あのお姫様の性格上、今から俺がやろうとしていることを知れば決していい顔はしないだろう。 <span class="en">But right now I focus on what has to be protected above all else.</span></p>
+<p><span class="en">　The attempted kidnapping in the village led back to ドレファノ in the end.</span> ジェイコブたちの調査で、傘下の中堅商会の一つが依頼元だと特定できたのだ。 <span class="en">And with the strength we have now, we could not cut off even his tail.</span> <span class="en">Not from the front.</span></p>
+<p>「由なきことを言いました。…………レンゲ蜜ですが、これまで村に貯めていた分が到着しました。会長のいるベルトルドから万が一の時のため非常用の食料も届け終わりました」</p>
+<p><span class="en">　I have also confirmed that the Third Order&#x27;s camp has grown busy.</span> 今頃城内ではあのおっかない女傑が、フルシーの首根っこを掴んでプレゼン中だろう。</p>
+<p>「よし、こっちの準備も整ったな」</p>
+<p><span class="en">　I respect a rival in business.</span> <span class="en">I show no mercy to a rival in politics.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec14">
+<div class="star">＊</div>
+<div class="rubric">14</div>
+<h2>１０話　祝賀会のパンチボウルを片付けたい</h2>
+<hr class="rule">
+<p><span class="en">　In the evening dark, the great hall at the center of the academy grounds was full of light.</span> 元の世界なら体育館くらいの広さの空間は、ホテルの式場のように飾り立てられている。 <span class="en">It was the celebration held for the knights&#x27; triumphant return.</span> 会場は着飾った学生たちで溢れている。</p>
+<p><span class="en">　Two people from this academy had contributed to stopping the disaster.</span></p>
+<p><span class="en">　One of them, of course, is a girl in my year.</span> 今は会場の中心で多くの学生や教師に囲まれている。 <span class="en">Her simple white dress was dazzling even from a distance.</span> そばにいるのはあの女騎士ではなく、知らないお嬢様だ。</p>
+<p><span class="en">　Students kept coming to greet the holy maiden, one after another.</span> あの中庭の光景から一月経ってないんだけどな。 <span class="en">The ones bowing hardest are probably the same people who walked away when she was out of favor.</span> もちろん、俺は近づいたりしない。というよりも……。</p>
+<p>「なんで参加しなくちゃいけないんだ」</p>
+<p><span class="en">　I am busy handling the new situation ヴィンダー has to deal with.</span> 仕事はこれでもかと積み重なっている。 <span class="en">If we counted documents, I could compete with the crowd around アルフィーナ.</span></p>
+<p>「先輩が王女殿下や大公閣下に不用意に接触したのが原因です」</p>
+<p>「仕方ないだろ。もしレイリアが滅んでたら、こっちの商売は潰れてたんだ。じゃない、こっちに招待状はこないはずだろ」</p>
+<p><span class="en">　ミーア turned her face away.</span> そういえば、来る途中で友達の女の子と別れていたな。 <span class="en">Perhaps that was unkind of me.</span></p>
+<p><span class="en">　Only invited guests may attend this hall.</span> 平民学生の多くは別の部屋で慎ましやかに祝うのだ。 <span class="en">I had not intended to go even to that one.</span></p>
+<p>「教職員からの招待状ですから。断れませんね」</p>
+<p>「あの爺か……」<span class="en">The other star of the evening, フルシー, was standing a little away from アルフィーナ, being talked at by a bald head.</span> 確か学院長だったか。 <span class="en">He keeps his post as librarian and gains an honorary title, the rank of sage, and a lifetime pension with it.</span> アルフィーナの功績を希釈するために大盤振る舞いらしい。</p>
+<p><span class="en">　&quot;Lifetime pension&quot; is a phrase that appeals to a man like me.</span></p>
+<p>「そういえばあの女はどうして主のところに居ないんだ？　ここぞとばかりに自慢気な顔を見せると思ってたが」</p>
+<p><span class="en">　I looked at クラウディア, standing off to one side.</span> 壁の花と化した彼女の表情に、いつもの覇気はない。 <span class="en">Where has the spirit gone, the one that drew a blade on me without hesitating?</span></p>
+<p><span class="en">　You could at least come over and ask what a man like me is doing here.</span> <span class="en">I would use it as an excuse to leave.</span></p>
+<p>「しばらく遠ざけられていたようですね」</p>
+<p><span class="en">　ミーア&#x27;s tone dropped.</span></p>
+<p>「アルフィーナにか！？」</p>
+<p>「いえ、予言の件で彼女の父親が距離を置くように命じたようです」</p>
+<p><span class="en">　Come to think of it, when we went to レイリア she was said to be back at her family home.</span> 自慢の実家が大事な主と対立したわけか。 <span class="en">And while she was away, her mistress won the greatest honor of the year.</span> <span class="en">Her pride as a loyal servant must be in pieces.</span></p>
+<p>「一貫してない行動はダメだな」</p>
+<p>「先輩の行動は一貫していましたね。近づかない近づかないと言いながら、一貫してアルフィーナ様との距離を詰めて行きました。言行は不一致でしたけど」</p>
+<p>「滅多なこと言うな。ヘタに目立ったら俺の保身が……」</p>
+<p>「先輩は、保身という言葉の意味を調べ直すべきです」</p>
+<p><span class="en">　She must have felt my eyes, because クラウディア looked our way.</span> おっと、憔悴した顔のロワン伯爵公子の登場だ。<span class="en">ロワン was saying something critical to her.</span></p>
+<p>「伯爵家同士といってもうまくいかないものだな」</p>
+<p>「第二騎士団の重鎮ロワン伯も随分と評判を落としましたからね。アルフィーナ様の側近であるのに情報を隠したと思われているのでしょう」</p>
+<p>「ああ、ドレファノと組んで魔獣氾濫の討伐を妨害しようとした、って噂が立ってるんだっけか」</p>
+<p>「……はい。少し前までは誰も相手にしない馬鹿げた噂でしたが、起こるはずがない西方の魔獣氾濫が起こり、物資不足で対応できない第二騎士団が、第三騎士団に出番を奪われた。不幸な偶然により。噂は一気に信憑性を得ました。まるで”予言”ですからね」</p>
+<p><span class="en">　ミーア looked at me with irony on her face.</span> 噂の時限爆弾は見事に破裂したわけだ。</p>
+<p>「何故か間髪入れずにドレファノを告発できたケンウェルの行動もあって、ドレファノ会長はギルド長を更迭。名誉男爵位は剥奪です」</p>
+<p>「偶然っていうのは恐ろしいな。油断大敵だ」</p>
+<p>「恐ろしいのは先輩では」</p>
+<p>「商売敵なら商売で相手をするが、政敵は政治で相手をする。命をとったわけじゃなし。息子をさらったわけでもない」</p>
+<p><span class="en">　I remembered the scene from that afternoon.</span></p>
+<p><span class="en">　The Third Order marching down the main street, the head of a giant magic wolf carried at the front.</span> 白銀の鎧を纏った王子が手を振る度に、民衆の歓声が響く。 <span class="en">Cheers for the prince and the holy maiden, for the king and for the kingdom.</span> 王族が率先して民を守る、実に美しい光景だった。</p>
+<p><span class="en">　Beyond it, in the heart of the merchant district, the sign of ドレファノ商会 had been pulled down, and the guild head&#x27;s proud seal scraped away.</span> 御用達の証である貴族家の紋章の数々も、全てなくなっていた。</p>
+<p><span class="en">　Of course, that does not change ヴィンダー&#x27;s own place in the guild.</span> 次のギルド長を操作する力なんてないのだ。 <span class="en">But the guild had been ruled by one house alone, and now the second and third will likely share power three ways.</span> 圧倒的な第一人者がいない時、三人でバランスを取ると言うのは歴史上繰り返されてきた。</p>
+<p><span class="en">　But a three-way balance is always a stage on the way somewhere.</span> 秩序と序列は新しい形を求めて歪みを貯める。</p>
+<p><span class="en">　The room ヴィンダー has to move in grew a little wider, and the seed of the next upheaval has been planted.</span> あとはそれに合わせて確率の高い仮説を作り、仮説を元に情報を集め検証、次の一手を打つ。 <span class="en">It will take time, but I am a cautious man by nature, so that suits me fine.</span></p>
+<p>「その息子も学院をさりました」</p>
+<p>「……そうだな」</p>
+<p><span class="en">　When I came back to the academy for the party, unwillingly, ドレファノ&#x27;s son was leaving through the back gate.</span> 十人は居た取り巻きは二人に減っていた。 <span class="en">Two stayed, though, which is more than nothing.</span> <span class="en">He was not entirely without friends.</span> しかも一人は女の子だった。</p>
+<p>「気が付くといいな。残ったその二人が、元の十人と同じくらいの価値はあることに」</p>
+<p><span class="en">　My enemy was the head of ドレファノ商会.</span> <span class="en">The son merely annoyed me.</span></p>
+<p>　別に同情はしない。 <span class="en">If ドレファノ came after us, the people around me would be hurt; the reverse is simply the same thing.</span> 大勢のドレファノの従業員とその家族を路頭に迷わせたことに比べればなんでもない。</p>
+<p>「いろいろ予定外のことはあったけど、最終的にはそこそこ上手く行ったんだ」</p>
+<p><span class="en">　Just as I said that to ミーア, a young lady in an elegant yellow dress came toward us.</span></p>
+<p>「リカルド・ヴィンダー様ですね」栗色の髪の毛を結い上げたバレリーナのような小顔の美少女だ。 <span class="en">I think she was standing beside アルフィーナ earlier.</span></p>
+<p>「はじめまして。私はアデルハイド子爵の娘、ルィーツアと申します」</p>
+<p>「……リカルド・ヴィンダーでございます。私ごときに何の御用でしょうか？」</p>
+<p><span class="en">　Now I remember — the viscount&#x27;s only daughter the grand duchess mentioned.</span> まさか、お前なんて零細商会以下の価値だって啖呵を切ったのをバラされたか。</p>
+<p>「聖女様の信頼厚いリカルド様にご挨拶をと」</p>
+<p><span class="en">　Do not attach strange titles to me.</span> 俺はちらっと横を見た。 <span class="en">Too late.</span> <span class="en">With ロワン gone, クラウディア, who had been standing there in a daze, was coming over.</span> <span class="en">You should have come <em>before</em> this.</span></p>
+<p>「それは一体何の話だ」</p>
+<p>「あら、たしかアデル家のクラウディア様でしたか。聖女様の側近を勤めておられた」</p>
+<p><span class="en">　The past tense.</span> 怒ると思ったが、クラウディアはピタッと足を止めた。</p>
+<p>「くっ、わ、私は……。そうではない、この平民がアルフィーナ様の信頼を得ているなどと、いい加減なことを」</p>
+<p>「あら、おかしなことではないでしょう？　皆はすっかりなかったコトにしているようですけど、アルフィーナ様があの予言を口にして以来、多くの人間が突如母方の血を問題にして離れた。貴方と貴方のご実家も含めてね」</p>
+<p>「そ、それは……」</p>
+<p>「そんな、アルフィーナ様が心細かった時に、予言の言葉に耳を傾け、お助けしたのがリカルド様ですよ」</p>
+<p>「なっ！！　…………ありえない。何かの間違いだろう、この男がアルフィーナ様に擦り寄るチャンスと見たまでのこと」</p>
+<p><span class="en">　クラウディア shook her head as if refusing to accept reality.</span></p>
+<p>「クラウ。貴方はなんということを……」</p>
+<p>「ひ、姫さま」</p>
+<p><span class="en">　The worst possible timing — for her and for me — and アルフィーナ appeared.</span> クラウディアはまるで悪役令嬢みたいになってる。</p>
+<p>「この度の災厄を防ぐことが出来たのは、リカルドくんのおかげなのですよ」</p>
+<p>「まあ、そうじゃな。こやつの功績は疑いない。ミーア君の力も大きいがな」</p>
+<p><span class="en">　Behind her, the other star of the evening, the sage フルシー, was nodding.</span> 俺は焦った。<span class="en">クラウディア had gone pale at their words.</span> <span class="en">I would like to go pale myself.</span></p>
+<p><span class="en">　The two guests of honor were speaking to us — and we were in school uniform, which in this hall marks us instantly as commoners.</span> 周囲の視線が一瞬でこちらに集まる。</p>
+<p>「過分なご評価は光栄の極みです。が、ミーアはともかく、私は”たまたま”予言の地のことを知っていた”だけ”。全ては国のために真実を口になさったアルフィーナ様のご勇気。そして、賢者様の”深遠なる”知識の賜物です」</p>
+<p><span class="en">　I tried desperately to steer the conversation back on course, cold sweat running down me.</span> 姫は悲しそうに俺を見る。 <span class="en">Please, do not look at me with such pained eyes.</span> 俺はちゃんと利益は確保した。同級生の家とか潰してるんだ。</p>
+<p>「まあ、姫さまの仰られるように奥ゆかしいこと。叔母様もすべての絵を描いたのは貴方だと褒めていましたのに」</p>
+<p><span class="en">　ルィーツア said it with a hand to her cheek.</span> いかにも感心してますという態度だが、この女一癖も二癖もありそうだ。 <span class="en">I do not need one more difficult noble acquaintance.</span> ただでさえ対応できる人間の数が人並み以下なんだ。</p>
+<p><span class="en">　Meanwhile, クラウディア&#x27;s face had gone completely white.</span></p>
+<p>「そ、そんなベルトルド閣下まで……」</p>
+<p>「本当ですよクラウ」</p>
+<p><span class="en">　She was trembling.</span> どうする、ここは俺の保身のために、昔はオークをけしかけてやりたいと思ったこともある、この女騎士の立場を回復させるべきか。 <span class="en">But how?</span></p>
+<p><span class="en">　Then the music changed, and people moved away from the center of the hall.</span> 俺はこれ幸いと、引き下がろうとした。 <span class="en">But ルィーツア winked meaningfully at the princess.</span></p>
+<p>「踊っていただけますかリカルド君」</p>
+<p><span class="en">　As if to finish me off, アルフィーナ said something outrageous.</span> 俺はクラウディアを見た。 <span class="en">Your turn.</span> <span class="en">But the knight girl only stood there, blank.</span></p>
+<p>「恐れながら、私はアルフィーナ様と踊れるような心得はありません。せ、折角の宴を盛り下げては……」</p>
+<p><span class="en">　There were classes for commoner students, so I know the basics.</span> だが、本番がこれは無茶すぎる。</p>
+<p>「まあ、リカルド君にも出来ないことがあるのですね。わかりました。私が教えて差し上げます。私も男の子と踊るのは初めてですからちゃんと出来るかわかりませんけど」</p>
+<p><span class="en">　The people around us began to murmur.</span> 確か貴族の女性が初めて社交界で踊る相手って、何か特別な意味がなかったか？</p>
+<p>「婚約者がいればその殿方。そうでなければ、最も信頼できる男性ということになっています。普通は後見人ですね」</p>
+<p><span class="en">　ミーア explained it with a flat stare, and my question was answered.</span> アルフィーナの後見人は女大公だからな、なるほど。</p>
+<p><span class="en">　アルフィーナ held out a white hand to me, and the eyes around us grew sharper.</span> そりゃそうだ。 <span class="en">Princess or not, guest of honor or not, she is beautiful enough to be glared at.</span> とくに、白い清純なドレスを着た今の姿など……。</p>
+<p><span class="en">　My limit is an angel standing under a weak light in the corner of an empty book room.</span></p>
+<p><span class="en">　And where is this boldness coming from?</span> <span class="en">Is she not acting out of character?</span></p>
+<p><span class="en">　Only ルィーツア was smiling as if enjoying herself.</span> <span class="en">She must have put her up to it.</span></p>
+<p><span class="en">　A waltz-like rhythm began to lift off.</span> 周囲の目はこちらに集中する。 <span class="en">Refusing now would make me the rude man who shamed the holy maiden who saved the country.</span> そういう状況が作られている。 <span class="en">There is no way out.</span></p>
+<p><span class="en">　I laid my hand carefully on those thin, beautiful fingers.</span> 手汗がひどいことになっているのだが、アルフィーナはしっかり握り返してきた。</p>
+<p><span class="en">　A path to the center of the hall opened on its own.</span></p>
+<p><span class="en">　The dance began.</span> こちらに合わせてだろう、アルフィーナは基本中の基本のステップだ。 <span class="en">I want to praise myself simply for managing to follow my small classmate at all.</span></p>
+<p><span class="en">　Eyes, eyes, eyes, all stabbing into the man who has the beautiful princess to himself.</span> 全方位砲雷撃戦が始まりそうだ。 <span class="en">Looking at the loveliest girl in the kingdom, I was stunned at how easily my whole plan of self-protection had collapsed.</span> さっきまで悦に入っていた自分を殴りたい。</p>
+<p><span class="en">　I looked to ミーア as if begging for rescue.</span> ミーアはフルシーとルィーツアと三人で何か話している。 <span class="en">Our eyes met for a second, and she looked away.</span> <span class="en">Since arriving here, communication with my staff has not gone well.</span></p>
+<p><span class="en">　My hand was tugged.</span> アルフィーナが穏やかな抗議の視線を向ける。 <span class="en">I made up my mind.</span></p>
+<p><span class="en">　The summer holiday starts in a few days.</span> 明日から暫く学院を休もう。</p>
+<p><span class="en">　When I put a little strength into her soft palm, her face broke into a smile.</span> 努めて周囲の視線を無視して、相手を見る。 <span class="en">Someone out of reach — someone I have no intention of reaching for.</span> それでも、僅かな間にいろんな困難を一緒に乗り越えた相手だ。</p>
+<p><span class="en">　I suppose it cannot be helped that a small sense of possession had grown in me: relief that the person in this position is her and no one else.</span></p>
+<p>　こうして、俺の保身の尊い犠牲のもとに一つ目の災厄は終わった。</p>
+<div class="star">＊</div>
+<p>一章完結です。 <span class="en">Thank you very much for reading.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+</div>
+<script>
+(function(){
+  var b=document.getElementById('tint');
+  if(b){
+    var on=true;
+    b.addEventListener('click',function(){
+      on=!on;
+      document.body.classList.toggle('plain',!on);
+      b.textContent='英文の色分け：'+(on?'ON':'OFF');
+      b.setAttribute('aria-pressed', on?'true':'false');
+    });
+  }
+  var bar=document.querySelector('.progress');
+  if(bar){
+    var tick=function(){
+      var h=document.documentElement;
+      var max=h.scrollHeight-h.clientHeight;
+      bar.style.width=(max>0? (h.scrollTop/max*100):0)+'%';
+    };
+    addEventListener('scroll',tick,{passive:true});
+    addEventListener('resize',tick);
+    tick();
+  }
+})();
+</script>
+</body>
+</html>

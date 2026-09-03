@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="「どうか聞いてください。今年、西方より大いなる災いがこの国を襲います」平和を謳歌する王国に王女アルフィーナの不吉な予言が告げられる...">
+<title>予言の経済学</title>
+<style>
+:root{
+  --paper:#FCFBF7;
+  --page:#EFEBE2;
+  --ink:#2E2A24;
+  --rubric:#9A3B2E;
+  --en:#7A4A2F;
+  --rule:#E3DED2;
+  --faint:#B9AC90;   /* 装飾記号のみ。本文テキストには使わない */
+  --muted:#7C6F50;   /* 読ませる淡色。背景に対して 4.78:1 */
+  --wash:#F5F1E7;
+  --serif: Georgia,"Times New Roman","Hiragino Mincho ProN","Yu Mincho","YuMincho",serif;
+  --mono: ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono CJK JP",monospace;
+}
+*{box-sizing:border-box;}
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:var(--serif);
+  -webkit-text-size-adjust:100%;
+  font-kerning:normal;
+}
+.sheet{
+  max-width:42rem; margin:0 auto; background:var(--paper);
+  border-left:1px solid var(--rule); border-right:1px solid var(--rule);
+  min-height:100vh; padding:44px 40px 96px;
+  display:flow-root;          /* フロートを内包し、選択範囲の描画を親幅に広げない */
+  position:relative;
+}
+.rubric{ color:var(--rubric); font-size:12px; letter-spacing:.3em; }
+h1{ font-size:26px; font-weight:normal; margin:6px 0 4px; letter-spacing:.04em; }
+h2{ font-size:17px; font-weight:normal; margin:0 0 4px; letter-spacing:.02em; }
+h3{ font-size:15px; font-weight:normal; color:var(--rubric);
+    margin:2em 0 .8em; letter-spacing:.03em; }
+.lede{ color:#6E6255; font-size:13px; line-height:1.9; margin:10px 0 0; }
+hr.rule{ border:0; border-top:1px solid var(--rule); margin:18px 0 24px; }
+
+nav.toc{ margin:0 0 8px; }
+nav.toc ol{ list-style:none; margin:0; padding:0; }
+nav.toc li{ border-bottom:1px solid var(--rule); }
+nav.toc li:first-child{ border-top:1px solid var(--rule); }
+nav.toc a{
+  display:flex; gap:14px; align-items:baseline;
+  padding:11px 4px; text-decoration:none; color:var(--ink);
+}
+nav.toc a:hover, nav.toc a:focus-visible{ background:var(--wash); }
+nav.toc .num{ color:var(--rubric); font-size:11px; letter-spacing:.18em; min-width:3.4em; }
+nav.toc .lbl{ font-size:15px; }
+nav.toc .pending{ color:var(--muted); }
+nav.toc li.off a{ pointer-events:none; }
+
+.bar{
+  position:sticky; top:0; z-index:5; background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  padding:9px 0; margin-bottom:26px;
+}
+.bar a{ color:var(--rubric); text-decoration:none; font-size:12px; letter-spacing:.14em; }
+.bar a:hover{ text-decoration:underline; }
+.bar .sp{ flex:1; }
+button{
+  font-family:var(--serif); font-size:12px; color:var(--ink);
+  background:transparent; border:1px solid var(--rule); border-radius:3px;
+  padding:5px 11px; cursor:pointer;
+}
+button:hover{ background:var(--wash); }
+button:focus-visible, a:focus-visible{ outline:2px solid var(--rubric); outline-offset:2px; }
+
+.progress{
+  position:fixed; inset:0 auto auto 0; height:2px; width:0;
+  background:var(--rubric); z-index:9; transition:width .1s linear;
+}
+@media (prefers-reduced-motion:reduce){ .progress{ transition:none; } }
+
+section.ep{ margin:0 0 62px; scroll-margin-top:60px; display:flow-root; }
+section.ep .rubric{ display:block; margin-bottom:6px; }
+p{ font-size:15px; line-height:1.9; margin:0 0 1.15em; text-align:justify;
+   word-break:normal; overflow-wrap:anywhere; line-break:strict; }
+p.first{ display:flow-root; }
+p.first::first-letter{
+  float:left; font-size:44px; line-height:.9; color:var(--rubric);
+  padding:4px 10px 0 0;
+}
+.en{ color:var(--en); }
+body.plain .en{ color:var(--ink); }
+
+section.ep ul, section.ep ol{ margin:0 0 1.3em; padding-left:1.6em; }
+section.ep li{ font-size:15px; line-height:1.9; margin:.2em 0; }
+section.ep li::marker{ color:var(--rubric); }
+
+blockquote{
+  margin:1.6em 0; padding:.2em 0 .2em 1.2em;
+  border-left:2px solid var(--faint); color:var(--muted);
+}
+blockquote p{ margin:0; font-size:14px; }
+
+code{
+  font-family:var(--mono); font-size:.86em;
+  background:var(--wash); border:1px solid var(--rule); border-radius:3px;
+  padding:.1em .35em;
+}
+pre{
+  margin:1.6em 0; padding:14px 16px; overflow-x:auto;
+  background:var(--wash); border:1px solid var(--rule); border-radius:4px;
+}
+pre code{ background:none; border:0; padding:0; font-size:13px; line-height:1.7; }
+
+.tw{ overflow-x:auto; margin:1.6em 0; }
+table{ border-collapse:collapse; width:100%; font-size:14px; }
+th, td{ border-bottom:1px solid var(--rule); padding:8px 10px; }
+th{ color:var(--rubric); font-weight:normal; letter-spacing:.06em;
+    border-bottom:1px solid var(--faint); }
+tbody tr:hover{ background:var(--wash); }
+
+img{ max-width:100%; height:auto; display:block; margin:1.6em auto; }
+ruby rt{ font-size:.5em; color:var(--muted); letter-spacing:0; }
+strong{ font-weight:600; }
+em{ font-style:italic; }
+del{ color:var(--muted); }
+a{ color:var(--rubric); }
+
+::selection{ background:#DCC9A0; color:var(--ink); }
+::-moz-selection{ background:#DCC9A0; color:var(--ink); }
+
+.star{ text-align:center; color:var(--faint); font-size:11px; letter-spacing:.4em; margin:30px 0; }
+.top{ display:block; text-align:center; font-size:12px; letter-spacing:.16em;
+      color:var(--rubric); text-decoration:none; margin-top:8px; }
+.top:hover{ text-decoration:underline; }
+
+@media (max-width:640px){
+  .sheet{ padding:30px 20px 80px; border:0; }
+  h1{ font-size:22px; }
+  p{ text-align:left; }
+  p.first::first-letter{ font-size:38px; }
+}
+@media print{
+  body{ background:#fff; }
+  .sheet{ border:0; max-width:none; }
+  .bar, .top, .progress{ display:none; }
+  section.ep{ page-break-inside:auto; }
+  pre, blockquote, table{ page-break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+<div class="rubric">目次</div>
+<h1>予言の経済学</h1>
+<h2>巫女姫と転生商人の異世界災害対策</h2>
+<p class="lede">「どうか聞いてください。今年、西方より大いなる災いがこの国を襲います」平和を謳歌する王国に王女アルフィーナの不吉な予言が告げられる...</p>
+<hr class="rule">
+<nav class="toc" aria-label="章の目次"><ol>
+<li><a href="chapter01.html"><span class="num">1章</span><span class="lbl">『災害は予防が肝心』</span><span class="lbl pending" style="margin-left:auto;font-size:12px">王女アルフィーナの予言を聞いたリカルドは、ふとしたきっかけで不吉な未来の対策を立てることに...</span></a></li>
+<li><a href="chapter02.html"><span class="num">2章</span><span class="lbl">『模擬店ヴィンダーホールディングス』</span><span class="lbl pending" style="margin-left:auto;font-size:12px">紹賢祭役員に任ぜられたアルフィーナによって、リカルドは紹賢祭に巻き込まれていく...</span></a></li>
+<li class="off"><a href="#" aria-disabled="true" tabindex="-1"><span class="num">3章</span><span class="lbl pending">『第二の予言』</span></a></li>
+<li><a href="chapter04.html"><span class="num">4章</span><span class="lbl">『チェックポイント』</span><span class="lbl pending" style="margin-left:auto;font-size:12px">竜討伐の褒美として、見本市の出展権を得たリカルドは、見本市の準備に奔走する...</span></a></li>
+<li><a href="chapter05.html"><span class="num">5章</span><span class="lbl">『和のベンチャー』</span><span class="lbl pending" style="margin-left:auto;font-size:12px">故郷の味を求めて、リカルドとナタリーはお菓子作りを始める...</span></a></li>
+</ol></nav>
+</div>
+
+</body>
+</html>
