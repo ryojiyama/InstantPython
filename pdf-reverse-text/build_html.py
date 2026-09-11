@@ -5,15 +5,23 @@ build_html.py
 toc.json と source/ のマークダウンから、読書用の HTML を生成する。
 
 出力:
-    converted_pdf/index.html       章の目次
-    converted_pdf/chapter01.html   1章の全文（話の目次 + 本文）
-    converted_pdf/chapter02.html   ...
+    converted_pdf/index.html        章の目次 + 全章検索
+    converted_pdf/chapter01.html    1章の全文（話の目次 + 本文）
+    converted_pdf/chapter02.html    ...
+    converted_pdf/search-index.js   章をまたぐ検索の索引
 
 章の構成は toc.json で定義する。
 各章に含まれる話（セクション）は、マークダウン内の見出し行から自動で拾う。
 
 段落の結合には merge_textparagraphs.py のルールをそのまま使う。
 Markdown のリスト・引用・表・コードブロック・強調・リンクにも対応する。
+
+英語学習向けの仕掛け:
+    ・英文には lang="en" を付ける（Safari の辞書・読み上げ・翻訳が英語として扱う）
+    ・本文は <article> に入れる（Safari のリーダーが本文だけを拾う）
+    ・「英文だけ」トグルで和文を伏せる
+    ・英文をクリックすると、その 1 文を英語音声で読み上げる
+    ・どのページからでも章をまたいで全文検索できる
 
 使い方:
     python3 build_html.py
@@ -75,15 +83,15 @@ def split_sentences(text: str):
             continue
 
         if ch in EN_END:
+            # 文末と確定するまで buf には足さない (足すと i が戻ったとき二重になる)
             j = i + 1
             while j < n and text[j] in EN_TAIL:
-                buf += text[j]
                 j += 1
             k = j
             while k < n and text[k] == " ":
                 k += 1
             if k >= n or (k > j and _starts_sentence(text[k])):
-                buf += text[j:k]
+                buf += text[i + 1:k]
                 out.append(buf)
                 buf = ""
                 i = k
@@ -141,16 +149,27 @@ def inline_md(text: str) -> str:
 
 
 def markup_text(text: str) -> str:
-    """文ごとに分け、英文を <span class="en"> で包みつつインライン記法を適用する。"""
+    """文ごとに分け、英文は <span class="en" lang="en">、和文は <span class="ja"> で包む。
+
+    lang="en" は Safari の「調べる」「読み上げ」「翻訳」に英語だと伝えるために要る。
+    """
     out = []
     for s in split_sentences(text):
         core = s.rstrip()
         tail = s[len(core):]
-        if core and is_english(core):
-            out.append('<span class="en">%s</span>%s' % (inline_md(core), tail))
-        else:
-            out.append(inline_md(core) + tail)
+        if not core:
+            out.append(s)
+            continue
+        cls = "en" if is_english(core) else "ja"
+        lang = ' lang="en"' if cls == "en" else ""
+        out.append('<span class="%s"%s>%s</span>%s'
+                   % (cls, lang, inline_md(core), tail))
     return "".join(out)
+
+
+def contains_english(text: str) -> bool:
+    """ブロック内に英文が 1 文でもあるか (英文だけ表示の判定に使う)。"""
+    return any(is_english(s.rstrip()) for s in split_sentences(text) if s.strip())
 
 
 # ---------------------------------------------------------- ブロックの HTML 化
@@ -283,9 +302,15 @@ def render_body(blocks):
             head = text.lstrip(IDEOGRAPHIC_SPACE)
             drop = first_para and head[:1] not in NO_DROPCAP and not is_english(head)
             # ドロップキャップ時は字下げの全角スペースを外す (先頭文字が空白になるため)
+            cls = (["first"] if drop else []) + ([] if contains_english(text) else ["ja"])
             out.append('<p%s>%s</p>'
-                       % (' class="first"' if drop else "",
+                       % (' class="%s"' % " ".join(cls) if cls else "",
                           markup_text(head if drop else text)))
+            first_para = False
+        else:  # 想定外の種別。捨てずに段落として出し、気づけるよう警告する
+            print("  警告: 未知のブロック種別 %r を段落として出力しました: %s"
+                  % (kind, text[:30].replace("\n", " ")), file=sys.stderr)
+            out.append("<p>%s</p>" % markup_text(text))
             first_para = False
         i += 1
 
@@ -294,12 +319,16 @@ def render_body(blocks):
 
 # ---------------------------------------------------------------- 構造の解析
 
+SETEXT_RULE = re.compile(r"\s{0,3}(=+|-+)\s*")
+
+
 def heading_level(text: str) -> int:
-    m = re.match(r"^\s{0,3}(#{1,6})\s", text)
+    lines = text.split("\n")
+    m = re.match(r"^\s{0,3}(#{1,6})\s", lines[0])
     if m:
         return len(m.group(1))
-    if "\n" in text:  # Setext
-        return 1 if text.rsplit("\n", 1)[1].startswith("=") else 2
+    if len(lines) > 1 and SETEXT_RULE.fullmatch(lines[1]):  # Setext は 2 行目が下線
+        return 1 if lines[1].lstrip().startswith("=") else 2
     return 2  # 「◯◯話」形式
 
 
@@ -308,47 +337,123 @@ def heading_text(text: str) -> str:
     return re.sub(r"^\s{0,3}#{1,6}\s*", "", text).rstrip("# ").strip()
 
 
-def parse_frontmatter(text: str) -> dict:
-    meta = {}
+FM_KEY = re.compile(r"^[A-Za-z_][\w.\-]*\s*:")
+
+
+def looks_like_frontmatter(text: str) -> bool:
+    """本物の frontmatter か、ただの区切り線 --- かを見分ける。
+
+    frontmatter は開始記号の次の行から key: value が続き、閉じ記号で終わる。
+    空行や本文が挟まっていれば、それは水平線であって frontmatter ではない。
+    """
+    lines = text.splitlines()
+    if not lines or lines[0].strip() not in ("---", "+++"):
+        return False
+    for line in lines[1:]:
+        s = line.strip()
+        if s in ("---", "...", "+++"):
+            return True          # key: value だけで閉じられた
+        if not s or not FM_KEY.match(s):
+            return False         # 空行や本文が来た時点で違う
+    return False                 # 閉じられていない
+
+
+def normalize_blocks(blocks, blank_breaks):
+    """frontmatter を騙った区切り線を、区切り線 + 本文に戻す。"""
+    out = []
+    for kind, text in blocks:
+        if kind == "frontmatter" and not looks_like_frontmatter(text):
+            lines = text.splitlines()
+            out.append(("sep", lines[0]))
+            out.extend(merge_lines(lines[1:], blank_breaks=blank_breaks))
+        else:
+            out.append((kind, text))
+    return out
+
+
+def parse_frontmatter(text: str):
+    """(メタ情報, 閉じ記号より後ろに残った本文) を返す。
+
+    閉じの --- の直後に空行がないと本文が同じブロックに入ってくる。
+    捨てずに呼び出し側へ渡す。
+    """
+    meta, rest = {}, []
+    closed = False
     for line in text.splitlines()[1:]:
+        if closed:
+            rest.append(line)
+            continue
         if line.strip() in ("---", "..."):
-            break
+            closed = True
+            continue
         if ":" in line:
             k, v = line.split(":", 1)
             meta[k.strip()] = v.strip().strip("\"'")
-    return meta
+    return meta, "\n".join(rest).strip("\n")
 
 
-def parse_chapter(md_path: Path):
+def parse_chapter(md_path: Path, dump: bool = False):
     """マークダウンを (メタ情報, セクション列) に分解する。"""
     lines = md_path.read_text(encoding="utf-8").splitlines()
     blank_breaks = md_path.suffix.lower() in (".md", ".markdown")
     blocks = merge_lines(lines, blank_breaks=blank_breaks)
+    blocks = normalize_blocks(blocks, blank_breaks)
+
+    # H1 が 1 つだけなら章題、複数あるなら「話」の見出しとして扱う
+    h1_count = sum(1 for k, t in blocks if k == "heading" and heading_level(t) == 1)
+    h1_is_title = h1_count == 1
+
+    if dump:
+        print("--- %s: 解析したブロック (H1=%d, 章題に使う=%s) ---"
+              % (md_path, h1_count, h1_is_title), file=sys.stderr)
+        for j, (k, t) in enumerate(blocks):
+            one = t.replace("\n", "⏎")
+            print("  [%03d] %-14s %s%s"
+                  % (j, k, one[:60], "…" if len(one) > 60 else ""), file=sys.stderr)
+        print("---", file=sys.stderr)
 
     meta, sections, current = {}, [], None
+
+    def ensure():
+        """無題の話を必要になった時点で開く。"""
+        nonlocal current
+        if current is None:
+            current = {"title": "", "blocks": []}
+            sections.append(current)
+        return current
 
     for kind, text in blocks:
         if kind == "__unclosed_fence__":
             continue
 
         if kind == "frontmatter":
-            meta.update(parse_frontmatter(text))
+            fm, rest = parse_frontmatter(text)
+            meta.update(fm)
+            if rest.strip():
+                ensure()["blocks"].append(("para", rest))
             continue
 
         if kind == "heading":
+            # 見出し行の直後に空行がないと本文が同じブロックに入る。
+            # 1 行目を見出し、残りを段落として扱い、取りこぼさない。
             lvl = heading_level(text)
-            if lvl == 1 and not sections:
-                meta.setdefault("title", heading_text(text))
-                continue
-            if lvl <= 2:
-                current = {"title": heading_text(text), "blocks": []}
-                sections.append(current)
-                continue
+            head, _, rest = text.partition("\n")
+            if rest and SETEXT_RULE.fullmatch(rest.split("\n", 1)[0]):
+                rest = rest.split("\n", 1)[1] if "\n" in rest else ""
 
-        if current is None:
-            current = {"title": "", "blocks": []}
-            sections.append(current)
-        current["blocks"].append((kind, text))
+            if lvl == 1 and h1_is_title and not any(s["blocks"] for s in sections):
+                meta.setdefault("title", heading_text(head))
+            elif lvl <= 2:
+                current = {"title": heading_text(head), "blocks": []}
+                sections.append(current)
+            else:  # h3 以下は話の中の小見出し
+                ensure()["blocks"].append(("heading", head))
+
+            if rest.strip():
+                ensure()["blocks"].append(("para", rest))
+            continue
+
+        ensure()["blocks"].append((kind, text))
 
     for s in sections:
         # 前後の区切り線はセクションの飾り (＊) と重なるので落とす
@@ -363,6 +468,47 @@ def parse_chapter(md_path: Path):
 
 def slug(i: int) -> str:
     return "sec%02d" % i
+
+
+# ------------------------------------------------------------ 章をまたぐ検索
+
+STRIP_MD = [
+    (re.compile(r"^\s{0,3}(`{3,}|~{3,}).*$", re.M), ""),      # フェンス行
+    (re.compile(r"^\s{0,3}#{1,6}\s*", re.M), ""),             # 見出し記号
+    (re.compile(r"^\s{0,3}>\s?", re.M), ""),                  # 引用記号
+    (re.compile(r"^\s*([-*+]|\d{1,9}[.)])\s+", re.M), ""),    # リスト記号
+    (re.compile(r"!?\[([^\]]*)\]\([^)]*\)"), r"\1"),          # 画像・リンク
+    (re.compile(r"\{([^{}|]+)\|[^{}|]+\}"), r"\1"),           # ルビ
+    (re.compile(r"[*_`~]+"), ""),                             # 強調・コード
+    (re.compile(r"\s+"), " "),
+]
+
+
+def plain_text(text: str) -> str:
+    for pat, rep in STRIP_MD:
+        text = pat.sub(rep, text)
+    return text.strip()
+
+
+def index_entries(number, chapter_title, sections):
+    """検索索引の項目を作る。アンカーは build_chapter の連番と揃える。"""
+    out = []
+    for i, s in enumerate(sections, 1):
+        for kind, text in s["blocks"]:
+            if kind in ("sep", "html"):
+                continue
+            body = plain_text(text)
+            if len(body) < 2:
+                continue
+            out.append({
+                "f": "chapter%02d.html" % number,
+                "c": number,
+                "ct": chapter_title,
+                "s": slug(i),
+                "st": s["title"],
+                "x": body,
+            })
+    return out
 
 
 # ---------------------------------------------------------------- CSS
@@ -436,6 +582,36 @@ button{
 button:hover{ background:var(--wash); }
 button:focus-visible, a:focus-visible{ outline:2px solid var(--rubric); outline-offset:2px; }
 
+input.q{
+  font-family:var(--serif); font-size:13px; color:var(--ink);
+  background:var(--paper); border:1px solid var(--rule); border-radius:3px;
+  padding:5px 9px; min-width:11em; flex:1 1 12em;
+}
+input.q::placeholder{ color:var(--muted); }
+input.q:focus-visible{ outline:2px solid var(--rubric); outline-offset:1px; }
+label.rate{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
+label.rate select{
+  font-family:var(--serif); font-size:12px; color:var(--ink);
+  background:transparent; border:1px solid var(--rule); border-radius:3px;
+  padding:3px 4px; margin-left:4px;
+}
+
+.results{ margin:0 0 26px; border-top:1px solid var(--rule); }
+.results ol{ list-style:none; margin:0; padding:0; }
+.results li{ border-bottom:1px solid var(--rule); }
+.results a{
+  display:block; padding:10px 4px; text-decoration:none; color:var(--ink);
+}
+.results a:hover, .results a:focus-visible{ background:var(--wash); }
+.results .where{
+  display:block; color:var(--rubric); font-size:11px; letter-spacing:.16em;
+  margin-bottom:3px;
+}
+.results .snip{ display:block; font-size:14px; line-height:1.7; }
+.results .none{ color:var(--muted); font-size:13px; padding:10px 4px; margin:0; }
+.results .count{ color:var(--muted); font-size:11px; letter-spacing:.14em;
+                 padding:8px 4px 0; margin:0; }
+
 .progress{
   position:fixed; inset:0 auto auto 0; height:2px; width:0;
   background:var(--rubric); z-index:9; transition:width .1s linear;
@@ -451,8 +627,28 @@ p.first::first-letter{
   float:left; font-size:44px; line-height:.9; color:var(--rubric);
   padding:4px 10px 0 0;
 }
-.en{ color:var(--en); }
+.en{
+  color:var(--en); cursor:pointer;
+  hyphens:auto; -webkit-hyphens:auto;
+  overflow-wrap:normal; word-break:normal;   /* 英単語を途中で割らない */
+}
+.en:hover{ text-decoration:underline dotted var(--faint); text-underline-offset:3px; }
+.en.speaking{ background:#F0E4C8; border-radius:2px; box-shadow:0 0 0 2px #F0E4C8; }
 body.plain .en{ color:var(--ink); }
+
+/* 英文だけ表示（見出しと表は構造として残す） */
+body.enonly p .ja,
+body.enonly li .ja,
+body.enonly blockquote .ja{ display:none; }
+body.enonly p.ja,
+body.enonly li:not(:has(.en)),
+body.enonly blockquote:not(:has(.en)){ display:none; }
+body.enonly p.first::first-letter{
+  float:none; font-size:inherit; line-height:inherit; color:inherit; padding:0;
+}
+body.enonly .en{ color:var(--ink); }
+
+mark{ background:#F3E2B8; color:var(--ink); border-radius:2px; padding:0 .1em; }
 
 section.ep ul, section.ep ol{ margin:0 0 1.3em; padding-left:1.6em; }
 section.ep li{ font-size:15px; line-height:1.9; margin:.2em 0; }
@@ -506,7 +702,7 @@ a{ color:var(--rubric); }
 @media print{
   body{ background:#fff; }
   .sheet{ border:0; max-width:none; }
-  .bar, .top, .progress{ display:none; }
+  .bar, .top, .progress, .results, input.q{ display:none; }
   section.ep{ page-break-inside:auto; }
   pre, blockquote, table{ page-break-inside:avoid; }
 }
@@ -514,16 +710,24 @@ a{ color:var(--rubric); }
 
 TOGGLE_JS = """
 (function(){
-  var b=document.getElementById('tint');
-  if(b){
-    var on=true;
+  var flip=function(id, label, cls, on){
+    var b=document.getElementById(id);
+    if(!b) return;
+    var state=on;
+    var paint=function(){
+      b.textContent=label+'：'+(state?'ON':'OFF');
+      b.setAttribute('aria-pressed', state?'true':'false');
+    };
     b.addEventListener('click',function(){
-      on=!on;
-      document.body.classList.toggle('plain',!on);
-      b.textContent='英文の色分け：'+(on?'ON':'OFF');
-      b.setAttribute('aria-pressed', on?'true':'false');
+      state=!state;
+      document.body.classList.toggle(cls, cls==='plain' ? !state : state);
+      paint();
     });
-  }
+    paint();
+  };
+  flip('tint','英文の色分け','plain',true);   /* OFF のとき body.plain */
+  flip('only','英文だけ','enonly',false);
+
   var bar=document.querySelector('.progress');
   if(bar){
     var tick=function(){
@@ -538,26 +742,167 @@ TOGGLE_JS = """
 })();
 """
 
+# 英文をクリックすると、その 1 文だけを英語音声で読み上げる。
+SPEECH_JS = """
+(function(){
+  if(!('speechSynthesis' in window)) return;
+  var rate=document.getElementById('rate'), cur=null, voice=null;
+  var load=function(){
+    var vs=speechSynthesis.getVoices()||[];
+    var en=vs.filter(function(v){ return /^en/i.test(v.lang); });
+    voice=en.filter(function(v){ return v.localService; })[0] || en[0] || null;
+  };
+  load();
+  speechSynthesis.addEventListener('voiceschanged', load);
 
-def page(title, body, css=CSS, script="", desc=""):
+  var stop=function(){
+    speechSynthesis.cancel();
+    if(cur){ cur.classList.remove('speaking'); cur=null; }
+  };
+  document.addEventListener('click',function(e){
+    if(e.target.closest('a, button, input, select')) return;
+    var el=e.target.closest('.en');
+    if(!el) return;
+    if(cur===el){ stop(); return; }
+    stop();
+    var u=new SpeechSynthesisUtterance(el.textContent);
+    u.lang='en-US';
+    if(voice) u.voice=voice;
+    u.rate=rate ? parseFloat(rate.value) || 1 : 1;
+    u.onend=u.onerror=function(){
+      el.classList.remove('speaking');
+      if(cur===el) cur=null;
+    };
+    cur=el; el.classList.add('speaking');
+    speechSynthesis.speak(u);
+  });
+  addEventListener('keydown',function(e){ if(e.key==='Escape') stop(); });
+  addEventListener('pagehide',stop);
+})();
+"""
+
+# 検索結果から来たとき (#sec02|q=...) は、その話へ飛んで語を光らせる。
+HIGHLIGHT_JS = """
+(function(){
+  var apply=function(){
+    var raw=location.hash.slice(1).replace(/%7[Cc]q=/,'|q=');
+    if(!raw) return;
+    var id=raw, q='', p=raw.indexOf('|q=');
+    if(p>=0){ id=raw.slice(0,p); q=decodeURIComponent(raw.slice(p+3)); }
+    var root=document.getElementById(id);
+    if(!root) return;
+    root.scrollIntoView();
+    if(!q) return;
+    var needle=q.toLowerCase(), first=null, nodes=[], n;
+    var walk=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    while((n=walk.nextNode())) nodes.push(n);
+    nodes.forEach(function(node){
+      if(node.parentNode.closest('mark, pre')) return;
+      var text=node.nodeValue, low=text.toLowerCase(), i=low.indexOf(needle);
+      if(i<0) return;
+      var frag=document.createDocumentFragment(), pos=0;
+      while(i>=0){
+        frag.appendChild(document.createTextNode(text.slice(pos,i)));
+        var m=document.createElement('mark');
+        m.textContent=text.slice(i,i+q.length);
+        frag.appendChild(m);
+        if(!first) first=m;
+        pos=i+q.length;
+        i=low.indexOf(needle,pos);
+      }
+      frag.appendChild(document.createTextNode(text.slice(pos)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    if(first) first.scrollIntoView({block:'center'});
+  };
+  apply();
+  addEventListener('hashchange',apply);
+})();
+"""
+
+# 章をまたぐ全文検索。索引は window.SEARCH_INDEX に入っている。
+SEARCH_JS = """
+(function(){
+  var box=document.getElementById('q'), panel=document.getElementById('results');
+  if(!box||!panel) return;
+  var data=window.SEARCH_INDEX;
+  if(!data||!data.length){
+    box.disabled=true;
+    box.placeholder='索引を読み込めません（章の目次から検索）';
+    return;
+  }
+  var esc=function(s){
+    return s.replace(/[&<>]/g,function(c){
+      return c==='&'?'&amp;':c==='<'?'&lt;':'&gt;';
+    });
+  };
+  var LIMIT=40;
+  var render=function(q){
+    panel.innerHTML='';
+    if(!q){ panel.hidden=true; return; }
+    panel.hidden=false;
+    var needle=q.toLowerCase(), hits=[], total=0;
+    for(var i=0;i<data.length;i++){
+      var at=data[i].x.toLowerCase().indexOf(needle);
+      if(at<0) continue;
+      total++;
+      if(hits.length<LIMIT) hits.push([data[i],at]);
+    }
+    if(!total){ panel.innerHTML='<p class="none">見つかりません</p>'; return; }
+    var html='<p class="count">'+total+' 件'+(total>LIMIT?'（先頭 '+LIMIT+' 件）':'')+'</p><ol>';
+    hits.forEach(function(h){
+      var d=h[0], at=h[1];
+      var s=Math.max(0,at-40), e=Math.min(d.x.length,at+q.length+70);
+      var snip=(s>0?'…':'')+esc(d.x.slice(s,at))
+        +'<mark>'+esc(d.x.slice(at,at+q.length))+'</mark>'
+        +esc(d.x.slice(at+q.length,e))+(e<d.x.length?'…':'');
+      var where=d.c+'章'+(d.ct?'　'+d.ct:'')+(d.st?'　・　'+d.st:'');
+      var href=d.f+'#'+d.s+'|q='+encodeURIComponent(q);
+      html+='<li><a href="'+href+'"><span class="where">'+esc(where)+'</span>'
+           +'<span class="snip">'+snip+'</span></a></li>';
+    });
+    panel.innerHTML=html+'</ol>';
+  };
+  var timer;
+  box.addEventListener('input',function(){
+    clearTimeout(timer);
+    timer=setTimeout(function(){ render(box.value.trim()); },120);
+  });
+  box.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){ box.value=''; render(''); box.blur(); }
+  });
+  addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==box&&!e.metaKey&&!e.ctrlKey){
+      e.preventDefault(); box.focus(); box.select();
+    }
+  });
+})();
+"""
+
+
+def page(title, body, css=CSS, script="", desc="", scripts=()):
     meta = ('<meta name="description" content="%s">\n' % html.escape(desc)) if desc else ""
+    tags = "".join('<script src="%s"></script>\n' % s for s in scripts)
     return (
         "<!DOCTYPE html>\n"
         '<html lang="ja">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         "%s"
         "<title>%s</title>\n<style>%s</style>\n</head>\n<body>\n"
-        '<div class="sheet">\n%s\n</div>\n%s\n</body>\n</html>\n'
-        % (meta, html.escape(title), css, body,
+        '<div class="sheet">\n%s\n</div>\n%s%s\n</body>\n</html>\n'
+        % (meta, html.escape(title), css, body, tags,
            ("<script>%s</script>" % script) if script else "")
     )
 
 
 # ---------------------------------------------------------------- 生成
 
-def build_index(toc, built):
+def build_index(toc, built, index_js=""):
     b = toc["book"]
-    parts = ['<div class="rubric">目次</div>',
+    parts = ['<div class="bar"><span class="rubric">目次</span><span class="sp"></span>'
+             '<input id="q" class="q" type="search" placeholder="全章を検索（/）" '
+             'aria-label="全章を検索"></div>',
+             '<div id="results" class="results" hidden></div>',
              "<h1>%s</h1>" % html.escape(b.get("title", "")),
              "<h2>%s</h2>" % html.escape(b.get("subtitle", ""))]
     if b.get("note"):
@@ -582,7 +927,8 @@ def build_index(toc, built):
                n, lcls, html.escape(label), extra)
         )
     parts.append("</ol></nav>")
-    return page(b.get("title", "目次"), "\n".join(parts), desc=b.get("note", ""))
+    return page(b.get("title", "目次"), "\n".join(parts),
+                script=index_js + SEARCH_JS, desc=b.get("note", ""))
 
 
 def build_chapter(ch, sections, meta=None):
@@ -593,40 +939,69 @@ def build_chapter(ch, sections, meta=None):
 
     head = [
         '<div class="progress" role="presentation"></div>',
-        '<div class="bar"><a href="index.html">← 章の目次</a><span class="sp"></span>'
-        '<button id="tint" aria-pressed="true">英文の色分け：ON</button></div>',
+        '<div class="bar">'
+        '<a href="index.html">← 章の目次</a>'
+        '<input id="q" class="q" type="search" placeholder="全章を検索（/）" '
+        'aria-label="全章を検索">'
+        '<span class="sp"></span>'
+        '<label class="rate">読み上げ'
+        '<select id="rate" aria-label="読み上げの速さ">'
+        '<option value="0.8">0.8x</option>'
+        '<option value="1" selected>1.0x</option>'
+        '<option value="1.2">1.2x</option>'
+        '</select></label>'
+        '<button id="tint" aria-pressed="true">英文の色分け：ON</button>'
+        '<button id="only" aria-pressed="false">英文だけ：OFF</button>'
+        '</div>',
+        '<div id="results" class="results" hidden></div>',
+        # <article> にまとめると Safari のリーダーが本文だけを拾える
+        "<article>",
+        "<header>",
         '<div class="rubric">CHAPTER %s ・ %s章</div>' % (roman(n), n),
         "<h1>%s</h1>" % html.escape(title),
     ]
     if note:
         head.append('<p class="lede">%s</p>' % html.escape(note))
     head.append('<hr class="rule">')
+    head.append("</header>")
 
-    if len(sections) > 1:
+    # 章の導入部 (題のない話) は番号を持たせず、目次にも出さない
+    entries, num = [], 0
+    for i, s in enumerate(sections, 1):
+        if s["title"]:
+            num += 1
+            entries.append((i, num, s))
+        else:
+            entries.append((i, None, s))
+    listed = [e for e in entries if e[1]]
+
+    if len(listed) > 1:
         head.append('<nav class="toc" aria-label="話の目次"><ol>')
-        for i, s in enumerate(sections, 1):
+        for i, k, s in listed:
             head.append(
                 '<li><a href="#%s"><span class="num">%02d</span>'
                 '<span class="lbl">%s</span></a></li>'
-                % (slug(i), i, html.escape(s["title"] or "（無題）"))
+                % (slug(i), k, html.escape(s["title"]))
             )
         head.append("</ol></nav>")
 
     body = []
-    for i, s in enumerate(sections, 1):
+    for i, k, s in entries:
         body.append('<section class="ep" id="%s">' % slug(i))
         body.append('<div class="star">＊</div>')
         if s["title"]:
-            body.append('<div class="rubric">%02d</div>' % i)
+            body.append('<div class="rubric">%02d</div>' % k)
             body.append("<h2>%s</h2>" % html.escape(s["title"]))
             body.append('<hr class="rule">')
         body.append(s["html"])
-        if len(sections) > 1:
+        if len(listed) > 1:
             body.append('<a class="top" href="#">▲ 話の目次へ</a>')
         body.append("</section>")
+    body.append("</article>")
 
     return page("%s章　%s" % (n, title), "\n".join(head + body),
-                script=TOGGLE_JS, desc=note)
+                script=TOGGLE_JS + SPEECH_JS + HIGHLIGHT_JS + SEARCH_JS,
+                desc=note, scripts=("search-index.js",))
 
 
 def roman(n):
@@ -644,6 +1019,8 @@ def main():
     ap.add_argument("--toc", default="toc.json")
     ap.add_argument("--src", default="source")
     ap.add_argument("--out", default="converted_pdf")
+    ap.add_argument("--dump-blocks", action="store_true",
+                    help="merge_lines が返したブロックを標準エラーに出す")
     args = ap.parse_args()
 
     toc_path, src_dir, out_dir = Path(args.toc), Path(args.src), Path(args.out)
@@ -652,7 +1029,7 @@ def main():
     toc = json.loads(toc_path.read_text(encoding="utf-8"))
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    built = {}
+    built, entries = {}, []
     for ch in toc["chapters"]:
         f = ch.get("file")
         if not f:
@@ -666,18 +1043,25 @@ def main():
         if not md.exists():
             print("  スキップ: %s が見つかりません" % (src_dir / f))
             continue
-        meta, secs = parse_chapter(md)
+        meta, secs = parse_chapter(md, dump=args.dump_blocks)
         (out_dir / ("chapter%02d.html" % ch["number"])).write_text(
             build_chapter(ch, secs, meta), encoding="utf-8")
         built[ch["number"]] = len(secs)
+        entries.extend(index_entries(
+            ch["number"], ch.get("title") or meta.get("title", ""), secs))
 
-    (out_dir / "index.html").write_text(build_index(toc, built), encoding="utf-8")
+    index_js = "window.SEARCH_INDEX=%s;\n" % json.dumps(entries, ensure_ascii=False)
+    (out_dir / "search-index.js").write_text(index_js, encoding="utf-8")
+    (out_dir / "index.html").write_text(
+        build_index(toc, built, index_js), encoding="utf-8")
 
     print("%-16s %s" % ("生成", "セクション数"))
     print("-" * 30)
     for n, c in sorted(built.items()):
         print("%-16s %d" % ("chapter%02d.html" % n, c))
     print("%-16s" % "index.html")
+    print("%-16s %d 項目 / %.0f KB"
+          % ("search-index.js", len(entries), len(index_js.encode("utf-8")) / 1024))
     print("-" * 30)
     print("出力先: %s/" % out_dir)
 
