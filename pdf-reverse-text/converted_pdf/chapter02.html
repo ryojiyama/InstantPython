@@ -29,7 +29,9 @@ body{
   font-kerning:normal;
 }
 .sheet{
-  max-width:42rem; margin:0 auto; background:var(--paper);
+  /* 幅はウィンドウに対する割合。--sheet-w は幅メニューと --width で変わる */
+  width:var(--sheet-w, 70vw); max-width:100%; min-width:min(100%, 36rem);
+  margin:0 auto; background:var(--paper);
   border-left:1px solid var(--rule); border-right:1px solid var(--rule);
   min-height:100vh; padding:44px 40px 96px;
   display:flow-root;          /* フロートを内包し、選択範囲の描画を親幅に広げない */
@@ -81,8 +83,8 @@ input.q{
 }
 input.q::placeholder{ color:var(--muted); }
 input.q:focus-visible{ outline:2px solid var(--rubric); outline-offset:1px; }
-label.rate{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
-label.rate select{
+label.rate, label.width{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
+label.rate select, label.width select{
   font-family:var(--serif); font-size:12px; color:var(--ink);
   background:transparent; border:1px solid var(--rule); border-radius:3px;
   padding:3px 4px; margin-left:4px;
@@ -186,24 +188,32 @@ a{ color:var(--rubric); }
 .top:hover{ text-decoration:underline; }
 
 @media (max-width:640px){
-  .sheet{ padding:30px 20px 80px; border:0; }
+  .sheet{ width:100%; min-width:0; padding:30px 20px 80px; border:0; }
+  label.width{ display:none; }
   h1{ font-size:22px; }
   p{ text-align:left; }
   p.first::first-letter{ font-size:38px; }
 }
 @media print{
   body{ background:#fff; }
-  .sheet{ border:0; max-width:none; }
+  .sheet{ border:0; max-width:none; width:auto; min-width:0; }
   .bar, .top, .progress, .results, input.q{ display:none; }
   section.ep{ page-break-inside:auto; }
   pre, blockquote, table{ page-break-inside:avoid; }
 }
 </style>
+<script>
+(function(){
+  var w=70;
+  try{ var s=localStorage.getItem('sheet-width'); if(s&&+s>=30&&+s<=100) w=+s; }catch(e){}
+  document.documentElement.style.setProperty('--sheet-w', w+'vw');
+})();
+</script>
 </head>
 <body>
 <div class="sheet">
 <div class="progress" role="presentation"></div>
-<div class="bar"><a href="index.html">← 章の目次</a><input id="q" class="q" type="search" placeholder="全章を検索（/）" aria-label="全章を検索"><span class="sp"></span><label class="rate">読み上げ<select id="rate" aria-label="読み上げの速さ"><option value="0.8">0.8x</option><option value="1" selected>1.0x</option><option value="1.2">1.2x</option></select></label><button id="tint" aria-pressed="true">英文の色分け：ON</button><button id="only" aria-pressed="false">英文だけ：OFF</button></div>
+<div class="bar"><a href="index.html">← 章の目次</a><input id="q" class="q" type="search" placeholder="全章を検索（/）" aria-label="全章を検索"><span class="sp"></span><label class="width">幅<select id="width" aria-label="本文の幅（ウィンドウに対する割合）"><option value="50">50%</option><option value="60">60%</option><option value="70" selected>70%</option><option value="80">80%</option><option value="90">90%</option><option value="100">100%</option></select></label><label class="rate">読み上げ<select id="rate" aria-label="読み上げの速さ"><option value="0.8">0.8x</option><option value="1" selected>1.0x</option><option value="1.2">1.2x</option></select></label><button id="tint" aria-pressed="true">英文の色分け：ON</button><button id="only" aria-pressed="false">英文だけ：OFF</button></div>
 <div id="results" class="results" hidden></div>
 <article>
 <header>
@@ -2604,6 +2614,24 @@ a{ color:var(--rubric); }
 </div>
 <script src="search-index.js"></script>
 <script>
+(function(){
+  var sel=document.getElementById('width');
+  if(!sel) return;
+  var cur=parseFloat(getComputedStyle(document.documentElement)
+                     .getPropertyValue('--sheet-w'))||0;
+  if(cur){
+    if(!sel.querySelector('option[value="'+cur+'"]')){
+      var o=document.createElement('option'); o.value=cur; o.textContent=cur+'%';
+      sel.appendChild(o);
+    }
+    sel.value=String(cur);
+  }
+  sel.addEventListener('change',function(){
+    document.documentElement.style.setProperty('--sheet-w', sel.value+'vw');
+    try{ localStorage.setItem('sheet-width', sel.value); }catch(e){}
+  });
+})();
+
 (function(){
   var flip=function(id, label, cls, on){
     var b=document.getElementById(id);

@@ -1,0 +1,162 @@
+Chapter8.md — 目視確認が必要な箇所 53 件
+============================================================
+
+[ブロック 16] 段落が長すぎる可能性 (405 文字)
+「帝国の軍団は短い筒から炎の矢を放ったというのじゃ。炎の矢は城壁の上の兵士を次々と打ち払った。これがどれほどあり得ないことか分るか！！」 Fulsi spoke without hiding his excitement, conveying the report of a mage who encountered the fall of Kurtheite on his way back to …
+
+[ブロック 33] 段落が長すぎる可能性 (472 文字)
+「可能性は高いのう。じゃが、それだけではない。もう一つあり得ぬ事は、同じような魔術を何十人もが一斉に使ったという事じゃ」 I see, even if the crystal of prophecy is special, magic also required aptitudes suited to each specific trait. Simply flowing magical powe…
+
+[ブロック 35] 段落が長すぎる可能性 (565 文字)
+「人間の体に回路を刻むことが出来る技術を帝国が持っておると言うことか。それならばあるいは……」 In the terms of my previous life, would it be an interface? Simply treating the human as a power unit that generates magical power from magic crystals. …
+
+[ブロック 79] 段落が長すぎる可能性 (524 文字)
+First of all, bacteria have a massive population and an overwhelmingly fast generational turnover. In the learning device common to life called DNA, these two elements are crucial. Offspring of differ…
+
+[ブロック 82] 段落が長すぎる可能性 (439 文字)
+Let's return to this world from the hypothetical. The basics are the same, but the length of the learning period is factored in. There is no doubt that several transfers occurred from Earth to this wo…
+
+[ブロック 143] 段落が長すぎる可能性 (407 文字)
+「現時点ではそうですが、今からシャーレに播かれたミューカスは培地の栄養を吸収しながらどんどん増えていきます。１匹が２匹に、２匹が４匹にという具合です。それが１０回繰り返されれば約１０００匹。さらに１０回繰り返されれば１００万匹です。そうしたら集団として目に見えます。元々は１匹から増えた純粋な子孫集団をコロニーと呼びます。ほら、ここにあるのですね」 I showed the failed Petri…
+
+[ブロック 167] 段落が長すぎる可能性 (421 文字)
+「三日後には到着すると連絡が来ております。ただ、大河を越える以上輸送自体に魔結晶を消費することから、その分は差し引くと」 "Now that Dagobard has been defeated, we should pour everything into this side. In the first place, we are suffering because of the sloppy …
+
+[ブロック 188] 段落が長すぎる可能性 (434 文字)
+「王国において大賢者と言われる魔術師が測定したということです」 "Fulsi. His research deriving the relationship between magic vein fluctuations and monster floods was brilliant. There is a correlation. But that's an achievement from …
+
+[ブロック 189] 段落が長すぎる可能性 (411 文字)
+"I heavily investigated the Kingdom's magic level after conquering this place too. I could hardly gain any insights. I was even disappointed. And in fact, this city was completely powerless against ou…
+
+[ブロック 263] 段落が長すぎる可能性 (466 文字)
+"Right according to calculations." About a week since the experiment began. Having gotten a handle on the aseptic operations, I finally started working with the Red Forest soil stored in the Grand Duk…
+
+[ブロック 269] 段落が長すぎる可能性 (543 文字)
+"Starting with a simpler and easier-to-evaluate experiment is better. Red soil—small Mucus that actively utilize magical power—might possess various effects. On the other hand, the ones that prevent i…
+
+[ブロック 365] カギ括弧の開閉が不一致 (開 1 / 閉 0)
+「花粉……ですか？
+
+[ブロック 366] カギ括弧の開閉が不一致 (開 0 / 閉 1)
+　花粉の効果は本物だったではありませんか。おかげで……」
+
+[ブロック 386] 段落が長すぎる可能性 (480 文字)
+「Let's return to the story of the pollen. How much knowledge do you think the Kingdom needed to devise this scheme?  The fact that the Empire is using 馬竜, and that 馬竜 belong to the same group of creat…
+
+[ブロック 398] カギ括弧の開閉が不一致 (開 1 / 閉 0)
+「流石に冗談よ。でも、説明つかないのは確か。あまりに高度なこれらの知識と王国全体の行動の齟齬。東の大公は私たちが魔獣の被害に苦しんでると信じていたわ。どうして？
+
+[ブロック 399] カギ括弧の開閉が不一致 (開 0 / 閉 1)
+　あのデータを知っていたらいくら無能でも疑うわよ。西方でもダゴバードの馬竜軍団は苦もなくベルトルドまでは迫った。どういうことか分る？」
+
+[ブロック 475] 段落が長すぎる可能性 (479 文字)
+「Please don't have excessive expectations of an amateur. 俺が魔力回路についてちゃんと知ったのは今なんですよ。You saw me being impressed by their stories just now, right?」 I said in a panic. Of course, it was a big deal that I …
+
+[ブロック 511] 段落が長すぎる可能性 (423 文字)
+大体、it was absolutely true that I had no idea about 魔力. Just taking that magic crystal from earlier, I had no clue what it meant for its 魔力 to be strong. For example, in the case of light, there are tw…
+
+[ブロック 526] 段落が長すぎる可能性 (535 文字)
+Suppose the magic crystal is a battery, and the 魔力回路 is an electrical circuit. In an electrical circuit, if you connect a battery, a current will try to flow at least through the conductive wire part.…
+
+[ブロック 547] 段落が長すぎる可能性 (489 文字)
+A seemingly plain mansion on the outskirts of the noble district in the royal capital. This was the house of the masked nobleman's mistress, known only to a very few close aides. 王都において、戦争中の敵国人と密会するリス…
+
+[ブロック 552] カギ括弧の開閉が不一致 (開 1 / 閉 0)
+「なるほど。
+
+[ブロック 553] カギ括弧の開閉が不一致 (開 1 / 閉 2)
+「英雄王子さえいれば侵略者など敵ではない」市井ではそのような話になっているのでしたな。クレイグはもやは生きた軍神。病の第一王子ではなくクレイグ殿下を太子にと望む声まで出始めておるとか。危機を救われた西部諸侯とベルトルドを守り切った西の大公。そして、東の大公が失脚した事による動揺している東部の諸侯。この状況ではそう言った声は市井に限らないのでは……」
+
+[ブロック 588] 段落が長すぎる可能性 (417 文字)
+After cultivating several types of colonies with strong magic inhibiting effects, including 【ＩＧ−１】, on Petri dishes, ガラスに移し取って目的物質の性質を大まかに調べたのだ。 In other words, after exposing them to heat, acid, and …
+
+[ブロック 590] 段落が長すぎる可能性 (401 文字)
+「これまでの阻害剤と大して変りませんよ。目的物質の精製ですね」 That black pigment apparently comes from shells in the river flowing out of the red forest. Since only a tiny amount can be gathered, making it expensive, it might be s…
+
+[ブロック 610] 段落が長すぎる可能性 (418 文字)
+「館長の力は必須ですからね」 Purifying a substance basically means separating the target substance from other substances using differences in physical and chemical properties. In my previous world, it was the basic…
+
+[ブロック 611] 段落が長すぎる可能性 (481 文字)
+Needless to say, it's not an easy task. Especially when dealing with unknown substances. Moreover, when using microorganisms, you have to extract it from the most diverse array of chemical substances …
+
+[ブロック 614] 段落が長すぎる可能性 (454 文字)
+For honey, they use a water wheel, but needless to say, this one was changed to be operated manually. With a windmill, there's nothing you can do if the wind stops halfway. For shaking culture, even a…
+
+[ブロック 619] 段落が長すぎる可能性 (411 文字)
+At just the right timing, ヴィナルディア brought the egg whites. I mixed the egg whites into the medium, stirred well, and then put the medium on the fire. This was to remove impurities using egg whites, whi…
+
+[ブロック 640] 段落が長すぎる可能性 (642 文字)
+「この精製した培地を乾燥させて水を抜く。そして、有機溶媒…………アルコールか油で溶かし出す」 What we're doing is close to making chili oil (ラー油). Capsaicin, the spicy component of chili peppers, dissolves well in oil but hardly in water. That's w…
+
+[ブロック 643] 段落が長すぎる可能性 (453 文字)
+But the next step involves chemistry. To be honest, I have no confidence. For instance, having high fat solubility means that dissolving this powder in an organic solvent will extract it preferentiall…
+
+[ブロック 733] カギ括弧の開閉が不一致 (開 1 / 閉 0)
+「ん？
+
+[ブロック 734] カギ括弧の開閉が不一致 (開 0 / 閉 1)
+　あいつらは何だ？」 An imposing group was approaching ミーア and the others. They were wearing the armor of the First Knight Order. The old knights stood at attention. So did アデル and フルシー. Looking closely, there …
+
+[ブロック 857] 段落が長すぎる可能性 (436 文字)
+Actually, the conversation with the men earlier was groundwork for extracting information. An act to follow the unreasonable order to bring her without a single scratch. It was a condition setting lik…
+
+[ブロック 863] カギ括弧の開閉が不一致 (開 1 / 閉 0)
+「っ！
+
+[ブロック 864] カギ括弧の開閉が不一致 (開 0 / 閉 1)
+　……待ってください」
+
+[ブロック 945] 段落が長すぎる可能性 (445 文字)
+「『この者の策が帝国打倒のため必須であることを我が名誉の全てをかけて保証する』三人とも全く同じ文章だな。賢者は寄る年波には勝てぬから隠居を考えて居ると、唐突に付け加えられているか。さらに、聖堂を通じて巫女姫からも文が来た。要約すると、其方がいなければ予言の災厄について責任が持てないということか……」 I hadn't heard the contents of the letters of int…
+
+[ブロック 968] 段落が長すぎる可能性 (503 文字)
+「はい。これまでの交易の結果から、帝国の魔結晶産出力を不正確ではありますが想定しました。また、クルトハイトに対する補給頻度が低下傾向にあることも突き止めています。時が経てば帝国軍の魔力の余裕がなくなる。それまでは耐えるべきと考えておりました。ですが、最近の帝国軍の攻勢はこれらの数値から大きく外れております。テンベルクの報告では、敵はトゥヴィレ山に多くの守備兵を割いているようです。また、帝国の暗号文…
+
+[ブロック 978] 段落が長すぎる可能性 (467 文字)
+「ご心配には及びません。クレイグ殿下もカゼルを押さえております。また、西部諸侯のまとめには万全を期しております。妾がベルトルドを離れても西部は揺るがぬと約束しましょう。妾が王都にあって帝国の奇襲はもとより、不満を持ったクルトハイト大公の残党も含めしっかりと留守を守りましょう」 I have to make sure the "remnants" of the Archduke of クルトハイト …
+
+[ブロック 997] 段落が長すぎる可能性 (434 文字)
+平地で倍近い兵力差。 Almost double the difference in military strength on flat land. However, no agitation could be seen in the formation of the Imperial army across the river. On the other hand, the moment the…
+
+[ブロック 1006] 段落が長すぎる可能性 (423 文字)
+前衛に向かうテンベルク、俺は逆に投石機の方に下がる。テンベルク heads for the vanguard, and I move back towards the catapults instead. The two catapults brought from the royal capital. One procured from グリニシアス castle, making three i…
+
+[ブロック 1074] 段落が長すぎる可能性 (496 文字)
+「We won this time, but overall, the Empire's 魔導 technology overwhelms the Kingdom. 馬竜を倒した花粉や魔導士を無力化した魔力触媒の液体弾も、次は対策されると考えて間違い有りません。それに、今回帝国はわざわざ馬竜と魔導士を別々に運用しました。They probably thought they had an overw…
+
+[ブロック 1125] 段落が長すぎる可能性 (406 文字)
+「……These are the ceasefire conditions from the Kingdom.」 When I read aloud the document written by the prime minister, メイティール looked amazed. リーザベルト erased her expression, and the surrounding Imperials…
+
+[ブロック 1149] 段落が長すぎる可能性 (412 文字)
+「言うまでもありません。絶望の山脈の飛竜は一匹一匹の力は遠く竜には及びませんが、群れで行動するのですよ。河を越えた王国でも、その範囲には人は住んで居なかったはずです」 Depending on individual differences among wyverns, the distance they can reach naturally varies. Due to some momentu…
+
+[ブロック 1171] 段落が長すぎる可能性 (438 文字)
+「Of course, I don't think we can take it there all at once. 都市もすぐに建設なんて無理。For the time being, something a bit better than a mere supply dump will be the best we can do. そうだな、十年後に都市の形になっていれば十分だ」 By the…
+
+[ブロック 1174] 段落が長すぎる可能性 (448 文字)
+「It's necessary, right? For the Empire, the fluctuations of the 魔脈 have worked positively so far, but we don't know what will happen next. これまで比較的安定していた魔脈が大きく変動していることは確かだ。Understanding it should be a …
+
+[ブロック 1289] カギ括弧の開閉が不一致 (開 1 / 閉 0)
+「っ！
+
+[ブロック 1290] カギ括弧の開閉が不一致 (開 0 / 閉 1)
+　……そ、その保身の策については王都に戻ってから採点させていただきます。どうせ落第でしょうけど」
+
+[ブロック 1303] 段落が長すぎる可能性 (428 文字)
+「帝国は”河向こう”の領土を認めたか」 The Prime Minister emphasized "across the river." Even so, there is surprise in his expression. Right, it's not a cession of Imperial territory. However, if announced to the public…
+
+[ブロック 1306] 段落が長すぎる可能性 (480 文字)
+To begin with, she is the top of the Empire's magic who led the main body of the Imperial army. She is an extremely valuable hostage. Usually, the Empire's imperial succession order is basically based…
+
+[ブロック 1307] 段落が長すぎる可能性 (476 文字)
+Of course, politically too. In other words, in terms of national interest and the royal family's face, this should be the best possible outcome. This time, the Kingdom is a victim who suffered a unila…
+
+[ブロック 1341] 段落が長すぎる可能性 (450 文字)
+「商人の立場から言わせていただければ、農業、とくにその大部分を占める穀物は経済の基盤。私たちが商っている蜂蜜や馬車などは、その農業の上澄みで生きているに過ぎません。仮に帝国との農産物の交易が長く停止すれば、今育っているこの上澄みの中にあるお金の流れが全て枯れます」 It's different from the Earth in my previous world, where money mor…
+
+[ブロック 1355] 段落が長すぎる可能性 (406 文字)
+A path of flowers is a path of flowers, but unlike his younger brother's, it's a withered path of flowers. The younger brother is the Crown Prince and the older brother is an ambassador; it's a huge d…
+
+[ブロック 1391] 段落が長すぎる可能性 (481 文字)
+By the way, a carriage from the Archduke of ベルトルド's mansion is waiting at the front gate. The number of guards at the lab has doubled. We will be living in the Archduke's mansion for a while. To preve…
+

@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="アルフィーナの予言からベルトルドへの対策を考えるリカルドだったが...">
+<title>6章　『破城槌』</title>
+<style>
+:root{
+  --paper:#FCFBF7;
+  --page:#EFEBE2;
+  --ink:#2E2A24;
+  --rubric:#9A3B2E;
+  --en:#7A4A2F;
+  --rule:#E3DED2;
+  --faint:#B9AC90;   /* 装飾記号のみ。本文テキストには使わない */
+  --muted:#7C6F50;   /* 読ませる淡色。背景に対して 4.78:1 */
+  --wash:#F5F1E7;
+  --serif: Georgia,"Times New Roman","Hiragino Mincho ProN","Yu Mincho","YuMincho",serif;
+  --mono: ui-monospace,"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono CJK JP",monospace;
+}
+*{box-sizing:border-box;}
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:var(--serif);
+  -webkit-text-size-adjust:100%;
+  font-kerning:normal;
+}
+.sheet{
+  /* 幅はウィンドウに対する割合。--sheet-w は幅メニューと --width で変わる */
+  width:var(--sheet-w, 70vw); max-width:100%; min-width:min(100%, 36rem);
+  margin:0 auto; background:var(--paper);
+  border-left:1px solid var(--rule); border-right:1px solid var(--rule);
+  min-height:100vh; padding:44px 40px 96px;
+  display:flow-root;          /* フロートを内包し、選択範囲の描画を親幅に広げない */
+  position:relative;
+}
+.rubric{ color:var(--rubric); font-size:12px; letter-spacing:.3em; }
+h1{ font-size:26px; font-weight:normal; margin:6px 0 4px; letter-spacing:.04em; }
+h2{ font-size:17px; font-weight:normal; margin:0 0 4px; letter-spacing:.02em; }
+h3{ font-size:15px; font-weight:normal; color:var(--rubric);
+    margin:2em 0 .8em; letter-spacing:.03em; }
+.lede{ color:#6E6255; font-size:13px; line-height:1.9; margin:10px 0 0; }
+hr.rule{ border:0; border-top:1px solid var(--rule); margin:18px 0 24px; }
+
+nav.toc{ margin:0 0 8px; }
+nav.toc ol{ list-style:none; margin:0; padding:0; }
+nav.toc li{ border-bottom:1px solid var(--rule); }
+nav.toc li:first-child{ border-top:1px solid var(--rule); }
+nav.toc a{
+  display:flex; gap:14px; align-items:baseline;
+  padding:11px 4px; text-decoration:none; color:var(--ink);
+}
+nav.toc a:hover, nav.toc a:focus-visible{ background:var(--wash); }
+nav.toc .num{ color:var(--rubric); font-size:11px; letter-spacing:.18em; min-width:3.4em; }
+nav.toc .lbl{ font-size:15px; }
+nav.toc .pending{ color:var(--muted); }
+nav.toc li.off a{ pointer-events:none; }
+
+.bar{
+  position:sticky; top:0; z-index:5; background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+  padding:9px 0; margin-bottom:26px;
+}
+.bar a{ color:var(--rubric); text-decoration:none; font-size:12px; letter-spacing:.14em; }
+.bar a:hover{ text-decoration:underline; }
+.bar .sp{ flex:1; }
+button{
+  font-family:var(--serif); font-size:12px; color:var(--ink);
+  background:transparent; border:1px solid var(--rule); border-radius:3px;
+  padding:5px 11px; cursor:pointer;
+}
+button:hover{ background:var(--wash); }
+button:focus-visible, a:focus-visible{ outline:2px solid var(--rubric); outline-offset:2px; }
+
+input.q{
+  font-family:var(--serif); font-size:13px; color:var(--ink);
+  background:var(--paper); border:1px solid var(--rule); border-radius:3px;
+  padding:5px 9px; min-width:11em; flex:1 1 12em;
+}
+input.q::placeholder{ color:var(--muted); }
+input.q:focus-visible{ outline:2px solid var(--rubric); outline-offset:1px; }
+label.rate, label.width{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
+label.rate select, label.width select{
+  font-family:var(--serif); font-size:12px; color:var(--ink);
+  background:transparent; border:1px solid var(--rule); border-radius:3px;
+  padding:3px 4px; margin-left:4px;
+}
+
+.results{ margin:0 0 26px; border-top:1px solid var(--rule); }
+.results ol{ list-style:none; margin:0; padding:0; }
+.results li{ border-bottom:1px solid var(--rule); }
+.results a{
+  display:block; padding:10px 4px; text-decoration:none; color:var(--ink);
+}
+.results a:hover, .results a:focus-visible{ background:var(--wash); }
+.results .where{
+  display:block; color:var(--rubric); font-size:11px; letter-spacing:.16em;
+  margin-bottom:3px;
+}
+.results .snip{ display:block; font-size:14px; line-height:1.7; }
+.results .none{ color:var(--muted); font-size:13px; padding:10px 4px; margin:0; }
+.results .count{ color:var(--muted); font-size:11px; letter-spacing:.14em;
+                 padding:8px 4px 0; margin:0; }
+
+.progress{
+  position:fixed; inset:0 auto auto 0; height:2px; width:0;
+  background:var(--rubric); z-index:9; transition:width .1s linear;
+}
+@media (prefers-reduced-motion:reduce){ .progress{ transition:none; } }
+
+section.ep{ margin:0 0 62px; scroll-margin-top:60px; display:flow-root; }
+section.ep .rubric{ display:block; margin-bottom:6px; }
+p{ font-size:15px; line-height:1.9; margin:0 0 1.15em; text-align:justify;
+   word-break:normal; overflow-wrap:anywhere; line-break:strict; }
+p.first{ display:flow-root; }
+p.first::first-letter{
+  float:left; font-size:44px; line-height:.9; color:var(--rubric);
+  padding:4px 10px 0 0;
+}
+.en{
+  color:var(--en); cursor:pointer;
+  hyphens:auto; -webkit-hyphens:auto;
+  overflow-wrap:normal; word-break:normal;   /* 英単語を途中で割らない */
+}
+.en:hover{ text-decoration:underline dotted var(--faint); text-underline-offset:3px; }
+.en.speaking{ background:#F0E4C8; border-radius:2px; box-shadow:0 0 0 2px #F0E4C8; }
+body.plain .en{ color:var(--ink); }
+
+/* 英文だけ表示（見出しと表は構造として残す） */
+body.enonly p .ja,
+body.enonly li .ja,
+body.enonly blockquote .ja{ display:none; }
+body.enonly p.ja,
+body.enonly li:not(:has(.en)),
+body.enonly blockquote:not(:has(.en)){ display:none; }
+body.enonly p.first::first-letter{
+  float:none; font-size:inherit; line-height:inherit; color:inherit; padding:0;
+}
+body.enonly .en{ color:var(--ink); }
+
+mark{ background:#F3E2B8; color:var(--ink); border-radius:2px; padding:0 .1em; }
+
+section.ep ul, section.ep ol{ margin:0 0 1.3em; padding-left:1.6em; }
+section.ep li{ font-size:15px; line-height:1.9; margin:.2em 0; }
+section.ep li::marker{ color:var(--rubric); }
+
+blockquote{
+  margin:1.6em 0; padding:.2em 0 .2em 1.2em;
+  border-left:2px solid var(--faint); color:var(--muted);
+}
+blockquote p{ margin:0; font-size:14px; }
+
+code{
+  font-family:var(--mono); font-size:.86em;
+  background:var(--wash); border:1px solid var(--rule); border-radius:3px;
+  padding:.1em .35em;
+}
+pre{
+  margin:1.6em 0; padding:14px 16px; overflow-x:auto;
+  background:var(--wash); border:1px solid var(--rule); border-radius:4px;
+}
+pre code{ background:none; border:0; padding:0; font-size:13px; line-height:1.7; }
+
+.tw{ overflow-x:auto; margin:1.6em 0; }
+table{ border-collapse:collapse; width:100%; font-size:14px; }
+th, td{ border-bottom:1px solid var(--rule); padding:8px 10px; }
+th{ color:var(--rubric); font-weight:normal; letter-spacing:.06em;
+    border-bottom:1px solid var(--faint); }
+tbody tr:hover{ background:var(--wash); }
+
+img{ max-width:100%; height:auto; display:block; margin:1.6em auto; }
+ruby rt{ font-size:.5em; color:var(--muted); letter-spacing:0; }
+strong{ font-weight:600; }
+em{ font-style:italic; }
+del{ color:var(--muted); }
+a{ color:var(--rubric); }
+
+::selection{ background:#DCC9A0; color:var(--ink); }
+::-moz-selection{ background:#DCC9A0; color:var(--ink); }
+
+.star{ text-align:center; color:var(--faint); font-size:11px; letter-spacing:.4em; margin:30px 0; }
+.top{ display:block; text-align:center; font-size:12px; letter-spacing:.16em;
+      color:var(--rubric); text-decoration:none; margin-top:8px; }
+.top:hover{ text-decoration:underline; }
+
+@media (max-width:640px){
+  .sheet{ width:100%; min-width:0; padding:30px 20px 80px; border:0; }
+  label.width{ display:none; }
+  h1{ font-size:22px; }
+  p{ text-align:left; }
+  p.first::first-letter{ font-size:38px; }
+}
+@media print{
+  body{ background:#fff; }
+  .sheet{ border:0; max-width:none; width:auto; min-width:0; }
+  .bar, .top, .progress, .results, input.q{ display:none; }
+  section.ep{ page-break-inside:auto; }
+  pre, blockquote, table{ page-break-inside:avoid; }
+}
+</style>
+<script>
+(function(){
+  var w=70;
+  try{ var s=localStorage.getItem('sheet-width'); if(s&&+s>=30&&+s<=100) w=+s; }catch(e){}
+  document.documentElement.style.setProperty('--sheet-w', w+'vw');
+})();
+</script>
+</head>
+<body>
+<div class="sheet">
+<div class="progress" role="presentation"></div>
+<div class="bar"><a href="index.html">← 章の目次</a><input id="q" class="q" type="search" placeholder="全章を検索（/）" aria-label="全章を検索"><span class="sp"></span><label class="width">幅<select id="width" aria-label="本文の幅（ウィンドウに対する割合）"><option value="50">50%</option><option value="60">60%</option><option value="70" selected>70%</option><option value="80">80%</option><option value="90">90%</option><option value="100">100%</option></select></label><label class="rate">読み上げ<select id="rate" aria-label="読み上げの速さ"><option value="0.8">0.8x</option><option value="1" selected>1.0x</option><option value="1.2">1.2x</option></select></label><button id="tint" aria-pressed="true">英文の色分け：ON</button><button id="only" aria-pressed="false">英文だけ：OFF</button></div>
+<div id="results" class="results" hidden></div>
+<article>
+<header>
+<div class="rubric">CHAPTER VI ・ 6章</div>
+<h1>『破城槌』</h1>
+<p class="lede">アルフィーナの予言からベルトルドへの対策を考えるリカルドだったが...</p>
+<hr class="rule">
+</header>
+<nav class="toc" aria-label="話の目次"><ol>
+<li><a href="#sec01"><span class="num">01</span><span class="lbl">１話　破壊の跡</span></a></li>
+<li><a href="#sec02"><span class="num">02</span><span class="lbl">１話　破壊の跡（後書き）</span></a></li>
+<li><a href="#sec03"><span class="num">03</span><span class="lbl">２話：前半　招待</span></a></li>
+<li><a href="#sec04"><span class="num">04</span><span class="lbl">２話：後半　季節変動</span></a></li>
+<li><a href="#sec05"><span class="num">05</span><span class="lbl">３話　変化の中立説</span></a></li>
+<li><a href="#sec06"><span class="num">06</span><span class="lbl">４話　赤い恐怖</span></a></li>
+<li><a href="#sec07"><span class="num">07</span><span class="lbl">５話　発展の萌芽</span></a></li>
+<li><a href="#sec08"><span class="num">08</span><span class="lbl">６話　王女と皇女とその他一人</span></a></li>
+<li><a href="#sec09"><span class="num">09</span><span class="lbl">７話　もっとも原始的な組織の形</span></a></li>
+<li><a href="#sec10"><span class="num">10</span><span class="lbl">８話　単純さの強さ</span></a></li>
+<li><a href="#sec11"><span class="num">11</span><span class="lbl">９話：前半　ロジスティクス</span></a></li>
+<li><a href="#sec12"><span class="num">12</span><span class="lbl">９話：後半　単純であることの弱さ</span></a></li>
+<li><a href="#sec13"><span class="num">13</span><span class="lbl">１０話　残されたもの</span></a></li>
+</ol></nav>
+<section class="ep" id="sec01">
+<div class="star">＊</div>
+<div class="rubric">01</div>
+<h2>１話　破壊の跡</h2>
+<hr class="rule">
+<p class="first ja"><span class="ja">俺たちは館長室へと移っていた。</span></p>
+<p><span class="en" lang="en">The prophecy from Alfina that Berthold is in danger.</span> <span class="ja">予言に対するなら学院の中でここが一番適している。</span> <span class="en" lang="en">It&#x27;s an extraterritorial hobby room where even the academy director can no longer interfere.</span> <span class="ja">何しろ、王国の秘密の大半がここにある。</span></p>
+<p><span class="en" lang="en">Fortunately, Fulsi was in the room, so the conditions for a strategy meeting were met.</span></p>
+<p class="ja"><span class="ja">「それで、アルフィーナ様。</span><span class="ja">新しい予言というのは一体どのようなものでしょう」</span></p>
+<p class="ja"><span class="ja">「は、はい、ベルトルドの城壁が崩れて、街がめちゃくちゃに……」</span></p>
+<p><span class="ja">「ことは緊急を要します。</span><span class="ja">一刻も早く対応を。</span><span class="ja">ベルトルドに戻られている叔母上にもすぐに連絡しなければ」</span> <span class="en" lang="en">Even Luiza, who is usually relatively calm, was shaken.</span> <span class="ja">ベルトルドに近い彼女の領地のことを考えれば理解出来る。</span></p>
+<p><span class="en" lang="en">I&#x27;m anxious too, of course.</span> <span class="ja">何しろベルトルドはもはやヴィンダーの商売の中心と言っても良い。</span></p>
+<p><span class="en" lang="en">But what concerns me is the difference from previous prophecies.</span> <span class="ja">一度目の予言はレイリア村。</span><span class="ja">二度目の予言はクルトハイトだった。</span> <span class="en" lang="en">In both cases, we painstakingly figured it out from the images shown by the crystal.</span></p>
+<p><span class="en" lang="en">On the other hand, this time Alfina asserted with certainty that it was Berthold.</span> <span class="ja">となると懸念は二つだ。</span></p>
+<p><span class="en" lang="en">The first is the primary information; that is, the possibility that Alfina&#x27;s subjectivity has entered the image of the prophecy.</span> <span class="ja">アルフィーナはベルトルドに二回いっている。</span> <span class="en" lang="en">Therefore, it&#x27;s highly likely that she recognized it at a glance, but if she is wrong by any chance, it would be irreversible.</span> <span class="ja">一次情報は主観を除くことが第一だ。</span></p>
+<p><span class="ja">「落ち着いてください。</span><span class="ja">まず主観を交えず予言のイメージをなるべくそのまま話してください」</span> <span class="en" lang="en">I took out some paper and a pen.</span></p>
+<p class="ja"><span class="ja">「リカルド。</span><span class="ja">姫様が間違っていると言うのか」</span></p>
+<p><span class="ja">「アルフィーナ様は二度、ベルトルドを訪れているのですよ。</span><span class="ja">どちらもヴィンダー君は同行したはずです」</span> <span class="en" lang="en">Claudia and Luiza said.</span></p>
+<p><span class="ja">「いいのです。</span><span class="ja">一次情報、予言を見ることが出来るのは私だけですから。</span><span class="ja">私が冷静にならなければでした」</span> <span class="en" lang="en">Alfina took a small, deep breath.</span> <span class="en" lang="en">As her modest chest moved up and down, her face looked a little calmer.</span> <span class="ja">俺の意図を分ってくれたようだ。</span></p>
+<p><span class="ja">「まず、イメージは大きな都市でした。</span><span class="ja">城壁が崩れていて、崩れた石に潰されたベルトルドの旗が見えました。</span><span class="ja">その奥には倒れた塔が見えました。</span><span class="ja">そして、あの工房の……、いえ塔のさらに向こうには黒い煙が立ち昇っていました」</span> <span class="en" lang="en">Alfina spoke with a tragic expression.</span> <span class="en" lang="en">I also remembered seeing the tower.</span> <span class="ja">ベルトルドの大聖堂。</span> <span class="en" lang="en">Above all, the flag is decisive.</span> <span class="en" lang="en">And if it&#x27;s that workshop, there is a large source of fire.</span> <span class="ja">しかも、鍛冶の火は一度点けたらそう簡単には消えない。</span></p>
+<p><span class="ja">「つまりイメージは、ベルトルドの東門近くからということですね」</span> <span class="en" lang="en">Alfina nodded.</span> <span class="ja">これならまず間違いはあるまい。</span> <span class="en" lang="en">I assume the disaster will happen in Berthold.</span> <span class="en" lang="en">If so, the most likely disaster would be in the west...</span></p>
+<p class="ja"><span class="ja">「そして、災厄の来る方向は東なのです」</span></p>
+<p><span class="ja">「東じゃと！</span><span class="ja">」</span> <span class="en" lang="en">At Alfina&#x27;s words, Fulsi raised a voice of surprise.</span> <span class="ja">俺も驚いた。</span> <span class="en" lang="en">I thought the most likely direction was the west, a disaster from the Red Forest just like the first prophecy.</span></p>
+<p><span class="ja">「時期は分りますか」</span> <span class="en" lang="en">I asked while suppressing my agitation.</span></p>
+<p><span class="ja">「多分ですが春の内だと思います。</span><span class="ja">城壁の外の草原に桃色の花が咲いていました。</span><span class="ja">確か春の花ですよね」</span> <span class="en" lang="en">That flower, huh; it has a color like Japanese cherry blossoms, but it&#x27;s a flowering plant, not a tree.</span> <span class="ja">春の初めに咲き、夏との境目にある雨期の頃までに散る。</span></p>
+<p><span class="en" lang="en">Since it&#x27;s the end of winter right now, it will be in two months at the longest.</span></p>
+<p><span class="ja">「先輩……」</span> <span class="en" lang="en">Mia looked at me anxiously.</span> <span class="en" lang="en">If the damage is severe enough to destroy Berthold, there is a high possibility that the disaster will also reach Leiria Village.</span> <span class="ja">ヴィンダーのダメージも半端じゃない。</span></p>
+<p><span class="en" lang="en">The Grand Duke of Berthold is a major shareholder.</span> <span class="ja">広げつつある養蜂もベルトルドを中心にしている。</span> <span class="en" lang="en">If the workshop collapses and industrial development stalls, rebuilding the relationship between the craftsmen&#x27;s guild and the merchant&#x27;s guild, as well as the revitalization of commercial activities throughout the kingdom, will be delayed.</span> <span class="ja">一つの篭に卵を詰めすぎた状態だ。</span> <span class="en" lang="en">I was neglecting risk hedging.</span></p>
+<p><span class="en" lang="en">Even looking outside Berthold, the Second Prince&#x27;s faction will undoubtedly try to seize this opportunity to bounce back.</span></p>
+<p><span class="en" lang="en">Furthermore, Berthold is the keystone of the western part of the kingdom, especially when the Empire&#x27;s movements require caution.</span> <span class="ja">ベルトルドが崩れれば不測の事態を誘発しかねない。</span></p>
+<p><span class="ja">「確かに、一刻も早く対処しないといけないな」</span> <span class="en" lang="en">I was really at a loss; it was like a calculated strike to a vital point.</span></p>
+<p><span class="ja">「まず城壁ですね。</span><span class="ja">城壁の崩れ方はどうなっていましたか」</span> <span class="en" lang="en">For the city wall to collapse is a very big deal.</span> <span class="ja">地震あるいは戦争。</span> <span class="en" lang="en">No, could a dragon attack be possible?</span> <span class="en" lang="en">I&#x27;d prefer it if a meteorite weren&#x27;t summoned from the sky.</span></p>
+<p class="ja"><span class="ja">「はい、一番はっきりと見えた東門近くのイメージでは外から内へです。</span><span class="ja">でも、断片的に見える別のイメージでは逆の方向に崩れているように見えた場所も……」</span></p>
+<p><span class="ja">「崩れた城壁は一カ所ではないと言うことですね」</span> <span class="en" lang="en">What does this mean?</span> <span class="ja">外から内なら明らかに外部からの攻撃だ。</span> <span class="en" lang="en">If it&#x27;s from the inside, is it an earthquake after all?</span> <span class="ja">あるいは反乱？</span></p>
+<p class="ja"><span class="ja">「そうです、城壁の崩れ方がちょっと不自然に見えました」</span></p>
+<p class="ja"><span class="ja">「不自然とは」</span></p>
+<p class="ja"><span class="ja">「私にはよく分らないのですが、まるでアーチのように、円形にくりぬかれたような穴に見えたのです。</span><span class="ja">それと、地面に引きずったような跡がありました」</span></p>
+<p><span class="ja">「となると、地震じゃないですね……」</span> <span class="en" lang="en">Drag marks... siege weapons?</span> <span class="ja">丸太を束ねて、城門を破る破城槌的なもの。</span> <span class="en" lang="en">No, come to think of it, if it were a human attack, wouldn&#x27;t they target the city gates?</span></p>
+<p><span class="en" lang="en">There is a possibility that a huge monster destroyed it.</span> <span class="ja">何しろドラゴンが飛んでくることもあるのだ。</span> <span class="en" lang="en">If so, a magic vein sufficient to sustain such a monster would be necessary.</span></p>
+<p><span class="en" lang="en">Even the previous prophecies almost looked like man-made disasters, but they weren&#x27;t.</span> <span class="ja">やはりまず考えられるのは魔脈の変動に関係した魔獣の可能性だ。</span></p>
+<p class="ja"><span class="ja">「魔脈について、分っている状況を整理しましょう」</span></p>
+<p><span class="ja">「ふむ、そうじゃな。</span><span class="ja">まず今年は魔獣氾濫の予兆はない」</span> <span class="en" lang="en">Even if it&#x27;s said to come from the east, this is a point we must grasp.</span></p>
+<p><span class="ja">「クルトハイトのようにドラゴンが突如飛んでくる可能性はないのか」</span> <span class="en" lang="en">Claudia said.</span> <span class="en" lang="en">Honestly, I&#x27;ve had enough of dragons, but if it&#x27;s a dragon, we can deal with it using pollen.</span> <span class="ja">いやいや、次のドラゴンはもっと巨大である可能性がある。</span> <span class="en" lang="en">After all, it blows a huge hole in the city wall.</span></p>
+<p><span class="ja">「考えづらいじゃろうな。</span><span class="ja">あのときはトゥヴィレ山頂という魔脈の中心があった。</span><span class="ja">今回はそれがない」</span> <span class="en" lang="en">While my trauma was being stimulated, Fulsi denied the possibility.</span></p>
+<p><span class="ja">「この前俺たちが調査した西部の魔脈はどうですか」</span> <span class="en" lang="en">The magic vein in the west that was the cause of the noise at the Western Observatory.</span> <span class="ja">魔脈というか、地表にわき上がる薄い瘴気と言った方が良いのだろう。</span> <span class="en" lang="en">Looking from Berthold, it lies to the east.</span> <span class="en" lang="en">If that activates and becomes a foothold for a huge flying monster, a situation like Kurtheite&#x27;s will arise.</span></p>
+<p><span class="ja">「むしろ沈静化しておる。</span><span class="ja">測定限界ぎりぎりまで下がっておるくらいじゃ。</span><span class="ja">魔脈関係では災厄の兆候は出ていないと儂は判断する。</span><span class="ja">其方はどう思う？</span><span class="ja">」</span> <span class="en" lang="en">At Fulsi&#x27;s words, everyone&#x27;s gaze gathered on me.</span></p>
+<p><span class="ja">「今の時点では何も言えません。</span><span class="ja">ただ、これまでの予言のパターンから、第一候補が魔脈絡みという考えは捨てない方が良いと思います。</span><span class="ja">言い換えれば災厄を引き起こすに足る巨大な魔力がどこかにある可能性です」</span> <span class="en" lang="en">I said.</span> <span class="en" lang="en">Within two months from now, a huge magic vein that currently shows no sign of itself will suddenly appear.</span> <span class="ja">そういうことなら事前に予想は出来ない。</span> <span class="en" lang="en">What we can do is to detect it as quickly as possible when the signs appear.</span></p>
+<p><span class="ja">「西部の魔脈も含めて、なるべく詳細な観測を継続する必要があると思います」</span> <span class="en" lang="en">At my words, Fulsi and Noel nodded.</span></p>
+<p><span class="ja">「ただし、もう一つの可能性も考えないわけにはいかないです」</span> <span class="en" lang="en">Luiza said in a reserved tone, yet with a deeply troubled face.</span> <span class="ja">彼女が何を言いたいのかはよく分る。</span></p>
+<p><span class="ja">「アルフィーナ様、今回の予言を知る人間は今どれほどですか」</span> <span class="en" lang="en">I asked.</span> <span class="en" lang="en">Yes, to put it plainly, this prophecy is a bomb.</span></p>
+<p><span class="en" lang="en">To the east are the royal capital and Kurtheite.</span> <span class="ja">方向的に帝国の侵攻の可能性が低いのが救いだが、王都には留学してきた皇女がいる。</span></p>
+<p><span class="en" lang="en">The worst-case scenario would be the continuously pressured Second Prince&#x27;s faction joining hands with the Empire, leading to a civil war between the east and west.</span></p>
+<p class="ja"><span class="ja">「宰相にはすぐに伝えました。</span><span class="ja">公爵はしばらくは伏せるから、決して外部には漏らさぬようにと」</span></p>
+<p class="ja"><span class="ja">「よかった」</span></p>
+<p><span class="ja">「そうせざるを得ませんから」</span> <span class="en" lang="en">Luiza and I nodded to each other.</span></p>
+<p><span class="ja">「どういうことだ」</span> <span class="en" lang="en">Claudia tilted her head.</span></p>
+<p class="ja"><span class="ja">「クルトハイトが文句を言ってくると言うことです」</span></p>
+<p><span class="ja">「国難だぞ。</span><span class="ja">何が文句だ。</span><span class="ja">実際先の予言では自分たちが救われたのではないか」</span> <span class="en" lang="en">It&#x27;s the opposite.</span> <span class="ja">前回の予言ではクルトハイトだと分ったのはギリギリ。</span> <span class="en" lang="en">In reality, the dragon attack couldn&#x27;t be prevented.</span> <span class="en" lang="en">However, for this disaster targeting Berthold, the location is known from the very beginning.</span> <span class="en" lang="en">They might suspect that Alfina is manipulating the disclosure of the prophecy to favor her own faction.</span></p>
+<p><span class="en" lang="en">A prophecy can be a power that moves politics.</span> <span class="ja">そうでなくても、ベルトルドが危機となれば向こうはそれを利用して勢力の挽回を図るに違いない。</span> <span class="en" lang="en">The later the information reaches Kurtheite, the better.</span></p>
+<p><span class="ja">「返す返すも宰相を中立に戻しておいて助かりましたね」</span> <span class="en" lang="en">I said looking at Alfina.</span> <span class="ja">もし宰相があちらよりだったらと思うとぞっとする。</span></p>
+<p class="ja"><span class="ja">「第二王子閥、クルトハイトのことは大公とクレイグ王子に任せましょう。</span><span class="ja">ただし……」</span></p>
+<p><span class="ja">「帝国皇女、リーザベルト殿下に関してはこちらでも注意するしかないですね」</span> <span class="en" lang="en">Luiza said.</span> <span class="en" lang="en">Considering the timing of her study abroad, it&#x27;s hard to think she has nothing to do with it.</span> <span class="en" lang="en">Is she directly involved with the disaster?</span> <span class="ja">それとも、それに乗じようとしてくるのか。</span> <span class="en" lang="en">She adds another variable just when we have no time.</span></p>
+<p class="ja"><span class="ja">「とにかく、西方観測所からの詳しいデータが届き次第、例の計算をしましょう」</span></p>
+<p><span class="ja">「魔脈に関する地図作りじゃな」</span> <span class="en" lang="en">At my words, Fulsi, Noel, and Mia nodded.</span> <span class="ja">時間がないが、だからこそ情報収集は手が抜けない。</span></p>
+<p><span class="en" lang="en">It must be somewhere, the seed of the disaster.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec02">
+<div class="star">＊</div>
+<div class="rubric">02</div>
+<h2>１話　破壊の跡（後書き）</h2>
+<hr class="rule">
+<p class="first ja"><span class="ja">感想、ご指摘などお待ちしてます。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec03">
+<div class="star">＊</div>
+<div class="rubric">03</div>
+<h2>２話：前半　招待</h2>
+<hr class="rule">
+<p class="ja"><span class="ja">「思ったよりも普通の部屋か」</span></p>
+<p><span class="ja">「…………そうね」</span> <span class="en" lang="en">The size was about the same as the director&#x27;s office before it was expanded, and the walls were brown.</span> <span class="ja">一つ一つは粗末な物では決してないが調度は最低限に見える。</span> <span class="en" lang="en">I had braced myself for the Imperial Princess&#x27;s private room, so I felt a little let down.</span> <span class="en" lang="en">It couldn&#x27;t be compared to Alfina&#x27;s private room, which I entered to visit her when she collapsed.</span> <span class="ja">王国の王族ではあれが最低だろうからなおさらだ。</span></p>
+<p><span class="en" lang="en">No, there&#x27;s also the possibility that this isn&#x27;t really her private room...</span> <span class="ja">流石に考えすぎか。</span></p>
+<p><span class="en" lang="en">For Lisabeth, it&#x27;s just a temporary residence for half a year.</span> <span class="ja">それに、ここが帝国”公館”扱いになったのはつい最近。</span> <span class="en" lang="en">Until then, it was probably better called a trading house.</span> <span class="ja">部屋に来るまでの玄関や廊下も特別豪華ではなかった。</span></p>
+<p><span class="ja">「二人とも落ち着いてよ」</span> <span class="en" lang="en">Rilka said to me as I was looking around restlessly.</span> <span class="ja">招かれた平民三人組みの中で、唯一冷静なのが彼女だ。</span> <span class="en" lang="en">Her fearless personality is reliable at times like this.</span></p>
+<p class="ja"><span class="ja">「分ってるさ。</span><span class="ja">ここはいわば敵地だからな」</span></p>
+<p class="ja"><span class="ja">「……リーザベルト様に羊羹を勧めたのはリルカなのに。</span><span class="ja">ヴィンダー君と違って私は一般人なのに。</span><span class="ja">本物の平民なのに」</span></p>
+<p><span class="ja">「俺は偽物じゃない。</span><span class="ja">それを言うならシェリーのほうがずっとお嬢様だろ」</span> <span class="en" lang="en">That&#x27;s right, under the pretext of thanking us for the yokan, we were summoned, no, invited to the Imperial Legation.</span></p>
+<p class="ja"><span class="ja">「……もうそろそろ商売の規模でも抜かれてるんじゃないかな」</span></p>
+<p><span class="ja">「話がずれてるよシェリー」</span> <span class="en" lang="en">Rilka said to her friend.</span> <span class="ja">丁度そのときドアが開いた。</span></p>
+<p><span class="ja">「お待たせいたしました」</span> <span class="en" lang="en">Carrying a tray herself, Lisabeth entered along with two women who looked like maids.</span> <span class="ja">紫色の髪を束ねて前に垂らしている。</span> <span class="en" lang="en">A slightly loose blouse and skirt.</span> <span class="en" lang="en">It gave a much more casual impression than the academy uniform.</span></p>
+<p><span class="en" lang="en">Showing her everyday self like this is a kind of tactic, isn&#x27;t it?</span> <span class="ja">分っていても美少女にやられるとちょっとぐっとくる。</span> <span class="en" lang="en">It&#x27;s a sad male heart.</span></p>
+<p><span class="ja">「ヨウカンの返礼というには恥ずかしいですけれど。</span><span class="ja">私の故郷のお菓子です」</span> <span class="en" lang="en">Lisabeth placed the plates in front of us.</span> <span class="ja">侍女の一人がカップにお茶を注いでくれる。</span> <span class="en" lang="en">The other stood empty-handed, looking at us with unreadable eyes.</span> <span class="en" lang="en">Is she a guard?</span> <span class="ja">何しろ、俺たちは他国の平民だからな。</span></p>
+<p><span class="en" lang="en">Citrus fruits were arranged on brown dough, drizzled with honey.</span> <span class="ja">言うとおり素朴な感じだ。</span> <span class="en" lang="en">Yokan looks even plainer, though.</span> <span class="ja">そういえば羊羹もある意味俺の故郷のお菓子か。</span><span class="ja">……絶対に知られてはいけないな。</span></p>
+<p><span class="en" lang="en">I timidly picked up the sweet.</span> <span class="ja">少し固めの歯ごたえ、素朴で粒の粗い舌触りだ。</span></p>
+<p><span class="ja">「あれ、この甘さは……」</span> <span class="en" lang="en">The sweet syrup drizzled on top isn&#x27;t honey.</span> <span class="ja">ガレットにメイプルシロップだろうか。</span> <span class="en" lang="en">I suppose it makes sense since the Empire is said to be mountainous.</span> <span class="en" lang="en">It feels much more fitting than if chocolate had come out.</span></p>
+<p><span class="ja">「蜂蜜は食べ慣れていると思いまして」</span> <span class="en" lang="en">Lisabeth said to me with a mischievous smile.</span> <span class="ja">反対に俺は背筋が凍る。</span> <span class="en" lang="en">Be careful, I don&#x27;t know that this is boiled-down tree sap.</span></p>
+<p><span class="en" lang="en">The invitation came just a few days after the prophecy.</span> <span class="ja">できすぎているタイミングだ。</span> <span class="en" lang="en">Anyway, I have to be careful not to give out unnecessary information.</span> <span class="ja">むしろ情報を引き出さねば。</span></p>
+<p><span class="en" lang="en">&quot;Are there any plans for the Imperial Army to visit Berthold soon?&quot;</span> <span class="en" lang="en">Shall I ask something like that?</span> <span class="ja">ばかばかしすぎる。</span></p>
+<p><span class="en" lang="en">The next problem is how rare that carriage is for the Empire.</span> <span class="ja">軍事機密なんか尋ねた日には、生きてここを出られない。</span></p>
+<p class="ja"><span class="ja">「しっとりとした甘さが生地と合うんですね」</span></p>
+<p><span class="ja">「す、すてきな甘さだと思います」</span> <span class="en" lang="en">Rilka and Sherry said.</span> <span class="ja">俺は、シロップよりもこれを産出する木が欲しい。</span></p>
+<p><span class="ja">「お茶会のクリームの氷菓には本当に驚きました。</span><span class="ja">王国の豊かさを象徴するようなお菓子でしたね。</span><span class="ja">アルフィーナ様は聖堂で過ごされることが多いと聞いておりましたから、ご負担をお掛けしたのではないかと心配です。</span><span class="ja">ドリスディア殿下もそのようにおっしゃられていました」</span> <span class="en" lang="en">Ah, I see, so they are making such sour-grapes remarks.</span> <span class="ja">帝国にアルフィーナの財力を誇示しても一利もないのでよくやってくれた。</span></p>
+<p><span class="ja">「それに、私はヨウカンにもびっくりしました。</span><span class="ja">とても優しい甘さと舌触りのお菓子で、王国でも珍しいのですよね。</span><span class="ja">取り寄せようかと思って、プルラ商会に値段を聞いて驚いてしまいました」</span> <span class="en" lang="en">The Imperial Princess said with a slightly joking expression.</span> <span class="ja">皇女が庶民派アピールしても無駄だと思う。</span> <span class="en" lang="en">Or rather, if one were to do such a thing in the Kingdom, it could easily ruin their reputation.</span> <span class="en" lang="en">I wonder if the sensibilities are different in the Empire.</span></p>
+<p><span class="en" lang="en">Besides, she has a good eye to appreciate yokan.</span> <span class="ja">帝国といえば黒だからな。</span> <span class="en" lang="en">Perhaps they have no aversion to the color...</span> <span class="ja">いやいや、社交辞令を真に受けている場合か。</span></p>
+<p><span class="en" lang="en">I&#x27;m not so easy as to let my guard down just because sweets from my hometown (previous life) were praised.</span> <span class="ja">絶対に無茶をしないようにと、昨日の学院でアルフィーナに、家でミーアに、ここに来る前に学院の廊下ですれ違ったプルラとヴィナルディアにまでさんざん言われたんだ。</span></p>
+<p><span class="en" lang="en">Dargan even made a risky joke, saying, &quot;Don&#x27;t go declaring war on the Empire.&quot;</span> <span class="ja">リルカとシェリーには受けなかったみたいだったな。</span></p>
+<p><span class="ja">「は、はい、こちらでも豆は山の近くで麦にはむかない地域で……」</span> <span class="en" lang="en">Prompted by Lisabeth, Sherry was talking about the raw materials for the yokan.</span> <span class="ja">流石に商売のことならきちんとした応対をしている。</span> <span class="en" lang="en">Lisabeth was playing the listener well, just like a host should.</span></p>
+<p class="ja"><span class="ja">「まあ、学院のお祭りでそのようなことが……」</span></p>
+<p><span class="ja">「はい、それでヴィンダーが私たちを集めたのが始まりで……」</span> <span class="en" lang="en">As she was asked, Rilka talked all the way up to the establishment of the Central Garden at the Shoken Festival.</span> <span class="ja">学生の遊びだと思われたら好都合だからいいか。</span></p>
+<p><span class="en" lang="en">No, it was also during the Shoken Festival that the black prince tried to make contact with Alfina.</span> <span class="ja">何か意図があるのかもしれない。</span></p>
+<p><span class="ja">「リカルド殿の活躍というのは聞いていて気持ちが良いですね。</span><span class="ja">クラウンハイト王国はとても安定したお国柄だと聞いていましたから、なおさらです」</span> <span class="en" lang="en">Before I knew it, the topic had shifted to me.</span> <span class="ja">リーザベルトは黙っていた俺にほほえみかける。</span></p>
+<p class="ja"><span class="ja">「そうなんです、いつも普通と違うことを突然始めるから、私たちなんか引っ張り回されて。</span><span class="ja">ねえシェリー」</span></p>
+<p><span class="ja">「そ、そうなんです。</span><span class="ja">ヨウカンを作る時も突拍子もないことを次々と言い出して」</span> <span class="en" lang="en">Sherry&#x27;s words carried a sense of real feeling.</span></p>
+<p class="ja"><span class="ja">「ということは、あのお菓子はリカルド殿の発案と言うことでしょうか」</span></p>
+<p><span class="ja">「人の縁に恵まれまして」</span> <span class="en" lang="en">I replied immediately while looking at Rilka and Sherry.</span> <span class="ja">嘘を言う必要が無いのは楽だ。</span></p>
+<p class="ja"><span class="ja">「まあ。</span><span class="ja">確かにお二人の話を聞いていると、とても信頼されているように見えます。</span><span class="ja">それに、アルフィーナ殿下もヴィンダー殿を頼りにされているようすでした。</span><span class="ja">予言の力で幾多の国難を退けたアルフィーナ殿下の懐刀と言ったところでしょうか」</span></p>
+<p><span class="ja">「とんでもない。</span><span class="ja">私もアルフィーナ様に助けられた民の一人に過ぎません」</span> <span class="en" lang="en">The topic began rolling in a dangerous direction.</span> <span class="ja">やっぱり目当てはアルフィーナの予言か。</span></p>
+<p><span class="ja">「そういえば、リーザベルト殿下の故郷というのはどのような場所なのでしょうか」</span> <span class="en" lang="en">I changed the subject.</span> <span class="ja">こちらばかり情報を引き出されてたまるか。</span></p>
+<p><span class="ja">「実は王都とは近いのです。</span><span class="ja">そうですね、これが望みの大河だとすると……」</span> <span class="en" lang="en">Lisabeth drew a line on the table with her finger.</span></p>
+<p class="ja"><span class="ja">「望みの大河ですか？</span><span class="ja">」</span></p>
+<p><span class="ja">「はい、王国との間の川を帝国ではそう呼ぶのです……。</span><span class="ja">それで、私がいる方を帝国としたら、私の故郷は……」</span> <span class="en" lang="en">It&#x27;s practically a conversation about the national border, but there was no sign of tension in Lisabeth.</span> <span class="ja">皇女が指を置いたのは王都の北方、大河の中流付近だ。</span></p>
+<p><span class="ja">「えっ、そこですか」</span> <span class="en" lang="en">I blurted out instinctively.</span> <span class="ja">血の山脈の近く。</span> <span class="en" lang="en">It&#x27;s near the place I thought was the perfect location for an international trading city.</span> <span class="en" lang="en">At my reaction, not only the Imperial Princess but also Rilka and Sherry looked puzzled.</span></p>
+<p><span class="ja">「魔の山脈の近くですか」</span> <span class="en" lang="en">Trying to cover it up somehow, I said.</span> <span class="ja">隣と言っても、魔獣の縄張りだし、皇女が情報を持っているとは限らない。</span></p>
+<p><span class="en" lang="en">In the first place, I couldn&#x27;t possibly say that I wanted the land adjacent to her hometown.</span> <span class="ja">ダルガンの冗談が本当になりかねない。</span></p>
+<p><span class="ja">「……はい。</span><span class="ja">王国で先に討ち果たされたような凶悪なドラゴンの襲来など。</span><span class="ja">故郷の民は魔獣におびえて暮らしています」</span> <span class="en" lang="en">Lisabeth&#x27;s face clouded.</span> <span class="ja">俺の足が左右から踏まれた。</span> <span class="en" lang="en">Oops, from an outsider&#x27;s perspective, it was like I intentionally brought up a landmine topic.</span></p>
+<p><span class="en" lang="en">I should have left it to Rilka or Sherry to find out indirectly.</span></p>
+<p><span class="ja">「ですから、竜討伐に貢献したというヴィンダー殿は素晴らしいと思います」</span> <span class="en" lang="en">Brightening her expression, Lisabeth said to me.</span></p>
+<p><span class="ja">「とんでもない。</span><span class="ja">竜討伐の功績はクレイグ殿下の武勇のたまものです」</span> <span class="en" lang="en">Lisabeth fell silent for a moment at my words.</span> <span class="ja">思い詰めたような顔になっている。</span></p>
+<p class="ja"><span class="ja">「ヴィンダー殿。</span><span class="ja">一つお願いがあるのです」</span></p>
+<p><span class="ja">「……私ごときに何でしょうか」</span> <span class="en" lang="en">I asked with maximum caution.</span></p>
+<p><span class="ja">「騎士団長のクレイグ殿下のことです。</span><span class="ja">ヴィンダー殿はクレイグ殿下ともお親しい間柄と聞きます。</span><span class="ja">私がお会いしたいとお伝えいただけないでしょうか」</span> <span class="en" lang="en">I see.</span> <span class="en" lang="en">I thought she was praising me excessively, but it turned out she was after my rich, handsome acquaintance.</span> <span class="ja">よしよし、これならわかりやすいぞ。</span> <span class="en" lang="en">It&#x27;s a development I have experienced in my previous life.</span></p>
+<p><span class="en" lang="en">Well, that&#x27;s half a joke; as I thought, Craig and the subjugation of the Gluttonous Dragon are her targets.</span></p>
+<p><span class="ja">「……ご多忙であるということで、断られてしまっているのです」</span> <span class="en" lang="en">Craig apparently kept turning her down.</span> <span class="ja">皇女の世話役は大まかに言えば第二王子閥のドリスディアだ。</span> <span class="en" lang="en">She probably won&#x27;t act very enthusiastically.</span> <span class="en" lang="en">She was looking at me with eyes that were grasping at straws.</span></p>
+<p><span class="ja">「申し訳ありません、皇女殿下と王子殿下の仲介など、私ごときの到底力及ばぬことでございます」</span> <span class="en" lang="en">If I meet Craig, I have to warn him that the Imperial Princess is aiming for him.</span> <span class="ja">花粉のことを知られたら事だからな。</span></p>
+<p class="ja"><span class="ja">「ごめんなさい。</span><span class="ja">お礼を言うために来て頂いたのに、無理を言ってしまって」</span></p>
+<p class="ja"><span class="ja">「お役に立てずに申し訳ないです」</span></p>
+<p><span class="ja">「そういえば、王都で評判のフレンチトーストというお菓子も……」</span> <span class="en" lang="en">Looking truly apologetic, Lisabeth quickly changed the subject.</span></p>
+<p><span class="ja">「リーザベルト様。</span><span class="ja">そろそろお時間では」</span> <span class="en" lang="en">While safe and harmless talk continued, the maid, probably a guard, waiting behind her spoke up.</span> <span class="ja">新しいお茶を注ごうとしていたもう一人の侍女の動きが止まった。</span> <span class="en" lang="en">Lisabeth looked at us with regret.</span></p>
+<p class="ja"><span class="ja">「残念です。</span><span class="ja">もっとお話を聞きたかったのに」</span></p>
+<p><span class="ja">「い、いえ、お忙しい殿下にこのようにお時間を取って頂いただけで光栄の極みです」</span> <span class="en" lang="en">Honestly, I wanted to hear a little more about the Demonic Mountain Range, but there&#x27;s no way they would talk about the crucial parts either.</span> <span class="ja">後は第三皇女の故郷というキーワードでジェイコブ達に探らせよう。</span> <span class="en" lang="en">This was a harvest in its own way.</span></p>
+<p><span class="ja">「今更ですが、学院ではよろしくお願いしますね」</span> <span class="en" lang="en">Lisabeth went out of her way to follow us to the entrance and said to us.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p class="ja"><span class="ja">「……優しそうな人だったね」</span></p>
+<p><span class="ja">「そうだな……」</span> <span class="en" lang="en">Right after leaving the legation, Sherry said deeply.</span></p>
+<p><span class="en" lang="en">I instinctively agreed.</span> <span class="ja">ただ、その人間が優しいかどうかと敵味方の立場とは何の関係もない。</span><span class="ja">言ってみれば、優しいオオカミと酷いオオカミだ。</span> <span class="en" lang="en">To the rabbit being eaten, there&#x27;s no difference whatsoever.</span> <span class="en" lang="en">Being a wolf is the most important attribute, and everything else is just a trivial matter.</span></p>
+<p><span class="en" lang="en">Furthermore, she is a person who can put on an act that, no matter how I think about it, doesn&#x27;t look like acting to me.</span></p>
+<p class="ja"><span class="ja">「途中ちょっとひやっとしたけど、ヴィンダーにしては大人しかったね。</span><span class="ja">プルラ先輩の店に一緒に行く約束しちゃったシェリーと違って」</span></p>
+<p><span class="ja">「……リルカ。</span><span class="ja">付いてきてくれるよね」</span> <span class="en" lang="en">Sherry clung to Rilka with a look of despair on her face.</span> <span class="ja">うかつだな、最近保身力が上がってきた俺を見習うと良い。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec04">
+<div class="star">＊</div>
+<div class="rubric">04</div>
+<h2>２話：後半　季節変動</h2>
+<hr class="rule">
+<p><span class="en" lang="en">The top floor of the Imperial Legation; an exceptionally large room serves as the envoy chief&#x27;s office.</span> <span class="ja">無骨な黒塗りの大机に座る帝国使節長バイラルの前に二人の男女が控えていた。</span></p>
+<p><span class="ja">「では、皇女の招いた商人どもには何の力もないということか」</span> <span class="en" lang="en">Bairal muttered bitterly.</span></p>
+<p><span class="ja">「はい。</span><span class="ja">直に確認いたしました」</span> <span class="en" lang="en">Mabel answered her boss with a respectful attitude.</span> <span class="ja">その仕草にふさわしい侍女の格好をしているが、眼光は冷たい。</span></p>
+<p class="ja"><span class="ja">「ただ、招かれたのは食料ギルドの中でも最近力を付けている商会の関係者達です。</span><span class="ja">巫女姫やその後ろ盾の西の大公と関わりがあることは間違いないようです」</span></p>
+<p class="ja"><span class="ja">「ふむ。</span><span class="ja">そういえばヴィンダーとか言う商人の息子が、クレイグに引っ付いていたな……」</span></p>
+<p><span class="ja">「ギルド長ケンウェル商会の傘下の様です。</span><span class="ja">ケンウェルはクレイグと同じ改良された馬車でレースに参加しておりました。</span><span class="ja">フォルムでの騒ぎも、食料ギルド所属の商人が取り仕切っていたようです。</span><span class="ja">食料ギルドが第三王子閥により始めている状況を考えると注意は必要かと」</span> <span class="en" lang="en">The man in the black robe, standing next to Mabel, said.</span></p>
+<p><span class="ja">「確かに、リーザベルト様は商人達の商いの連携に注目していました」</span> <span class="en" lang="en">Mabel also added.</span></p>
+<p><span class="ja">「”将来”のことを考えると食料ギルドは押さえておかねばならぬ……。</span><span class="ja">だが、所詮は魔力を扱う資質がない平民どもだ。</span><span class="ja">皇女という札を使う必要はない。</span><span class="ja">皇女にはクレイグや巫女姫に直接接近することを優先しろと伝えよ。</span><span class="ja">あれでも皇女は皇女だ。</span><span class="ja">王国においてはその肩書きが役に立つ。</span><span class="ja">そうだな……」</span> <span class="en" lang="en">Bairal curled his lip up.</span></p>
+<p class="ja"><span class="ja">「クレイグに色仕掛けでもなんでも仕掛けさせればよい。</span><span class="ja">皇女にとっても竜討伐の秘密は大事であろう」</span></p>
+<p><span class="ja">「かしこまりました」</span> <span class="en" lang="en">Bowing respectfully, Mabel left the room.</span></p>
+<p><span class="en" lang="en">The remaining robed man opened his mouth.</span></p>
+<p><span class="ja">「商人どもはともかく、それを背後で操って勢力を拡大している特に西の大公はいかがいたしましょう。</span><span class="ja">将来のことを考えると西の大公が力を増すことは問題かと。</span><span class="ja">手は打っておりますが、我らの”味方”も焦っております」</span> <span class="en" lang="en">At the words of the black robe, Bairal made a face as if he had bitten a bitter bug.</span></p>
+<p class="ja"><span class="ja">「東の大公ががなり立てておるか。</span><span class="ja">そうだな、二十年前の乱で没落した者どもへの調略が滞り始めておる。</span><span class="ja">わざわざ帝国の車を貸してやったというのにあの無能者どもが。</span><span class="ja">茶会などと言うお遊びのために、カカウルスの実も融通してやったのだったな」</span></p>
+<p class="ja"><span class="ja">「申し訳ありません。</span><span class="ja">危うく騎士団に馬車を調べられるところでした」</span></p>
+<p class="ja"><span class="ja">「近くを通りがかった職人に見られたのだろう、大丈夫か」</span></p>
+<p class="ja"><span class="ja">「この国の職人は商人の下働きに過ぎません。</span><span class="ja">ましてや、ろくに素材のない王国の職人にあれが理解出来るはずもなく、首をかしげておりました。</span><span class="ja">それに……」</span></p>
+<p class="ja"><span class="ja">「そうだな。</span><span class="ja">足回りだけ見られたところでどうという事はないか。</span><span class="ja">ベルトルドで作られはじめた王国の新しい馬車の方がまだ重要だな。</span><span class="ja">あれに関しては最大の目的を果たせた事でよしとしよう」</span></p>
+<p class="ja"><span class="ja">「そうですな、ベルトルドはいずれ……。</span><span class="ja">もうそろそろ、東の大公に情報を流しますか」</span></p>
+<p><span class="ja">「やめておけ。</span><span class="ja">巫女姫の予言のこともある。</span><span class="ja">へたに騒がれては邪魔なだけだ。</span><span class="ja">愚か者が調子に乗ればそれはそれでやりづらい」</span> <span class="en" lang="en">At Bairal&#x27;s words, filled with contempt, his subordinate also twisted his mouth.</span></p>
+<p class="ja"><span class="ja">「確かに、あの者達は自分は常に春を生きていると思ってるようですからな」</span></p>
+<p><span class="ja">「まったくだ。</span><span class="ja">将来の保証などない。</span><span class="ja">状況などいつ変わるか解らん。</span><span class="ja">我らはせめて夏が終わるまでには片をつけねばならん」</span> <span class="en" lang="en">Turning around and tightening his lips, Bairal made the robed man return to a serious face as well.</span></p>
+<p class="ja"><span class="ja">「だからこそ失敗は許されん。</span><span class="ja">王国の力はほぼ把握したが、予言の水晶の力とクレイグの騎士団だけは読めぬ要素が多い。</span><span class="ja">マレルで行っている騎士団の訓練を調べても、秘密は分らなかったのだろう」</span></p>
+<p class="ja"><span class="ja">「はい、厳しい訓練ではありましたが、とても成竜を倒せるとは。</span><span class="ja">竜が魔脈の弱さで力を発揮出来なかったという方が説得力があります」</span></p>
+<p class="ja"><span class="ja">「それなら良いのだが。</span><span class="ja">私も皇子も貪竜の額の石を見ている。</span><span class="ja">あの大きさならそこまで弱っていたとは思えないのだ。</span><span class="ja">必ず何か秘密があるはずだ。</span><span class="ja">その秘密の如何によっては将来の計画に大きな支障を来す」</span></p>
+<p><span class="ja">「確かに。</span><span class="ja">……閣下、通信が」</span> <span class="en" lang="en">The robed man drew his boss&#x27;s attention behind him.</span> <span class="ja">バイラルの椅子の背後で小さな水晶が怪しく光った。</span></p>
+<p class="ja"><span class="ja">「とにかく、クレイグの事が最優先だ」</span></p>
+<p><span class="ja">「はい、かしこまりました」</span> <span class="en" lang="en">When Bairal nodded, the robed man quickly left the room.</span> <span class="ja">帝国使節長は急いで机に戻る。</span> <span class="en" lang="en">He copied down the sequence of symbols that appeared on the crystal.</span> <span class="ja">決しておミスが許されぬ作業を、彼は可能な限り素早く終える。</span> <span class="en" lang="en">This magic tool demands an exponentially higher amount of magical power as the distance increases.</span> <span class="ja">今、帝都では大量の魔結晶が消費されているはずだ。</span></p>
+<p><span class="en" lang="en">Setting his pen down, Bairal unlocked a double-locked drawer.</span> <span class="ja">中から黒塗りの箱を取り出す。</span> <span class="en" lang="en">He rolled up his sleeve to reveal his arm.</span> <span class="ja">腕に刻まれた模様が光ると箱のふたが開いた。</span> <span class="en" lang="en">The sequence of symbols he had just written was placed inside.</span></p>
+<p><span class="en" lang="en">Taking out a paper with similar symbols originally inside, Bairal threw it into the fireplace.</span> <span class="ja">火かき棒を手にとると、黒焦げになった紙を念入りに砕いていく。</span></p>
+<p><span class="ja">「腑抜けた国を相手取るには、いささか過剰な配慮だな」</span> <span class="en" lang="en">Bairal looked towards the north with a distant gaze.</span> <span class="ja">帝都の雪はまだ深いだろう。</span> <span class="en" lang="en">Moving his eyes below the window, he bit his lip.</span> <span class="ja">王国はもう春の気配がする。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec05">
+<div class="star">＊</div>
+<div class="rubric">05</div>
+<h2>３話　変化の中立説</h2>
+<hr class="rule">
+<p><span class="ja">王宮に近い旧第二騎士団本部は今は対魔獣騎士団の団長府になっている。</span> <span class="en" lang="en">It was a magnificent gate completely different from the Third Knight Order&#x27;s garrison, which looked just like a field encampment.</span></p>
+<p><span class="en" lang="en">Guided to the spacious central conference room, 俺は少し居心地の悪い思いをしていた。</span></p>
+<p><span class="ja">「睨まれてないか？</span><span class="ja">」</span> <span class="en" lang="en">A young male knight I had never seen before, who guided us to the conference room, was casting sharp glances at me.</span></p>
+<p><span class="ja">「旧第二騎士団から採用された新しい副官殿だな」</span> <span class="en" lang="en">Claudia whispered in my ear.</span> <span class="ja">なるほど、新しい騎士団として一つになるための融和人事の一環か。</span></p>
+<p><span class="en" lang="en">Just as I was thinking that, for some reason, the sharpness of his gaze increased.</span></p>
+<p><span class="ja">「確かクラウの幼なじみですね」</span> <span class="en" lang="en">Alfina whispered in my ear.</span> <span class="ja">ああ、そういえばクラウディアの最初はこんな感じだった。</span> <span class="en" lang="en">As if reading my mind, the knight came over with an expression showing he could endure no longer.</span> <span class="ja">いったいどんな不調法をしたんだろうか。</span></p>
+<p class="ja"><span class="ja">「なぜ平民の商人ごときが王女殿下とクラウディアの間に当たり前のように座っているのだ」</span></p>
+<p><span class="ja">「…………そうだった。</span><span class="ja">すいません」</span> <span class="en" lang="en">Since it was a completely sound argument, I found myself apologizing instinctively.</span></p>
+<p><span class="ja">「ハイド。</span><span class="ja">席の配置は殿下のご指示だ」</span> <span class="en" lang="en">The one who said that was Count Adele, Claudia&#x27;s father.</span> <span class="en" lang="en">Just until a moment ago, weren&#x27;t you also glaring at me with hatred?</span></p>
+<p class="ja"><span class="ja">「しかし、副団長」</span></p>
+<p><span class="ja">「忌々しい話だが、この男が騎士団に多大な貢献をしたのは事実なのだ。</span><span class="ja">忌々しいが、私にとっても恩人であるしな」</span> <span class="en" lang="en">Adele said to Hyde, who refused to back down.</span> <span class="ja">騎士団の輸送用馬車は次々改良馬車に置き換わっている。</span><span class="ja">ベルトルドの二人の職人はうれしい悲鳴だ。</span> <span class="en" lang="en">Among those screams, there are genuine screams mixed in, like how demanding the Count is about delivery dates being too harsh.</span></p>
+<p><span class="en" lang="en">As for pollen, experiments have shown that its effectiveness is maintained if kept dry.</span> <span class="ja">ドラゴンに対する準備は次の段階に進めるつもりだ。</span> <span class="en" lang="en">It involves pharmacokinetics testing of the pollen components, so I&#x27;m relying on Fulsi for that.</span></p>
+<p><span class="ja">「待たせたな」</span> <span class="en" lang="en">The door at the back opened, and Craig appeared with two knights.</span> <span class="ja">全員が立ち上がって頭を下げる。</span></p>
+<p class="ja"><span class="ja">「以下がアルフィーナ殿下の予言から導き出される災厄の結果の分析です」</span></p>
+<p><span class="ja">「最初に検討すべきは、やはり魔脈の動向であろうな」</span> <span class="en" lang="en">We already know, but the ominous prophecy of Berthold&#x27;s collapse was explained.</span> <span class="en" lang="en">Since the information control by the Prime Minister would be lifted at the same time, Grand Duke Kurtheite would also find out.</span> <span class="ja">引き延ばしはここまでが限界らしい。</span></p>
+<p><span class="en" lang="en">From here on, an extremely unreasonable competition begins to see how far we can move forward before being shot from behind.</span> <span class="ja">前門の魔獣、後門の敵派閥といったところか。</span> <span class="en" lang="en">It&#x27;s a common occurrence in the world, but it&#x27;s such a hassle.</span></p>
+<p class="ja"><span class="ja">「これが現在の赤い森と、王国西部の魔脈の状況か」</span></p>
+<p><span class="ja">「はい、アンテナ……測定器を西部にも向けた結果と、以前の馬車レースの時の測定数値を使って作られたマップです」</span> <span class="en" lang="en">The prince looked at the map submitted by Noel and Mia.</span> <span class="ja">ミーアとノエルが数値の相対化や統計分析を終えている。</span> <span class="en" lang="en">It was confirmed once again that there were no signs of a monster flood in the Red Forest, and the thin magic vein spreading across the western kingdom—that is, east of Berthold—was calming down.</span></p>
+<p><span class="ja">「つまり、今のところ魔脈に異常はなく、仮に異常が生じてもすぐに察知出来る体制が整っていると言うことだな。</span><span class="ja">リカルドの提言が活きているな」</span> <span class="en" lang="en">Craig said to me.</span></p>
+<p><span class="ja">「大規模な魔脈の変動が起こっている以上、それをなるべくリアルタイムで知るための仕組みを作ることは当然ですよ。</span><span class="ja">…………が実際にはフルシー館長とノエル宮廷魔術師見習いの功績ですね。</span><span class="ja">ははは……」</span> <span class="en" lang="en">Hyde&#x27;s face twisted in surprise, so I said it in a panic.</span> <span class="ja">早期警戒体制を俺が差配してるなんて勘違いされたらたまらない。</span></p>
+<p><span class="ja">「となると、別のことを検討せざるを得ませんな」</span> <span class="en" lang="en">Count Adele said bitterly.</span> <span class="ja">災厄は東方から来る。</span> <span class="en" lang="en">A city wall destroyed with a clearly distinct intent, and a town trampled.</span> <span class="en" lang="en">Apart from monsters, the most dangerous animals to humans—that is, an attack by humans—can absolutely not be ruled out.</span></p>
+<p class="ja"><span class="ja">「帝国が迂回して東方から攻撃という可能性はないだろうな」</span></p>
+<p class="ja"><span class="ja">「はい、行軍路を考えればあり得ないかと。</span><span class="ja">仮に、帝国がそのような無謀な進路を取れば、補給路の一番の弱点を王都に向かって晒すことになります。</span><span class="ja">仮に例の馬車が多数あったとしても、それは変わりません」</span></p>
+<p><span class="ja">「ふむ、災厄が起こるのは遅くとも二ヶ月先。</span><span class="ja">帝国に動きがあれば流石に分るだろうしな」</span> <span class="en" lang="en">At Adele&#x27;s words, Craig nodded.</span></p>
+<p class="ja"><span class="ja">「リカルドならどうだ。</span><span class="ja">其方なら突拍子もないベルトルドの落とし方を考案出来るのではないか」</span></p>
+<p class="ja"><span class="ja">「私は軍事行動については全くの素人です」</span></p>
+<p class="ja"><span class="ja">「ほう、騎士団の活動にとって最も重要なのが輸送部隊の効率と俺に説いて、改良馬車を売りつけたリカルドが素人か」</span></p>
+<p><span class="ja">「商人は輸送の専門家ですので」</span> <span class="en" lang="en">As usual, this prince is bad for my heart in many ways.</span></p>
+<p class="ja"><span class="ja">「リ、リカルドくんは商人なんですから、安全な場所にいてもらうべきです。</span><span class="ja">商人として活躍してもらうのが災厄を防ぐためにも一番良いはずです」</span></p>
+<p class="ja"><span class="ja">「ほう、それは予言なのかな」</span></p>
+<p><span class="ja">「違います。</span><span class="ja">でもリカルドくんのことはクレイグ殿下よりも分っていますから」</span> <span class="en" lang="en">Alfina glared at Craig.</span> <span class="ja">クレイグは余裕の表情で義妹を見返した。</span> <span class="en" lang="en">I appreciate the words, but please don&#x27;t create an atmosphere like a crisis of a split in the Third Prince&#x27;s faction.</span></p>
+<p><span class="ja">「さて、そうなると、クルトハイトのことを考えざるを得んな」</span> <span class="en" lang="en">Craig said.</span> <span class="en" lang="en">It seemed he tried to lighten the mood with a joke before getting into an unpleasant topic.</span> <span class="ja">俺にはないスキルだ。</span> <span class="en" lang="en">And people without such skills often end up being used as the butt of the joke.</span></p>
+<p class="ja"><span class="ja">「いくら団長殿下と第二王子殿下を争わせようという動きがあるとしても、流石にあり得ないかと」</span></p>
+<p><span class="ja">「そうだな、いかにリカルドのせいで兄が追い詰められていてもな」</span> <span class="en" lang="en">Wasting Hyde&#x27;s consideration, Craig said.</span> <span class="ja">その視線が地図城の王都に注がれている。</span> <span class="en" lang="en">Yes, it&#x27;s indeed hard to imagine.</span> <span class="ja">クルトハイトとベルトルドの間には王都がある。</span></p>
+<p><span class="ja">「陛下や宰相の立場から言っても、王都がベルトルドを攻めることを認めるとは考えられぬな」</span> <span class="en" lang="en">Craig said.</span> <span class="ja">王都とクルトハイトが組んでベルトルドを潰す。</span> <span class="en" lang="en">In this case, it seems we don&#x27;t have to worry about the worst-case scenario: subjugation by royal decree.</span> <span class="en" lang="en">However, there is another concern in the royal capital.</span></p>
+<p class="ja"><span class="ja">「ただ、第二王子閥を警戒するのなら、帝国との繋がりを除外出来ません。</span><span class="ja">王都には皇女が来ているのですから」</span></p>
+<p class="ja"><span class="ja">「タイミングからして無関係と考えるのは人が良すぎるであろうな。</span><span class="ja">リカルドは同級生であろう。</span><span class="ja">皇女に招かれて公館までいったと聞くが」</span></p>
+<p><span class="ja">「皇女殿下の本命は王子ですよ。</span><span class="ja">ドラゴン討伐の武勇伝が聞きたいみたいですね」</span> <span class="en" lang="en">I retorted.</span></p>
+<p><span class="ja">「そうです。</span><span class="ja">リーザベルト殿下の相手はクレイグ殿下がすれば良いのです。</span><span class="ja">リカルドくんは危険すぎます」</span> <span class="en" lang="en">For some reason, Alfina said.</span></p>
+<p><span class="ja">「ほう、どうしてリカルドだと危険なのだ、同じ学院生なら自然で良いではないか」</span> <span class="en" lang="en">The prince asked back, looking amused.</span></p>
+<p><span class="ja">「えっと、それは、リカルドくんは…………」</span> <span class="en" lang="en">Saying that much, Alfina tilted her head.</span></p>
+<p><span class="ja">「そうです。</span><span class="ja">リカルドくんは帝国にとって貴重な情報を沢山持ってます。</span><span class="ja">その、リーザベルト殿下に近づけるのはとても危ないです」</span> <span class="en" lang="en">Alfina said.</span></p>
+<p><span class="ja">「まあそうだな。</span><span class="ja">俺が帝国なら最重要ターゲットにするな。</span><span class="ja">リカルドが帝国に付きでもしたら、俺は本気で負けた後のことを考えないといけないぞ」</span> <span class="en" lang="en">What kind of scary joke are you making?</span> <span class="en" lang="en">If the side I join wins, wouldn&#x27;t someone get the idea that it&#x27;s best to eliminate such an uncertain factor?</span></p>
+<p><span class="ja">「団長、いくら王女殿下をからかうと言っても冗談が過ぎましょう」</span> <span class="en" lang="en">Hyde scolded the commander.</span> <span class="ja">同意を求めるように周囲を見た。</span> <span class="en" lang="en">Why is no one nodding at that perfectly reasonable statement just now?</span></p>
+<p class="ja"><span class="ja">「まあ、それはともかく。</span><span class="ja">結局、現時点の情報では災厄の特定は出来ぬと言うことだな」</span></p>
+<p><span class="ja">「そうなりますね。</span><span class="ja">ベルトルドの城壁を複数箇所破壊する要因はどこにもありません」</span> <span class="en" lang="en">The room fell silent under an atmosphere of having reached a dead end.</span></p>
+<p><span class="en" lang="en">I dropped my eyes to the map created by Fulsi and the others.</span> <span class="ja">西方の魔獣氾濫は早くとも三年後、西部の魔脈は間違いなく沈静化している。</span> <span class="en" lang="en">Overall, the amount of miasma was decreasing with a significant difference.</span></p>
+<p><span class="en" lang="en">However, looking closely, there was a faint pattern in the magic vein zone.</span> <span class="ja">縞状に周囲よりも高い部分がいくつかある。</span> <span class="en" lang="en">Will something happen here?</span> <span class="en" lang="en">But even the &quot;higher&quot; parts were slightly lower than when we measured them during the race.</span> <span class="en" lang="en">There is no significant difference, but there is a trend, so to speak—at least it&#x27;s not increasing.</span></p>
+<p><span class="ja">「いや違う。</span><span class="ja">逆だ」</span> <span class="en" lang="en">There are several places where it&#x27;s decreasing.</span> <span class="ja">ベルトルド東方の薄い魔脈地帯の”変化”と言う意味では明確なのは低下のパターンだ。</span></p>
+<p><span class="en" lang="en">When something happens, it is natural to look for factors that seem directly connected.</span> <span class="ja">だが、それが見つからないなら、注目すべきは変化そのものだ。</span> <span class="en" lang="en">In economic case studies, there are many examples where a groundbreaking new product caused a company&#x27;s bankruptcy.</span> <span class="en" lang="en">Conversely, there are tons of examples where a corporate scandal became the trigger for a company&#x27;s rapid progress.</span></p>
+<p><span class="en" lang="en">My mentor used to say.</span> <span class="en" lang="en">He couldn&#x27;t understand managers who rejoiced over a rival company&#x27;s scandal.</span> <span class="en" lang="en">Twists in causality are rare, but when they happen, their impact is extremely large.</span></p>
+<p class="ja"><span class="ja">「ミーア。</span><span class="ja">ノエル、ここの数値だけど、もっと小さいメッシュ……、細かく見れないか」</span></p>
+<p><span class="ja">「なんで？</span><span class="ja">　魔脈の活動が下がってるところじゃない」</span> <span class="en" lang="en">Looking at the place I pointed at, Noel tilted her head.</span> <span class="ja">だが、ミーアが黙って計算を始めるのを見て、ノエルもそれに倣った。</span></p>
+<p><span class="ja">「低下しているいくつかのスポットには、一貫して低下しています。</span><span class="ja">最初は測定限界がもたらすのだと思っていましたが、明確なパターンがあります」</span> <span class="en" lang="en">Four, no, maybe five?</span> <span class="ja">南北に並ぶ魔脈のコールドスポットとでも言うべきものがある。</span> <span class="en" lang="en">Starting with the prince, the members of the Knight Order made puzzled faces.</span></p>
+<p><span class="ja">「何を言っているのだ。</span><span class="ja">魔力が低下しているのなら問題ないではないか」</span> <span class="en" lang="en">Hyde said.</span></p>
+<p><span class="ja">「確かにそうですが、下がっている場所の配置が規則正しすぎます」</span> <span class="en" lang="en">Between Berthold and the royal capital.</span> <span class="en" lang="en">There, wave patterns appeared as if from a quantum mechanics interference experiment.</span> <span class="en" lang="en">It meant there were circular spots where magical power was decreasing.</span></p>
+<p class="ja"><span class="ja">「では、何が起こるというのか」</span></p>
+<p><span class="ja">「分りません。</span><span class="ja">言ったとおり、測定限界から規則正しく低下しているように見えるだけの可能性はあります。</span><span class="ja">自分の目で検証するしかないと思います」</span> <span class="en" lang="en">Among the several cold spots, I pointed to the one closest to the royal capital.</span></p>
+<p><span class="ja">「アレの出番か。</span><span class="ja">おまえも付いてくるのであろうな」</span> <span class="en" lang="en">Fulsi, who had been looking bored, suddenly raised his face.</span></p>
+<p><span class="ja">「どうやらベルトルドに行かなければいけないようですから、方向的に重なりますね」</span> <span class="en" lang="en">I said.</span> <span class="ja">エウフィリアと工房を含めた避難計画を立てなければならない。</span></p>
+<p class="ja"><span class="ja">「よし。</span><span class="ja">調査は賢者とリカルドに任せよう。</span><span class="ja">念のため、こちらはいつでも動けるように準備をする。</span><span class="ja">そうだ、護衛としてお前もついて行けハイド」</span></p>
+<p><span class="ja">「……了解しました」</span> <span class="en" lang="en">Craig said something unnecessary.</span> <span class="ja">ハイドは俺を睨みながら王子に一礼した。</span></p>
+<p class="ja"><span class="ja">「アルフィーナはそれとなく皇女に接触して、予言のことについて何か知っているか感触を見て欲しい。</span><span class="ja">学院ならそこまで危険はないだろう。</span><span class="ja">俺との会談を餌にすれば短絡的な行動もするまい」</span></p>
+<p><span class="ja">「わかりました」</span> <span class="en" lang="en">Alfina, who had been appealing to me with her eyes that she wanted to come along, reluctantly nodded.</span></p>
+<p><span class="en" lang="en">Come to think of it, Sherry had made a promise to go eat French toast with Lisabeth.</span> <span class="ja">プルラの店なら安全確保がやりやすいし、シェリーとリルカもアルフィーナが一緒なら心強いだろう。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec06">
+<div class="star">＊</div>
+<div class="rubric">06</div>
+<h2>４話　赤い恐怖</h2>
+<hr class="rule">
+<p class="ja"><span class="ja">「まだ動くものに関しては完全じゃないと言うことか」</span></p>
+<p class="ja"><span class="ja">「そうじゃな。</span><span class="ja">ドラゴンクラスの巨大な魔力や、裸の魔結晶のようなはっきりとした対象ならともかく、小型の魔獣程度なら動かれると厳しい」</span></p>
+<p><span class="ja">「その小型の魔獣程度でも、一般人にはきついからな……」</span> <span class="en" lang="en">Inside the swaying carriage, I was discussing the radar&#x27;s performance with Fulsi.</span> <span class="ja">ノエルの努力でレーダーの安定性は上がったが、まだまだ課題は多い。</span></p>
+<p class="ja"><span class="ja">「赤い森に一般人を入れて資源を取ろうなんて、めちゃくちゃな計画よく考えるわね」</span></p>
+<p class="ja"><span class="ja">「出来たらの話だ。</span><span class="ja">せっかく馬車の輸送能力が上がったんだ、レーダーで魔獣の接近さえ分ればって思ったんだよ」</span></p>
+<p class="ja"><span class="ja">「どちらにしろレーダーを動かせる魔術士が必要じゃない」</span></p>
+<p><span class="ja">「そこなんだよな」</span> <span class="en" lang="en">I need to investigate the mechanism of magic circuits a little more.</span> <span class="en" lang="en">Even if it&#x27;s magical power that flows, a circuit is still a circuit.</span> <span class="ja">俺の持っている知識である程度理解出来るはずだ。</span></p>
+<p><span class="en" lang="en">Even if I could do that, ordinary people probably wouldn&#x27;t be able to use it because their magical power is too low.</span> <span class="ja">もうちょっと個人の資質に頼らないように出来ると良い。</span> <span class="en" lang="en">I wonder how the Empire operates them.</span></p>
+<p><span class="ja">「将来の計画はともかく、ここまでの測定結果はお前の言うとおりじゃったな」</span> <span class="en" lang="en">Fulsi said while looking at the antenna pointed at the ground.</span> <span class="en" lang="en">It was about a fifth of the way from the royal capital to Berthold.</span> <span class="en" lang="en">Since we couldn&#x27;t use the main roads and needed to measure the magical power of the ground in detail, it took two days.</span></p>
+<p><span class="en" lang="en">Shrubs and bamboo groves were distributed around us.</span> <span class="ja">近くに村はない。</span></p>
+<p><span class="ja">「ここら辺が魔脈低下の中心地ですね」</span> <span class="en" lang="en">Noel said, looking at the gradually decreasing magical power numbers.</span> <span class="en" lang="en">It became clear that the decrease in the magic vein was not an illusion caused by the measurement limit, but that it drew a bowl-shaped circle.</span></p>
+<p class="ja"><span class="ja">「お前の考えが正しかったのは良いとして、それが災厄と結びつくか？</span><span class="ja">　ただでさえ薄い魔脈がこれでは普通の地面と変わらんぞ。</span><span class="ja">魔獣なんぞ存在しようがない」</span></p>
+<p><span class="ja">「ああ、だからさ。</span><span class="ja">魔力を消費する……」</span> <span class="en" lang="en">Just as I was about to explain one possibility to Fulsi, a man&#x27;s face appeared in the window of the carriage.</span> <span class="ja">定期報告らしい。</span> <span class="en" lang="en">It was Hyde, escorting us on horseback along with four knights.</span> <span class="ja">俺に対する感情はともかく、職務には忠実だ。</span></p>
+<p><span class="ja">「賢者様。</span><span class="ja">部下達に周囲を一回りさせました、何も危険は発見出来ません」</span> <span class="en" lang="en">He is faithful to his duties, but he still hasn&#x27;t forgotten his reproachful gaze towards me, implying it&#x27;s meaningless after all.</span> <span class="en" lang="en">In fact, the early spring sky and the grasslands where green was beginning to stand out, along with the surrounding shrubs.</span> <span class="ja">周囲の光景は平和だ。</span></p>
+<p><span class="ja">「おっと騎士様。</span><span class="ja">何もないって言うのはちょっと違わないか」</span> <span class="en" lang="en">Jacob, also riding a horse, said.</span> <span class="en" lang="en">In his hand, a small animal carcass split in half was dangling.</span></p>
+<p><span class="en" lang="en">We stopped the carriage and looked at Jacob&#x27;s catch.</span> <span class="ja">大ネズミの半分になった死骸だ。</span></p>
+<p><span class="ja">「狐にでも食われたのだろう」</span> <span class="en" lang="en">Hyde dismissed Jacob&#x27;s words out of hand.</span></p>
+<p class="ja"><span class="ja">「ジェイコブの意見は？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「騎士様の意見にも一理ありますがね。</span><span class="ja">魔獣氾濫の主力である魔狼なら大ネズミなんて一のみだし。</span><span class="ja">だいたい騎士様なら、それくらいの魔獣が接近してきたら分るはずです」</span></p>
+<p class="ja"><span class="ja">「その通りだ」</span></p>
+<p class="ja"><span class="ja">「走られない限り、儂のレーダーにも映るな」</span></p>
+<p><span class="ja">「なるほど……」</span> <span class="en" lang="en">The data says there&#x27;s no danger, so let&#x27;s believe it.</span> <span class="en" lang="en">In the first place, our major premise is that we are investigating places where the magic vein is decreasing.</span> <span class="ja">そんなやばいものがいるはずがない。</span></p>
+<p><span class="ja">「ただし、この食べかけの断面、少しおかしいですね。</span><span class="ja">歯形がない」</span> <span class="en" lang="en">The cross section looked as if it were starting to rot.</span> <span class="en" lang="en">Perhaps bugs chewed on it after the corpse was left behind.</span></p>
+<p><span class="ja">「後、この食べかけがあった場所の近くの灌木に、白い粉みたいなものが付いていた」</span> <span class="en" lang="en">White powder.</span> <span class="ja">何だろう。</span></p>
+<p><span class="ja">「若と男爵様は、こちらの線から入らないように」</span> <span class="en" lang="en">Remi divided the right side of the carriage.</span> <span class="en" lang="en">She occupied half the space where there was less luggage along with Noel.</span> <span class="en" lang="en">I had no intention of doing so anyway, so I fell asleep in the cramped space with Fulsi.</span> <span class="ja">長期的な観測旅行をするなら、もうちょっと居住性を考えないとな。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="en" lang="en">…………Clang…Clang…Clang, Clang, Clang!</span></p>
+<p><span class="ja">「……な、なんだ！</span><span class="ja">」</span> <span class="en" lang="en">I was jolted awake by the sound of a bell.</span> <span class="ja">レミはすでに外に出ているようだ。</span> <span class="en" lang="en">I hurriedly peeked outside from the carriage.</span></p>
+<p><span class="ja">「こ、これは！</span><span class="ja">？</span><span class="ja">」</span> <span class="en" lang="en">I was struck dumb by the scene, completely transformed from the evening.</span> <span class="en" lang="en">Over twenty somethings glowing red were squirming around us.</span> <span class="en" lang="en">Even as I watched, they were slowly, creepily approaching.</span> <span class="en" lang="en">The eerily red light in the darkness of the night created a blinking pattern as if in sync with each other.</span></p>
+<p><span class="en" lang="en">Besides those crawling on the ground, some were hanging from the branches of shrubs.</span> <span class="ja">その全てが俺たち馬車の方に向かって近づいてきている。</span></p>
+<p><span class="ja">「戦う力がないものは、外に出るな。</span><span class="ja">足手まといだ」</span> <span class="en" lang="en">Hyde yelled at me.</span> <span class="en" lang="en">He wasn&#x27;t riding a horse, but he was fully armed and held a faintly glowing sword in his hand.</span> <span class="en" lang="en">Compared to the one Craig held during the dragon subjugation, the light was extremely unreliable.</span></p>
+<p><span class="ja">「だ、大丈夫なんですか。</span><span class="ja">こんなに沢山に囲まれて」</span> <span class="en" lang="en">I asked the calm Hyde.</span> <span class="en" lang="en">Hyde floated a smile mocking me that was visible even in the dark.</span></p>
+<p><span class="ja">「当たり前だ。</span><span class="ja">ミューカスごときは敵ではない」</span> <span class="en" lang="en">The young elite of the Anti-Monster Knight Order threw out those words.</span> <span class="ja">こういうフラグみたいなのやめて欲しい。</span></p>
+<p><span class="en" lang="en">However, Hyde swung his sword down at one of the creatures that approached.</span> <span class="en" lang="en">As the tip of the sword, faintly glowing in the dark of night, drew an arc, the red something was cut right in half without even being able to dodge.</span> <span class="en" lang="en">With a splattering sound, the red glowing stain that spread on the ground quickly lost its light.</span></p>
+<p><span class="en" lang="en">Following their captain, the remaining knights also faced the surrounding lights.</span> <span class="ja">ジェイコブとレミも松明を手に赤い光を威嚇している。</span><span class="ja">火を恐れるのか。</span><span class="ja">不気味な。</span> <span class="en" lang="en">During that time, the knights crushed the red lights one by one.</span> <span class="ja">あっという間に、取り囲んでいたまがまがしい赤光の群れは消滅した。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="en" lang="en">The next morning.</span> <span class="en" lang="en">I was shown the results of the Knight Order&#x27;s work in front of the carriage.</span> <span class="ja">ゲル状生物の死体の山だ。</span></p>
+<p><span class="ja">「こんな小さな魔結晶じゃ、ほとんど役に立たないわね」</span> <span class="en" lang="en">Looking at the small stones taken out, Noel said.</span> <span class="en" lang="en">The fact that there were magic crystals means that last night was indeed a monster attack.</span></p>
+<p><span class="en" lang="en">Looking closely, there were mole-like holes opening in the ground.</span> <span class="en" lang="en">Were they hiding underground, which is why we couldn&#x27;t see them during the day?</span> <span class="en" lang="en">White powder was stuck around the holes; was it dried mucus that had covered the surface of the monsters?</span></p>
+<p><span class="en" lang="en">If so, it was indeed these monsters that ate the rat.</span></p>
+<p><span class="ja">「館長。</span><span class="ja">ミューカスって言うのは何なんだ？</span><span class="ja">」</span> <span class="en" lang="en">I poked at the corpse, which barely retained its shape, seemingly smashed by blunt weapons.</span> <span class="en" lang="en">Even though I knew they posed no danger, the squishy lumps about the size of an armful were disgusting.</span></p>
+<p><span class="ja">「最弱といってよい魔物じゃな。</span><span class="ja">昼間は地面の下で広がって魔力を吸い、夜になると小動物を襲うようじゃ。</span><span class="ja">この小さな魔結晶を見る限り、弱い魔脈でも生きていけるようじゃな。</span><span class="ja">昨夜のあの数はこちらの魔力に引き寄せられたのかもしれんな」</span> <span class="en" lang="en">Fulsi said.</span> <span class="ja">要するにスライムか。</span> <span class="en" lang="en">It seems they are the weakest in this world too.</span> <span class="en" lang="en">The sight last night sent shivers down my spine, but in reality, that huge number was wiped out in no time.</span></p>
+<p><span class="en" lang="en">But there are two major problems.</span> <span class="ja">ここは王国中部と西部の境界。</span> <span class="en" lang="en">Normally, no matter how weak they are, there&#x27;s no reason for monsters to be here.</span></p>
+<p><span class="ja">「昨夜言ったとおり、取るにたらん魔獣だ。</span><span class="ja">お前でも走って逃げるくらいのことは出来るだろう」</span> <span class="en" lang="en">Hyde bowed to Fulsi and then said to me.</span></p>
+<p class="ja"><span class="ja">「でも魔獣は魔獣なんだよな」</span></p>
+<p><span class="ja">「そうだ。</span><span class="ja">このような場所に魔獣が存在していたこと自体は大問題だ。</span><span class="ja">団長に急ぎ報告しなければいけない。</span><span class="ja">……お前が言った他のスポットも調べねばらん。</span><span class="ja">ミューカスはともかく、より強力な魔獣がいる可能性がある」</span> <span class="en" lang="en">Yes, major problem number one is the possibility of higher-tier monsters existing.</span> <span class="ja">魔狼なんかがいたら、周囲の村では対抗出来ない。</span> <span class="en" lang="en">If a merchant caravan traveling on the road were targeted, they wouldn&#x27;t be able to escape even against a single one.</span></p>
+<p><span class="ja">「どこから来たんだ、このスライム…………、ミューカスは」</span> <span class="en" lang="en">Monsters are living creatures.</span> <span class="ja">自然発生はしないはずだ。</span></p>
+<p><span class="ja">「考えられることは卵が魔脈に反応して孵ったということじゃな」</span> <span class="en" lang="en">I see.</span> <span class="en" lang="en">In that case, is it possible that they endured for a long time or flew here from far away?</span> <span class="ja">レースの時に観測した魔脈の活性化で長い間眠っていた胞子が目覚めた。</span> <span class="en" lang="en">If we&#x27;re talking on the level of bacteria, it&#x27;s totally plausible.</span> <span class="en" lang="en">However, considering the size they were last night, it feels a bit strange.</span> <span class="en" lang="en">No, it doesn&#x27;t necessarily mean the eggs are small.</span></p>
+<p><span class="ja">「バルトとケイレスは急ぎ王都に戻り団長に連絡を。</span><span class="ja">ライルとバレットは周囲をさらに調査する」</span> <span class="en" lang="en">Hyde gave out instructions.</span> <span class="ja">内容に文句はない。</span> <span class="en" lang="en">Last night, his judgment and skills against monsters were solid.</span> <span class="ja">流石、魔獣氾濫に対処してきた第二騎士団出身者だ。</span></p>
+<p><span class="en" lang="en">Monsters appearing near the royal capital is a situation that could shake the nation.</span> <span class="ja">弱くても一刻も早く掃討しなければならない。</span> <span class="en" lang="en">Even more so considering that prophecy of disaster.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec07">
+<div class="star">＊</div>
+<div class="rubric">07</div>
+<h2>５話　発展の萌芽</h2>
+<hr class="rule">
+<p class="ja"><span class="ja">「確からしいことは二つか。</span><span class="ja">ベルトルドと王都の間で薄い魔脈地帯が発生したこと、その魔脈の瘴気によって卵が孵ったこと」</span></p>
+<p><span class="ja">「つまり、次はその卵がどこから来たのかということか」</span> <span class="en" lang="en">Fulsi&#x27;s words were an affirmation of my premise.</span> <span class="ja">俺はうなずいて議論を進める。</span></p>
+<p class="ja"><span class="ja">「可能性はいくつかあるけど、一つは元々あっただ」</span></p>
+<p><span class="ja">「数百年間眠っておったことになるぞ」</span> <span class="en" lang="en">It&#x27;s possible to endure a long time in a dormant state.</span> <span class="en" lang="en">In Japan too, there was news about a lotus seed from over a thousand years ago sprouting.</span> <span class="ja">卵はともかく種なら長期の飢餓や乾燥にも耐える。</span></p>
+<p><span class="en" lang="en">But this is an event that hasn&#x27;t happened since the kingdom was established.</span> <span class="ja">土の中で大量の胞子が眠っていたというのは違和感がある。</span></p>
+<p><span class="ja">「もう一つは、実は胞子は常に飛んできていて、これまでは魔脈がないから孵らなかったから分らなかった」</span> <span class="en" lang="en">It&#x27;s like plants growing from cracks in asphalt.</span> <span class="ja">遠くの草原から常に種は飛んできているが、ほとんどの種はアスファルト上で焼ける。</span> <span class="en" lang="en">When the asphalt is in perfect condition, no one even notices the seeds exist.</span> <span class="en" lang="en">When cracks form and the ground is exposed, we realize that seeds were actually flying in.</span></p>
+<p><span class="en" lang="en">Even a dragon flew here.</span> <span class="ja">種が空を飛んできてもおかしくない。</span> <span class="en" lang="en">On a bacterial level, it&#x27;s something that happens normally.</span></p>
+<p class="ja"><span class="ja">「それも考えづらいな。</span><span class="ja">それなら、例えば前回のトゥヴィレ山とかでミューカスが発生しておろう。</span><span class="ja">あるいは、東西の赤い森の側でそういうことが起こっても不思議じゃない」</span></p>
+<p class="ja"><span class="ja">「なるほど……」</span><span class="ja">俺は考え込んだ。</span></p>
+<p class="ja"><span class="ja">「焦るのは分るけど、魔獣は騎士団に任せれば良いんじゃない。</span><span class="ja">そもそも、あれが危険ならベルトルドよりも王都の方が危ないでしょ」</span></p>
+<p><span class="ja">「確かにそうだな」</span> <span class="en" lang="en">It&#x27;s already decided that the Knight Order will head out for subjugation.</span> <span class="ja">王都に戻るころには情報が集まっている。</span> <span class="en" lang="en">As Noel said, it isn&#x27;t even certain whether they are related to the disaster of the prophecy.</span></p>
+<p><span class="ja">「そんな暗い顔をしていたら、こっちまで気が滅入るわよ。</span><span class="ja">ちょっと窓開けるわよ」</span> <span class="en" lang="en">Noel opened the carriage window.</span> <span class="en" lang="en">Having been thinking in the same posture continuously, I massaged my neck and stuck my face out the window, seeking fresh air.</span> <span class="ja">周囲は平坦な草地だ。</span><span class="ja">幹線道路に乗ったので、明日にはベルトルドに到着する。</span></p>
+<p><span class="en" lang="en">I was going to Berthold for the honey and the workshop anyway.</span> <span class="ja">他にも考えなければいけないことはある。</span></p>
+<p class="ja"><span class="ja">あれ？</span></p>
+<p><span class="ja">「馬車を止めてくれレミ」</span> <span class="en" lang="en">Spotting multiple figures in the grassland, I called out to Remi on the driver&#x27;s box.</span> <span class="ja">三人の男が、地面に鋤の様なものを突き立てている。</span></p>
+<p class="ja"><span class="ja">「泥炭を掘ってるんじゃないの、珍しくもないけど」</span></p>
+<p><span class="ja">「ちょっと遠くないか？</span><span class="ja">」</span> <span class="en" lang="en">It should be quite far from the nearest village.</span> <span class="ja">泥炭は水を含んで重い。</span> <span class="en" lang="en">It bothers me that they would go out of their way to come dig here.</span> <span class="en" lang="en">I, who was constantly thinking about resources that were previously inaccessible but now are thanks to carriage improvements, found it curious.</span></p>
+<p><span class="ja">「は、はははい。</span><span class="ja">泥炭をほっています。</span><span class="ja">その、俺たち何か法に触れるような……」</span> <span class="en" lang="en">The man, who claimed to be a villager from nearby, was clearly nervous.</span> <span class="ja">レーダー馬車は外装には豪華さの欠片もない。</span> <span class="en" lang="en">But there is a knight guarding it.</span> <span class="en" lang="en">Even Fulsi and Noel looked adequately distinguished to ordinary eyes.</span></p>
+<p class="ja"><span class="ja">「いや違うんです。</span><span class="ja">ここって村からかなり離れているでしょ。</span><span class="ja">泥炭ならもっと近場でいくらでもあるんじゃないかと思って」</span></p>
+<p class="ja"><span class="ja">「あ、ああ、なるほど。</span><span class="ja">実はここの泥炭は乾燥していて使いやすいんです」</span></p>
+<p><span class="ja">「そうなのか……」</span> <span class="en" lang="en">I reached out to the freshly dug black soil.</span> <span class="ja">確かに、多少さらさらしている。</span></p>
+<p><span class="ja">「はい、掘りに来るようになったのはここ一年くらいですが」</span> <span class="en" lang="en">If the moisture content is low, it indeed becomes lighter, and it saves the trouble of drying it.</span> <span class="ja">でも、泥炭が乾燥した理由は何だ。</span><span class="ja">地下水脈が低下したと言うことか。</span><span class="ja">だとしたら原因は？</span></p>
+<p><span class="en" lang="en">I looked at the black hole opened in the ground.</span> <span class="ja">泥炭は軟らかく、地盤としては弱い。</span> <span class="en" lang="en">Surely the disaster couldn&#x27;t be land subsidence, right?</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p class="ja"><span class="ja">「うわ……、なんか賑やかになってなぃ……」</span></p>
+<p><span class="ja">「そうだな、馬車の数が明らかに増えている」</span> <span class="en" lang="en">Once we passed through the city gates of Berthold, we could tell the town&#x27;s atmosphere had changed.</span> <span class="en" lang="en">In the lively streets, Noel and I both lowered our voices.</span></p>
+<p><span class="ja">「なんじゃ、ごみごみしてきたな」</span> <span class="en" lang="en">Fulsi also agreed.</span> <span class="ja">めでたいことなのは分ってるんだ。</span> <span class="en" lang="en">But there are some people who reflexively pull back when things get busy.</span></p>
+<p><span class="ja">「そうですね。</span><span class="ja">今まで訪れなかったような商人も訪れるようになっていますから。</span><span class="ja">宿を取るのが大変になってます。</span><span class="ja">この夏は、近くの農村から蜂蜜を運ばなければならなくなりますし。</span><span class="ja">会長も苦労していますよ」</span> <span class="en" lang="en">As we headed toward the workshop, I saw a building that was just a skeletal frame along the way.</span> <span class="ja">新しい宿屋だろうか。</span></p>
+<p><span class="ja">「こらこら、そこはもっと思い切って角度を付けるんだ。</span><span class="ja">これまでとは……」</span> <span class="en" lang="en">Entering the workshop, I heard Dolph&#x27;s voice.</span> <span class="ja">若い職人に板バネの設置を教えているようだ。</span></p>
+<p><span class="en" lang="en">At the furnace in the back stood Bogan, silently watching an apprentice working desperately.</span> <span class="ja">人間の拡充は順調か。</span></p>
+<p><span class="ja">「おうヴィンダーの若旦那」</span> <span class="en" lang="en">Dolph noticed us.</span> <span class="ja">ボーガンも腰を上げた。</span> <span class="en" lang="en">Except for the one working the furnace, five men gathered in front of me.</span> <span class="ja">新顔達は「あの人が」</span><span class="ja">「若い」</span><span class="ja">などといっている。</span><span class="ja">どんな風に説明されているんだか。</span></p>
+<p><span class="ja">「あ、いや、忙しいだろうから、あんまりかまわないでくれ」</span> <span class="en" lang="en">I said looking at the carriages lined up in the workshop.</span> <span class="en" lang="en">The number of people had tripled, but they were still overwhelmingly short-handed. ”修理”でこれだ。</span></p>
+<p><span class="ja">「まあな、とてもじゃないが手が足りない。</span><span class="ja">来月にはもう一人増える予定だがな。</span><span class="ja">そうすれば一から小僧を鍛えることが出来るようになる」</span> <span class="en" lang="en">Dolph said.</span> <span class="ja">彼はまんざらでもなさそうだ。</span></p>
+<p><span class="ja">「か、金型の調子はどうなのよ」</span> <span class="en" lang="en">Noel timidly asked Bogan.</span></p>
+<p><span class="ja">「酷使しているが信じられないくらい頑丈だな。</span><span class="ja">まだメンテナンスは必要がない。</span><span class="ja">というわけで、ベアリングの生産効率は上がっている。</span><span class="ja">仕上げを任せられるようになったからな」</span> <span class="en" lang="en">Right now, installation is the bottleneck, isn&#x27;t it?</span> <span class="ja">だが、ドルフの方が軌道に乗れば、今度はベアリングの生産が追いつかなくなるかもしれない。</span><span class="ja">何しろ、金型は一つしかない。</span></p>
+<p><span class="ja">「ボーガンさん。</span><span class="ja">火元の管理はどうなっていますか？</span><span class="ja">」</span> <span class="en" lang="en">Dealing with the prophecy is a higher priority than expansion.</span> <span class="ja">もちろん、最悪の事態を想定する。</span><span class="ja">ベルトルドが崩壊しても、致命傷は避けることを考える。</span><span class="ja">その後で、そもそも崩壊しないように考える。</span></p>
+<p class="ja"><span class="ja">「火の管理は鍛冶屋の基本だ、新入りにも厳しく言っているが……」</span></p>
+<p><span class="ja">「通常の状況ではない場合はどうですか、例えば突然ドラゴンが襲ってくるみたいな」</span> <span class="en" lang="en">When I said that, one of the new faces flinched and trembled.</span> <span class="ja">なるほど、クルトハイト出身かな。</span> <span class="en" lang="en">I felt bad for stimulating his trauma, but I&#x27;ll make use of that experience.</span></p>
+<p><span class="ja">「そこの彼にも話を聞いて、いざというときの避難計画を立ててください。</span><span class="ja">ただし、優先順位は。</span><span class="ja">一にも二にも人です。</span><span class="ja">金型はその次でお願いします」</span> <span class="en" lang="en">The people we&#x27;ve raised so far are our greatest asset.</span> <span class="ja">金型は作り直せる。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「街の様子は見てきたか。</span><span class="ja">なかなかであろう」</span> <span class="en" lang="en">The Grand Duke&#x27;s mansion, which could very well be called a castle.</span> <span class="en" lang="en">Eufilia said with a satisfied expression while waving her feather fan.</span></p>
+<p><span class="ja">「順調みたいですね」</span> <span class="en" lang="en">I deliberately answered in a cheerful voice.</span></p>
+<p><span class="en" lang="en">Next to the mansion is the tower of the great cathedral.</span> <span class="ja">あれが倒れると言うことはここも無事ではあるまい。</span> <span class="en" lang="en">I&#x27;d like the Grand Duke to escape if possible, but that probably won&#x27;t be an option.</span></p>
+<p><span class="ja">「工房の人数が増えたのと、騎士団の馬車の改良が一段落したので商人達が押し寄せてきた。</span><span class="ja">馬車の装飾などを扱う職人も増えているようじゃな」</span> <span class="en" lang="en">The financial officer behind her nodded.</span></p>
+<p><span class="ja">「当家の騎士団でも馬車の置き換えは進めております」</span> <span class="en" lang="en">The butler said.</span> <span class="ja">なるほど、工房にベルトルドの紋が付いた無骨そうな馬車があったな。</span> <span class="en" lang="en">Considering what&#x27;s about to happen, the more transport capacity we have, the better.</span></p>
+<p><span class="en" lang="en">However, the good news ended there.</span></p>
+<p><span class="ja">「好事魔多しじゃな」</span> <span class="en" lang="en">When I talked about the outbreak of the Mucus up to our arrival here, Eufilia said bitterly.</span></p>
+<p class="ja"><span class="ja">「西方の魔獣氾濫といい、ドラゴン襲来と良い、近年おかしな事ばかり起こるな。</span><span class="ja">其方の言うとおり、大規模な変化が背景にあるのだろう」</span></p>
+<p><span class="ja">「何が起こっても良いように、警戒は増やしております」</span> <span class="en" lang="en">The butler nodded.</span></p>
+<p class="ja"><span class="ja">「そういえば帝国からの木材の買い付けじゃが、あの茶会のこともあって成功したぞ。</span><span class="ja">すでに川を越えてこちらに向かっておる。</span><span class="ja">量はどれくらいだったか」</span></p>
+<p><span class="ja">「はっ」</span> <span class="en" lang="en">As if to change the atmosphere, Eufilia said.</span> <span class="ja">財務担当官が俺に契約書らしきものを見せる。</span></p>
+<p><span class="ja">「こんなにですか。</span><span class="ja">館長も喜びますよ。</span><span class="ja">伐採された場所は分りますか？</span><span class="ja">」</span> <span class="en" lang="en">I was surprised by the amount.</span> <span class="ja">宿屋どころか、工房を二つも三つも建てても余る。</span> <span class="en" lang="en">I had heard that the Empire wanted to sell wood, but we had to compete with Kurtheite and others.</span> <span class="ja">帝国は向こう寄りのはずだ。</span><span class="ja">まさか、小倉抹茶アイスの力じゃあるまい。</span> <span class="en" lang="en">But with this, we can collect a large number of samples.</span></p>
+<p class="ja"><span class="ja">「それはこちらの腕次第じゃな」</span></p>
+<p class="ja"><span class="ja">「なるべく聞き出してください。</span><span class="ja">例えば、帝国とは気候風土が違うから、木材のたわみとかが違ったら困る的な感じで」</span></p>
+<p class="ja"><span class="ja">「やってみよう。</span><span class="ja">そうじゃな、ベルトルドへの人の流入と農村の拡大をそれとなくアピールすれば、向こうはこちらが良い客だと思うのじゃろう？</span><span class="ja">」</span></p>
+<p><span class="ja">「商人的にはそうですね」</span> <span class="en" lang="en">Actually, I had another thought: &quot;Oh, here starts another noble&#x27;s bragging.&quot;</span> <span class="ja">帝国の商人の気質とか、こちらでも調べないとな。</span></p>
+<p><span class="ja">「……村が広がっていると言えば、一つ聞きたいことがあって。</span><span class="ja">ここに来る前に……」</span> <span class="en" lang="en">I talked about the villagers who were digging peat.</span></p>
+<p><span class="ja">「王都の薪の値上がりがこちらにも響いていましたから。</span><span class="ja">冬の間、ベルトルドでもいつもより消費量が多かったようです」</span> <span class="en" lang="en">The butler answered.</span></p>
+<p class="ja"><span class="ja">「それに、その辺りは数年前から耕地が広がっている場所ですな」</span></p>
+<p><span class="ja">「なるほど」</span> <span class="en" lang="en">Did the expansion of agriculture lead to more usage of the underground water vein, causing the water level to drop?</span> <span class="ja">地盤沈下でベルトルドが潰れるという可能性は一応考えておくか。</span></p>
+<p><span class="ja">「北、大河の近辺でもやはり人口の拡大が起こっているようじゃ。</span><span class="ja">そこであぶれた人間もベルトルドの評判に引きつけられるかもしれんな」</span> <span class="en" lang="en">Eufilia pointed above the map.</span> <span class="ja">俺はそこに奇妙な空白を見つけた。</span> <span class="en" lang="en">Since it&#x27;s near the great river, it should be suitable for agriculture.</span></p>
+<p class="ja"><span class="ja">「そういえば、帝国との交易拠点ってどうなっているんですか」</span></p>
+<p><span class="ja">「中心となるのはここ、カヴィールじゃな。</span><span class="ja">西部といっても、王の直轄で妾の力は直接は及ばぬが」</span> <span class="en" lang="en">Eufilia pointed at the map.</span> <span class="ja">大河から少し離れたところに四角い都市のマークがある。</span></p>
+<p class="ja"><span class="ja">「川から離れている様に見えますが……」</span></p>
+<p class="ja"><span class="ja">「昔の名残じゃな。</span><span class="ja">帝国と戦っていた頃には、川から引き離してから叩くのが基本だったようじゃ。</span><span class="ja">ベルトルドが後方基地になっていたくらいじゃからな。</span><span class="ja">まあ若い妾にとってはあくまで伝聞じゃがな」</span></p>
+<p><span class="ja">「帝国の馬は王国よりも大型で、騎士団同士の戦いでは不利だったようです。</span><span class="ja">兵士一人一人も魔獣との戦いに鍛えられた強敵だったようです。</span><span class="ja">王国は各地の城壁により勢いを受け止め、人数の力で対抗しておりました。</span><span class="ja">私も子供の頃の話ですが」</span> <span class="en" lang="en">I see, a limited scorched-earth tactic.</span> <span class="ja">やはり、個々の戦闘能力では帝国が上なんだな。</span><span class="ja">五十年前でもか。</span></p>
+<p class="ja"><span class="ja">「じゃが、この五十年で村なども広がっている。</span><span class="ja">今攻め込まれたら、どこまで対応出来るか。</span><span class="ja">特にそなたが見たという帝国の馬車、あれが気になるな」</span></p>
+<p><span class="ja">「平地で運用する限りでは、こちらの改良馬車も負けないとは思いますけど……」</span> <span class="en" lang="en">Ultimately, it depends on how well that carriage can be operated, but if the enemy&#x27;s supply capability is greater than expected, the old anti-Empire manuals will fall apart.</span> <span class="ja">万が一、ベルトルドまで攻撃されたら、王国の西部が帝国の手に落ちるなんてことになりかねない。</span></p>
+<p><span class="en" lang="en">I remembered the state of the town I had just seen.</span></p>
+<p><span class="ja">「何としても守らないと」</span> <span class="en" lang="en">The carriage using magical power, the one we saw in the race...</span></p>
+<p class="ja"><span class="ja">「待てよ、あのレース！</span><span class="ja">」</span></p>
+<p><span class="ja">「どうした」</span><span class="ja">俺は地図を凝視した。</span> <span class="en" lang="en">The spot we investigated where the magical power had dropped—from there, the spots formed a line stretching towards the south-southwest.</span> <span class="ja">ゆっくりと弧を描くスポットの並びは、レースに使った幹線道路からは大きく外れている。</span></p>
+<p><span class="en" lang="en">However, that area was exactly where we lost track of that carriage&#x27;s movements during the preliminaries.</span> <span class="ja">普通ならこんな悪路を大回りなんて考えられないが、帝国のあの馬車なら可能。</span></p>
+<p><span class="ja">「間違いない、卵の出所は帝国だ」</span> <span class="en" lang="en">The events before the start of the race vividly returned to my mind.</span> <span class="ja">あの時フルシーはなんと言った。</span><span class="ja">帝国の馬車は魔力を遮断するといった。</span><span class="ja">本選では隠すのはやめていたので、馬車の性能を誤魔化すためだと思っていた。</span></p>
+<p><span class="en" lang="en">But if that was a measure to prevent the magical power from awakening the eggs... then everything connects.</span></p>
+<p><span class="ja">「つまり、あのスライムの群れは……」</span> <span class="en" lang="en">It means it&#x27;s an Imperial bioterrorism attack, no, a biological weapon.</span> <span class="ja">馬車レースへの干渉などとは比べものにならないレベルの行動だ。</span> <span class="en" lang="en">I must inform Craig as soon as possible.</span></p>
+<p><span class="en" lang="en">In the garden of the Grand Duke&#x27;s mansion, pink flowers had already begun to bloom.</span> <span class="ja">予言に関してももう時間がない。</span></p>
+<p><span class="ja">「すぐに王都に戻ります」</span> <span class="en" lang="en">I said to Eufilia.</span> <span class="en" lang="en">Around this time, Alfina should be meeting with Lisabeth.</span> <span class="ja">場所はプルラだし、クラウディアの他に店内にミーアやヴィナルディアが”たまたま商談のために来ている”はずだから、大丈夫だと思うけど。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec08">
+<div class="star">＊</div>
+<div class="rubric">08</div>
+<h2>６話　王女と皇女とその他一人</h2>
+<hr class="rule">
+<p><span class="en" lang="en">Vinder.</span> <span class="en" lang="en">Vinder.</span> <span class="en" lang="en">Vinder.</span> <span class="en" lang="en">Vinder.</span></p>
+<p><span class="ja">心の中で何度も彼の名前を呼ぶ。</span><span class="ja">まるで愛しい恋人を思うように。</span> <span class="en" lang="en">And like a girl madly in love, without caring about her surroundings, she searches for his figure even though he isn&#x27;t here.</span></p>
+<p><span class="ja">「シェリーさん」</span> <span class="en" lang="en">Hearing a call from the left, I somehow turned my head, letting out a creaking sound, toward the voice.</span></p>
+<p class="ja"><span class="ja">「は、はい……リーザベルト殿下」</span></p>
+<p class="ja"><span class="ja">「ありがとうございます。</span><span class="ja">アルフィーナ殿下とご一緒出来るようにしてくださるなんて」</span></p>
+<p class="ja"><span class="ja">「私もです。</span><span class="ja">シェリーさんに誘って頂いてとても感謝しています」</span></p>
+<p><span class="ja">「と、と、とんでも……ございません」</span> <span class="en" lang="en">The Princess and the Imperial Princess said to me together.</span> <span class="ja">身の置き所がない状況というのはこういうのを言うのだ。</span> <span class="en" lang="en">Lady Claudia, who always guards near Lady Alfina, is keeping watch near the entrance.</span></p>
+<p><span class="en" lang="en">Since technically I was the one who invited them, I had to sit at the same table.</span> <span class="ja">リルカはアルフィーナ様に譲ったという形で難を逃れた。</span> <span class="en" lang="en">Actually, she&#x27;s inside the store with Mia, though.</span> <span class="ja">それでも心細さは消えない。</span></p>
+<p><span class="en" lang="en">This is all Vinder&#x27;s fault.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「これが王都で評判のフレンチトーストなのですね」</span> <span class="en" lang="en">Lisabeth said, looking at the golden-brown bread.</span> <span class="ja">皿の横には蜂蜜と、漉したアンコの二つが用意されている。</span></p>
+<p><span class="ja">「はい。</span><span class="ja">元々はリカルドくんが私に作ってくれたお菓子なのです」</span> <span class="en" lang="en">Lady Alfina said to Princess Lisabeth with a smile.</span> <span class="ja">いつものお優しい笑顔に、ちょっと背筋が寒くなったのはどうしてだろう。</span> <span class="en" lang="en">...Surely she isn&#x27;t trying to keep her in check, right?</span> <span class="ja">万が一そうだとしても、牽制相手に私は入っていないよね。</span></p>
+<p class="ja"><span class="ja">「ということは、フレンチトーストというのはアルフィーナ様とヴィンダー殿の思い出の料理と言うことでしょうか」</span></p>
+<p><span class="ja">「そ、そうですね」</span> <span class="en" lang="en">Lady Alfina pressed her hands against her cheeks. ...Thank goodness, it seems my concern about her keeping someone in check was just a misunderstanding.</span></p>
+<p><span class="en" lang="en">...In the first place, what does Vinder plan to do about Lady Alfina?</span> <span class="ja">確かに、お姫様らしくちょっと浮世離れした感覚はあるけど、これまであからさまに好意を向けられてるのだから。</span></p>
+<p><span class="en" lang="en">...I know their social standings are too different.</span> <span class="ja">でもヴィンダーならその気になれば何とかしちゃいそうな気がするんだよね。</span><span class="ja">大公様や王子にも気に入られてるし。</span></p>
+<p><span class="en" lang="en">Ah, but Lady Alfina is bound by her duties as the Priestess Princess until she turns thirty.</span></p>
+<p><span class="ja">それはあまりにもお気の毒だ。</span> <span class="en" lang="en">...I still get nervous around her, but I genuinely want Lady Alfina to be happy.</span></p>
+<p class="ja"><span class="ja">なんとかしなさいよヴィンダー。</span></p>
+<p class="ja"><span class="ja">「一度目の予言でアルフィーナ様は周囲の反対を押し切って、民のために立ち上がったと聞いております。</span><span class="ja">本当にご立派だと尊敬申し上げているのです。</span><span class="ja">私など、皇女の立場に有りながら何の役にも立てませんから」</span></p>
+<p class="ja"><span class="ja">「とんでもないです。</span><span class="ja">リカルドくんが助けてくれなければ、私では何も出来なかったのですから」</span></p>
+<p><span class="ja">「まあ、ドラゴンの討伐だけでなく、魔獣氾濫でもヴィンダー殿はお手柄を？</span><span class="ja">」</span> <span class="en" lang="en">Princess Lisabeth was surprised.</span> <span class="ja">それに関しては私もよく知らない。</span> <span class="en" lang="en">Or rather, back then I barely even knew about Vinder. ……平和だった。</span> <span class="en" lang="en">...I feel like time flowed much more slowly back then.</span></p>
+<p class="ja"><span class="ja">「ヴィンダー殿はどのような手柄を立てられたのですか」</span></p>
+<p><span class="ja">「その、詳しいところはお話し出来ませんけれど……」</span> <span class="en" lang="en">Lady Alfina was explaining a method of organizing thoughts taught by Vinder.</span> <span class="ja">そういえば、あのペンはヴィンダーとおそろいで肌身はなさず持っているのね。</span></p>
+<p><span class="en" lang="en">Regardless of that, I definitely think it&#x27;s an excellent method. ...But no matter how many times you run this method, I don&#x27;t think red bean paste or matcha ice cream would ever come out of it.</span> <span class="ja">まあ、ベルミニはそれで大儲けできるわけだから気にしないのが吉だわ。</span></p>
+<p><span class="en" lang="en">At Lady Alfina&#x27;s explanation, Princess Lisabeth was nodding.</span> <span class="en" lang="en">From my experiences working with her so far, I think Lady Alfina is very good at teaching people. ...Whether that can be utilized in her position as a princess is debatable, though.</span></p>
+<p><span class="ja">「リカルド殿はベルトルドに赴かれているようですが、もしかしたら先日公開された予言と関係しているのでしょうか」</span> <span class="en" lang="en">The atmosphere changed slightly.</span> <span class="en" lang="en">Regarding the prophecy, the only thing made public was that &quot;the city walls of a western city will be destroyed.&quot;</span></p>
+<p><span class="ja">「私もヴィンダー商会の株主として商売上の秘密を守る義務があるので、ごめんなさい」</span> <span class="en" lang="en">Speaking as a merchant&#x27;s daughter, I think Lady Alfina uses her position as a shareholder of the Vinder Company a bit too conveniently.</span> <span class="ja">まあ、この場合は正しいのかな。</span></p>
+<p><span class="en" lang="en">However, after being dodged by Lady Alfina, Princess Lisabeth adopted a deeply troubled expression.</span></p>
+<p><span class="ja">「実は、城壁を破る魔獣について私は心当たりがあるのです」</span> <span class="en" lang="en">And then, as if she had made up her mind, she opened her mouth.</span></p>
+<p class="ja"><span class="ja">「本当ですか」</span></p>
+<p><span class="ja">「はい。</span><span class="ja">帝国でもごく限られた地域にしか見られない魔獣ですし。</span><span class="ja">アルフィーナ様の予言と関係しているかは私にも確証がありませんが」</span> <span class="en" lang="en">...Right before my eyes, something that might determine the future of the kingdom had begun.</span> <span class="ja">席を外したい。</span><span class="ja">私はアンコとか新しい砂糖とかマッチャの秘密を知ってるくらいでいいのに。</span></p>
+<p class="ja"><span class="ja">「ただ、私としては魔獣討伐を指揮されるクレイグ殿下に直接お話ししたいと思っています」</span></p>
+<p><span class="ja">「……そのお話は公式に断られたと聞いています」</span> <span class="en" lang="en">I knew that there was a possibility the Empire had set something up during the carriage race. …………………………どんどん話が大きくなる。</span></p>
+<p><span class="ja">「重々承知しております。</span><span class="ja">ですが、竜に苦しめられる我が国の民のために、ほんの少しでも情報が必要なのです」</span> <span class="en" lang="en">Lisabeth looked at Alfina with a serious expression.</span> <span class="ja">私はヴィンダーみたいに底の抜けたお人好しではない。</span><span class="ja">同性の必死な顔にほだされるような趣味もない。</span></p>
+<p><span class="en" lang="en">But Princess Lisabeth truly seemed worried about her country.</span> <span class="ja">私が知っているお姫様のイメージと大分違う方だ。</span> <span class="en" lang="en">...Lady Alfina is quite different too, though.</span></p>
+<p><span class="ja">「内容を聞かない限り、お約束は出来ません」</span> <span class="en" lang="en">Lady Alfina said without relaxing her expression.</span> <span class="en" lang="en">In terms of negotiation, that&#x27;s a pretty high-handed attitude demanding the other side to play their card first, isn&#x27;t it?</span> <span class="ja">ベルトルド、実際にはそう明言されていないが、の安全が掛かっている状況で、立派だと思う。</span></p>
+<p><span class="ja">「……そうですね、リーザベルト殿下の情報の正しさを検証出来たら、クレイグ殿下に取り次ぐことが出来ると思います」</span> <span class="en" lang="en">When I first met her, I thought she was a bit more naive, but she has been poisoned by Vinder.</span> <span class="ja">いや、むしろミーアと同じで甘すぎるヴィンダーを守るために成長してる感じ？</span></p>
+<p><span class="en" lang="en">But more importantly than that, somebody please save me, who is being forced to listen to negotiations between royalty right in front of me.</span></p>
+<p><span class="ja">「喰城虫と呼ばれる大型の魔獣です。</span><span class="ja">固い頭部を回転させて……」</span> <span class="en" lang="en">In response to Lady Alfina&#x27;s words, Princess Lisabeth opened her mouth as if her mind was made up.</span></p>
+<p><span class="en" lang="en">...It seems the tightrope walk for a mere merchant&#x27;s daughter is still going to continue for a while.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec09">
+<div class="star">＊</div>
+<div class="rubric">09</div>
+<h2>７話　もっとも原始的な組織の形</h2>
+<hr class="rule">
+<p class="first"><span class="ja">俺たちはベルトルドから騎士団の駐屯地に直行した。</span><span class="ja">駐屯地は臨戦状態だった。</span> <span class="en" lang="en">Knights and logistics units were constantly going in and out.</span></p>
+<p><span class="en" lang="en">The building that had been under construction was completed as the new headquarters, and we were shown to the innermost room.</span> <span class="ja">作戦本部のような役割の部屋らしい。</span></p>
+<p><span class="en" lang="en">Upon entering, I saw a map spread out on a large table.</span> <span class="ja">南北に五つのスポットが描かれている。</span></p>
+<p><span class="ja">「スポット１の掃討は完了しました。</span><span class="ja">現在部隊はスポット２の掃討を開始しています。</span><span class="ja">また、偵察隊は他の三つのスポットでもミューカスの発生を確認しました」</span> <span class="en" lang="en">Just then, a female adjutant knight was giving a report.</span> <span class="ja">やはり、他のスポットにもスライムが大量発生しているらしい。</span></p>
+<p><span class="ja">「現在のところミューカス以外の魔獣は確認されておりません。</span><span class="ja">ただ、数が莫大で、夜間に活動が限られているため時間が掛かっております。</span><span class="ja">ただ、旧第二騎士団の騎士が言うには、ミューカスと言っても自分たちが知っているのとは色や動きが微妙に違うということです」</span> <span class="en" lang="en">Is it a species not found in the kingdom?</span> <span class="ja">人為的に播かれた可能性がますます高いな。</span></p>
+<p><span class="ja">「戻ったかリカルド。</span><span class="ja">こちらは順調だが、帰るのはもう少し後じゃなかったか？</span><span class="ja">」</span> <span class="en" lang="en">Craig smiled broadly and beckoned to me.</span> <span class="ja">わざわざ問題発生と顔に書いてきてるのに、頼もしいことだ。</span></p>
+<p><span class="en" lang="en">The female adjutant signaled to the knight standing in front of the door.</span> <span class="ja">騎士は廊下に出るとドアを閉めた。</span></p>
+<p><span class="en" lang="en">From here on out, it&#x27;s a conversation we can&#x27;t afford to have overheard.</span> <span class="ja">相手は知性を持たない魔獣ではないからな。</span></p>
+<p><span class="ja">「――というわけで、意図的に卵が播かれた可能性が高いですね」</span> <span class="en" lang="en">On our way back from Berthold, we predicted the route of the Imperial carriage and gathered information in the surrounding villages.</span> <span class="ja">スポット周囲やその間に珍しい馬車の目撃情報があった。</span></p>
+<p><span class="ja">「なるほど。</span><span class="ja">スポットが綺麗に並んでいることとも繋がるな。</span><span class="ja">帝国にとってレースはついでにすぎなかったわけか」</span> <span class="en" lang="en">It also makes sense that they participated while taking the risk of leaking information about the carriage, which is a military secret.</span></p>
+<p><span class="en" lang="en">At the prince&#x27;s words, the tension in the air instantly skyrocketed.</span> <span class="ja">交易関係がある国に生物兵器を播く。</span> <span class="en" lang="en">It is a clear act of hostility, equivalent to a declaration of war.</span></p>
+<p><span class="en" lang="en">Did they think they wouldn&#x27;t be found out?</span> <span class="ja">だが、まともな策士ならバレた時のことも想定しているはずだ。</span> <span class="en" lang="en">I would do that.</span> <span class="ja">つまり、向こうは完全に一線を越える覚悟をしていると考えなければならない。</span></p>
+<p class="ja"><span class="ja">「賢者殿。</span><span class="ja">より強力な魔獣を放たれているという可能性は？</span><span class="ja">」</span></p>
+<p><span class="ja">「ミューカスが成長と増殖のために地中で魔力を食った結果、魔脈が低下したスポットができたのじゃ。</span><span class="ja">強力な魔獣は無理じゃろ」</span> <span class="en" lang="en">It is one of the few pieces of reassuring news.</span> <span class="ja">だが、そうなると悩ましいのがわざわざ弱い魔獣を使う目的だ。</span></p>
+<p><span class="en" lang="en">The monster materials used for the carriage and the eggs this time.</span> <span class="ja">帝国はやはりかなり高度な魔獣関係の知識と技術を持っている。</span> <span class="en" lang="en">On the other hand, we have only grasped their capabilities in fragments.</span></p>
+<p><span class="en" lang="en">Furthermore, that carriage was practically sent into the race by the hands of the Second Prince&#x27;s faction.</span> <span class="ja">内憂と外患がコンビで踊ってる。</span> <span class="en" lang="en">Normally, we should be warier of the Empire behind this than the Mucus.</span> <span class="ja">だが、それが出来ない理由がある。</span></p>
+<p><span class="ja">「帝国の播いた魔獣と予言の関係が問題だな」</span> <span class="en" lang="en">Craig said.</span> <span class="ja">そのとき、ドアがノックされた。</span><span class="ja">入ってきたのはアルフィーナとクラウディアだ。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「帝国皇女から今回の予言の魔獣について情報が得られた？</span><span class="ja">」</span> <span class="en" lang="en">At Alfina&#x27;s words, Craig looked puzzled.</span> <span class="ja">俺も驚く。</span></p>
+<p><span class="ja">「アルフィーナ殿下。</span><span class="ja">魔獣を仕掛けたのは帝国だということが分ったところですが……」</span> <span class="en" lang="en">Adele said.</span></p>
+<p><span class="ja">「帝国の皇女が言ったことなど信用できるはずがありません」</span> <span class="en" lang="en">Hyde also raised his voice.</span> <span class="ja">俺だってそう思う。</span><span class="ja">ただ情報は情報だ。</span><span class="ja">それに……。</span></p>
+<p class="ja"><span class="ja">「帝国の策謀を見抜いたリカルドの判断は？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「三つ可能性があります。</span><span class="ja">もちろん、一番高い可能性は皇女が嘘を言っていることです。</span><span class="ja">次の可能性は、真実の半分だけを言っている。</span><span class="ja">一番小さな可能性は真実を言っているです。</span><span class="ja">ポイントは、我々が帝国の策謀を見抜いていることを相手は知らないことです。</span><span class="ja">つまり、一番目なら反転させれば真実に近づきます。</span><span class="ja">二番目なら不完全だと分っていれば有効な情報です。</span><span class="ja">三番目ならそのまま利用すれば良い」</span></p>
+<p><span class="ja">「なるほど、話を聞かねば話にならんな」</span> <span class="en" lang="en">Prompted by her brother-in-law&#x27;s words, Alfina began to explain about the monster she heard from Lisabeth.</span></p>
+<p><span class="en" lang="en">The monster the Imperial Princess described is shaped like an earthworm, and its size is one size larger than a Shinkansen bullet train from my original world.</span> <span class="ja">回転する頭部で城壁に突っ込み破壊するという。</span></p>
+<p class="ja"><span class="ja">「まるで生きる破城槌だな。</span><span class="ja">賢者殿はどう考える？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「少なくとも王国の記録には存在しないな」</span></p>
+<p><span class="ja">「やはり陽動のようですね。</span><span class="ja">ミューカスとは似ても似つかない。</span><span class="ja">問題はこのミューカスの群れもまた陽動である可能性でしょう」</span> <span class="en" lang="en">Hyde said.</span> <span class="en" lang="en">A massive number of weak monsters spreading over a wide area.</span> <span class="en" lang="en">Drawing the Knight Order&#x27;s forces toward them, while the real disaster strikes Berthold in the meantime.</span> <span class="ja">十分すぎるほどあり得る話だ。</span></p>
+<p><span class="ja">「でも、私にはリーザベルト殿下が嘘を言ってるとは……」</span> <span class="en" lang="en">Alfina wouldn&#x27;t back down.</span> <span class="ja">予言のイメージ、一次情報とも合致する。</span><span class="ja">それに、アルフィーナは俺よりもずっと人を見る目がある。</span></p>
+<p><span class="en" lang="en">A monster that rotates like a drill to destroy city walls.</span> <span class="ja">いかにも異世界の魔獣だ。</span> <span class="en" lang="en">But as far as I know, the origin of monsters in this world should be Earth.</span> <span class="en" lang="en">Would creatures that existed on Earth evolve into something like that?</span></p>
+<p class="ja"><span class="ja">……いや待てよ、単に回転しながら進む生き物ならば、可能性が一つある。</span></p>
+<p class="ja"><span class="ja">「アルフィーナ様。</span><span class="ja">二つ聞きたいことがあります。</span><span class="ja">一つは、水晶のイメージにあった城壁前の地面の跡です。</span><span class="ja">アルフィーナ様は引きずったような跡だとおっしゃっていましたが、その地面の跡はまっすぐでしたか？</span><span class="ja">」</span></p>
+<p><span class="ja">「……そう言われれば、縦ではなく横……いえ斜めの様に見えました」</span> <span class="en" lang="en">Alfina closed her eyes and thought for a moment, then looked as if she had a sudden realization.</span> <span class="ja">なるほど、回転する物体の移動の後だ。</span></p>
+<p class="ja"><span class="ja">「もう一つです。</span><span class="ja">破壊された城壁は一カ所ではないのですよね」</span></p>
+<p class="ja"><span class="ja">「はい、あれから少し水晶のイメージを広げることが出来ました。</span><span class="ja">場所は分らないのですが、城壁が内側に向かって崩れた跡は少なくとも二カ所、いえ三カ所以上あると思います」</span></p>
+<p class="ja"><span class="ja">「……分りました」</span><span class="ja">また無理していたのだろうか。</span><span class="ja">そういえば少し顔色が悪い気がする。</span></p>
+<p><span class="ja">「大丈夫ですよ。</span><span class="ja">今回はそもそも始まりが遅かったですから。</span><span class="ja">前回よりも、水晶を使う時間はずいぶん少なかったですから」</span> <span class="en" lang="en">Noticing my gaze, Alfina smiled.</span> <span class="ja">確かにそうかもしれないが、大公もいないときに無茶はやめて欲しい。</span></p>
+<p class="ja"><span class="ja">「館長。</span><span class="ja">赤い絨毯という魔獣が居るのでしたね」</span></p>
+<p><span class="ja">「そういえば、お前にはそんな話をしたな」</span> <span class="en" lang="en">The red carpet that crept into the Knight Order&#x27;s tent at night.</span> <span class="ja">あれは粘菌だろう。</span> <span class="en" lang="en">Many amoeba-like individuals unite and move as one.</span> <span class="ja">単細胞生物の合体変形。</span> <span class="en" lang="en">It was famous as the most primitive form of organization.</span></p>
+<p><span class="en" lang="en">It looks completely different from the monster Lisabeth mentioned.</span> <span class="ja">だけど、回転して移動する細長い生物という性質、そして……。</span></p>
+<p><span class="en" lang="en">I recalled the scene of that night we encountered at the center of the spot.</span> <span class="ja">俺たちが夜に見たスライム、巨大アメーバの群れはまるで同調するように赤い光を放っていた。</span></p>
+<p><span class="ja">「何番目だ」</span> <span class="en" lang="en">Craig asked.</span></p>
+<p><span class="ja">「残念ながら三番目です」</span> <span class="en" lang="en">At my words, a stir went through the strategy headquarters.</span> <span class="ja">俺だって一番あり得ないと思っていた可能性だ。</span> <span class="en" lang="en">Gazes demanding an explanation pierced into me.</span></p>
+<p class="ja"><span class="ja">「まずは基本に戻りましょう。</span><span class="ja">これまでの予言の性質から、災厄は魔脈変動に関連する可能性が大きい。</span><span class="ja">災厄の背景にはそれを引き起こす巨大な魔力が存在するとも言えます」</span></p>
+<p class="ja"><span class="ja">「それはそうじゃな。</span><span class="ja">じゃが、今回はそんな物はないぞ」</span></p>
+<p><span class="ja">「いえ、あります。</span><span class="ja">正確に言えばあったんです」</span> <span class="en" lang="en">I pointed at the now almost faded magic vein zone between Berthold and the royal capital.</span></p>
+<p><span class="ja">「広くて薄い魔脈をスライム……ミューカスの力を借りて一点に集める。</span><span class="ja">これが今回の災厄を引き起こす魔力の変動です」</span> <span class="en" lang="en">The slimes, which increased their numbers by consuming magical power, begin to emit signals triggered by the resulting starvation.</span> <span class="ja">最初はランダムなシグナルだが、やがてシグナルが連動して自己組織的に中心ができはじめる。</span></p>
+<p><span class="en" lang="en">Several centers fuse together, and the surrounding slimes gather towards them in a swirling motion.</span> <span class="ja">その結果が、巨大な魔獣の誕生というわけだ。</span> <span class="en" lang="en">In other words, the monster of the disaster is a moving body of giant slime mold.</span></p>
+<p><span class="en" lang="en">Since they form centers and gather self-organizingly through a relay of signals, at least five moving bodies will emerge from the five spots.</span> <span class="ja">これは複数の魔獣がベルトルドを襲撃するという状況に合致する。</span></p>
+<p><span class="en" lang="en">Above all, what&#x27;s important is that the moving bodies also move while rotating.</span> <span class="ja">自己組織的に発生する螺旋状のシグナルが、個体の集合にすぎない粘菌を一匹の移動体へと組織化する。</span> <span class="en" lang="en">Inside the huge moving body, the signals never fade; they act as commands driving the moving body forward.</span> <span class="ja">その結果、移動体の表面の細胞は回転移動する。</span></p>
+<p><span class="en" lang="en">My mentor once showed me a simulation video of this, saying it was a good example of a primitive organizational structure.</span></p>
+<p><span class="en" lang="en">And if the moving bodies aim for the Red Forest, that is, the west where Berthold is, in search of magical power, everything connects.</span></p>
+<p class="ja"><span class="ja">「ミューカスが集まって生きた破城槌になる？</span><span class="ja">　とても信じられん話だ」</span></p>
+<p class="ja"><span class="ja">「ハイドの意見に同感だな。</span><span class="ja">だが、リカルドは根拠がないことは言わないだろう」</span></p>
+<p><span class="ja">「根拠はありますが、私の仮説が正しければ検証の時間がないはずです」</span> <span class="en" lang="en">If the time limit indicated by the prophecy and the red blinking of the Mucus were starvation signals, it wouldn&#x27;t be strange if they had already started gathering.</span></p>
+<p class="ja"><span class="ja">「仮説が正しいとして、どうやって対処する」</span></p>
+<p class="ja"><span class="ja">「スポットは５つ。</span><span class="ja">一つは潰したのであと四つですね。</span><span class="ja">大事なのは破城槌の構成員となる一カ所のミューカスの数です。</span><span class="ja">掃討ではなく、一定以下の数に減らすことを優先すべきです」</span><span class="ja">大事なのは個々のスポットの数を減らすことだ。</span><span class="ja">さっきの話を聞く限り、生きた破城槌の脅威は回転する質量そのものだ。</span></p>
+<p><span class="ja">「ミューカスの群れが今回の災厄の魔獣であると仮定して動く。</span><span class="ja">騎士団部隊を二つに分け、スポット２，３それが終われば４，５の同時攻略をする」</span> <span class="en" lang="en">Craig made a decision.</span> <span class="ja">時間がないから即断即決はありがたいけど、掛かるプレッシャーで胃が痛くなる。</span></p>
+<p><span class="ja">「帝国はどうしますか」</span> <span class="en" lang="en">Adele asked.</span></p>
+<p><span class="ja">「王都での動きは宰相に任せる。</span><span class="ja">帝国の最大の目的はベルトルドの破壊だろう。</span><span class="ja">それを防ぐのが最優先だ」</span><span class="ja">ベルトルドが潰れれば親帝国の第二王子閥の力が盛り返せる。</span> <span class="en" lang="en">If the Empire is considering an invasion of the kingdom, dealing damage to Berthold, which is a rear base for defense, holds great strategic value.</span></p>
+<p class="ja"><span class="ja">「了解いたしました」</span></p>
+<p><span class="ja">「はっ」</span> <span class="en" lang="en">As if convinced by the commander&#x27;s words, both Adele and Hyde hurriedly left their seats.</span> <span class="ja">アルフィーナが俺に近づいてきた。</span></p>
+<p><span class="ja">「リカルドくんは……」</span> <span class="en" lang="en">White fingers grabbed the hem of my clothes.</span> <span class="ja">やっぱりちょっと顔色が悪い気がする。</span></p>
+<p><span class="en" lang="en">&quot;Of course I&#x27;ll stay behind; I&#x27;m a civilian, after all.&quot;</span> <span class="ja">と言いたくなる。</span></p>
+<p class="ja"><span class="ja">「申し訳ありませんアルフィーナ様、一つ確認しなければいけないことがあるのです」</span><span class="ja">問題が残っているのだ。</span><span class="ja">根拠の一つである城壁の複数の穴。</span><span class="ja">実はさっきの仮説だけでは説明出来ない。</span></p>
+<p><span class="ja">「大公閣下や、工房の職人達の事もありますから」</span> <span class="en" lang="en">I thought it was cowardly, but I said it.</span></p>
+<p><span class="en" lang="en">I will clean up the disaster as quickly as possible, and then I will thoroughly analyze the crystal.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec10">
+<div class="star">＊</div>
+<div class="rubric">10</div>
+<h2>８話　単純さの強さ</h2>
+<hr class="rule">
+<p><span class="ja">「新幹線っていうよりもジェット機の頭くらいあるぞ」</span> <span class="en" lang="en">I muttered while swaying on horseback.</span> <span class="en" lang="en">A giant white earthworm rotating a spiral of red light on its body surface, just like a rhythmic gymnastics ribbon.</span></p>
+<p><span class="en" lang="en">Right now, I was running parallel to it towards the west.</span> <span class="ja">距離は十分取っているが、巨大な物体が地響きを立てて動いていることに恐怖を感じる。</span></p>
+<p><span class="en" lang="en">Fortunately, its speed was slower than a carriage.</span> <span class="ja">これで馬なみのスピードでもあったら、手も足も出ないところだった。</span><span class="ja">おかげで、二人乗りの騎馬でも十分追い越せる。</span></p>
+<p><span class="en" lang="en">That is only because one of the best riders in the Knight Order is controlling the prince&#x27;s spare horse.</span></p>
+<p><span class="en" lang="en">As usual, I was just clinging on in the back.</span> <span class="ja">仕方ないだろ、民間人なんだから。</span></p>
+<p><span class="ja">「構えろ！</span><span class="ja">」</span> <span class="en" lang="en">Unlike civilians, it is the Knight Order that cannot afford to stay away.</span> <span class="en" lang="en">Forming a line, they drew their bows on horseback while approaching the moving body.</span> <span class="ja">ある意味、組織というものの究極の姿だろう。</span></p>
+<p><span class="en" lang="en">What they are facing is the most primitive organization, moving only through the transmission of a single signal.</span> <span class="ja">言葉はおろか、神経系すら存在しない。</span><span class="ja">動物ですらない菌の塊。</span></p>
+<p><span class="ja">「攻撃開始！</span><span class="ja">」</span> <span class="en" lang="en">Arrows were fired towards its head.</span> <span class="en" lang="en">Since the arrowheads were glowing, they must be made of magic gold, but the rotating head deflected them away.</span> <span class="ja">なるほど、あれなら城壁ぐらい破壊するだろう。</span><span class="ja">もし街に侵入されたら……。</span></p>
+<p><span class="ja">すでに村一つがその半分を削り取られている。</span> <span class="en" lang="en">We were saved because the evacuation had been completed, and because the slime mold doesn&#x27;t actively attack people.</span> <span class="en" lang="en">For them, moving towards where the magical power is probably takes priority.</span></p>
+<p><span class="ja">「胴体を狙え」</span> <span class="en" lang="en">Craig&#x27;s orders flew.</span> <span class="en" lang="en">A unit of the Knight Order, formed into a wedge shape, charged into the white body.</span> <span class="en" lang="en">Although it&#x27;s a monster without eyes, it seemed to react to magical power and closed in slightly toward the Knight Order.</span> <span class="ja">だが、それだけだ。</span> <span class="en" lang="en">Holding their spears aloft, the knights timed their strikes to pierce its defenseless body.</span></p>
+<p><span class="en" lang="en">The slime mold shook its body as if writhing from the attacks.</span> <span class="ja">白い破片がしぶきのように飛び散る。</span><span class="ja">騎士が何人か馬から振り落とされる。</span></p>
+<p><span class="en" lang="en">However, the monster continued its advance as if nothing had happened.</span> <span class="ja">体の一部が削られたのに意に介す様子もない。</span> <span class="en" lang="en">It doesn&#x27;t even feel pain.</span> <span class="en" lang="en">Even if a chunk gets scraped off, it just means that the individuals making it up were slightly killed.</span></p>
+<p><span class="en" lang="en">As if taking their place, the next unit headed for the slug.</span> <span class="en" lang="en">Horses were pulling logs with sharpened points from both left and right.</span> <span class="ja">破城槌には破城槌と言うわけだ。</span> <span class="en" lang="en">Timing their strike, the two logs charged into the slime mold&#x27;s body.</span></p>
+<p><span class="en" lang="en">With a splattering sound, a part of the slime mold&#x27;s body—about 10 percent of it—scattered.</span> <span class="ja">騎士達からは歓声が上がる。</span> <span class="en" lang="en">But the torn-off body quickly changed shape into another slug.</span> <span class="en" lang="en">And then that small slug approached the main body as if nothing had happened, and merged back into one in an instant.</span></p>
+<p><span class="en" lang="en">Its course shifted slightly, and a part of the Knight Order broke formation to dodge it.</span></p>
+<p><span class="ja">「やっぱりか……」</span> <span class="en" lang="en">There is no clear command structure; it&#x27;s an overly simple and primitive mechanism driven by self-organization.</span> <span class="en" lang="en">Even the slime at the center of that red spiral is probably just a single slime in reality.</span> <span class="en" lang="en">It is no different from the fact that the center of an ice crystal is the exact same water molecule as the ones at its edges.</span></p>
+<p><span class="en" lang="en">Even if we crushed its head, the remaining part would quickly become the new head.</span> <span class="ja">単純で原始的、だからこその強さというのはあるのだ。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p class="ja"><span class="ja">「リカルドの言うとおり、アレは一匹の巨大な魔獣ではなく、多数のミューカスの集合体だな。</span><span class="ja">三匹を集合前に潰せたのは幸いだったが、二匹でも大きな脅威だ。</span><span class="ja">ああも攻撃が意味を持たんとは」</span></p>
+<p class="ja"><span class="ja">「南方の一匹もやはりベルトルドに？</span><span class="ja">」</span></p>
+<p><span class="ja">「そうだな、西に進みながら進路を少しずつ北方に変えているようだ」</span> <span class="en" lang="en">We were having a meeting inside a camp tent.</span> <span class="ja">地図上に置かれた二つの駒。</span> <span class="en" lang="en">Instead of heading straight for Berthold, they seem to be gradually changing their angle.</span></p>
+<p><span class="en" lang="en">Thanks to that, we, who are heading straight for Berthold, can get ahead of them.</span> <span class="ja">ちなみに輸送部隊のほとんどはベルトルドに直行してもらっている。</span><span class="ja">ミーアとフルシー、ノエルの乗ったレーダー馬車もそれに同行している。</span></p>
+<p><span class="en" lang="en">If the Knight Order ignores the moving bodies, they can also arrive at Berthold first.</span> <span class="ja">だが、そうしてアレに正面から挑んでも勝機がない。</span></p>
+<p class="ja"><span class="ja">「リカルドは確かめることがあるといっていたな」</span></p>
+<p class="ja"><span class="ja">「はい」</span><span class="ja">問題は、移動体がどうしてベルトルドを目指すかだ。</span></p>
+<p><span class="en" lang="en">The reason for heading west is simple.</span> <span class="ja">もとの世界の粘菌はたしか光を求める。</span> <span class="en" lang="en">They form a moving body with the goal of scattering spores from an environment with no food to a new one; for that purpose, they aim for the surface.</span></p>
+<p><span class="en" lang="en">Then what about this monster slime mold?</span></p>
+<p><span class="en" lang="en">Since they are generally heading west, it looks like their destination is the magical power, that is, the Red Forest in the west.</span> <span class="en" lang="en">But both the one we saw earlier and the one moving through the south seem to be aiming for Berthold based on their angles.</span> <span class="en" lang="en">Unlike when they were slimes, their reaction to the knights&#x27; magical weapons is sluggish, which means for the monsters, they probably prefer a magical power mixed with miscellaneous wavelengths—that is, miasma—over the regular magical power controlled by humans.</span></p>
+<p><span class="ja">となると、単純にまっすぐ西へ向かわないのには理由がある。</span><span class="ja">何しろ地図上のスケールだ。</span> <span class="en" lang="en">Even the probability of one running into Berthold by chance is small, and two being drawn to it is impossible.</span></p>
+<p><span class="ja">「移動体は、だんだんとスピードを上げている様です」</span> <span class="en" lang="en">Hyde said.</span></p>
+<p><span class="ja">「やっぱりですか……」</span> <span class="en" lang="en">In other words, they are being guided by something.</span> <span class="en" lang="en">I considered the possibility of them being controlled by the Imperial people in the royal capital, but in that case, it would be unnatural for them to increase their speed as they get further away from the royal capital.</span></p>
+<p><span class="ja">一番簡単なのはベルトルドに何らかの粘菌を引きつける要素があることだ。</span> <span class="en" lang="en">It would mean that something like a chemical substance that attracts slime molds, besides magical power, has been scattered in Berthold.</span> <span class="en" lang="en">Considering moth pheromones, it&#x27;s a plausible theory, but I don&#x27;t understand why the slime molds would move by integrating two types of information.</span></p>
+<p><span class="ja">「そういえば、アルフィーナがいっていた破壊された建物は……」</span> <span class="en" lang="en">I remembered the story about the image I had asked Alfina about at the very beginning.</span> <span class="ja">破壊されたのは、城壁、聖堂、そして煙が上がっていた工房…………。</span></p>
+<p><span class="ja">俺はベルトルドの街の地図を見た。</span><span class="ja">仮にこの破壊が東門近くの城壁から侵入した一匹だとしたら……。</span> <span class="en" lang="en">The three locations are not in a straight line.</span> <span class="ja">曲線状の配置だ。</span> <span class="en" lang="en">If so, the workshop is located deepest inside.</span></p>
+<p><span class="ja">「……帝国はそこまで計算していたわけか」</span> <span class="en" lang="en">Once you realize it, it&#x27;s nothing special.</span> <span class="ja">魔獣を引き寄せていたのはベルトルドにある木材だ。</span> <span class="en" lang="en">For example, it&#x27;s said that salmon can distinguish the subtle smell of their river and return to their hometown river.</span> <span class="en" lang="en">Even if it looks like disordered magical power to us, it wouldn&#x27;t be strange if the monsters could sense subtle characteristics in the wavelength spectrum.</span></p>
+<p><span class="en" lang="en">In other words, they are drawn to the faint magical power emitted by the wood from the Empire, their homeland.</span></p>
+<p class="ja"><span class="ja">「つまり、ベルトルドにある帝国からの木材が魔獣を引き寄せているというのだな」</span></p>
+<p><span class="ja">「おそらく間違いありません。</span><span class="ja">これはチャンスです。</span><span class="ja">逆手に取ってやれば、ベルトルドから攻撃を逸らすこと自体は難しくない」</span> <span class="en" lang="en">If we carry it outside the city using the transport capacity of the Knight Order and Berthold, we can divert the moving bodies&#x27; path.</span> <span class="ja">だが、問題が二つある。</span></p>
+<p><span class="en" lang="en">The first is what will happen at the end of the diverted path.</span> <span class="ja">もちろん、優先順位的にはベルトルドの安全だ。</span> <span class="en" lang="en">If Berthold is crushed, the entire western part of the kingdom will be affected.</span> <span class="en" lang="en">Considering the Empire&#x27;s hostility, it cannot even be compared to losing one or two villages.</span> <span class="ja">だが、出来れば避けたい。</span></p>
+<p><span class="en" lang="en">I desperately thought while looking at Leiria Village on the map.</span></p>
+<p><span class="ja">もう一つは木材に到達した後で粘菌はどうするかだ。</span> <span class="en" lang="en">Will they establish that place as their new land, create fruiting bodies, and scatter spores?</span> <span class="ja">あるいはそのまま、西の森に突っ込むのか。</span> <span class="en" lang="en">If it&#x27;s the latter, I&#x27;m terrified of the impact on the ecosystem of the western forest.</span></p>
+<p><span class="en" lang="en">After all, a massive amount of a species that didn&#x27;t exist in the western forest before would suddenly appear.</span> <span class="ja">魔獣氾濫の予測が立たなくなる可能性は十分ある。</span></p>
+<p><span class="ja">「動きだけでも止めることが出来れば、削り殺すことは不可能ではないのだがな」</span> <span class="en" lang="en">Craig said.</span> <span class="en" lang="en">The moving body controls its population through that spiraling, rotating magical signal.</span> <span class="en" lang="en">If so, stopping that spiral should also stop its movement.</span></p>
+<p><span class="en" lang="en">But even if we somehow stop it, that spiral will self-organize and reconstitute itself.</span> <span class="en" lang="en">A new spiral will self-organize based on slight signal deviations among uniform individuals, or tiny differences in density between them—such fluctuations.</span></p>
+<p class="ja"><span class="ja">「ドラゴンに食わせたアレのように、魔獣の活動を止める物は考えられないか」</span></p>
+<p><span class="ja">「あんな幸運は二度と期待できないですよ」</span> <span class="en" lang="en">Interfering with the mechanism itself that emits or receives the red signal.</span> <span class="en" lang="en">If we could do that, they might break down into separate slimes.</span> <span class="ja">特異的な抗体か化合物か。</span> <span class="en" lang="en">Even with the facilities of a pharmaceutical company from my original world, it might take years.</span></p>
+<p><span class="en" lang="en">Regarding the magical power itself, I have been thinking of ways to systematically search for it.</span> <span class="ja">だが、時間が掛かるのは同じだ。</span> <span class="en" lang="en">We won&#x27;t make it in time for the monsters that will reach Berthold in just a few days.</span> <span class="ja">しかも二匹だ。</span></p>
+<p><span class="ja">「まてよ。</span><span class="ja">二匹居るって言うのは逆に好都合かもしれないな」</span> <span class="en" lang="en">We can guide the slime mold.</span> <span class="ja">ならば、少なくとも一時的にあの螺旋を消す方法はある。</span> <span class="en" lang="en">However, even if that goes well, the moving body will ultimately revive.</span> <span class="en" lang="en">Moreover, it would result in the creation of a super-giant moving body born from the fusion of two moving bodies.</span></p>
+<p><span class="en" lang="en">To prevent that, we have no choice but to annihilate them completely while they are stopped.</span> <span class="en" lang="en">Even if the Knight Order&#x27;s fighting strength were multiplied several times over, it would probably be impossible.</span></p>
+<p><span class="ja">地形を利用する？</span> <span class="en" lang="en">If there was a place like a natural pitfall like that, we wouldn&#x27;t be struggling.</span> <span class="en" lang="en">Or rather, with those things, they&#x27;d probably scrape the ground away just to get out anyway.</span></p>
+<p><span class="ja">「待てよ地面を削る……」</span> <span class="en" lang="en">I recalled the time I went to Berthold previously.</span> <span class="ja">ベルトルドの近くには使えるものがあるじゃないか。</span></p>
+<p class="ja"><span class="ja">俺は地図から顔を上げた。</span></p>
+<p class="ja"><span class="ja">「策が出来たようだな」</span></p>
+<p><span class="ja">「かなりの綱渡りですけど」</span> <span class="en" lang="en">The difficulty is high, but with the Anti-Monster Knight Order and Berthold&#x27;s transport capacity, it&#x27;s not an impossible operation.</span></p>
+<p><span class="ja">「早馬を飛ばしてください。</span><span class="ja">大公閣下に二つお願いがあります。</span><span class="ja">一つはベルトルド周囲のここ数日の天気の情報。</span><span class="ja">もう一つはベルトルドで集めてほしいものが……」</span> <span class="en" lang="en">I explained the contents to be conveyed by letter.</span></p>
+<p class="ja"><span class="ja">「ふむ。</span><span class="ja">我らはどう動く？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「監視の部隊だけを残して、残りはベルトルドへ直行してください」</span><span class="ja">ベルトルド前で災厄の魔獣を迎え撃つ。</span><span class="ja">もちろん、俺は戦うつもりはないけれど。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec11">
+<div class="star">＊</div>
+<div class="rubric">11</div>
+<h2>９話：前半　ロジスティクス</h2>
+<hr class="rule">
+<p class="first"><span class="ja">ベルトルドの城門前には、四十台を超える馬車が並んでいた。</span><span class="ja">前列中央には魔獣騎士団の馬車。</span><span class="ja">その左右をベルトルドの騎士団の馬車が固める。</span> <span class="en" lang="en">Behind them lined up the carriages of the merchants who responded to the Grand Duke&#x27;s call.</span></p>
+<p><span class="en" lang="en">It is reassuring that many of them are carriages improved with bearings.</span> <span class="ja">どの馬車も荷物を満載している。</span></p>
+<p><span class="en" lang="en">As decided by our policy, we hurried to Berthold day and night.</span> <span class="en" lang="en">There seemed to be some dissatisfaction within the Knight Order about actions that looked like turning their backs to the enemy and fleeing, but that was quelled by the heroic prince&#x27;s track record and authority.</span> <span class="ja">結果、次の日の夜にはベルトルドへ着いた。</span></p>
+<p><span class="en" lang="en">Because we had already communicated the strategy by fast horse, preparations were underway, but even so, there was little time before the moving bodies arrived.</span> <span class="ja">準備が整ったのは本当にギリギリだった。</span></p>
+<p><span class="en" lang="en">The trump card of this operation—the massive amount of Imperial wood stored in the workshop—was loaded onto the carriages of the Anti-Monster Knight Order.</span></p>
+<p><span class="en" lang="en">Right now, to ensure everything is perfect, Bogan and the young craftsmen of the workshop are distributing lubricating oil and other supplies.</span></p>
+<p><span class="ja">それにしても、よくこれだけ残ったものである。</span> <span class="en" lang="en">It seems they managed to keep the merchants here by leveraging future commercial preferential treatment and priority provision of the next batch of carriages.</span> <span class="ja">彼らの馬車改良の成果が力を発揮したということか。</span></p>
+<p class="ja"><span class="ja">「君がヴィンダー商会の跡取りか」</span></p>
+<p><span class="ja">「はい、ジヴェルニー商会さんですね。</span><span class="ja">協力ありがとうございます」</span> <span class="en" lang="en">I was called out to by a man who walked over here from the group of civilian carriages.</span> <span class="ja">後列の馬車の半分はこの男の商隊のものだ。</span> <span class="en" lang="en">It seems to be a gold company specializing in transportation.</span></p>
+<p class="ja"><span class="ja">「ケンウェルともダルガンもお得意様だ。</span><span class="ja">それに、見本市で見せてもらった面白いものが、実際に動き出していることを確認したからな。</span><span class="ja">実際見るまでは半信半疑だったが」</span></p>
+<p class="ja"><span class="ja">「ベルトルドは今後もっと発展しますよ」</span><span class="ja">国全体の輸送能力の強化と、ベルトルドの産業化にとって彼はキーパーソンだ。</span></p>
+<p><span class="ja">「ほう。</span><span class="ja">まるで君がそれを差配してるような言いようじゃないか。</span><span class="ja">だが、新興銀商会の跡取りが天下の対魔騎士団に指示を飛ばしている姿を見ると信じてしまいたくなるな」</span> <span class="en" lang="en">The man looked at me meaningfully.</span></p>
+<p class="ja"><span class="ja">「……今回の魔獣討伐の要は輸送ですから」</span></p>
+<p><span class="ja">「なるほど。</span><span class="ja">そういう意味ではこちらもちゃんとした仕事だ。</span><span class="ja">所定の場所に頼まれた荷物を運ぶというね。</span><span class="ja">将来はベルトルドから食糧以外の商品を運ぶ機会が増える期待もあるが」</span> <span class="en" lang="en">The man said.</span> <span class="ja">なるほど、将来の取引を考えている訳か。</span> <span class="en" lang="en">Well, the transportation of honey will eventually reach a volume that we won&#x27;t be able to handle ourselves anyway.</span></p>
+<p class="ja"><span class="ja">「何にせよ。</span><span class="ja">宰相閣下に良い土産話が出来そうだ」</span></p>
+<p><span class="ja">「……はっ？</span><span class="ja">」</span> <span class="en" lang="en">I tried to ask the meaning of the man&#x27;s muttering, but the transportation guild bigwig was already heading toward his carriage.</span></p>
+<p><span class="ja">「うろたえる必要はない。</span><span class="ja">妾は最後までこの街にとどまる」</span> <span class="en" lang="en">On top of the city gates, Eufilia was calling out to the residents of the town.</span> <span class="en" lang="en">Of course, an evacuation plan is underway in case of failure, but for it to be carried out systematically, trust in the person commanding it is the most important thing.</span></p>
+<p><span class="en" lang="en">There was almost no panic among the residents listening to their lord&#x27;s words.</span> <span class="ja">もちろん、二度にわたって魔獣を退けた英雄王子とその騎士団に対する信頼もあるのだろうが……。</span></p>
+<p><span class="ja">「大したもんだ」</span> <span class="en" lang="en">Come to think of it, Berthold&#x27;s transformation into an industrial city has progressed so smoothly largely due to the Grand Duke&#x27;s track record so far.</span> <span class="en" lang="en">It&#x27;s the same as how my old man&#x27;s credibility was crucial when starting the honey business.</span></p>
+<p><span class="ja">「頼まれたものは積み込んでおいたぜ。</span><span class="ja">こんなもんで良いのか」</span> <span class="en" lang="en">Dolph came running towards me.</span> <span class="ja">彼は袋から中身を手のひらにのせた。</span><span class="ja">細かく削られた木くずだ。</span> <span class="en" lang="en">By increasing the surface area, the miasma stored in the wood can dissipate more easily.</span></p>
+<p class="ja"><span class="ja">「ありがとうございます」</span></p>
+<p class="ja"><span class="ja">「後、言われたとおり木材一つ一つからサンプルは取っておいた。</span><span class="ja">賢者様に渡せば良いんだよな」</span></p>
+<p class="ja"><span class="ja">「助かります。</span><span class="ja">後は自分たちの避難の準備を優先してください」</span></p>
+<p class="ja"><span class="ja">「は、自分の城を捨ててそう簡単に逃げられるかよ」</span></p>
+<p class="ja"><span class="ja">「いやいや、だから……」</span></p>
+<p><span class="ja">「わかってるぜ。</span><span class="ja">俺たちの腕の方が替りがきかないって言うんだろ」</span> <span class="en" lang="en">Dolph flexed his bicep and laughed.</span> <span class="en" lang="en">I&#x27;m sure he truly understands.</span> <span class="en" lang="en">Well, we&#x27;ll do our best to make the evacuation plan itself unnecessary.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="en" lang="en">Carriages of the Anti-Monster Knight Order lined up in the middle of the plain.</span> <span class="en" lang="en">The massive amount of logs peeking out from two of the carriages looked as if they were preparing for a campfire.</span> <span class="ja">元の世界なら焼き肉の用意もセットだな。</span></p>
+<p><span class="en" lang="en">If only it were such a carefree matter, how nice it would be.</span></p>
+<p><span class="en" lang="en">Around the carriages, the knights were engaged in civil engineering work.</span> <span class="en" lang="en">A torture-like task of driving stakes into the ground and pulling them out was progressing.</span></p>
+<p><span class="en" lang="en">As if to form a triangle running north to south from the carriages, they scattered the wood shavings Dolph had prepared for us into the holes.</span></p>
+<p class="ja"><span class="ja">「……二体の魔獣に貼り付けた偵察隊から、魔獣の進路がこちらに向いたという報告があった」</span></p>
+<p><span class="ja">「ありがとうございます。</span><span class="ja">もうそろそろレーダーで正確な位置が分りそうですね」</span> <span class="en" lang="en">I replied to Hyde, who had relayed the report from the reconnaissance squad.</span></p>
+<p><span class="ja">「魔獣はもう馬車では追いつけない速さになっている。</span><span class="ja">ここに来る頃には騎馬でも離されるかもしれない。</span><span class="ja">準備は間に合うのか」</span> <span class="en" lang="en">Hyde looked around the carriages.</span> <span class="ja">いくつもの壺が用意されている。</span></p>
+<p><span class="ja">「あんまり変なことをして相手に避けられたらいやなんで」</span> <span class="en" lang="en">I don&#x27;t think the monster would say something like, &quot;I&#x27;d prefer not to have greasy food,&quot; like a girl on a diet, but I want to avoid uncertain elements.</span> <span class="en" lang="en">Seasonings are kept to a minimum, aiming to win with natural flavors.</span></p>
+<p class="ja"><span class="ja">俺はレーダー馬車の中で作業しているミーア達に合流する。</span></p>
+<p class="ja"><span class="ja">「偵察隊に持たせた魔結晶の反応を捕らえたぞ」</span></p>
+<p><span class="ja">「魔獣の軌道はほぼ計算通りですね」</span> <span class="en" lang="en">I felt a little relieved by Mia&#x27;s words.</span></p>
+<p><span class="ja">だが、油断は出来ない。</span><span class="ja">何しろ相手は生もの。</span> <span class="en" lang="en">Moreover, they are coming over bumpy ground, not on a road.</span> <span class="en" lang="en">We have to make sure they crash head-on properly.</span></p>
+<p class="ja"><span class="ja">「数値修正、北の魔獣が少し速いわ」</span></p>
+<p><span class="ja">「計算の修正をします」</span> <span class="en" lang="en">At Noel&#x27;s voice, Mia quickly ran her pen.</span></p>
+<p><span class="ja">「木組みはもう少し南西に移動させてください」</span> <span class="en" lang="en">When I said that.</span> <span class="ja">ハイドが騎士団の馬車に合図を送る。</span><span class="ja">馬車が十メートルほど南に移動した。</span></p>
+<p><span class="ja">「来たぞーーー！</span><span class="ja">！</span><span class="ja">」</span> <span class="en" lang="en">A shout rose from the knights.</span> <span class="ja">あるものは北を、あるものは南を見ている。</span> <span class="en" lang="en">Dust clouds rose from the horizon to the north and south almost simultaneously.</span></p>
+<p><span class="en" lang="en">…………The sheer intensity of it was completely different from what I saw three days ago.</span></p>
+<p><span class="en" lang="en">Two missiles, spinning like drills, were approaching as if to catch us in a pincer movement.</span> <span class="ja">恐怖を感じる。</span><span class="ja">だが、その姿は予想通りだ。</span></p>
+<p><span class="ja">「よしよし、どちらも時計回りだな」</span> <span class="en" lang="en">I confirmed this while suppressing my fear.</span> <span class="en" lang="en">A creature that only moves blindly toward its goal, no matter how terrifying, is the same as a stationary target.</span> <span class="en" lang="en">There&#x27;s no way we humans, endowed with intelligence, should be cowed.</span></p>
+<p><span class="en" lang="en">Rumble, rumble, rumble.</span></p>
+<p><span class="ja">地面が震える。</span> <span class="en" lang="en">My legs exhibited amplified tremors in response.</span> <span class="en" lang="en">Even with intelligence, humans are animals, so we react to fear with top priority.</span></p>
+<p><span class="ja">「調整は終わりだ。</span><span class="ja">二隊に分かれて進路を開けろ」</span> <span class="en" lang="en">The knights, who had carried the wood out of the carriages, split to the east and west at Craig&#x27;s command.</span> <span class="en" lang="en">What remained was the wooden structure for the campfire.</span> <span class="en" lang="en">After this, we can only pray that the fine adjustments made by the wood shavings placed in the holes dug in the grassland will work.</span></p>
+<p><span class="en" lang="en">The figures of the monsters could be seen clearly.</span> <span class="en" lang="en">Viewed nearly head-on, the swirling red lights looked ominous.</span> <span class="en" lang="en">The last knights remaining around the campfire placed pots around it and moved away.</span></p>
+<p><span class="ja">「矢の準備をしろ」</span> <span class="en" lang="en">Craig&#x27;s dignified voice echoed across the plain.</span> <span class="ja">騎士達が布を巻いた矢を構えた。</span></p>
+<p><span class="en" lang="en">I also hurriedly tried to head for the radar carriage.</span> <span class="ja">そのとき、風が頬を撫でる。</span></p>
+<p class="ja"><span class="ja">「風向きはどっちかな、東南だと縁起が良いんだが」</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec12">
+<div class="star">＊</div>
+<div class="rubric">12</div>
+<h2>９話：後半　単純であることの弱さ</h2>
+<hr class="rule">
+<p><span class="en" lang="en">Thud!!!</span></p>
+<p><span class="en" lang="en">Grind, grind, grind... squelch, squelch, squelch... splat...</span></p>
+<p><span class="en" lang="en">…………Sploosh!</span></p>
+<p><span class="en" lang="en">Scraping away the green grassland to turn it black, the two moving bodies aimed straight for the campfire.</span> <span class="en" lang="en">The monster trains were guided by the wood shavings scattered on the ground and crashed head-on.</span> <span class="en" lang="en">The wood, which was precious in the kingdom, shattered into tiny pieces and scattered.</span> <span class="en" lang="en">The fragments of wood raining down like hail clattered against our carriage.</span> <span class="ja">俺は思わず頭を覆った。</span></p>
+<p class="ja"><span class="ja">「おお、止まったぞ」</span></p>
+<p class="ja"><span class="ja">「急げ、時間がない」</span></p>
+<p><span class="ja">「矢に火を付けろ」</span> <span class="en" lang="en">Fearfully poking my head out of the window at the voices of the knights, I saw a white lump where the campfire had been, looking like two water droplets that had smashed into each other.</span></p>
+<p><span class="en" lang="en">The red light that had been drawing spirals covered the entire lump faintly while blinking weakly.</span> <span class="ja">塊はかすかに震えるだけで動かない。</span></p>
+<p><span class="ja">「放て！</span><span class="ja">！</span><span class="ja">」</span> <span class="en" lang="en">The monsters that charged in as if attempting a pincer attack now found themselves caught in a pincer attack by the Knight Order split to the left and right.</span> <span class="en" lang="en">The Anti-Monster Knight Order and the Berthold Knight Order synchronized their breathing to create a chorus of twanging bows.</span></p>
+<p><span class="ja">無数の火矢が左右から塊の周囲に降り注ぐ。</span> <span class="en" lang="en">Around the campfire were stacked firewood and bamboo brought by carriages from Berthold, along with pots of oil.</span></p>
+<p><span class="en" lang="en">The raining arrows bounced off the monster, but they ignited all the combustible materials placed around it at once.</span></p>
+<p class="ja"><span class="ja">あっという間に塊の周囲に炎が立ち上がる。</span></p>
+<p><span class="ja">「ここまではお主の計画通りじゃな」</span> <span class="en" lang="en">Fulsi said while pointing the antenna at the monster.</span></p>
+<p><span class="ja">「これで終わってくれれば良いんですけど」</span> <span class="en" lang="en">I looked at the radar pointed at the monster as if praying.</span> <span class="ja">見ても分らないけど。</span></p>
+<p><span class="ja">「不味いな、魔力の波がもう復活を始めたぞ」</span> <span class="en" lang="en">Fulsi, who was looking at the measuring instrument, issued a warning.</span> <span class="ja">俺は目をこらす。</span><span class="ja">スライムの塊には一見なんの変化もない。</span></p>
+<p><span class="en" lang="en">However, from the monster that had turned into a black lump surrounded by flames, a red light distinct from the fire began to show.</span> <span class="en" lang="en">The crushed slime mold bodies slowly began to change their shape into a circle.</span></p>
+<p><span class="en" lang="en">The random red lights gradually created a pulse-like rhythm, and several spiral patterns emerged.</span></p>
+<p><span class="en" lang="en">The control of the monster, which had been canceled out by crashing opposite spirals into each other, was self-organizing and reconstituting itself.</span></p>
+<p><span class="en" lang="en">The black lump began to swirl as if twisting, and the charred individuals on its surface peeled off and fell in pieces.</span> <span class="ja">その下には白い肌が赤く光る。</span></p>
+<p><span class="en" lang="en">Eventually, multiple spirals gathered at the center of the lump, and in the next moment, it began to swell upwards.</span></p>
+<p class="ja"><span class="ja">「パターンはどうなってますか、館長」</span></p>
+<p class="ja"><span class="ja">「走ってきた時と同じじゃな」</span></p>
+<p><span class="ja">「ダメか」</span> <span class="en" lang="en">The hope that it would form fruiting bodies as it was had been crushed.</span> <span class="en" lang="en">A white pillar twice the size of when it arrived here stood up toward the heavens.</span></p>
+<p><span class="ja">「こちらに倒れるぞ、待避！</span><span class="ja">　待避！</span><span class="ja">！</span><span class="ja">」</span> <span class="en" lang="en">With a rumbling of the earth, the giant moving body that had stood up slammed its long, slender body onto the ground.</span> <span class="ja">その方向にいた部隊が慌てて逃げ出す。</span></p>
+<p><span class="en" lang="en">BOOOOOOM!!</span></p>
+<p><span class="en" lang="en">The compression blew away the surrounding flames.</span></p>
+<p class="ja"><span class="ja">「残りの火矢をつぎ込め、動く前に少しでも攻撃を！</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「もうほとんどありません」</span></p>
+<p><span class="ja">「動き出します」</span> <span class="en" lang="en">Desperate voices of the knights.</span> <span class="en" lang="en">Although its surface was scorched by the surrounding flames, the giant body began to move.</span></p>
+<p><span class="en" lang="en">The giant moving body, which had been writhing on the ground, raised its head.</span> <span class="en" lang="en">Beyond that lies the city of Berthold.</span> <span class="en" lang="en">At this rate, Berthold will be attacked by a siege ram nearly twice as large.</span></p>
+<p><span class="en" lang="en">Craig looked at me.</span> <span class="ja">彼の背後には二台の馬車が控えている。</span> <span class="en" lang="en">Inside the carriages was wood covered with cloth dyed with the same magic-blocking dye as the walls of the academy&#x27;s library director&#x27;s office.</span></p>
+<p><span class="en" lang="en">If we let that run to the southwest, we could at least divert its course from Berthold.</span> <span class="ja">その後が保証出来ない。</span> <span class="en" lang="en">But the longer the decision is delayed, the more we lose our initiative over the slime mold&#x27;s path.</span></p>
+<p class="ja"><span class="ja">村が一つ余計に潰れる。</span><span class="ja">あるいは最悪ベルトルドへの突入を防げないなど。</span><span class="ja">時間と共に、選択肢は狭まるのだ。</span></p>
+<p><span class="ja">ついに、白い巨体がベルトルドへ進み始める。</span> <span class="en" lang="en">When I tried to send a signal to Craig.</span> <span class="en" lang="en">Hot air caressed my cheek.</span></p>
+<p><span class="en" lang="en">I signaled Craig.</span> <span class="en" lang="en">My hand extending from the carriage pointed straight towards the royal capital.</span> <span class="en" lang="en">The cloth was thrown from the carriage, and it began to run eastward.</span></p>
+<p><span class="ja">「俺たちも距離を取ってください」</span> <span class="en" lang="en">Due to the attractant suddenly appearing in the opposite direction of its progression, the monster drew a C-shape as if confused.</span></p>
+<p><span class="en" lang="en">ROOOOOOOAAAAAAR!!!</span></p>
+<p><span class="en" lang="en">In the next moment, flames incomparably larger than before rose up.</span> <span class="en" lang="en">Centered around where the campfire had been, the ground itself began to burn.</span> <span class="en" lang="en">Within it, the slime mold writhed around as if feeling pain.</span></p>
+<p><span class="en" lang="en">The holes dug around the campfire weren&#x27;t just to guide the slime mold.</span> <span class="en" lang="en">It was to supply air to the peat layer.</span> <span class="en" lang="en">Furthermore, the dry peat layer scraped away by the slime mold&#x27;s rotational movement lay exposed on the ground.</span></p>
+<p><span class="en" lang="en">That was ignited by the flames from the massive amount of combustibles brought from Berthold, causing a peat fire.</span></p>
+<p><span class="ja">「火計の二段構えだけど、なんとか上手くいったか」</span> <span class="en" lang="en">This is the reason I lured the slime mold to this location.</span> <span class="en" lang="en">In the fierce smoke rising from the peat, a giant snake writhing like a black shadow.</span></p>
+<p><span class="en" lang="en">Seeing its movements gradually weaken, I let out a breath.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="en" lang="en">When the massive amount of smoke cleared, a charred black lump was sizzling.</span></p>
+<p><span class="en" lang="en">A knight threw a spear at it.</span> <span class="ja">炭化した粘菌がぼろぼろに崩れる。</span><span class="ja">開いた穴の中も、真っ黒だ。</span></p>
+<p><span class="ja">「魔獣の死亡を確認しました」</span> <span class="en" lang="en">It seems the heat cooked it thoroughly all the way inside.</span> <span class="en" lang="en">A BBQ party with nothing but mushrooms; I never want to do that again.</span></p>
+<p class="ja"><span class="ja">「見よ、災厄の魔獣は討伐された」</span></p>
+<p><span class="ja">「「「うおぉぉぉー」</span><span class="ja">」</span><span class="ja">」</span> <span class="en" lang="en">Craig declared victory.</span> <span class="en" lang="en">A triumphant shout resembling a battle cry rose from the Knight Order.</span> <span class="ja">全員が両腕を振り上げている。</span></p>
+<p><span class="ja">「今回は犠牲者ゼロで済んだみたいだな。</span><span class="ja">良かった良かった」</span> <span class="en" lang="en">I exhaled deeply.</span> <span class="en" lang="en">Actually, there are several people who broke bones falling off their horses the other day.</span> <span class="ja">だが、前回と違って死者が出なかった。</span></p>
+<p class="ja"><span class="ja">「……そうじゃな」</span></p>
+<p class="ja"><span class="ja">「……そうね」</span></p>
+<p class="ja"><span class="ja">「…………」</span></p>
+<p class="ja"><span class="ja">「なんだよ。</span><span class="ja">もっとうれしそうな顔しろよ。</span><span class="ja">まあ、本当にギリギリだったけどさ。</span><span class="ja">ああ、後片付けは大変だな」</span></p>
+<p class="ja"><span class="ja">「いやむしろ、お前の方が……。</span><span class="ja">まあ、もう今さらか」</span></p>
+<p class="ja"><span class="ja">「先輩は”人間相手じゃなければ”完璧な策士ですね」</span></p>
+<p><span class="ja">「言わないでくれ。</span><span class="ja">王都に戻った後のことを考えると、頭が痛いんだから」</span> <span class="en" lang="en">The disaster was somehow dealt with; next, we have to handle the cause.</span></p>
+<p><span class="en" lang="en">I completely thwarted their intentions, but as Mia said, they are far more troublesome than the monster itself.</span></p>
+<p><span class="en" lang="en">Just one thing bothers me, and that&#x27;s Lisabeth.</span> <span class="en" lang="en">The fact that the Empire caused this can be considered confirmed by the wood acting as an attractant.</span></p>
+<p><span class="en" lang="en">Then why did the Imperial Princess say something that would serve as a hint for us?</span></p>
+<p><span class="en" lang="en">Well, the exchanges in the heavenly realm are the jobs of the Grand Duke and the prince, right.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec13">
+<div class="star">＊</div>
+<div class="rubric">13</div>
+<h2>１０話　残されたもの</h2>
+<hr class="rule">
+<p><span class="en" lang="en">Bang!</span> <span class="en" lang="en">The thick wooden tabletop trembled.</span></p>
+<p><span class="ja">「ベルトルドの城壁に触れることすらできなかっただと、あり得ぬ！</span><span class="ja">　クレイグはどのような魔術を使ったのだ」</span> <span class="en" lang="en">Early in the morning, Bairal&#x27;s anger echoed on the top floor of the Imperial Legation.</span> <span class="en" lang="en">The man in the black robe who reported the conclusion of the Siege Worm Operation—Dagrius, holding the title of an Imperial merchant—made an effort to calmly accept his boss&#x27;s anger.</span></p>
+<p class="ja"><span class="ja">「目印としてベルトルドに運び込んだ木材を利用されたようです」</span></p>
+<p><span class="ja">「虫の生態を完全に、それこそ我らよりも深く理解しておらねば不可能ではないか」</span> <span class="en" lang="en">At the explanation of guiding and incinerating them using wood, Bairal&#x27;s face distorted in astonishment.</span> <span class="ja">彼らの策が完全に逆手に取られた事を意味する。</span> <span class="en" lang="en">For him, who scattered the monster&#x27;s spores using the carriage race, it was exactly the same.</span> <span class="ja">だが、いまはもっと重要な報告がある。</span></p>
+<p><span class="ja">「クレイグは想定よりも遙かに早く、王都に帰還してきます」</span> <span class="en" lang="en">At his subordinate&#x27;s words, Bairal struggled to unclench his tightly gripped fist.</span></p>
+<p class="ja"><span class="ja">「……木材と虫の関係を知られているなら、我らの作戦であることも気付かれておるな」</span></p>
+<p class="ja"><span class="ja">「間違いないでしょう。</span><span class="ja">騎士団の部隊の多くは魔獣の残存の掃討という理由でベルトルドと王都の間に残してあるようです」</span></p>
+<p><span class="ja">「……主立った内通者の手紙と、王国で部隊が活動するためのスポットの情報は持ち帰る。</span><span class="ja">そのほかは全て処分だ」</span> <span class="en" lang="en">The boss decided to escape in an instant.</span></p>
+<p><span class="ja">「私は王国に潜伏します」</span> <span class="en" lang="en">Dagrius said.</span> <span class="en" lang="en">As the boss understood, Craig&#x27;s operation this time was clearly anomalous.</span> <span class="en" lang="en">To counter monsters, one uses magic; that is common sense.</span> <span class="en" lang="en">However, this time Craig defeated a giant monster using almost no magic.</span> <span class="en" lang="en">For him, who had been troubled by the gap between the Knight Order&#x27;s fighting strength and their battle record of slaying a dragon, it had become a discrepancy he couldn&#x27;t ignore.</span></p>
+<p><span class="ja">「……望みの大河を越えるためには、無理をするなとは言えんな。</span><span class="ja">だが、其方の知識と経験は我らが川を越えた後にこそ活用されるべき物でもあることを忘れるな」</span> <span class="en" lang="en">At the boss&#x27;s words, Dagrius nodded.</span></p>
+<p><span class="ja">「閣下、公館の周囲にあやしい動きがあります。</span><span class="ja">衛兵による監視かと」</span> <span class="en" lang="en">When the door opened, a maid reported.</span></p>
+<p><span class="ja">「もう動き出しおったか。</span><span class="ja">馬車を用意しろ、王都から出てしまえば何とでもなる」</span> <span class="en" lang="en">Bairal took out a double-locked box from his drawer and tossed its contents into the fireplace.</span> <span class="ja">そして、机に戻ると手紙の束と格闘を始めた。</span></p>
+<p><span class="ja">「皇女はどういたしますか」</span> <span class="en" lang="en">The maid asked.</span></p>
+<p><span class="ja">「王都近くにある足はわずかだ。</span><span class="ja">足手まといを連れてはいけぬ。</span><span class="ja">…………いや、そうだな、もう一台馬車を用意しろ」</span> <span class="en" lang="en">Throwing a bundle of papers into the fireplace, Bairal threw those words over his shoulder.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「ここですか？</span><span class="ja">」</span> <span class="en" lang="en">I asked the butler who guided me.</span> <span class="en" lang="en">I know my way around the Grand Duke&#x27;s mansion—though I didn&#x27;t want to know it—but this was my first time stepping this deep inside.</span> <span class="en" lang="en">At the end of the hallway, a heavy door illuminated by candlelight intimidated the commoner.</span> <span class="ja">執事は黙って一礼した。</span> <span class="en" lang="en">It seems he meant for me to hurry up.</span></p>
+<p><span class="en" lang="en">When I opened the door, I saw a round table in the center of the room.</span> <span class="ja">席にはすでにエウフィリアとクレイグが座っていた。</span> <span class="en" lang="en">I wish they&#x27;d show a little consideration for a commoner.</span> <span class="en" lang="en">It&#x27;s like a regular employee, no, a part-timer casually strolling into an executive meeting.</span></p>
+<p><span class="en" lang="en">Just as I was about to sigh, I noticed another person in the room.</span> <span class="ja">知らない老人。</span><span class="ja">……いや、謁見の間で一度だけ見たことがある老人だ。</span></p>
+<p><span class="en" lang="en">I can handle a prince or a grand duke, but please spare me from a duke...</span></p>
+<p><span class="en" lang="en">It&#x27;s not the time to be talking about things being wrong on many levels.</span></p>
+<p><span class="en" lang="en">...Since the Empire&#x27;s hostility has become apparent, they really can&#x27;t worry about things like balance.</span></p>
+<p><span class="en" lang="en">The Third Prince, who is the commander of the Anti-Monster Knight Order possessing the greatest military force in this country, and the Grand Duke governing the west, which is slated to become the kingdom&#x27;s economic center in the future.</span> <span class="ja">そして、国政の頂点にある公爵。</span> <span class="en" lang="en">Before my eyes are members who probably wouldn&#x27;t even all gather at an imperial council.</span></p>
+<p><span class="en" lang="en">There are four seats around the table, and one is empty.</span></p>
+<p><span class="en" lang="en">I wonder whose seat it is?</span></p>
+<p><span class="ja">俺はドアを振り返った。</span> <span class="en" lang="en">Please don&#x27;t tell me the King is coming too.</span> <span class="en" lang="en">The Grand Duke pointed at the empty seat with her feather fan.</span> <span class="en" lang="en">Seriously, show a little more consideration for a commoner.</span> <span class="en" lang="en">Because standing is far less stressful.</span></p>
+<p><span class="en" lang="en">I will never again listen to complaints from Noel, who shot past her seniors to become a court magician apprentice.</span> <span class="en" lang="en">Nor Fulsi&#x27;s grumbling about not wanting to be elevated to the peerage for his achievements this time.</span></p>
+<p><span class="en" lang="en">Oh right, I want to show this glorious sight to Sherry.</span> <span class="en" lang="en">I&#x27;m sure it would make her feel much better.</span></p>
+<p class="ja"><span class="ja">「何をしておる。</span><span class="ja">とっとと座れ」</span></p>
+<p><span class="ja">「はい……」</span> <span class="en" lang="en">Glared at by the old man, I tightly gripped the paper in my hand.</span> <span class="en" lang="en">Well, it&#x27;s not a bad thing that the Prime Minister is here.</span> <span class="en" lang="en">It would not be an exaggeration to say that the numbers in this paper are incredibly important.</span></p>
+<p class="ja"><span class="ja">「――以上が今回の魔獣討伐の報告だ」</span></p>
+<p class="ja"><span class="ja">「西部の二つの村が実質上なくなった。</span><span class="ja">村そのものは無事でも耕地の一部を削り取られた村が五つ、じゃな」</span></p>
+<p class="ja"><span class="ja">「……騎士団に被害が出なかったのは重畳。</span><span class="ja">農村の被害も対応可能な範囲に収まって何よりですな」</span></p>
+<p><span class="ja">「対応するのは妾じゃが」</span> <span class="en" lang="en">At the words of Craig and the Grand Duke, the Prime Minister did not move his expression.</span> <span class="ja">だが、その眼光が突然俺を射た。</span></p>
+<p class="ja"><span class="ja">「で、この少年が全ての計画を立てたと」</span></p>
+<p class="ja"><span class="ja">「そうだな。</span><span class="ja">ミューカスの発見、巨大化する前のミューカスの掃討による巨大魔獣の発生の阻止、生まれた魔獣二匹の討伐。</span><span class="ja">全てリカルドの策だ」</span></p>
+<p class="ja"><span class="ja">「クレイグ殿下の武勇とアルフィーナ殿下の予言の力、さらに大公閣下のご威光のたまものです。</span><span class="ja">大賢者フルシー様と宮廷魔術師見習いノエルと、えっと、あと輸送ギルドの……」</span></p>
+<p><span class="ja">「まるで、事前に全てを知っていた、そう疑わざるを得ないが」</span> <span class="en" lang="en">Even though I was desperately listing names other than my own, the Prime Minister ignored me.</span></p>
+<p><span class="en" lang="en">Well, anyone with a decent intellect would judge it that way.</span> <span class="en" lang="en">But I can&#x27;t possibly say, &quot;I knew about slime molds before I was even born.&quot;</span></p>
+<p class="ja"><span class="ja">「宰相の気持ちは分るがな。</span><span class="ja">こやつが帝国の手先という可能性だけはない」</span></p>
+<p><span class="ja">「そうだな。</span><span class="ja">リカルドがこれまでやってきたことは、全て帝国の邪魔と言って良い。</span><span class="ja">リカルドが何にもしなかっただけで、王国の東西は大打撃、特に西部は致命傷を負っている。</span><span class="ja">それより、見事に帝国の使節を逃がした宰相の方はどうなのだ」</span> <span class="en" lang="en">With sarcastic words, Craig changed the subject.</span></p>
+<p class="ja"><span class="ja">「言い訳になるが、皇女を囮に使うとは予測出来なかった。</span><span class="ja">ただ、公館に踏み込ませた衛兵が向こうの機密を得た」</span></p>
+<p><span class="ja">「何も知らされておらぬであろう捨て石の小娘と、暗号化されて読めぬ文書であろう。</span><span class="ja">しかも皇女の身柄を押さえたのは第一騎士団と聞くが」</span> <span class="en" lang="en">Eufilia threw a sarcastic remark.</span> <span class="en" lang="en">Using the Imperial Princess as a decoy was completely outside the realm of imagination for the kingdom&#x27;s way of thinking.</span></p>
+<p class="ja"><span class="ja">「大河への路に網を張っていた王子も取り逃がしたのはおなじでしょう」</span></p>
+<p><span class="ja">「発見はしたが、夜間に騎馬でも到底追いつけぬ速度で逃げられたのだ」</span> <span class="en" lang="en">Craig said to me.</span> <span class="en" lang="en">The Knight Order found the abandoned carriage near the forest north of the royal capital.</span> <span class="en" lang="en">They searched the surroundings with all their might, but could barely catch a glimpse of their backs as they ran through the dark night.</span> <span class="en" lang="en">It seems it wasn&#x27;t that specific carriage.</span></p>
+<p class="ja"><span class="ja">「あ、あの……」</span><span class="ja">俺は恐る恐る手を上げた。</span><span class="ja">王子と大公と公爵が俺を見る。</span></p>
+<p class="ja"><span class="ja">「馬車の周囲で、そうですね特殊な足跡とか糞とか、そういうものを探してもらえませんか」</span></p>
+<p><span class="ja">「理由はなんだ？</span><span class="ja">」</span> <span class="en" lang="en">I recalled the words I heard from Dolph before leaving Berthold.</span> <span class="en" lang="en">The undercarriage of the Imperial carriage was entirely made of metal, and there were signs that the positions of the shafts had been replaced.</span> <span class="en" lang="en">In other words, it was over-specced for a horse to pull.</span></p>
+<p class="ja"><span class="ja">「これは勘なんですけど、三本指の足跡とか、白い糞とかがあるかもなーって。</span><span class="ja">数は少ないでしょうけど、近くの猟師とかとも協力して」</span></p>
+<p><span class="ja">「すぐに手配しよう」</span> <span class="en" lang="en">Craig nodded.</span> <span class="en" lang="en">The feces are especially important.</span></p>
+<p><span class="ja">「さて、情報が共有されたところで、肝心な話題に入ろう。</span><span class="ja">帝国の次の動きだな」</span> <span class="en" lang="en">Craig said.</span></p>
+<p><span class="ja">「王国に魔獣を放つなど、許しがたい行為だ。</span><span class="ja">というのは置いておいて、何を考えて居るのか理解しがたいな。</span><span class="ja">帝国は常時魔獣に対して戦力を割かねばならんはずだ、食糧の供給を頼っている王国に敵対するリスクを取るとは」</span> <span class="en" lang="en">The Prime Minister said.</span></p>
+<p class="ja"><span class="ja">「……あの、それなんですけれど、ちょっと」</span></p>
+<p class="ja"><span class="ja">「いちいち許可を求める必要なはいぞ」</span></p>
+<p><span class="ja">「いや、平民だから遠慮してるんですよ。</span><span class="ja">この状況一種のいじめですからね」</span> <span class="en" lang="en">I said to Eufilia.</span> <span class="en" lang="en">Do you have any idea how cautiously I&#x27;m choosing my words, feeling like I&#x27;m treading on thin ice?</span> <span class="en" lang="en">Thanks to you, I just stepped right through it.</span></p>
+<p><span class="ja">「…………これは大賢者フルシー様と、その弟子の錬金術士ノエルとミーアの功績ですけど。</span><span class="ja">今回魔獣を引き寄せるためにベルトルドに売られた木材から、帝国の魔脈活動の記録が得られました。</span><span class="ja">もちろん、一地域の記録ですが、ケンウェル商会の伝で手に入れたもう一本の木材でも、同じ傾向のデータが出ています。</span><span class="ja">それをまとめたものがこれです」</span><span class="ja">俺はグラフをテーブルに広げた。</span> <span class="en" lang="en">The record of the Empire&#x27;s magic vein activity over the past seventy years; the star of this meeting is this graph.</span></p>
+<p><span class="ja">全員の目が一枚の紙に釘付けになる。</span><span class="ja">沈黙がテーブルを覆った。</span> <span class="en" lang="en">The flickering candlelight cast the still shadows of the three people onto the wall.</span></p>
+<p><span class="ja">「明日にでも攻め込んできても不思議ではない、か」</span> <span class="en" lang="en">Eufilia said with a groan.</span> <span class="en" lang="en">We are overwhelmingly lacking information, and probably time as well.</span></p>
+<p><span class="en" lang="en">First, we have to start with analyzing the parting gifts the Empire left behind.</span> <span class="en" lang="en">Feces and footprints, the encrypted documents left behind, and...</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+</article>
+</div>
+<script src="search-index.js"></script>
+<script>
+(function(){
+  var sel=document.getElementById('width');
+  if(!sel) return;
+  var cur=parseFloat(getComputedStyle(document.documentElement)
+                     .getPropertyValue('--sheet-w'))||0;
+  if(cur){
+    if(!sel.querySelector('option[value="'+cur+'"]')){
+      var o=document.createElement('option'); o.value=cur; o.textContent=cur+'%';
+      sel.appendChild(o);
+    }
+    sel.value=String(cur);
+  }
+  sel.addEventListener('change',function(){
+    document.documentElement.style.setProperty('--sheet-w', sel.value+'vw');
+    try{ localStorage.setItem('sheet-width', sel.value); }catch(e){}
+  });
+})();
+
+(function(){
+  var flip=function(id, label, cls, on){
+    var b=document.getElementById(id);
+    if(!b) return;
+    var state=on;
+    var paint=function(){
+      b.textContent=label+'：'+(state?'ON':'OFF');
+      b.setAttribute('aria-pressed', state?'true':'false');
+    };
+    b.addEventListener('click',function(){
+      state=!state;
+      document.body.classList.toggle(cls, cls==='plain' ? !state : state);
+      paint();
+    });
+    paint();
+  };
+  flip('tint','英文の色分け','plain',true);   /* OFF のとき body.plain */
+  flip('only','英文だけ','enonly',false);
+
+  var bar=document.querySelector('.progress');
+  if(bar){
+    var tick=function(){
+      var h=document.documentElement;
+      var max=h.scrollHeight-h.clientHeight;
+      bar.style.width=(max>0? (h.scrollTop/max*100):0)+'%';
+    };
+    addEventListener('scroll',tick,{passive:true});
+    addEventListener('resize',tick);
+    tick();
+  }
+})();
+
+(function(){
+  if(!('speechSynthesis' in window)) return;
+  var rate=document.getElementById('rate'), cur=null, voice=null;
+  var load=function(){
+    var vs=speechSynthesis.getVoices()||[];
+    var en=vs.filter(function(v){ return /^en/i.test(v.lang); });
+    voice=en.filter(function(v){ return v.localService; })[0] || en[0] || null;
+  };
+  load();
+  speechSynthesis.addEventListener('voiceschanged', load);
+
+  var stop=function(){
+    speechSynthesis.cancel();
+    if(cur){ cur.classList.remove('speaking'); cur=null; }
+  };
+  document.addEventListener('click',function(e){
+    if(e.target.closest('a, button, input, select')) return;
+    var el=e.target.closest('.en');
+    if(!el) return;
+    if(cur===el){ stop(); return; }
+    stop();
+    var u=new SpeechSynthesisUtterance(el.textContent);
+    u.lang='en-US';
+    if(voice) u.voice=voice;
+    u.rate=rate ? parseFloat(rate.value) || 1 : 1;
+    u.onend=u.onerror=function(){
+      el.classList.remove('speaking');
+      if(cur===el) cur=null;
+    };
+    cur=el; el.classList.add('speaking');
+    speechSynthesis.speak(u);
+  });
+  addEventListener('keydown',function(e){ if(e.key==='Escape') stop(); });
+  addEventListener('pagehide',stop);
+})();
+
+(function(){
+  var apply=function(){
+    var raw=location.hash.slice(1).replace(/%7[Cc]q=/,'|q=');
+    if(!raw) return;
+    var id=raw, q='', p=raw.indexOf('|q=');
+    if(p>=0){ id=raw.slice(0,p); q=decodeURIComponent(raw.slice(p+3)); }
+    var root=document.getElementById(id);
+    if(!root) return;
+    root.scrollIntoView();
+    if(!q) return;
+    var needle=q.toLowerCase(), first=null, nodes=[], n;
+    var walk=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    while((n=walk.nextNode())) nodes.push(n);
+    nodes.forEach(function(node){
+      if(node.parentNode.closest('mark, pre')) return;
+      var text=node.nodeValue, low=text.toLowerCase(), i=low.indexOf(needle);
+      if(i<0) return;
+      var frag=document.createDocumentFragment(), pos=0;
+      while(i>=0){
+        frag.appendChild(document.createTextNode(text.slice(pos,i)));
+        var m=document.createElement('mark');
+        m.textContent=text.slice(i,i+q.length);
+        frag.appendChild(m);
+        if(!first) first=m;
+        pos=i+q.length;
+        i=low.indexOf(needle,pos);
+      }
+      frag.appendChild(document.createTextNode(text.slice(pos)));
+      node.parentNode.replaceChild(frag,node);
+    });
+    if(first) first.scrollIntoView({block:'center'});
+  };
+  apply();
+  addEventListener('hashchange',apply);
+})();
+
+(function(){
+  var box=document.getElementById('q'), panel=document.getElementById('results');
+  if(!box||!panel) return;
+  var data=window.SEARCH_INDEX;
+  if(!data||!data.length){
+    box.disabled=true;
+    box.placeholder='索引を読み込めません（章の目次から検索）';
+    return;
+  }
+  var esc=function(s){
+    return s.replace(/[&<>]/g,function(c){
+      return c==='&'?'&amp;':c==='<'?'&lt;':'&gt;';
+    });
+  };
+  var LIMIT=40;
+  var render=function(q){
+    panel.innerHTML='';
+    if(!q){ panel.hidden=true; return; }
+    panel.hidden=false;
+    var needle=q.toLowerCase(), hits=[], total=0;
+    for(var i=0;i<data.length;i++){
+      var at=data[i].x.toLowerCase().indexOf(needle);
+      if(at<0) continue;
+      total++;
+      if(hits.length<LIMIT) hits.push([data[i],at]);
+    }
+    if(!total){ panel.innerHTML='<p class="none">見つかりません</p>'; return; }
+    var html='<p class="count">'+total+' 件'+(total>LIMIT?'（先頭 '+LIMIT+' 件）':'')+'</p><ol>';
+    hits.forEach(function(h){
+      var d=h[0], at=h[1];
+      var s=Math.max(0,at-40), e=Math.min(d.x.length,at+q.length+70);
+      var snip=(s>0?'…':'')+esc(d.x.slice(s,at))
+        +'<mark>'+esc(d.x.slice(at,at+q.length))+'</mark>'
+        +esc(d.x.slice(at+q.length,e))+(e<d.x.length?'…':'');
+      var where=d.c+'章'+(d.ct?'　'+d.ct:'')+(d.st?'　・　'+d.st:'');
+      var href=d.f+'#'+d.s+'|q='+encodeURIComponent(q);
+      html+='<li><a href="'+href+'"><span class="where">'+esc(where)+'</span>'
+           +'<span class="snip">'+snip+'</span></a></li>';
+    });
+    panel.innerHTML=html+'</ol>';
+  };
+  var timer;
+  box.addEventListener('input',function(){
+    clearTimeout(timer);
+    timer=setTimeout(function(){ render(box.value.trim()); },120);
+  });
+  box.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){ box.value=''; render(''); box.blur(); }
+  });
+  addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==box&&!e.metaKey&&!e.ctrlKey){
+      e.preventDefault(); box.focus(); box.select();
+    }
+  });
+})();
+</script>
+</body>
+</html>

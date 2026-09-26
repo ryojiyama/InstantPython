@@ -537,7 +537,9 @@ body{
   font-kerning:normal;
 }
 .sheet{
-  max-width:42rem; margin:0 auto; background:var(--paper);
+  /* 幅はウィンドウに対する割合。--sheet-w は幅メニューと --width で変わる */
+  width:var(--sheet-w, 70vw); max-width:100%; min-width:min(100%, 36rem);
+  margin:0 auto; background:var(--paper);
   border-left:1px solid var(--rule); border-right:1px solid var(--rule);
   min-height:100vh; padding:44px 40px 96px;
   display:flow-root;          /* フロートを内包し、選択範囲の描画を親幅に広げない */
@@ -589,8 +591,8 @@ input.q{
 }
 input.q::placeholder{ color:var(--muted); }
 input.q:focus-visible{ outline:2px solid var(--rubric); outline-offset:1px; }
-label.rate{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
-label.rate select{
+label.rate, label.width{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
+label.rate select, label.width select{
   font-family:var(--serif); font-size:12px; color:var(--ink);
   background:transparent; border:1px solid var(--rule); border-radius:3px;
   padding:3px 4px; margin-left:4px;
@@ -694,14 +696,15 @@ a{ color:var(--rubric); }
 .top:hover{ text-decoration:underline; }
 
 @media (max-width:640px){
-  .sheet{ padding:30px 20px 80px; border:0; }
+  .sheet{ width:100%; min-width:0; padding:30px 20px 80px; border:0; }
+  label.width{ display:none; }
   h1{ font-size:22px; }
   p{ text-align:left; }
   p.first::first-letter{ font-size:38px; }
 }
 @media print{
   body{ background:#fff; }
-  .sheet{ border:0; max-width:none; }
+  .sheet{ border:0; max-width:none; width:auto; min-width:0; }
   .bar, .top, .progress, .results, input.q{ display:none; }
   section.ep{ page-break-inside:auto; }
   pre, blockquote, table{ page-break-inside:avoid; }
@@ -880,17 +883,65 @@ SEARCH_JS = """
 """
 
 
+# ---------------------------------------------------------------- 本文の幅
+
+# 幅メニューの選択肢 (ウィンドウ幅に対する %)。--width で既定値を変えられる。
+WIDTH_CHOICES = (50, 60, 70, 80, 90, 100)
+DEFAULT_WIDTH = 70
+
+
+def width_control():
+    opts = "".join(
+        '<option value="%d"%s>%d%%</option>'
+        % (w, " selected" if w == DEFAULT_WIDTH else "", w)
+        for w in sorted(set(WIDTH_CHOICES) | {DEFAULT_WIDTH}))
+    return ('<label class="width">幅'
+            '<select id="width" aria-label="本文の幅（ウィンドウに対する割合）">'
+            '%s</select></label>' % opts)
+
+
+# 描画前に保存済みの幅を当てる (ちらつき防止のため <head> に置く)
+WIDTH_HEAD_JS = """
+(function(){
+  var w=%d;
+  try{ var s=localStorage.getItem('sheet-width'); if(s&&+s>=30&&+s<=100) w=+s; }catch(e){}
+  document.documentElement.style.setProperty('--sheet-w', w+'vw');
+})();
+"""
+
+WIDTH_JS = """
+(function(){
+  var sel=document.getElementById('width');
+  if(!sel) return;
+  var cur=parseFloat(getComputedStyle(document.documentElement)
+                     .getPropertyValue('--sheet-w'))||0;
+  if(cur){
+    if(!sel.querySelector('option[value="'+cur+'"]')){
+      var o=document.createElement('option'); o.value=cur; o.textContent=cur+'%';
+      sel.appendChild(o);
+    }
+    sel.value=String(cur);
+  }
+  sel.addEventListener('change',function(){
+    document.documentElement.style.setProperty('--sheet-w', sel.value+'vw');
+    try{ localStorage.setItem('sheet-width', sel.value); }catch(e){}
+  });
+})();
+"""
+
+
 def page(title, body, css=CSS, script="", desc="", scripts=()):
     meta = ('<meta name="description" content="%s">\n' % html.escape(desc)) if desc else ""
     tags = "".join('<script src="%s"></script>\n' % s for s in scripts)
+    script = WIDTH_JS + script
     return (
         "<!DOCTYPE html>\n"
         '<html lang="ja">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         "%s"
-        "<title>%s</title>\n<style>%s</style>\n</head>\n<body>\n"
+        "<title>%s</title>\n<style>%s</style>\n<script>%s</script>\n</head>\n<body>\n"
         '<div class="sheet">\n%s\n</div>\n%s%s\n</body>\n</html>\n'
-        % (meta, html.escape(title), css, body, tags,
+        % (meta, html.escape(title), css, WIDTH_HEAD_JS % DEFAULT_WIDTH, body, tags,
            ("<script>%s</script>" % script) if script else "")
     )
 
@@ -901,7 +952,7 @@ def build_index(toc, built, index_js=""):
     b = toc["book"]
     parts = ['<div class="bar"><span class="rubric">目次</span><span class="sp"></span>'
              '<input id="q" class="q" type="search" placeholder="全章を検索（/）" '
-             'aria-label="全章を検索"></div>',
+             'aria-label="全章を検索">' + width_control() + '</div>',
              '<div id="results" class="results" hidden></div>',
              "<h1>%s</h1>" % html.escape(b.get("title", "")),
              "<h2>%s</h2>" % html.escape(b.get("subtitle", ""))]
@@ -944,6 +995,7 @@ def build_chapter(ch, sections, meta=None):
         '<input id="q" class="q" type="search" placeholder="全章を検索（/）" '
         'aria-label="全章を検索">'
         '<span class="sp"></span>'
+        + width_control() +
         '<label class="rate">読み上げ'
         '<select id="rate" aria-label="読み上げの速さ">'
         '<option value="0.8">0.8x</option>'
@@ -1021,7 +1073,13 @@ def main():
     ap.add_argument("--out", default="converted_pdf")
     ap.add_argument("--dump-blocks", action="store_true",
                     help="merge_lines が返したブロックを標準エラーに出す")
+    ap.add_argument("--width", type=int, default=DEFAULT_WIDTH,
+                    help="本文の幅の既定値。ウィンドウ幅に対する %% (30〜100、既定 %d)"
+                    % DEFAULT_WIDTH)
     args = ap.parse_args()
+    if not 30 <= args.width <= 100:
+        sys.exit("--width は 30〜100 で指定してください: %d" % args.width)
+    globals()["DEFAULT_WIDTH"] = args.width
 
     toc_path, src_dir, out_dir = Path(args.toc), Path(args.src), Path(args.out)
     if not toc_path.exists():

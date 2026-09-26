@@ -29,7 +29,9 @@ body{
   font-kerning:normal;
 }
 .sheet{
-  max-width:42rem; margin:0 auto; background:var(--paper);
+  /* 幅はウィンドウに対する割合。--sheet-w は幅メニューと --width で変わる */
+  width:var(--sheet-w, 70vw); max-width:100%; min-width:min(100%, 36rem);
+  margin:0 auto; background:var(--paper);
   border-left:1px solid var(--rule); border-right:1px solid var(--rule);
   min-height:100vh; padding:44px 40px 96px;
   display:flow-root;          /* フロートを内包し、選択範囲の描画を親幅に広げない */
@@ -81,8 +83,8 @@ input.q{
 }
 input.q::placeholder{ color:var(--muted); }
 input.q:focus-visible{ outline:2px solid var(--rubric); outline-offset:1px; }
-label.rate{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
-label.rate select{
+label.rate, label.width{ font-size:12px; color:var(--muted); letter-spacing:.08em; }
+label.rate select, label.width select{
   font-family:var(--serif); font-size:12px; color:var(--ink);
   background:transparent; border:1px solid var(--rule); border-radius:3px;
   padding:3px 4px; margin-left:4px;
@@ -186,24 +188,32 @@ a{ color:var(--rubric); }
 .top:hover{ text-decoration:underline; }
 
 @media (max-width:640px){
-  .sheet{ padding:30px 20px 80px; border:0; }
+  .sheet{ width:100%; min-width:0; padding:30px 20px 80px; border:0; }
+  label.width{ display:none; }
   h1{ font-size:22px; }
   p{ text-align:left; }
   p.first::first-letter{ font-size:38px; }
 }
 @media print{
   body{ background:#fff; }
-  .sheet{ border:0; max-width:none; }
+  .sheet{ border:0; max-width:none; width:auto; min-width:0; }
   .bar, .top, .progress, .results, input.q{ display:none; }
   section.ep{ page-break-inside:auto; }
   pre, blockquote, table{ page-break-inside:avoid; }
 }
 </style>
+<script>
+(function(){
+  var w=70;
+  try{ var s=localStorage.getItem('sheet-width'); if(s&&+s>=30&&+s<=100) w=+s; }catch(e){}
+  document.documentElement.style.setProperty('--sheet-w', w+'vw');
+})();
+</script>
 </head>
 <body>
 <div class="sheet">
 <div class="progress" role="presentation"></div>
-<div class="bar"><a href="index.html">← 章の目次</a><input id="q" class="q" type="search" placeholder="全章を検索（/）" aria-label="全章を検索"><span class="sp"></span><label class="rate">読み上げ<select id="rate" aria-label="読み上げの速さ"><option value="0.8">0.8x</option><option value="1" selected>1.0x</option><option value="1.2">1.2x</option></select></label><button id="tint" aria-pressed="true">英文の色分け：ON</button><button id="only" aria-pressed="false">英文だけ：OFF</button></div>
+<div class="bar"><a href="index.html">← 章の目次</a><input id="q" class="q" type="search" placeholder="全章を検索（/）" aria-label="全章を検索"><span class="sp"></span><label class="width">幅<select id="width" aria-label="本文の幅（ウィンドウに対する割合）"><option value="50">50%</option><option value="60">60%</option><option value="70" selected>70%</option><option value="80">80%</option><option value="90">90%</option><option value="100">100%</option></select></label><label class="rate">読み上げ<select id="rate" aria-label="読み上げの速さ"><option value="0.8">0.8x</option><option value="1" selected>1.0x</option><option value="1.2">1.2x</option></select></label><button id="tint" aria-pressed="true">英文の色分け：ON</button><button id="only" aria-pressed="false">英文だけ：OFF</button></div>
 <div id="results" class="results" hidden></div>
 <article>
 <header>
@@ -222,6 +232,17 @@ a{ color:var(--rubric); }
 <li><a href="#sec07"><span class="num">07</span><span class="lbl">４話：後半 魅惑の黒</span></a></li>
 <li><a href="#sec08"><span class="num">08</span><span class="lbl">５話：前半 留学生</span></a></li>
 <li><a href="#sec09"><span class="num">09</span><span class="lbl">５話：後半 対魔会議</span></a></li>
+<li><a href="#sec10"><span class="num">10</span><span class="lbl">５話：後半　対魔会議「大丈夫だったか。</span></a></li>
+<li><a href="#sec11"><span class="num">11</span><span class="lbl">６話：前半　史上最高の発明品</span></a></li>
+<li><a href="#sec12"><span class="num">12</span><span class="lbl">６話：後半　ボン・キュ・ボン</span></a></li>
+<li><a href="#sec13"><span class="num">13</span><span class="lbl">７話：前半　通の判断</span></a></li>
+<li><a href="#sec14"><span class="num">14</span><span class="lbl">７話：後半　天使失格</span></a></li>
+<li><a href="#sec15"><span class="num">15</span><span class="lbl">８話：前半　思考の複利効果</span></a></li>
+<li><a href="#sec16"><span class="num">16</span><span class="lbl">８話：後半　ソフトパワー</span></a></li>
+<li><a href="#sec17"><span class="num">17</span><span class="lbl">９話　黒くて、ツヤツヤしてて、粘っこい</span></a></li>
+<li><a href="#sec18"><span class="num">18</span><span class="lbl">１０話：前半　アフタヌーンティーパーティー</span></a></li>
+<li><a href="#sec19"><span class="num">19</span><span class="lbl">１０話：後半　贅沢の形</span></a></li>
+<li><a href="#sec20"><span class="num">20</span><span class="lbl">１１話　新しい同級生と予言の地</span></a></li>
 </ol></nav>
 <section class="ep" id="sec01">
 <div class="star">＊</div>
@@ -719,10 +740,785 @@ a{ color:var(--rubric); }
 <p><span class="en" lang="en">It&#x27;s a habit I can&#x27;t shake even after being reincarnated.</span> <span class="ja">前世ではこういう時に頼りっきりだったアイテムがこちらにはない。</span><span class="en" lang="en">At least, not in a form that can be on standby instantly.</span></p>
 <a class="top" href="#">▲ 話の目次へ</a>
 </section>
+<section class="ep" id="sec10">
+<div class="star">＊</div>
+<div class="rubric">10</div>
+<h2>５話：後半　対魔会議「大丈夫だったか。</h2>
+<hr class="rule">
+<p class="first ja"><span class="ja">館長！</span></p>
+<p><span class="ja">」</span> <span class="en" lang="en">I opened the door to the director&#x27;s office and hurried inside.</span></p>
+<p class="ja"><span class="ja">無言のアルフィーナが後に続く。</span></p>
+<p class="ja"><span class="ja">「おお、来たかリカルド」</span><span class="ja">フルシーはのんきな顔で答えた。</span></p>
+<p><span class="en" lang="en">I looked around the room.</span> <span class="ja">ミーアとノエルは？</span></p>
+<p class="ja"><span class="ja">「先輩」</span></p>
+<p><span class="ja">「あっ、やっと来た。</span><span class="ja">ととっ……アルフィーナ様お久しぶりです」</span> <span class="en" lang="en">The door on the library side opened, and Mia and Noel poked their heads out.</span></p>
+<p class="ja"><span class="ja">ふう、無事か。</span></p>
+<p class="ja"><span class="ja">「帝国の皇女と名乗られてはな。</span><span class="ja">二人は隠れてもらったわい。</span><span class="ja">儂でもそれくらいは考える。</span><span class="ja">お前じゃあるまいし」</span><span class="ja">フルシーは言った。</span></p>
+<p class="ja"><span class="ja">「そうですね。</span><span class="ja">心配なのは先輩の方です」</span><span class="ja">ミーアまで同調した。</span></p>
+<p class="ja"><span class="ja">ノエルが自分の口を押さえた。</span></p>
+<p><span class="en" lang="en">If Alfina wasn&#x27;t here, I&#x27;m sure she would have laughed out loud.</span></p>
+<p class="ja"><span class="ja">そのアルフィーナは沈黙を守っている。</span></p>
+<p><span class="ja">「……皇女はどんな話を」</span> <span class="en" lang="en">I changed the subject back to the main point.</span></p>
+<p class="ja"><span class="ja">「当たり障りのない話だったな。</span><span class="ja">ドラゴンのことも聞かれなかったぞ」</span></p>
+<p class="ja"><span class="ja">「馬車とかアンテナのことは？</span><span class="ja">」</span><span class="ja">フルシーは首を振った。</span></p>
+<p class="ja"><span class="ja">「じゃあ、どんな話になったんだ」</span></p>
+<p><span class="ja">「魔獣氾濫のことは話題になったな。</span><span class="ja">ああ、言うまでもないが年輪のことは口にしておらんぞ。</span><span class="ja">逆に帝国の魔獣対処についていくつか聞くことが出来たわい」</span> <span class="en" lang="en">Prioritizing your own interests to a guest—who is practically a state guest—is just like him.</span></p>
+<p class="ja"><span class="ja">それは興味深い。</span></p>
+<p><span class="en" lang="en">Of course, it doesn&#x27;t mean they told the truth.</span></p>
+<p class="ja"><span class="ja">だが、帝国のことはただでさえ情報不足だ。</span></p>
+<p><span class="en" lang="en">We might find out something by examining how they tell lies.</span></p>
+<p><span class="ja">「向こうでもやはり魔脈の活性は注意しておるようじゃ。</span><span class="ja">王国に二カ所しか測定所がないことに驚かれた。</span><span class="ja">」</span> <span class="en" lang="en">I&#x27;d like to think we have an advantage, at least when it comes to measurement sensitivity.</span></p>
+<p class="ja"><span class="ja">「国中に魔獣が発生する場所があるような物だから当然か……」</span></p>
+<p class="ja"><span class="ja">「年に何度も王国で言う小規模の魔獣氾濫が起こっているようなものじゃな。</span><span class="ja">盆地毎に中心となる貴族が討伐の責任を負っているようじゃ」</span></p>
+<p><span class="ja">「なるほど、中央でいちいち指示を出してたら間に合いそうにないな」</span> <span class="en" lang="en">We are frantic because it might happen simultaneously in the east and west.</span></p>
+<p class="ja"><span class="ja">となると盆地の集まりという地理条件からも、中央集権と言うよりも分権傾向か？</span></p>
+<p><span class="en" lang="en">Anyway, there&#x27;s no doubt that their environment is much harsher than the kingdom&#x27;s.</span></p>
+<p class="ja"><span class="ja">山地が多いことは農業生産にも不利だ。</span></p>
+<p><span class="en" lang="en">Even if they have abundant mineral resources, they are located around the monster territories, so gathering them costs a lot.</span></p>
+<p class="ja"><span class="ja">帝国の言うように、魔獣が活性化しているならなおさらだ。</span></p>
+<p><span class="en" lang="en">That&#x27;s exactly why the wars between the empire and the kingdom until fifty years ago were all started by the empire seeking the kingdom&#x27;s land.</span></p>
+<p class="ja"><span class="ja">王国にとって、帝国の領土は得たとしても経営出来ないのだ。</span></p>
+<p><span class="en" lang="en">Could we say it&#x27;s similar to the relationship between ancient China and the northern nomads?</span></p>
+<p><span class="en" lang="en">But the problem is how that difference in environment affects the evolution of their respective national systems.</span></p>
+<p class="ja"><span class="ja">「ノエルの方はどうだ。</span><span class="ja">魔術寮に何か変化があったとか？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「書庫でミーアにも聞かれたけど、特に変化はないわね。</span><span class="ja">といっても……」</span><span class="ja">ノエルは難しい顔になった。</span></p>
+<p class="ja"><span class="ja">「どうした？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「引っ越しで忙しくてそれどころじゃなかったから、あんまり期待しないで」</span></p>
+<p><span class="ja">「なんだ、そういうことか。</span><span class="ja">新しい部屋の居心地はどうなんだ」</span> <span class="en" lang="en">The one I saw before was a small workshop.</span></p>
+<p class="ja"><span class="ja">多少は使いやすくなったのだろうか。</span></p>
+<p class="ja"><span class="ja">「分厚い絨毯の上に座ってる感じかしら」</span></p>
+<p class="ja"><span class="ja">「それは快適そうだな」</span><span class="ja">待遇が上がったのなら結構なことだ。</span></p>
+<p class="ja"><span class="ja">「その絨毯が金属性じゃなきゃそうね」</span></p>
+<p class="ja"><span class="ja">「うん？</span><span class="ja">　錬金術士特有の例えか」</span></p>
+<p class="ja"><span class="ja">「一般的な意味よ！</span><span class="ja">　見習いがいきなり宮廷魔術師になったのよ。</span><span class="ja">上司はどうやって大賢者様に取り入ったんだってしつこいし。</span><span class="ja">先輩達はやたらと愛想が良くなった人と、敵視する人がいて。</span><span class="ja">ほとんど相手にされてなかった頃にもどして……」</span><span class="ja">ノエルは胃のあたりを押さえていった。</span></p>
+<p><span class="en" lang="en">Ah, she meant it like being on a bed of nails.</span></p>
+<p><span class="ja">「あれは困るよな。</span><span class="ja">対応は統一して欲しいよ」</span> <span class="en" lang="en">I said with deep sympathy.</span></p>
+<p class="ja"><span class="ja">俺に対する学院生の反応もそんな感じに分かれるんだよな。</span></p>
+<p class="ja"><span class="ja">「あんたは自業自得でしょ」</span></p>
+<p class="ja"><span class="ja">「ノエルさん。</span><span class="ja">私に出来ることがあったら言ってくださいね」</span></p>
+<p class="ja"><span class="ja">「は、はい」</span><span class="ja">アルフィーナの心配に、ノエルは曖昧な顔で頷いた。</span></p>
+<p><span class="en" lang="en">In cases like this, it&#x27;s hard to use the royalty card because both action and reaction are intense.</span></p>
+<p><span class="ja">「魔獣騎士団に協力するという名分があるから、ある程度は大丈夫じゃろう。</span><span class="ja">儂や大公に王子が後ろ盾という話になっておる。</span><span class="ja">ま、後ろ盾など匂わす程度が丁度良いのじゃ」</span> <span class="en" lang="en">Rather, it&#x27;s the kind of backing where we don&#x27;t need to do more than hint at it.</span></p>
+<p class="ja"><span class="ja">第二王子派閥には逆効果になる可能性が高いけど。</span></p>
+<p class="ja"><span class="ja">「ノエルのことはともかく。</span><span class="ja">皇女が来た目的はわからずってことか」</span></p>
+<p class="ja"><span class="ja">「そうですね。</span><span class="ja">ただ、いきなり間諜の様な行動はしないでしょうから」</span><span class="ja">ミーアが言った。</span></p>
+<p class="ja"><span class="ja">書庫のドアから中の会話は聞こえたらしい。</span></p>
+<p><span class="en" lang="en">I felt a little relieved.</span></p>
+<p class="ja"><span class="ja">ミーアの判断が一番信用出来る。</span></p>
+<p class="ja"><span class="ja">「あっ、一つだけ。</span><span class="ja">あの皇女、魔術の資質はそこまで高くないと思うわ」</span><span class="ja">ノエルが言った。</span></p>
+<p class="ja"><span class="ja">フルシーも頷いた。</span></p>
+<p><span class="en" lang="en">I&#x27;m a little surprised.</span> <span class="en" lang="en">Given the carriage and the prince, I thought they were experts in that kind of thing.</span></p>
+<p><span class="ja">「結局向こうの動き待ちか……」</span> <span class="en" lang="en">It&#x27;s uncomfortable being on the defensive with them already inside, but it can&#x27;t be helped.</span></p>
+<p class="ja"><span class="ja">大公あたりに期待だ。</span></p>
+<p><span class="en" lang="en">Even if we tried to investigate, our side is full of people who lack interpersonal negotiation skills.</span></p>
+<p><span class="en" lang="en">Well, I&#x27;m the prime example of that.</span></p>
+<p class="ja"><span class="ja">「そろそろ今日の話を始めるぞ。</span><span class="ja">まずは西方の魔脈に関してじゃな」</span><span class="ja">フルシーが言った。</span></p>
+<p><span class="en" lang="en">We moved in front of the stone tablet.</span></p>
+<p><span class="en" lang="en">Dealing with nature is much easier.</span></p>
+<p class="ja"><span class="ja">それに、やることが多い時こそ優先順位を決めないと破綻する。</span></p>
+<p class="ja"><span class="ja">「西方魔脈測定所を悩ましていたノイズじゃが。</span><span class="ja">この前の測定馬車で原因が西方一帯が発しているごく薄い魔脈、瘴気であることが分ったじゃろ。</span><span class="ja">おかげで補正が出来るようになった」</span><span class="ja">フルシーが言った。</span></p>
+<p class="ja"><span class="ja">ベルトルドまで馬車に揺られた成果だ。</span></p>
+<p><span class="en" lang="en">It wasn&#x27;t the scenario of that knight order exercise disguised as a carriage race, but since there&#x27;s a possibility of monster outbreaks occurring simultaneously in the east and west, we need to be fully prepared for observation.</span></p>
+<p class="ja"><span class="ja">「あの、このまま西部の瘴気が強くなって、ということには……」</span><span class="ja">アルフィーナが聞いた。</span></p>
+<p><span class="en" lang="en">I see.</span> <span class="en" lang="en">If it relates to the prophecy, that&#x27;s a strong candidate.</span></p>
+<p><span class="en" lang="en">I can&#x27;t even imagine how we&#x27;d cope if the western part of the kingdom were swallowed by the magic vein.</span></p>
+<p class="ja"><span class="ja">帝国と違って、王国には現在強化進行中の限られた対処能力しかないのだから。</span></p>
+<p class="ja"><span class="ja">「今のところ心配ないみたいです。</span><span class="ja">ミーアと私が計算したら、瘴気の量はむしろ減り気味という結論ですから」</span><span class="ja">ノエルの説明に、フルシーとミーアも頷いた。</span></p>
+<p><span class="en" lang="en">Alfina pressed her chest in relief.</span></p>
+<p><span class="ja">「今後は季節変動などを注視すると言ったとこじゃな。</span><span class="ja">王子の指示で測定所と騎士団との連携も進めているようじゃから、当面は問題あるまい」</span> <span class="en" lang="en">I nodded in agreement with Fulsi&#x27;s conclusion.</span></p>
+<p class="ja"><span class="ja">一応対処済みという形だな。</span></p>
+<p><span class="en" lang="en">It is honestly a relief to see our hard work pay off.</span></p>
+<p class="ja"><span class="ja">問題が解決する毎に次のもっと大きな問題がというのはきついんだよ。</span></p>
+<p><span class="ja">「次は帝国の馬車じゃ」</span> <span class="en" lang="en">After all, that guild master&#x27;s carriage retired.</span></p>
+<p class="ja"><span class="ja">ケンウェルに次いで二位だったりしたら、表彰台にさらし上げて観察することも出来たかもしれなかったけど。</span></p>
+<p><span class="en" lang="en">We can&#x27;t confiscate it without any evidence of cheating.</span></p>
+<p><span class="en" lang="en">We could press the guild master on how he obtained the magic crystals, but then the question would be how we knew about them in the first place.</span></p>
+<p class="ja"><span class="ja">移動中も測定可能なアンテナの存在は秘密にしたい。</span></p>
+<p><span class="en" lang="en">Furthermore, I wanted to avoid the risk of spoiling the race in order to popularize bearings.</span></p>
+<p><span class="en" lang="en">We have no choice but to be satisfied with what little we could observe before their retirement.</span></p>
+<p class="ja"><span class="ja">その後の調査で、クルトハイト大公邸に帝国商人の馬車が何度も出入りしていることが分った程度だ。</span></p>
+<p><span class="en" lang="en">The upper box was a kingdom carriage, so they probably only replaced the undercarriage with an imperial one.</span></p>
+<p><span class="ja">「王子から提供された騎士団の資料を見たぞ。</span><span class="ja">まだ帝国と戦っていた時の物じゃから、古い上に記述も少ない。</span><span class="ja">輜重のことなど残りにくいしな。</span><span class="ja">ただ、流石に馬車に魔獣の素材が使われていたなら記録が残るじゃろう」</span> <span class="en" lang="en">The fact that there wasn&#x27;t means that, at least until fifty years ago, their carriage standards were no different from the kingdom&#x27;s.</span></p>
+<p class="ja"><span class="ja">あるいはあったとしてもごく限られた台数か。</span></p>
+<p class="ja"><span class="ja">「帝国で魔獣の害が頻発しておるなら、素材が手に入りやすくなったということはあり得るな……」</span><span class="ja">こちらだってイレギュラーなベアリングの金型作りには、討伐の戦利品である魔結晶を使ったのだ。</span></p>
+<p><span class="en" lang="en">From that black prince&#x27;s confident attitude, there is no doubt they have the opportunities, necessity, and know-how to deal with dragons.</span></p>
+<p class="ja"><span class="ja">鱗が手に入るなら竜鱗鋼というのは作れるわけだ。</span></p>
+<p><span class="ja">「この前の貪竜の鱗から、どれくらいの竜鱗鋼が作れるんだ？</span><span class="ja">」</span> <span class="en" lang="en">If light and strong metal is being mass-produced, that in itself is a huge threat.</span></p>
+<p class="ja"><span class="ja">「記録上の金属だから、私じゃ作り方が分らないわ。</span><span class="ja">鱗をそのまま使うんじゃなくて、鱗から抽出した物を使うらしいの。</span><span class="ja">竜の首からスプーン一杯を取り出している絵があったから、そこまで簡単じゃないんじゃないかしら」</span><span class="ja">半分生物なんだ。</span></p>
+<p><span class="en" lang="en">If you just mix it into iron as it is, the strength would normally decrease, wouldn&#x27;t it?</span></p>
+<p class="ja"><span class="ja">だが仮にレアメタルじみた物だった場合、数パーセント添加しただけで作れるという可能性もある。</span></p>
+<p><span class="en" lang="en">A spoonful isn&#x27;t much, but that picture might be exaggerated.</span></p>
+<p class="ja"><span class="ja">「職人達の意見を聞く限り、あの馬車が最大の力を発揮するのは、帝国内で使う場合じゃろう」</span></p>
+<p><span class="ja">「道を走るだけなら、そこまで差が出るわけじゃないからな」</span> <span class="en" lang="en">You might even say our carriage is superior since it doesn&#x27;t require rare materials.</span></p>
+<p class="ja"><span class="ja">あくまで商業用に大量に用いるならだが。</span></p>
+<p class="ja"><span class="ja">「最初に、魔力を遮断するようなまねをしていた理由も分らないわね。</span><span class="ja">帰り道……本戦ではレーダーに影はなかったんだし」</span></p>
+<p><span class="ja">「そうだったな」</span> <span class="en" lang="en">Did they think they could win purely on the performance of the monster materials?</span></p>
+<p><span class="en" lang="en">No, it&#x27;s one thing not to use magic, but I don&#x27;t understand the reason for blocking it.</span></p>
+<p class="ja"><span class="ja">「帝国の木材はまだ届かんのか」</span><span class="ja">フルシーがじれったそうに言った。</span></p>
+<p><span class="ja">「ケンウェルが言うにはあと少しらしいです。</span><span class="ja">届いたらすぐに測定をお願いします」</span> <span class="en" lang="en">If the kingdom had online shopping, I&#x27;d be clicking the delivery status repeatedly.</span> <span class="en" lang="en">That&#x27;s how curious I am about it.</span></p>
+<p><span class="en" lang="en">We probably can&#x27;t say much about the imperial magic vein fluctuations with just one piece, and since the type of wood might be different, we&#x27;ll need to adjust the protocol for the experiment.</span></p>
+<p class="ja"><span class="ja">そもそも、測定出来るかどうかの確認が第一だ。</span></p>
+<p><span class="en" lang="en">There&#x27;s even a possibility that the magic vein was too strong and saturated it.</span></p>
+<p class="ja"><span class="ja">そういったことが解決したら、ベルトルド工房の拡張当たりに理由を付けて大量に入手する交渉をする。</span></p>
+<p class="ja"><span class="ja">どうせ木材は必要だし、測定にはわずかな部分だけで済むのだから。</span></p>
+<p><span class="ja">「到着待ちですけど、現時点ではこれが最優先ですね。</span><span class="ja">もちろん、予言が現れるようなことにならない限りですが」</span> <span class="en" lang="en">Everyone nodded at my words, and the meeting concluded.</span></p>
+<p class="ja"><span class="ja">情報の整理と対処の方針は出来た。</span></p>
+<p class="ja"><span class="ja">だが、皇女という問題が増えている。</span></p>
+<p><span class="en" lang="en">My finger instinctively reached for my chest pocket.</span></p>
+<p class="ja"><span class="ja">指がむなしく空を切った。</span></p>
+<p class="ja"><span class="ja">生まれ変わっても抜けない癖だ。</span></p>
+<p><span class="en" lang="en">The item I relied on so heavily in my previous life in these kinds of situations doesn&#x27;t exist here.</span></p>
+<p class="ja"><span class="ja">少なくとも、瞬時にスタンバイ出来る形では。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec11">
+<div class="star">＊</div>
+<div class="rubric">11</div>
+<h2>６話：前半　史上最高の発明品</h2>
+<hr class="rule">
+<p><span class="ja">「あっ、そういえば頼まれていたの出来たわよ」</span> <span class="ja">When Alfina and I were about to leave, ノエルが錬金術士のローブの前を開いた。</span> <span class="en" lang="en">The hidden lines of her body were exposed.</span> <span class="en" lang="en">By the way, she was wearing the academy uniform under the robe, so there was no problem.</span> <span class="en" lang="en">Including the fact that my eyes were drawn to it for a moment.</span></p>
+<p><span class="ja">「はいこれ。</span><span class="ja">苦労したのよ」</span> <span class="en" lang="en">Unaware of the slightly resentful gazes from the other two girls, ノエルは俺に箱を押しつけた。</span> <span class="ja">When I opened the rectangular box, 貴金属のきらめきが目に入った。</span> <span class="en" lang="en">A tiny shine of magic gold, about the size of a nail head.</span> <span class="en" lang="en">And the wooden stick surrounding it.</span></p>
+<p class="ja"><span class="ja">「流石ノエル博士。</span><span class="ja">いや、Ｄｒ．ノエル」</span></p>
+<p class="ja"><span class="ja">「ハカセ？</span><span class="ja">　ドクター？</span><span class="ja">？</span><span class="ja">　いい、こんな個人的な作業をさせるなんて普通出来ないんだから。</span><span class="ja">予備分まで作らせて。</span><span class="ja">いくら魔導金がほんのちょびっとしか要らないって言っても、細かい造形はそれで大変なんだからね。</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「ああ、感謝してるよ。</span><span class="ja">本当に」</span></p>
+<p><span class="en" lang="en">What is the greatest invention of mankind?</span> <span class="ja">形ある物に限定するなら、俺は筆記用具と答える。</span> <span class="en" lang="en">The reason is simple.</span> <span class="ja">ペンと紙があれば他の全ては発明できるのだから。</span></p>
+<p><span class="ja">Even though it was made by alchemy, ノエルに頼んだのはレフィル部分だけ。</span> <span class="en" lang="en">A chip consisting of a 1-millimeter diameter ball and the part that holds it.</span> <span class="ja">そしてインクを入れる筒だ。</span></p>
+<p><span class="en" lang="en">I prepared the other parts.</span> <span class="ja">ボディーと口金は一体で木製。</span> <span class="en" lang="en">Thanks to that, it looks more like a pencil.</span> <span class="ja">グリップに皮を巻いてあるのがこだわりだ。</span> <span class="en" lang="en">Of course, it has a cap.</span></p>
+<p><span class="en" lang="en">In short, I made the parts that couldn&#x27;t be processed with the technology here out of magic gold.</span> <span class="ja">だから量産はあきらめた。</span> <span class="en" lang="en">The chip part is too detailed, so I can&#x27;t just make a mold.</span></p>
+<p><span class="en" lang="en">As a result, the price was one gold coin each.</span> <span class="ja">一本１０万円の超高級ボールペンだ。</span> <span class="ja">When I applied to Mia for it as an expense, 新しいゴルフクラブを買うことを妻に説得する夫のような気分を味わった。</span></p>
+<p><span class="ja">By the way, in my previous life, お医者さんみたいな名前のボールペンを愛用していた。</span> <span class="ja">The front-heavy balance was comfortable to use, 適度な低粘度を謳うインクは書き心地抜群だった。</span> <span class="en" lang="en">By the way, I have heard that ballpoint pens are a hidden specialty of Japan and are highly popular worldwide.</span></p>
+<p><span class="en" lang="en">I preferred a diameter of 0.5 millimeters, but I had to compromise on that.</span> <span class="ja">こっちでは高級紙でも目が荒くてボールがうまく回転しないだろう。</span> <span class="en" lang="en">There would be no end if I started complaining about the ink&#x27;s viscosity or color.</span></p>
+<p><span class="ja">「早速試させてもらうよ」</span> <span class="en" lang="en">I took out a piece of paper for memos from my pocket and lightly pressed the tip against it.</span> <span class="ja">黒い線がすっと引ける。</span> <span class="en" lang="en">I was deeply moved.</span></p>
+<p><span class="en" lang="en">It was a completely different writing experience from a quill pen.</span> <span class="ja">何しろアレと来たらやたらと引っかかるのだ。</span> <span class="en" lang="en">Above all, it&#x27;s great that I can keep writing without worrying about running out of ink.</span></p>
+<p><span class="en" lang="en">Refilling the ink is a hassle, but with this amount, it should last about a month.</span> <span class="ja">俺の前世でのボールペン一本の寿命がそれくらいだった。</span></p>
+<p><span class="ja">「これはペンなのでしょうか？</span><span class="ja">　随分と細い字が書けるのですね」</span><span class="ja">アルフィーナが覗き込んできた。</span> <span class="en" lang="en">Sparkling eyes of curiosity were poured onto my messy handwriting.</span></p>
+<p class="ja"><span class="ja">「これはインクを付けずに書き続けることが出来るのです。</span><span class="ja">筒の中にインクが入っているのですよ」</span></p>
+<p class="ja"><span class="ja">「なんじゃ、ベアリングを考えたお主じゃから期待したが、ペンはペンか」</span></p>
+<p><span class="ja">「……金貨一枚」</span><span class="ja">フルシーががっかりしたように言った。</span><span class="ja">ミーア視線も厳しい。</span> <span class="en" lang="en">They probably couldn&#x27;t accept that I spent a lot of money and even used alchemy to make a pen that is only slightly better.</span></p>
+<p><span class="en" lang="en">Mia, with her well-organized mind, probably wouldn&#x27;t understand how decisive that difference is.</span> <span class="ja">フルシーも天才のたぐいだ。</span> <span class="en" lang="en">He probably has a large, free-to-use notebook in his head that he can erase at will.</span> <span class="ja">それに多分、思考に枠をはめることを嫌うタイプだ。</span></p>
+<p><span class="ja">「考えたことを紙に書く人間には、俺の気持ちは分らないんだよ。</span><span class="ja">俺は書いて考えるんだ」</span> <span class="en" lang="en">For me, it&#x27;s something more important than bearings.</span> <span class="ja">いや、ある意味ベアリングだ。</span> <span class="en" lang="en">The thing to rotate is not a wheel, but my brain.</span></p>
+<p><span class="ja">「私は興味があります。</span><span class="ja">リカルドくんの考えにはいつも感心させられますから」</span> <span class="ja">In contrast to the other two, アルフィーナは期待を込めた目で俺を見る。</span> <span class="en" lang="en">She is definitely intelligent, but she is neither a genius nor a prodigy.</span> <span class="ja">彼女なら……。</span></p>
+<p><span class="ja">「じゃあ、少し時間もあるし…………」</span> <span class="en" lang="en">I stopped talking right there.</span> <span class="en" lang="en">A black stain grew from the pen tip resting on the paper.</span> <span class="ja">慌ててペン先を持ち上げた。</span></p>
+<p><span class="ja">「リカルドくん？</span><span class="ja">　あっ、もしかしたら聞いてはいけないことでしたか？</span><span class="ja">」</span><span class="ja">アルフィーナが済まなそうな顔になった。</span> <span class="en" lang="en">I realized the reason for my hesitation.</span> <span class="ja">年輪、フレンチトースト、ベアリング、そして餡子。</span> <span class="en" lang="en">Modern knowledge and concepts that are the result of others&#x27; thoughts in the original world.</span></p>
+<p><span class="ja">Standing on the shoulders of Earth&#x27;s giants, 俺はこれまで必要とされれば気軽にそれを開示してきた。</span> <span class="en" lang="en">If it was just knowledge I happened to know, I&#x27;d give it away easily.</span></p>
+<p><span class="en" lang="en">But this method is a skill I acquired myself by continuously writing over a thousand notebooks in my previous life.</span> <span class="ja">だから惜しいと思ったのだろう。</span> <span class="en" lang="en">How selfish of me.</span> <span class="ja">厳密には自分で考えた方法じゃないのに。</span></p>
+<p><span class="ja">「いえ、秘密にするようなことじゃないですから」</span> <span class="en" lang="en">I shook my head.</span> <span class="ja">新しい紙を取り出した。</span> <span class="en" lang="en">It&#x27;s not something as grand as &quot;Ricardo&#x27;s Style of Thinking.&quot;</span> <span class="ja">基本中の基本、いわゆる空雨傘だ。</span></p>
+<p><span class="ja">「”問題”を思考するには”決まった過程”があるんです」</span> <span class="en" lang="en">In Earth&#x27;s consultant terminology, it&#x27;s called logical thinking.</span> <span class="en" lang="en">What I am going to explain is its simplest and most versatile framework.</span> <span class="ja">俺は実際やって見せることにした。</span></p>
+<p><span class="ja">「私たちはこれから、出かけなければいけませんよね」</span> <span class="en" lang="en">Saying so, I opened the thick curtains of the director&#x27;s office and opened the window.</span> <span class="ja">空を見上げる。</span> <span class="ja">At my sudden action, アルフィーナは首をかしげながら、頷いた。</span> <span class="en" lang="en">Actually, we were leaving the academy for the tasting event after this.</span></p>
+<p class="ja"><span class="ja">「私はまず『空』</span><span class="ja">を見ます。</span><span class="ja">そして、曇っているという『情報』</span><span class="ja">を得る」</span></p>
+<p class="ja"><span class="ja">「次に、曇っているという情報を元に、『雨』</span><span class="ja">が降るかもしれないという『仮説』</span><span class="ja">を考えます」</span></p>
+<p><span class="ja">「最後に『傘』</span><span class="ja">を持っていこうという『行動』</span><span class="ja">を決める。</span><span class="ja">これが思考の過程です」</span> <span class="en" lang="en">You could call it the flow of inputting information, thinking, and finding the answer.</span> <span class="ja">情報処理の基本だ。</span></p>
+<p><span class="en" lang="en">Everyone looked puzzled at my explanation.</span> <span class="en" lang="en">In Alfina&#x27;s case, it&#x27;s doubtful if she even has the concept of preparing an umbrella herself.</span> <span class="ja">ただ、手伝いに来た時に雨の日に庭の倉庫に行ってもらったことがある。</span> <span class="en" lang="en">I clearly remember turning pale when I later realized I had sent her out in the rain.</span></p>
+<p class="ja"><span class="ja">「普通じゃな。</span><span class="ja">誰でもやっておろう」</span></p>
+<p><span class="ja">「入力される数値、計算式、答え。</span><span class="ja">数術の基本ですね」</span><span class="ja">フルシーとミーアが言った。</span> <span class="en" lang="en">It was the expected reaction.</span> <span class="ja">だが、騙されてはいけない。</span> <span class="en" lang="en">Genius Fulsi and Mia, who has outstanding mathematical talent, say it&#x27;s simple.</span> <span class="ja">そして、実際に簡単にできる。</span></p>
+<p><span class="en" lang="en">Of course, if it&#x27;s about checking the weather and preparing an umbrella, even I can finish it in my head in an instant.</span> <span class="ja">だが、このフレームワークの効果は難しい状況でこそ発揮されるのだ。</span></p>
+<p><span class="ja">「じゃあもっと複雑な問題に今の流れを適応しましょう。</span><span class="ja">今回の餡子プロジェクトを題材にします」</span> <span class="en" lang="en">It would also serve to explain the red bean paste project to Alfina.</span> <span class="ja">俺はペンをインクにつけて、紙の一番上に一文を書いた。</span></p>
+<p class="ja"><span class="ja">――――――――――――――――――――――――――（餡子を王国に広めるには）――――――――――――――――――――――――――</span></p>
+<p><span class="en" lang="en">I circled the finished sentence.</span> <span class="ja">これが問題の定義。</span> <span class="en" lang="en">It&#x27;s the start of what to think about.</span></p>
+<p><span class="ja">「じゃあ最初は『空』</span><span class="ja">。</span><span class="ja">情報収集です」</span> <span class="en" lang="en">Saying so, I continuously wrote down the words.</span></p>
+<p class="ja"><span class="ja">――――――――――――――――――――――――――甘さが足りない、舌触りが悪い、食べ慣れない、普通のジャムの方が旨い、蜂蜜の方が旨い、見た目が悪い、パンが固い、パンが酸っぱい…………。</span><span class="ja">――――――――――――――――――――――――――</span></p>
+<p><span class="en" lang="en">I kept writing down the impressions of the Central Garden members who ate Natalie&#x27;s red bean paste bread at the trade fair, along with my own impressions.</span> <span class="ja">沢山の単語が、どんどんと並んでいく。</span> <span class="en" lang="en">Unlike my usual lonely technique of solo brainstorming, this was a real &quot;brainstorming&quot; with the Central Garden members, so there were many items.</span></p>
+<p class="ja"><span class="ja">おかげでより効果的な例になる。</span></p>
+<p><span class="en" lang="en">It is said that the unit of meaning a human can keep in their brain at one time is 5 plus or minus 2.</span> <span class="ja">沢山のことを一度に覚えておくことはとても難しい。</span> <span class="en" lang="en">It&#x27;s like trying to juggle three beanbags with two hands.</span></p>
+<p><span class="en" lang="en">But thanks to the paper and pen, you don&#x27;t panic even with a lot of information.</span> <span class="ja">むしろ、紙に書き出すことで脳内を広く使える。</span> <span class="en" lang="en">You can understand it if you think about a computer.</span> <span class="ja">大量のデータをメモリーに読み込むと、肝心の計算をするメモリーが足りなくなる。</span> <span class="en" lang="en">Though this metaphor can&#x27;t be used in this world.</span></p>
+<p><span class="ja">「次が『雨』</span><span class="ja">ですね。</span><span class="ja">この場合は餡子に対する感想から、問題を解決するための方法を導き出すことです。</span><span class="ja">言い換えれば「こうすれば解決するかも」</span><span class="ja">と言う仮説を立てることと言えますね」</span> <span class="en" lang="en">Saying so, I looked at Alfina.</span> <span class="ja">フルシーは餡子を食べていないし。</span><span class="ja">ミーアには詳細を報告してある。</span></p>
+<p><span class="ja">「アルフィーナ様ならどうしますか？</span><span class="ja">」</span> <span class="en" lang="en">When I prompted her, Alfina fell into thought.</span></p>
+<p><span class="ja">「ええっと、甘さが足りないのは、お砂糖を足して。</span><span class="ja">舌触りが悪いのは……、よくつぶすのはどうでしょうか。</span><span class="ja">ジャムの方が美味しいと言われても……、うう困りました」</span> <span class="en" lang="en">As expected, Alfina started to use a bad method.</span> <span class="ja">せっかく沢山の情報が得られたので、それを全部使おうとしているのだ。</span></p>
+<p><span class="en" lang="en">This is the biggest pitfall when moving forward from the &quot;Sky&quot; or brainstorming phase.</span> <span class="ja">だから、俺は戒めのため、空雨傘に別名を付けている。</span><span class="ja">それは……。</span></p>
+<p><span class="ja">「どうして私を見るの？</span><span class="ja">」</span> <span class="en" lang="en">Noticing my gaze, Noel tilted her head.</span></p>
+<p><span class="en" lang="en">Hahaha, I can&#x27;t possibly say it out loud.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec12">
+<div class="star">＊</div>
+<div class="rubric">12</div>
+<h2>６話：後半　ボン・キュ・ボン</h2>
+<hr class="rule">
+<p><span class="en" lang="en">It is said that we must not deny anything at the stage of generating ideas in brainstorming.</span> <span class="ja">アイデアを数多く出すための工夫だ。</span><span class="ja">それはその通り。</span> <span class="en" lang="en">And by writing them down on paper, we can retain a lot of ideas.</span></p>
+<p><span class="en" lang="en">But we have to narrow down the expanded ideas.</span></p>
+<p><span class="en" lang="en">This is a bit off-topic, but there was a poem by Misuzu Kaneko that said, &quot;Everyone is different, everyone is good.&quot;</span> <span class="ja">よい言葉だが、この場合はそのまま適応できない。</span></p>
+<p><span class="en" lang="en">It&#x27;s a good thing that &quot;everyone is different.&quot;</span> <span class="ja">なぜなら「誰かが良い」</span><span class="ja">からだ。</span></p>
+<p><span class="en" lang="en">This is the principle when making a judgment in a situation where the answer is unknown.</span> <span class="ja">次のポイントは、じゃあその『誰か』</span><span class="ja">を誰がどうやって決めるのかだ。</span> <span class="en" lang="en">Since the answer is unknown, the answer is that nobody can decide.</span></p>
+<p><span class="en" lang="en">Actually, the evolution of living things has been done using this method.</span> <span class="ja">馬鹿みたいにコストが掛かる有性生殖が採用された理由でもある。</span> <span class="en" lang="en">In economic terms, it&#x27;s one of the advantages of a market economy.</span></p>
+<p><span class="ja">生態系は遺伝子の市場。</span> <span class="en" lang="en">As long as it&#x27;s a market, we leave it to the survival competition of ideas.</span> <span class="ja">自分も他人も含めた世界そのものがジャッジを下す。</span> <span class="en" lang="en">Of course, this is just a kind of ideal theory, too.</span></p>
+<p><span class="en" lang="en">Now, in this case, I have no choice but to decide.</span> <span class="ja">そこで、アイデアを絞る上での注意点は本能との戦いだ。</span></p>
+<p><span class="en" lang="en">Humans are afraid of losing things.</span> <span class="ja">一度手の中に入れた物を手放すことは恐怖だ。</span> <span class="en" lang="en">Therefore, they don&#x27;t want to throw away the ideas they have come up with.</span></p>
+<p><span class="en" lang="en">That&#x27;s exactly why we have to do it on purpose.</span> <span class="ja">それをやらなければブレインストーミングは逆に足を引っ張る。</span> <span class="en" lang="en">Many ideas only do harm.</span> <span class="ja">最終的な目的の為の行動を妨げる。</span> <span class="en" lang="en">You could even say that three excellent ideas randomly chosen from the pool are better than ten excellent ideas kept together.</span></p>
+<p><span class="en" lang="en">And the goal is to select the single most suitable idea out of the ten.</span></p>
+<p class="ja"><span class="ja">そのために必要な過程が『雨』</span><span class="ja">方針あるいは仮説の決定。</span></p>
+<p><span class="ja">「次の『雨』</span><span class="ja">の過程では、アイデアを元に方針を練り上げていきます」</span> <span class="en" lang="en">Saying so, I continued to write sentences.</span></p>
+<p class="ja"><span class="ja">――――――――――――――――――――――――――・ジャムや蜂蜜に勝てない餡子に価値があるのか？</span></p>
+<p class="ja"><span class="ja">　　　　　　　　　↓・餡子にはジャムや蜂蜜にはない別の魅力がある</span></p>
+<p class="ja"><span class="ja">　　　　　　　　　↓・餡子の魅力を引き出すことで見た目や味の不慣れさ、ジャムや蜂蜜との比較を解決する！</span><span class="ja">――――――――――――――――――――――――――</span></p>
+<p><span class="ja">「これで『雨』</span><span class="ja">方針が決まりました」</span> <span class="en" lang="en">I emphasized the last sentence.</span></p>
+<p class="ja"><span class="ja">「餡子そのものの質が高まれば良い。</span><span class="ja">当たり前ですが……」</span></p>
+<p><span class="ja">「ええ、とても整理されています」</span> <span class="en" lang="en">The issue of whether honey or jam is better will resolve itself naturally if the taste of the red bean paste improves.</span> <span class="ja">勝つ必要はない、蜂蜜やジャムと競えるだけのレベルに持って行けば、問題は解決する。</span> <span class="en" lang="en">Because red bean paste has a different charm from jam or honey.</span> <span class="ja">むしろ、蜂蜜とジャムに勝とうとしたら破綻する。</span></p>
+<p><span class="en" lang="en">If we can do that with both its appearance and taste, we can consider it a selling point instead.</span></p>
+<p><span class="ja">いわば正面突破だ。</span> <span class="en" lang="en">After all, our goal is to spread the Japanese taste.</span></p>
+<p><span class="ja">「最後の傘です。</span><span class="ja">この『方針』</span><span class="ja">を実現するためにはどうすれば良いのか具体的な方法を考えます」</span> <span class="en" lang="en">Saying that, I wrote down several sentences.</span></p>
+<p class="ja"><span class="ja">――――――――――――――――――――――――――</span></p>
+<p class="ja"><span class="ja">　□　餡子にもっと沢山の砂糖を入れて、豆の風味と甘さを両立させる。</span></p>
+<p class="ja"><span class="ja">　□　餡子の舌触りを改善する為に皮を漉し取る。</span></p>
+<p class="ja"><span class="ja">　□　餡子の味を強調するパン以外の食べ方を考える。</span><span class="ja">――――――――――――――――――――――――――</span></p>
+<p><span class="en" lang="en">I finished my thinking process.</span> <span class="en" lang="en">Of course, doing this after we had already succeeded from smooth bean paste to yokan wasn&#x27;t fair, but I thought it was a good example of the flow of thinking.</span></p>
+<p><span class="en" lang="en">The expanded thoughts must be narrowed down to a single policy.</span> <span class="ja">抽象化して絞った一つの方針は、具体的な行動へと展開しなければならない。</span></p>
+<p><span class="ja">「まとめると、私の思考はこうなります」</span> <span class="en" lang="en">I showed everyone the notebook I had written.</span></p>
+<p class="ja"><span class="ja">――――――――――――――――――――――――――（餡子を王国に広めるには）</span></p>
+<p class="ja"><span class="ja">『雨』</span><span class="ja">・ジャムや蜂蜜があるのに餡子が要るのか？</span></p>
+<p class="ja"><span class="ja">　　　　　　　　　↓・餡子にはジャムや蜂蜜にはない別の魅力がある</span></p>
+<p class="ja"><span class="ja">　　　　　　　　　↓・餡子の魅力を引き出すことで見た目や味の不慣れさ、ジャムや蜂蜜との比較を解決する！</span></p>
+<p class="ja"><span class="ja">『傘』</span></p>
+<p class="ja"><span class="ja">　□　餡子にもっと沢山の砂糖を入れて、豆の風味と甘さを両立させる。</span></p>
+<p class="ja"><span class="ja">　□　餡子の舌触りを改善する為に皮を漉し取る。</span></p>
+<p class="ja"><span class="ja">　□　餡子の味を強調するパン以外の食べ方を考える。</span><span class="ja">――――――――――――――――――――――――――</span></p>
+<p class="ja"><span class="ja">「……整理されるのは良いことですね」</span></p>
+<p><span class="ja">「窮屈すぎてむしろ頭が固くなりそうじゃ」</span> <span class="en" lang="en">Mia and Fulsi made complicated faces.</span> <span class="ja">やはり凡才の悩みとは無縁か。</span> <span class="en" lang="en">I knew it.</span></p>
+<p><span class="ja">「ま、まあ私にも無用かしら」</span> <span class="en" lang="en">Following the two, Noel said so and puffed out her chest.</span></p>
+<p class="ja"><span class="ja">だが、俺は言った。</span></p>
+<p class="ja"><span class="ja">「ノエル。</span><span class="ja">ローブを開けてみろ」</span></p>
+<p class="ja"><span class="ja">「な、なに、嫌らしいことを言ってるのよ」</span></p>
+<p class="ja"><span class="ja">「リカルドくん」</span></p>
+<p class="ja"><span class="ja">「先輩」</span></p>
+<p><span class="ja">「いや、下は制服だろ」</span> <span class="en" lang="en">Noel reluctantly opened her robe.</span> <span class="ja">二つの大きなクッションの間に紐につながれたボールペンが挟まっていた。</span><span class="ja">わざわざボディーに穴を開けて紐を通してある。</span></p>
+<p class="ja"><span class="ja">「……錬金術の図面を下書きする時に役に立つのよ。</span><span class="ja">１単位で何本も作れるんだし、加工費は取ってないんだからいいでしょ」</span></p>
+<p class="ja"><span class="ja">「わかってるよ。</span><span class="ja">ただし、次はインクの改良にも付き合ってもらうからな」</span></p>
+<p><span class="ja">「分ったわよ」</span> <span class="en" lang="en">It&#x27;s dramatically easier to use, but I have no intention of being satisfied with this.</span> <span class="ja">もうちょっと粘度が低いインクが欲しいし、三色ボールペンとは言わなくとも、せめて赤が欲しいからな。</span></p>
+<p><span class="ja">「当たり前のことを言ってるだけに見えたのに。</span><span class="ja">いえ、だからこそですね。</span><span class="ja">ずいぶん頭がすっきりしてきました」</span> <span class="en" lang="en">Alfina&#x27;s eyes sparkled.</span></p>
+<p><span class="ja">「ええ、この方法は複雑な問題を簡単なステップに分けるのです。</span><span class="ja">高い崖の上にある、綺麗な花が欲しいとします。</span><span class="ja">超人的な運動能力がなければいくら飛び上がっても、崖にしがみついても無駄です。</span><span class="ja">でも、はしごさえ用意すれば誰でも上れる。</span><span class="ja">問題と答えまでの手順がその梯子です」</span> <span class="en" lang="en">The &quot;Sky, Rain, Umbrella&quot; is a highly versatile information processing framework.</span></p>
+<p class="ja"><span class="ja">「そうです、リカルドくんの最初の予言の解析も今のような感じでした」</span></p>
+<p class="ja"><span class="ja">「そこまで理解してくれれば満点です。</span><span class="ja">あの場合は、アルフィーナ様の予言のイメージから情報を引き出すのが『空』</span><span class="ja">、広げるステップで。</span><span class="ja">災厄の地がレイリア村だと絞ったのが『雨』</span><span class="ja">。</span><span class="ja">レイリア村であることをスタートに、起こりうる災厄の可能性を考えたのが『雨』</span><span class="ja">の中で広げるステップで、魔獣氾濫と決定したのが絞るステップ。</span><span class="ja">そして、魔獣氾濫の証拠を掴むために年輪の採取から魔脈の測定までが『傘』</span><span class="ja">ということになります」</span></p>
+<p><span class="en" lang="en">In the case of complex problems, the &quot;Sky, Rain, Umbrella&quot; framework can be nested or lined up in strips.</span></p>
+<p><span class="ja">「ポイントは先ほど言ったように、広げて絞る、絞って広げるですね。</span><span class="ja">思考のボン・キュ・ボンとでも言いますか」</span> <span class="en" lang="en">Alfina tilted her head in confusion.</span> <span class="en" lang="en">My eyes instinctively turned toward Noel.</span></p>
+<p><span class="ja">「なるほど旨いこと――」</span> <span class="en" lang="en">Fulsi started to say that and then covered his own mouth.</span> <span class="en" lang="en">I realized my blunder.</span> <span class="en" lang="en">No, I actually prefer modest ones, but I guess the visual guidance effect is proportional to the mass.</span></p>
+<p><span class="en" lang="en">It&#x27;s Noel&#x27;s fault for keeping her robe open. ……開かせたの俺だけどさ。</span></p>
+<p class="ja"><span class="ja">「リカルドくん……」</span></p>
+<p class="ja"><span class="ja">「……最低です先輩」</span></p>
+<p><span class="ja">「へ、変態！</span><span class="ja">」</span> <span class="en" lang="en">The gazes of the female members poured down on me like rain.</span> <span class="ja">アルフィーナが悲しそうに目を伏せ、ミーアがジト目で睨み。</span><span class="ja">ノエルはキッとした目でローブの前をぎゅっと閉じた。</span> <span class="en" lang="en">There was no way to prepare an umbrella for this sudden shower.</span></p>
+<p><span class="ja">「コホン。</span><span class="ja">つまり、其方のめんどくさい方法のためには、細かい文字が早く書ける、しかも途切れないそのペンが必要だと言うことか」</span> <span class="en" lang="en">The director said it to change the atmosphere.</span> <span class="ja">フォローみたいな形になってるけど、さっき俺の例えに頷いたよな。</span></p>
+<p><span class="ja">「そ、そうなんです。</span><span class="ja">というわけでアルフィーナ様。</span><span class="ja">良かったらこれを差し上げます」</span> <span class="en" lang="en">I took out one pen and handed it to Alfina.</span> <span class="en" lang="en">I didn&#x27;t mean to cover up my previous slip of the tongue, but it was a reward for her understanding it properly.</span></p>
+<p class="ja"><span class="ja">「良いのですか。</span><span class="ja">でもリカルドくんにとって大事なお仕事の……」</span></p>
+<p><span class="ja">「ストックがありますから」</span> <span class="en" lang="en">When I showed her that there was one left in the box, Alfina&#x27;s face instantly brightened.</span></p>
+<p><span class="ja">「おそろい……、大切にしますね」</span> <span class="en" lang="en">Hugging the pen tightly to her chest, Alfina said.</span></p>
+<p class="ja"><span class="ja">「そういうつもりなら、リボンくらい用意しなさいよ。</span><span class="ja">仮にも女の子へのプレゼントでしょう」</span></p>
+<p><span class="ja">「いや、ははは……」</span> <span class="en" lang="en">Come to think of it, it&#x27;s always things around the desk, like bookmarks or pens.</span> <span class="en" lang="en">It&#x27;s hardly a present for a girl, let alone a princess.</span> <span class="ja">姪に贈る物としたらしっくりくるけどさ。</span></p>
+<p><span class="en" lang="en">Besides, this present is a set of the pen and the &quot;Sky, Rain, Umbrella&quot; method.</span> <span class="ja">概念にリボンは巻けないのだ。</span></p>
+<p><span class="ja">「ごまかすための策だとしたら、ちょっとお粗末ですね」</span> <span class="en" lang="en">Mia muttered quietly.</span></p>
+<p><span class="ja">「っと、思ったよりも時間が掛かったな。</span><span class="ja">そろそろ出ないと」</span> <span class="en" lang="en">I said while averting my eyes from Mia.</span> <span class="en" lang="en">The secretary&#x27;s anger hadn&#x27;t subsided yet, it seemed.</span> <span class="en" lang="en">Since I gave my stock to Alfina, I need to make one more pen.</span></p>
+<p><span class="en" lang="en">I wonder if it would be okay if I asked Natalie to make the yokan a little thicker.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec13">
+<div class="star">＊</div>
+<div class="rubric">13</div>
+<h2>７話：前半　通の判断</h2>
+<hr class="rule">
+<p class="first ja"><span class="ja">ああ、そりゃこうなるか。</span></p>
+<p><span class="en" lang="en">I thought to myself when I saw the whole Bermini Company gathered at the front door.</span> <span class="ja">特に中央の当主、シェリーの父親は冬なのに額の汗を隠せていない。</span></p>
+<p class="ja"><span class="ja">「アルフィーナ王女殿下の御来訪を仰ぐこと、当商会始まって以来の名誉でございます」</span></p>
+<p><span class="ja">「私も楽しみにしていました。</span><span class="ja">今日はお邪魔いたします。</span><span class="ja">ただ、私は今日はヴィンダー商会の株主として参りました。</span><span class="ja">シェリーさんとはお仕事の仲間でもあるのですから。</span><span class="ja">どうかお気遣いなく」</span> <span class="en" lang="en">Getting off the carriage, Alfina bowed with a smile.</span></p>
+<p><span class="en" lang="en">The head of the Bermini Company looked even more humbled.</span> <span class="ja">一方、シェリーの母親と弟は誇らしげな顔になっている。</span></p>
+<p class="ja"><span class="ja">「なんという奥ゆかしいお言葉だ」</span></p>
+<p><span class="ja">「まさしく聖女殿下とお呼びするに相応しい」</span> <span class="en" lang="en">Voices of admiration arose from the servants waiting in front of the entrance.</span> <span class="en" lang="en">I think Alfina was just speaking her true feelings.</span> <span class="ja">なるほど、これが人徳というものか。</span></p>
+<p><span class="ja">「大変だっただろう」</span> <span class="en" lang="en">I left Alfina to Claudia and Luiza, and offered some words of appreciation to Sherry.</span></p>
+<p><span class="ja">「……そうね、苦労したわ。</span><span class="ja">この程度に父さんを抑えるのにね」</span> <span class="en" lang="en">Sherry suddenly looked into the distance with a distant look in her eyes.</span> <span class="en" lang="en">Ah, I see, so that&#x27;s how it is.</span> <span class="ja">いやいや、それでもまともだぞ。</span><span class="ja">家にアルフィーナが来た時なんか親父は逃げ出したからな。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「ほ、本当に連れてきた」</span> <span class="en" lang="en">The two developers waiting in the conference room, which served as the tasting venue, couldn&#x27;t hide their surprise at the members entering one after another.</span></p>
+<p><span class="en" lang="en">Even the usually confident Vinaldia was opening and closing her mouth like a fish at the three noble ladies who entered last.</span></p>
+<p><span class="en" lang="en">With Alfina in the center, Claudia and Luiza were on her left and right.</span> <span class="ja">王女が伯爵令嬢と子爵令嬢をつれてやってきたわけだ。</span> <span class="en" lang="en">It must look like a scene from hell for commoners.</span></p>
+<p><span class="en" lang="en">But considering our target customer base, we couldn&#x27;t leave these three out.</span> <span class="ja">ちゃんと事前に伝えてるし。</span><span class="ja">ミーアから聞いたことだけど、ぶっつけ本番でリルカは平気だったらしいぞ。</span></p>
+<p><span class="ja">「王女様にわ、私が作った……」</span> <span class="en" lang="en">I suppose it can&#x27;t be helped for Natalie.</span> <span class="ja">でも見本市の時にすでに食べさせてるんだよ。</span></p>
+<p><span class="ja">「プルラ先輩も忙しいところすいません」</span> <span class="en" lang="en">I greeted the main star of the day.</span> <span class="ja">彼がいないと始まらない。</span></p>
+<p><span class="ja">「あの砂糖を使ったこれまでにない菓子と言われてはね。</span><span class="ja">それに……」</span><span class="ja">プルラはナタリーを見た。</span> <span class="en" lang="en">Natalie suddenly bowed deeply to the young master of the confectionery company said to be the best in the royal capital.</span></p>
+<p><span class="ja">「あ、あの、きょ、今日はよろしくお願いします」</span> <span class="en" lang="en">She&#x27;s even more nervous than usual, will she be okay?</span></p>
+<p class="ja"><span class="ja">「なあ」</span></p>
+<p class="ja"><span class="ja">「何よ」</span></p>
+<p class="ja"><span class="ja">「いや、アルフィーナ様相手よりも緊張してるように見えるぞ」</span></p>
+<p><span class="ja">「そりゃまあ。</span><span class="ja">ナタリーにとってはあこがれでしょ。</span><span class="ja">王都に店を出すのが目標なんだから」</span> <span class="en" lang="en">Come to think of it, I feel like I heard that between the prototype testing.</span> <span class="en" lang="en">In this case, &quot;store&quot; doesn&#x27;t mean a food stall; it means aiming to become a copper company.</span> <span class="ja">王都に餡子菓子を売る店が出来る、わくわくするような話だ。</span></p>
+<p><span class="ja">それにしても……。</span> <span class="en" lang="en">I fanned the air in the conference room with one hand.</span></p>
+<p><span class="ja">「ちょっと暖房効き過ぎじゃないか」</span> <span class="en" lang="en">I said while looking at the firewood burning in the fireplace.</span> <span class="ja">前世の暖房並とは言わないがかなり暖かい。</span></p>
+<p><span class="ja">「父さん達が、万が一お風邪でも召されたらって。</span><span class="ja">ほら貴族のお屋敷って私らの家よりだいぶ暖かいでしょ。</span><span class="ja">到着予定のずっと前から暖炉に薪をどんどん入れて。</span><span class="ja">……やり過ぎなんだけど。</span><span class="ja">今年は薪が高いから、これが一番大変だったかも」</span> <span class="en" lang="en">I see.</span> <span class="en" lang="en">Even small rooms in the Grand Duke&#x27;s mansion had magnificent fireplaces.</span> <span class="ja">それですら、今の季節なら寒く感じるだろう。</span> <span class="en" lang="en">Stone buildings are slow to warm up.</span></p>
+<p><span class="en" lang="en">Wood is precious, so firewood is expensive.</span> <span class="ja">農村なんか冬の燃料は泥炭が主流だ。</span><span class="ja">アレは煙がきついんだ。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「では、発表します。</span><span class="ja">豆の餡子で作ったゼリー。</span><span class="ja">羊羹です」</span> <span class="en" lang="en">Since everyone had taken their seats, I signaled the start of the tasting event.</span> <span class="ja">ナタリーが羊羹を切り分け、ヴィナルディアが一人一人の前に運んでいく。</span> <span class="en" lang="en">The yokan, or more accurately mizu-yokan, jiggled as it was being carried.</span> <span class="ja">煉羊羹に比べれば味は薄いが、その分餡子の風味が素直に出る。</span></p>
+<p><span class="en" lang="en">The plates were small and white.</span> <span class="ja">綺麗な円形なのが少し物足りない。</span> <span class="en" lang="en">If we were serving yokan, a shape with a bit more of a wabi-sabi feel would be better.</span></p>
+<p><span class="ja">「「…………」</span><span class="ja">」</span> <span class="en" lang="en">The reaction of the participants who looked at their plates was subtle.</span> <span class="ja">小さな黒いゼリーを恐る恐るといった目で見ている。</span> <span class="en" lang="en">Only Alfina had eyes full of expectations.</span></p>
+<p><span class="en" lang="en">Heh, I want you to eat it and be surprised.</span> <span class="ja">俺の故郷の自慢の味だからな。</span></p>
+<p><span class="en" lang="en">As the person in charge, I decided to take the lead.</span> <span class="ja">フォークで羊羹を食べるというのは抵抗があるが、仕方がない。</span> <span class="en" lang="en">I pierced the fork into a texture that was stickier than jelly because of the bean paste.</span> <span class="ja">うん、また旨くなってる。</span></p>
+<p><span class="en" lang="en">I exchanged glances with Sherry.</span> <span class="ja">シェリーもコクコクと頷いた。</span></p>
+<p><span class="en" lang="en">Seeing us, the other tasters also started tasting it.</span></p>
+<p><span class="ja">「ああ、これは本当にやさしい甘さですね。</span><span class="ja">この前食べた時と全く違います」</span> <span class="en" lang="en">Alfina said as she carefully savored a bite.</span> <span class="en" lang="en">From her expression, you could tell it wasn&#x27;t just flattery.</span> <span class="ja">値段的に想定顧客の代表が彼女だ。</span> <span class="en" lang="en">I felt relieved.</span> <span class="en" lang="en">And with hope, I shifted my eyes to the left and right of Alfina.</span></p>
+<p><span class="en" lang="en">Luiza and Claudia.</span> <span class="ja">アルフィーナに次いで上流階級のご令嬢だ。</span> <span class="en" lang="en">The two almost simultaneously lowered their forks and looked at each other.</span></p>
+<p class="ja"><span class="ja">「面白い味……かしら。</span><span class="ja">そこまで悪くはないと思うけれど……」</span></p>
+<p><span class="ja">「…………う、うむ。</span><span class="ja">珍しい味だな」</span> <span class="en" lang="en">Huh?</span> <span class="en" lang="en">Wait a minute.</span> <span class="ja">なんか微妙な反応だ。</span> <span class="en" lang="en">Luiza reached for her black tea, and Claudia chewed with her mouth closed, looking a little troubled.</span></p>
+<p><span class="ja">「……この前とは雲泥の差だというのはわかるけどな」</span><span class="ja">ダルガンが言った。</span> <span class="en" lang="en">Hey, what&#x27;s with that &quot;it&#x27;s somewhat better&quot; level of evaluation?</span></p>
+<p><span class="ja">「………………確かに、食べたことがない味、ではあるわね」</span><span class="ja">マリアが言った。</span> <span class="en" lang="en">She should be tasting it for the first time.</span> <span class="ja">もうちょっとちゃんと味わってくれれば……。</span></p>
+<p><span class="ja">「でも。</span><span class="ja">これってとんでもなく高価な砂糖を使ってるのよね。</span><span class="ja">ちょっと厳しくないかしら」</span> <span class="en" lang="en">The words of the food guild master&#x27;s daughter made the atmosphere in the room heavy.</span> <span class="ja">ナタリーが表情を曇らせ、ヴィナルディアが拳を握った。</span></p>
+<p><span class="en" lang="en">S-Strange.</span> <span class="ja">なんか皆揃って評価が微妙だぞ。</span> <span class="en" lang="en">In a panic, I took another bite of the yokan on my plate.</span> <span class="ja">うん、最高の味だ。</span> <span class="en" lang="en">To my tongue, it feels like it even rivals my previous life.</span> <span class="ja">これでダメなんてことはないはずなのだが……。</span></p>
+<p><span class="en" lang="en">I waited for the thoughts of the last person, the top expert when it comes to sweets.</span> <span class="ja">プルラのいつものきざっぽい仕草でフォークを置いた。</span> <span class="en" lang="en">His calm expression made it impossible to read his reaction at all.</span> <span class="en" lang="en">I waited for the verdict with bated breath.</span></p>
+<p class="ja"><span class="ja">「驚いたことが二つある、一つは――」</span><span class="ja">プルラはナタリーを見た。</span></p>
+<p><span class="ja">「こんな新しい美味しさを作り上げたことだね。</span><span class="ja">前回とは比較にならない。</span><span class="ja">こうまで洗練されては脱帽だ」</span> <span class="en" lang="en">At Purura&#x27;s words, Natalie breathed a sigh of relief.</span> <span class="ja">ヴィナルディアがよろけた彼女を後ろから支えた。</span> <span class="en" lang="en">I also let out a big breath.</span></p>
+<p class="ja"><span class="ja">よし、プルラのお墨付きだ。</span><span class="ja">これで、王国への餡子普及は待ったなしだぞ。</span></p>
+<p><span class="ja">「もう一つの驚きは――」</span> <span class="en" lang="en">Purura looked at me, who was doing a mental fist pump.</span></p>
+<p class="ja"><span class="ja">「君が付いていながら、これが商品になると判断したことだね」</span></p>
+<p class="ja"><span class="ja">「えっ！</span><span class="ja">？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「やることは無茶なのに、判断は怖いほど冷静で打算にまみれているヴィンダーとは思えない」</span></p>
+<p><span class="ja">「そ、それはどういう……」</span> <span class="en" lang="en">Purura&#x27;s gaze was completely different from before; it was now stern.</span> <span class="ja">俺は何を言われているのか分らない。</span> <span class="en" lang="en">Didn&#x27;t he just give it a near-perfect evaluation, no, a perfect evaluation just a moment ago?</span> <span class="ja">お菓子商人にとって最高の菓子が商品にならないなんて、意味が分らない。</span></p>
+<p><span class="ja">「いいかい、このヨウカンを美味と評価した人間を見てみたまえ。</span><span class="ja">開発者である君たち以外だよ」</span> <span class="en" lang="en">That would be Alfina and Purura.</span> <span class="ja">ここにいるのは開発者組を除けば六人。</span><span class="ja">そのうちたった二人。</span> <span class="en" lang="en">Since it&#x27;s a sweet, if we consider the target to be female, Alfina is the only one.</span></p>
+<p class="ja"><span class="ja">そしてアルフィーナは……。</span><span class="ja">いやいや、彼女に限ってお世辞なんて言わないだろ。</span></p>
+<p><span class="ja">「いいかい、アルフィーナ様が君をかばっていると言ってるんじゃない。</span><span class="ja">実際、僕もこのヨウカンを美味だと言っただろ」</span> <span class="en" lang="en">Purura twirled his index finger.</span></p>
+<p><span class="ja">「アルフィーナ様は、お立場に比べれば慎ましくも、菓子を食べる機会は多いだろう。</span><span class="ja">しかも、その場合は王宮や大公閣下のお屋敷で贅を尽くした物になる、ですね」</span> <span class="en" lang="en">At Purura&#x27;s words, Alfina nodded.</span></p>
+<p><span class="ja">「そんなアルフィーナ様にとって、このヨウカンの味は新鮮で新しく見えた。</span><span class="ja">色の不気味さや、形の地味も開発者が君……、見知った人間であることから問題にはならない」</span> <span class="en" lang="en">Purura emphasized the uniqueness of Alfina&#x27;s position.</span></p>
+<p><span class="ja">「そして職業柄飽きるほど食べている僕だ。</span><span class="ja">ちなみに今日もここにくる前に、さんざん店の試作品を食べていてね。</span><span class="ja">僕がこれを美味しいといった理由は、文字通り従来のお菓子と違うからだ。</span><span class="ja">君は言っていたじゃないか。</span><span class="ja">この優しい甘さが分らないのかと。</span><span class="ja">なるほどだよ。</span><span class="ja">前回これの可能性を見抜けなかったのは僕の不覚だった。</span><span class="ja">これまでにない美味しさだ。</span><span class="ja">そうだね、僕なら飛びつくだろう。</span><span class="ja">ただし、従来の物を同じ値段水準ならだけど」</span> <span class="en" lang="en">The reasons told from Purura&#x27;s mouth.</span> <span class="en" lang="en">As my brain gradually understood the contents, cold sweat began to run down my back.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec14">
+<div class="star">＊</div>
+<div class="rubric">14</div>
+<h2>７話：後半　天使失格</h2>
+<hr class="rule">
+<p><span class="ja">「そ、それは……。</span><span class="ja">だけど、俺だって最初から貴族をターゲットにして」</span> <span class="en" lang="en">I tried to reject Purura&#x27;s words reflexively.</span></p>
+<p><span class="ja">「君の言うターゲットがこの地味、いや不気味なお菓子を食べると思うかい。</span><span class="ja">豆のジャムを漉したんだってね。</span><span class="ja">舌触りの素晴らしさは分るけど、デメリットがある。</span><span class="ja">以前の物なら豆を煮たものだということは見れば分ったからね。</span><span class="ja">……まあ、甘味を扱う者としては興味深いけど。</span><span class="ja">だけど、そういうことじゃないんだ」</span> <span class="en" lang="en">Purura said as if to soothe me.</span> <span class="en" lang="en">I looked at the black lump on the plate.</span> <span class="ja">俺にとっては涙が出るほど懐かしい姿だ。</span> <span class="en" lang="en">A kind of wabi-sabi beauty.</span></p>
+<p><span class="ja">だが、王国の美的感覚からしたらどうか。</span> <span class="en" lang="en">Purura was particular about the whiteness of the mousse.</span> <span class="ja">ワンプレートランチの野菜のゼリー寄せはカラフルだった。</span></p>
+<p><span class="en" lang="en">This really doesn&#x27;t fit the aesthetic sense here.</span> <span class="ja">ただでさえ高級品である菓子、その何倍もの値段の超高級品。</span> <span class="en" lang="en">But it looks bizarre.</span> <span class="ja">豆の形を消したことで、未知の不気味さが増すなんて考えたこともなかった。</span> <span class="en" lang="en">Because it&#x27;s something totally normal for me.</span></p>
+<p><span class="en" lang="en">And even if they did eat it, the taste is subtle.</span></p>
+<p class="ja"><span class="ja">あるいはシェリーのようにたまたま好みに刺さった人間。</span> <span class="ja">No, precisely because Sherry is a vegetable expert, 豆の風味と甘さのコラボを感じ取ることが出来たのかもしれない。</span></p>
+<p><span class="ja">「これを買うことが出来る貴族層は中級以上だろうね。</span><span class="ja">その中で、好みに合うごく少数だけが客だ。</span><span class="ja">しかも、人に自慢もしにくい」</span> <span class="ja">Even though Japanese sweets are popular in Europe and America, 現代の欧米人はこちらの世界の貴族以上に、お菓子など慣れきっている。</span> <span class="en" lang="en">To palates tired of cream and butter, the gentle sweetness of Japanese sweets feels fresh.</span> <span class="ja">だからこそ、カルチャーギャップを乗り越えられる人間が出てくるのだ。</span></p>
+<p class="ja"><span class="ja">そもそも、日本人ですら若い層はケーキやチョコレートの方が人気なのだから。</span></p>
+<p><span class="ja">「…………」</span> <span class="en" lang="en">The world I aimed for out of nostalgia is completely different from this world, お菓子を買う人間の数すら少ないこの世界とは。</span><span class="ja">お菓子を味わう経験値を積んだ人間の母数からして違いすぎる。</span></p>
+<p><span class="ja">「材料の構成も問題だ。</span><span class="ja">従来よりも四倍高価な、君たちの言う黄砂糖を使った餡子、その餡子の割合がほとんどだろう」</span> <span class="en" lang="en">Economically, mass-produced flour is relatively cheap.</span> <span class="ja">その小麦粉で水増し出来るからこそ、粉物と言われる食品の原価率は下げれると聞いたことがある。</span> <span class="en" lang="en">Yokan is all water except for the red bean paste.</span> <span class="ja">水で水増ししているから安く出来るはずだが、その水を固めているゼラチンは小麦粉よりも高価。</span></p>
+<p><span class="en" lang="en">Using plenty of super-expensive red bean paste and solidifying it with rare gelatin, この菓子は原価を下げる方法がない。</span></p>
+<p><span class="en" lang="en">Actually, you can be satisfied with a smaller amount of Japanese sweets than Western sweets, but at a glance, it probably looks small and unsatisfying.</span></p>
+<p><span class="ja">「さらにもう一つ付け加えると」</span> <span class="en" lang="en">Purura looked at the cup in front of him.</span></p>
+<p class="ja"><span class="ja">「この菓子は紅茶と合わない。</span><span class="ja">これではお茶会に出すことが出来ない」</span></p>
+<p><span class="ja">「……っ！</span><span class="ja">」</span> <span class="en" lang="en">It wasn&#x27;t that I hadn&#x27;t noticed.</span> <span class="ja">紅茶と和菓子は基本合わないのだ。</span> <span class="en" lang="en">But, ecstatic over how well the yokan turned out, I ignored it as a trivial matter.</span> <span class="ja">この旨さの前では些細な問題だと思ったのだ。</span> <span class="en" lang="en">I was appalled at myself for completely ignoring major cultural gaps.</span></p>
+<p><span class="en" lang="en">The work I&#x27;d done up to this point crossed my mind.</span> <span class="ja">まるで市場が存在しない方向に方向にと引きずっていったみたいだ。</span></p>
+<p><span class="ja">「じゃ、じゃあ、ナタリーの餡子は、お店はどうなるのよ」</span> <span class="en" lang="en">Supporting the pale Natalie, Vinaldia said.</span> <span class="en" lang="en">Purura looked at Natalie.</span> <span class="ja">変わらず冷静な商人の目だ。</span> <span class="en" lang="en">Natalie flinched and trembled her shoulders.</span></p>
+<p><span class="ja">「少なくとも、君の商売としては何の問題もないだろう。</span><span class="ja">黄砂糖は本当に素晴らしい。</span><span class="ja">ヴィンダーから聞いたけどこの砂糖の製法は君が一番詳しいんだってね」</span> <span class="en" lang="en">Purura said to Natalie with a serious face.</span></p>
+<p class="ja"><span class="ja">「……あ、は、はい」</span></p>
+<p class="ja"><span class="ja">「是非とも、そのノウハウをプルラに提供して欲しい。</span><span class="ja">もちろん、対価は支払う」</span></p>
+<p class="ja"><span class="ja">「で、でも、さっきの話だと砂糖が一番高くて……」</span></p>
+<p class="ja"><span class="ja">「もちろん、超高級品にしか使えないし、使うポイントも絞らねばならないだろう。</span><span class="ja">それでも、アンコとは違って従来の砂糖を置き換えればいいだけだ。</span><span class="ja">保存も利く。</span><span class="ja">工夫すればさらに収量を上げられる見込みがあるらしいじゃないか。</span><span class="ja">ウチが使うなら量が多いからね。</span><span class="ja">それだけでも多少の原価は下げられるだろう。</span><span class="ja">最近の評判でウチの顧客はますます上層に広がっていてね。</span><span class="ja">いや、本当にうってつけの物を作ってくれたよ」</span></p>
+<p class="ja"><span class="ja">「あの、でもこの砂糖はもともとヴィンダーさんの……」</span></p>
+<p><span class="ja">「ああ、そこらへんのことはある程度話はしてるんだ、具体的な業務の形は……」</span> <span class="en" lang="en">Purura started talking with Natalie about the sugar.</span> <span class="ja">俺が事前に話していたことだ。</span><span class="ja">……餡子のついでにくらいの気持ちだった。</span></p>
+<p><span class="en" lang="en">Thinking about it, it was obvious.</span> <span class="ja">餡子よりもあの砂糖の方が商品価値は遙かに高い。</span> <span class="en" lang="en">Even if the red bean paste had succeeded just as I thought, it&#x27;s an incomparably larger market.</span></p>
+<p class="ja"><span class="ja">「あ、あの、でも、私はアンコを売る店が作りたくて……」</span></p>
+<p><span class="ja">「そうよ。</span><span class="ja">ナタリーは餡子のためにあれを……」</span> <span class="en" lang="en">Treated as a sugar developer rather than a red bean paste one, Natalie looked at me with a bewildered expression.</span> <span class="en" lang="en">I, who had distorted the red bean paste she created from scratch with my previous life&#x27;s knowledge, had no way to answer.</span></p>
+<p class="ja"><span class="ja">「君の店は元々屋台、銅商会にも満たないのだろう。</span><span class="ja">十分な収入になると約束するよ。</span><span class="ja">ヴィンダーから引き抜けないのは残念だけどね」</span></p>
+<p><span class="ja">「あ、そうなの。</span><span class="ja">で、でもそういうことじゃなくて……」</span> <span class="en" lang="en">Even so, Vinaldia clearly showed a look of relief.</span> <span class="ja">友人の生活の心配を優先するのは当たり前だ。</span> <span class="en" lang="en">Natalie also looked down.</span> <span class="en" lang="en">Even if it&#x27;s her dream, it&#x27;s not a hobby, so that&#x27;s natural.</span></p>
+<p><span class="en" lang="en">But I treated it almost like a hobby.</span> <span class="en" lang="en">The exchange between Purura and the developer went in my right ear and out my left.</span></p>
+<p><span class="en" lang="en">What kind of angel investor am I?</span> <span class="ja">一番最初のプルラの言葉は正鵠を得ている。</span> <span class="en" lang="en">As a venture investor, joining the developer and looking only at the product is nothing but negligence.</span></p>
+<p><span class="en" lang="en">Regarding ventures, the role of an investor is not just to give money for new products.</span> <span class="ja">市場に合うように、あるいは市場を作るように商品開発の誘導をすること。</span> <span class="en" lang="en">In other words, they are also in charge of marketing strategy.</span> <span class="en" lang="en">And isn&#x27;t it about making that product economically viable?</span></p>
+<p><span class="en" lang="en">I, who should have grasped the thinness of the customer base through honey, 何で需要が存在しないところに誘導してるんだ。</span></p>
+<p><span class="en" lang="en">I should have just given the idea for the red bean paste development, and thought about how to sell it during that time.</span></p>
+<p><span class="ja">「ヴィンダー、そのごめんね。</span><span class="ja">もうちょっとちゃんと私が意見を言うべきだった」</span> <span class="en" lang="en">Rilka, who had been silent, said to me.</span> <span class="en" lang="en">Yes, that was also my mistake.</span></p>
+<p><span class="ja">あの場では、彼女がマイノリティーだったけど、世間的には彼女の意見こそがマジョリティーだ。</span> <span class="en" lang="en">I was ecstatic dealing with an incredibly biased sample.</span> <span class="ja">統計的思考の初歩の初歩すら忘れていたわけだ。</span> <span class="en" lang="en">At first, I recognized her as a valuable opposing voice.</span></p>
+<p class="ja"><span class="ja">「――ヴィンダー」</span></p>
+<p class="ja"><span class="ja">「……えっ！</span><span class="ja">　あ、はいプルラ先輩、な、何ですか」</span></p>
+<p><span class="ja">「聞いていなかったのかい。</span><span class="ja">以前、君が提案していたとおり、黒砂糖から黄砂糖を作る工房を作りたい。</span><span class="ja">冬の間が作業に適していると言っていたよね。</span><span class="ja">なるべく急ぎたいんだ。</span><span class="ja">君の考えた株式で出資比率を決めて。</span><span class="ja">ああ、ベルミニにも権利があるか。</span><span class="ja">とにかく、ナタリーさんをそこの技術責任者として……」</span> <span class="en" lang="en">Come to think of it, we had discussed something like that.</span> <span class="ja">餡子のついでにだけど。</span> <span class="en" lang="en">Haha, this is a huge profit.</span></p>
+<p><span class="en" lang="en">If you think about it, Wasanbon could also be considered a Japanese taste.</span> <span class="ja">結局、俺の前世の知識の勝利という訳だ。</span></p>
+<p><span class="en" lang="en">Modern knowledge is amazing.</span> <span class="ja">俺自身の知恵とは大違いだな。</span></p>
+<p><span class="en" lang="en">I remembered proudly showing off my logical thinking before coming here.</span> <span class="en" lang="en">I looked away from Alfina, who was looking at me with a worried face.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec15">
+<div class="star">＊</div>
+<div class="rubric">15</div>
+<h2>８話：前半　思考の複利効果</h2>
+<hr class="rule">
+<p><span class="ja">「ほう、これがヨウカンか。</span><span class="ja">…………うむうむ、悪くはないではないか。</span><span class="ja">年に数回なら食べても良いな」</span> <span class="en" lang="en">Right after the tasting event, I was called out by Eufilia.</span> <span class="ja">出資者に新事業の状況を説明しろと言われたら断れない。</span> <span class="en" lang="en">I couldn&#x27;t refuse even if I was called for no reason.</span></p>
+<p><span class="en" lang="en">In the usual small reception room, Eufilia, who ate the yokan I brought, said something that depressed me the most in a way.</span></p>
+<p><span class="ja">「今日のご用件は何でしょうか大公閣下」</span> <span class="en" lang="en">I said while looking away from the yokan.</span></p>
+<p class="ja"><span class="ja">「いや、アルフィーから珍しくそなたが気落ちしていると聞いてな。</span><span class="ja">それは一度見ておかねばと」</span></p>
+<p><span class="ja">「それはなかなか。</span><span class="ja">その珍味はそういった暇をもてあました大貴族様にはぴったりですよ」</span> <span class="en" lang="en">I said it half-desperately.</span> <span class="ja">別にエウフィリアには負い目はない。</span> <span class="en" lang="en">The license sale of yellow sugar to Purura will yield a profit, not a loss.</span></p>
+<p class="ja"><span class="ja">豆の需要を高めるという目論見を外させたシェリーには悪いことをしたけど。</span></p>
+<p><span class="ja">「冗談じゃ。</span><span class="ja">実はコレとも関係があるのじゃ」</span> <span class="en" lang="en">Eufilia pointed at the yokan with her fork.</span> <span class="ja">俺は再び目をそらした。</span></p>
+<p class="ja"><span class="ja">「帝国皇女の歓迎のお茶会ですか」</span></p>
+<p><span class="ja">「じゃな」</span> <span class="en" lang="en">Eufilia and I exchanged displeased looks.</span> <span class="ja">Before the Imperial Princess officially attends the academy, 王女が揃って皇女歓迎のお茶会を開くということになったらしい。</span> <span class="en" lang="en">Alfina, who wouldn&#x27;t normally be invited, had no choice but to participate since they would be classmates at the academy.</span></p>
+<p><span class="en" lang="en">The venue is apparently the mansion of the Duke near the royal capital, where the First Princess married into.</span> <span class="ja">なんだその敵地っぽい場所は。</span></p>
+<p class="ja"><span class="ja">「基本的な準備は上の二人。</span><span class="ja">年の近い第三王女ドリスディア、そしてアルフィーナが菓子を持ち寄るという趣向じゃ。</span><span class="ja">というわけで、なにか珍しい一品が要るのじゃ」</span></p>
+<p><span class="ja">「プルラ商会にご用命ください。</span><span class="ja">専門外の私ではそのような大任は勤めかねます」</span> <span class="en" lang="en">I said.</span> <span class="en" lang="en">Purura, who has obtained the yellow sugar, should be able to make beautiful and delicious sweets, unlike me.</span></p>
+<p class="ja"><span class="ja">「むっ、知恵は貸せんというのか」</span></p>
+<p><span class="ja">「私の知識はともかく、知恵などしれた物です」</span> <span class="en" lang="en">If we leave it to Purura, they won&#x27;t serve anything that would embarrass Alfina.</span> <span class="ja">いや、向こうが何を出そうが楽勝じゃないか？</span></p>
+<p><span class="en" lang="en">If I recklessly interfered...</span> <span class="ja">王宮のお茶会に紅茶と羊羹を出して場を台無しにする、なんてことをしかねない。</span></p>
+<p class="ja"><span class="ja">「二つ問題があるからなるべく万全を期したいのじゃ。</span><span class="ja">一つは例の木材の件じゃな。</span><span class="ja">現在帝国から輸入される木材の一部、厳密に言えば増量分のさらに一部じゃな。</span><span class="ja">それをベルトルドに回させるための交渉中じゃ。</span><span class="ja">”中立”の宰相ではそれが限界らしい。</span><span class="ja">実は向こうが乗り気になっていてな。</span><span class="ja">王都を経由せずに、直接こちらに運んでも良いと。</span><span class="ja">其方、なるべく来歴がわかりやすい方が良いと言ったであろう。</span><span class="ja">このタイミングでこちらが皇女を歓迎していないというのはちと不味い」</span></p>
+<p class="ja"><span class="ja">「ベルトルドの工房拡張のための木材は実験条件が整ってからの予定では」</span></p>
+<p><span class="ja">「改良馬車の評判が高まりすぎた。</span><span class="ja">工房が今の規模では到底追いつかぬ。</span><span class="ja">宿屋に取引所など他にも建てねばならぬ物が沢山ある。</span><span class="ja">なのに、クルトハイトは文句を言ってくる。</span><span class="ja">自分たちが王都に追いやった職人、それもほんの数人なのに、妾が奪ったなどとな」</span> <span class="en" lang="en">I wanted the wood and the information from the Empire desperately.</span> <span class="ja">ストレートに入ってくる方が、実験サンプルとしては優れている。</span><span class="ja">どこで伐採されたかを探らなければいけないのだ。</span></p>
+<p><span class="en" lang="en">However, it was also strange that the other side was eager to supply wood here.</span> <span class="ja">単に商売相手を広げてリスクの分散ではないだろう、解せない？</span></p>
+<p><span class="ja">「もう一つ、この手の社交界の評判というのは存外馬鹿にならん。</span><span class="ja">向こうは何か仕掛けてくると考えておくべきじゃろう。</span><span class="ja">武器はいるのじゃ」</span> <span class="en" lang="en">Are sweets weapons?</span> <span class="ja">まあ、そういう世界なんだろう。</span> <span class="en" lang="en">Even on Earth, tea ceremonies seemed to have great political significance during the Sengoku period.</span></p>
+<p><span class="ja">「事情は分りました。</span><span class="ja">……何か思いついたら、ということで」</span> <span class="en" lang="en">Even so, you can&#x27;t wave a sleeve you don&#x27;t have.</span> <span class="ja">俺はそう言って話を切り上げた。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「新しい菓子って言われてもなあ」</span> <span class="en" lang="en">I muttered after returning to the Vinder Company.</span> <span class="ja">開いている帳簿の数字もろくに目に入らない。</span><span class="ja">良くない傾向だ。</span></p>
+<p><span class="ja">「あの、リカルドくん。</span><span class="ja">一つ教えて欲しいことがあるのです」</span> <span class="en" lang="en">Alfina, who had followed me from the Grand Duke&#x27;s mansion, spoke to me.</span> <span class="ja">彼女に対しても気まずい。</span> <span class="en" lang="en">She held the ballpoint pen I had gifted her in one hand and a piece of paper in the other.</span></p>
+<p><span class="ja">彼女の中での俺が過大評価されているのは分っている。</span> <span class="en" lang="en">I must have disappointed her greatly this time.</span> <span class="ja">なにしろ、あの講義の後だ。</span></p>
+<p><span class="en" lang="en">Before me, who was feeling impatient inside, Alfina spread out the paper.</span> <span class="ja">俺よりもずっと綺麗な字で、いくつもの文章が並んでいる。</span></p>
+<p><span class="ja">「リカルドくんから習った方法を使って、試食会のことを整理しようと思ったのです」</span> <span class="en" lang="en">Written there were the opinions of the members from the previous tasting event.</span> <span class="ja">俺が耳にしていなかった物もある。</span> <span class="en" lang="en">Did Alfina go around and ask them herself?</span></p>
+<p><span class="ja">「私なりに考えようと思ったのですけど。</span><span class="ja">やってみると思ったよりも難しいのですね。</span><span class="ja">リカルドくんがペンが大事だって言った理由だけは分りました」</span> <span class="en" lang="en">Alfina said, stroking the ballpoint pen with her fingers.</span> <span class="en" lang="en">After the information gathering, the hypotheses Alfina tried to form were listed.</span> <span class="ja">書いては消され、書いては消されが繰り返されている。</span> <span class="en" lang="en">Her seriousness and trust in what I taught her were engraved there.</span></p>
+<p><span class="en" lang="en">And I, who have made the same mistake many times, clearly understood the reason for Alfina&#x27;s struggle.</span></p>
+<p><span class="ja">「参ったな。</span><span class="ja">こんな簡単なことすら忘れていたか」</span> <span class="en" lang="en">I was appalled at myself.</span></p>
+<p class="ja"><span class="ja">「実は、空雨傘の流れというのは一方通行ではないのです……」</span></p>
+<p><span class="ja">「一方通行ではない？</span><span class="ja">」</span> <span class="en" lang="en">If you could get the correct answer just by following a set procedure, it wouldn&#x27;t be a &quot;problem.&quot;</span> <span class="ja">そもそも凡人が一発で正解を引けるなら、技術じゃなくて魔法だ。</span></p>
+<p><span class="en" lang="en">I took out the Sky, Rain, Umbrella framework of the red bean paste project I had written first.</span> <span class="ja">これを机の奥にしまっていた時点で、おかしかったのだ。</span></p>
+<p class="ja"><span class="ja">「新しいことをする時は、成功する可能性よりも失敗する可能性の方が遙かに高いですよね」</span></p>
+<p><span class="ja">「あっ、はい。</span><span class="ja">だから失敗しないようにこういった方法を取るのではないのですか？</span><span class="ja">」</span> <span class="en" lang="en">Alfina tilted her head in confusion.</span></p>
+<p><span class="ja">「そうですね。</span><span class="ja">でも、仮にこの方法で成功する可能性を十に一つから二つに出来たとしても、失敗の方がずっと多いでしょう。</span><span class="ja">ですから、この方法の真価は失敗した後にあるのです。</span><span class="ja">成功を目指して作った計画ですが。</span><span class="ja">失敗した場合、失敗の原因を分析するための資料になるのです。</span><span class="ja">せっかくですから今回の私の失敗を反面教師にしましょう」</span> <span class="en" lang="en">I pulled out my pen.</span> <span class="ja">自分とアルフィーナの紙を縦に並べた。</span> <span class="en" lang="en">The information Alfina gathered is the evaluation of my plan this time.</span> <span class="ja">それを使ってフィードバックを掛ける。</span> <span class="en" lang="en">The Sky, Rain, Umbrella framework grows by cycling it.</span></p>
+<p><span class="en" lang="en">Alfina stared intently as my pen tip moved up and down on the paper.</span> <span class="ja">どの段階で間違ったのか、答えはあっけなく見つかった。</span></p>
+<p><span class="ja">「どうやら私は解く問題を取り違えていたようです」</span> <span class="en" lang="en">My pen stopped at the very top.</span> <span class="ja">そこには（餡子を王国に広めるには）と書かれている。</span></p>
+<p><span class="ja">「あの、どこかおかしいのでしょうか？</span><span class="ja">」</span> <span class="en" lang="en">Alfina tilted her head.</span> <span class="en" lang="en">No, it&#x27;s not strange.</span> <span class="ja">俺は文章を二重線で引いて、その横に新しい文章を書いた。</span></p>
+<p class="ja"><span class="ja">「笑ってください。</span><span class="ja">私が解いていた問題はこれでした」</span></p>
+<p><span class="ja">(To create a red bean paste sweet that I want to eat) 正確には自分が食べたい日本の餡子を再現するだ。</span> <span class="en" lang="en">No wonder it failed.</span></p>
+<p><span class="en" lang="en">I took out another piece of paper and wrote a new title.</span></p>
+<p><span class="en" lang="en">(To spread the new sweetness called red bean paste in the kingdom) 失敗を前提とする。</span> <span class="en" lang="en">It&#x27;s a principle for organizing a confused mind and analyzing failure.</span> <span class="ja">それによって、失敗からの学習効率をわずかに上昇させる。</span> <span class="en" lang="en">It&#x27;s not a magical method, but its effects accumulate steadily.</span></p>
+<p><span class="ja">「この方法は循環させることで、失敗した時にそこから学ぶ効率を高めるのです。</span><span class="ja">失敗の方がずっと多い新しい計画に挑む場合は、こちらがより重要です」</span> <span class="en" lang="en">In my previous life, I called it the compound interest effect of thinking.</span></p>
+<p><span class="ja">「そういえば最初の予言の時……、リカルドくんは魔獣氾濫が間違っていたら、次の仮説を検討するって言ってましたね」</span> <span class="en" lang="en">Alfina nodded.</span> <span class="en" lang="en">I see, I still had some proper reasoning left back then.</span> <span class="ja">黒歴史ならぬ、白歴史だな。</span></p>
+<p class="ja"><span class="ja">「ありがとうございます。</span><span class="ja">おかげで思い出しましたよ」</span></p>
+<p><span class="ja">「ふわっ！</span><span class="ja">　リカルドくん？</span><span class="ja">」</span> <span class="en" lang="en">I held Alfina&#x27;s hand.</span> <span class="en" lang="en">The cool and smooth sensation of her fingers transmitted to my hand.</span></p>
+<p class="ja"><span class="ja">「……す、すいません」</span></p>
+<p><span class="ja">「あ、いえ、そのリカルドくんがやる気を取り戻してくれて良かったです」</span> <span class="en" lang="en">I hurriedly let go of her hand.</span> <span class="en" lang="en">Alfina covered her cheeks with both hands.</span></p>
+<p><span class="ja">「で、では、これを元に新しい方針を立てます。</span><span class="ja">情報収集はアルフィーナがすでにしてくれてますから、方針の決定からですね」</span> <span class="en" lang="en">Was the reason the red bean paste wasn&#x27;t accepted the color, the flavor of the beans, or the cooking method?</span> <span class="ja">あるいはコストか。</span></p>
+<p><span class="en" lang="en">To make white bean paste, we have to change the type of beans.</span> <span class="ja">いろいろな種類の豆が流通していた現代日本と違って難しい。</span> <span class="en" lang="en">If we discard the flavor of the red bean paste, it&#x27;s over.</span> <span class="ja">黄砂糖食わせとけで話が終わる。</span></p>
+<p><span class="en" lang="en">I turned my thoughts into sentences with my pen.</span></p>
+<ul><li><span class="en" lang="en">In order to create a sweet that is accepted in the kingdom and fused with red bean paste, we will utilize senses other than just taste.</span></li></ul>
+<p><span class="ja">俺は新しい方針を立てた。</span> <span class="en" lang="en">To overcome the cultural gap, we shouldn&#x27;t compete on taste alone.</span> <span class="ja">前回は全く逆をやったわけだ。</span></p>
+<p class="ja"><span class="ja">方針が決まれば、次は具体的にどんな調理法かだ。</span></p>
+<p><span class="ja">「普通に考えたら小麦粉を使った土台で、バターやクリームと合せるだけど……」</span> <span class="en" lang="en">It seems obvious, but it&#x27;s not easy.</span> <span class="ja">例えばあんまん、例えばどら焼き。</span><span class="ja">今川焼きというのもあったか。</span> <span class="en" lang="en">But they look too plain.</span> <span class="ja">食感も別に新しくない。</span></p>
+<p><span class="en" lang="en">What about crepes?</span> <span class="ja">生クリームと餡子を挟んだクレープ。</span> <span class="en" lang="en">If we add fruits, it wouldn&#x27;t look bad.</span></p>
+<p><span class="en" lang="en">No good.</span> <span class="ja">今回の場合、ただ餡子に置き換えるだけじゃ駄目なんだ。</span> <span class="en" lang="en">It wouldn&#x27;t justify the price, and at worst, it would just be a degraded Western sweet.</span> <span class="ja">大体、方針である感覚の駆使にも繋がらない。</span></p>
+<p><span class="en" lang="en">Faced with the new policy, I fell deep into thought.</span> <span class="ja">ペン先が紙の上でさまよう。</span> <span class="en" lang="en">Hmm, this is difficult.</span></p>
+<p><span class="en" lang="en">At that moment, the door of the room opened, and Mia peeked in.</span></p>
+<p class="ja"><span class="ja">「先輩。</span><span class="ja">シェリーとリルカが来ました。</span><span class="ja">頼まれていた物が見つかったって」</span></p>
+<p><span class="ja">「頼んでいた物？</span><span class="ja">」</span> <span class="en" lang="en">Listening to the two sets of pattering footsteps approaching, I tilted my head.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec16">
+<div class="star">＊</div>
+<div class="rubric">16</div>
+<h2>８話：後半　ソフトパワー</h2>
+<hr class="rule">
+<p class="ja"><span class="ja">「ほら言ったでしょ」</span></p>
+<p class="ja"><span class="ja">「……これだけはリルカの冗談だって思っていたかったのに」</span></p>
+<p><span class="ja">「ど、どうした、頭を抱えて」</span> <span class="en" lang="en">I called out to Sherry.</span> <span class="ja">ちょっとばつが悪い。</span><span class="ja">豆の需要を皮算用させてしまった。</span></p>
+<p><span class="ja">「……ううん、何でもない。</span><span class="ja">最近ちょっとだけヴィンダー君のこと理解できるようになってきたかもって思ってたけど、勘違いだった」</span> <span class="en" lang="en">At the end of Rilka&#x27;s gaze was Alfina, dressed as our employee.</span> <span class="ja">いや、滅多にないんだぞ。</span> <span class="en" lang="en">It was quite a rare sight...</span> <span class="ja">無理だな。</span> <span class="en" lang="en">Remembering the scene when I went to the Bermini residence, I gave up making excuses.</span></p>
+<p><span class="ja">「えっと、何だったっけリルカ」</span> <span class="en" lang="en">Instead of the frozen Sherry, I directed the conversation to Rilka.</span></p>
+<p><span class="ja">「私はプルラ先輩からの届け物を頼まれたの。</span><span class="ja">ほら、黄砂糖を使って作ったチェリモヤだって。</span><span class="ja">後はこれ……」</span> <span class="en" lang="en">Rilka placed two pots in front of me.</span></p>
+<p class="ja"><span class="ja">「これは？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「ウチの自慢のクリームとバターよ。</span><span class="ja">……ほら、アンコの菓子に必要じゃないかって思って。</span><span class="ja">もしかして、余計だった？</span><span class="ja">」</span></p>
+<p><span class="ja">「い、いや。</span><span class="ja">丁度良かったよ、ありがとう」</span> <span class="en" lang="en">I was almost giving up a moment ago, and I had just revived thanks to Alfina.</span></p>
+<p class="ja"><span class="ja">「えっと、シェリーはヴィンダーから頼まれてた物を持って行くって言ってたけど」</span></p>
+<p><span class="ja">「……そ、そうだ、言われてたコレはどうするの？</span><span class="ja">」</span> <span class="en" lang="en">Sherry placed three small pots in front of me.</span> <span class="ja">壺からは複雑な香りが漏れている。</span></p>
+<p><span class="ja">「前にヴィンダーが、渋いハーブティーがないかって言ってたでしょ。</span><span class="ja">羊羹に合わせるためじゃなかったの。</span><span class="ja">あっ、一番左のはあんまり期待しないでね。</span><span class="ja">なんて言うか、ハーブと言うよりも薬に近いから」</span> <span class="en" lang="en">I remembered.</span> <span class="ja">ハーブは野菜という話を聞いた時にそんな話をした。</span> <span class="en" lang="en">I was so engrossed in smooth bean paste that I completely forgot about it.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p class="ja"><span class="ja">「美味しいですね」</span></p>
+<p><span class="ja">「ああ、ほんと、アイスクリームみたいだ」</span> <span class="en" lang="en">We were tasting the cherimoya from Purura.</span> <span class="en" lang="en">Thanks to the sugar, the sweetness was clean, making it feel closer to what I had in my previous life.</span> <span class="ja">季節のせいで冷えているのもポイントが高い。</span></p>
+<p><span class="en" lang="en">However, honey has its own honey flavor, so I&#x27;m not sure if it dramatically improved in taste.</span></p>
+<p><span class="ja">「アイスクリームですか？</span><span class="ja">」</span> <span class="en" lang="en">Alfina blinked her eyes.</span> <span class="en" lang="en">Oops, ice cream doesn&#x27;t exist here.</span></p>
+<p><span class="ja">「いや、そうかアイスクリーム…………」</span> <span class="en" lang="en">I muttered the name of the sweet from another world once more.</span> <span class="en" lang="en">Yes, the base doesn&#x27;t necessarily have to be flour-based.</span> <span class="en" lang="en">If it&#x27;s ice cream, the impact is strong enough, and since it&#x27;s mainly cream, it should suit the people here as well.</span></p>
+<p><span class="en" lang="en">If we can just prepare ice, the making process is simple.</span> <span class="en" lang="en">It&#x27;s white and beautiful, and the contrast with the black of the red bean paste should match the aesthetic sense here...</span></p>
+<p><span class="ja">「いや、ダメだな」</span> <span class="en" lang="en">Imagining white ice cream topped with red bean paste, I shook my head.</span> <span class="en" lang="en">They would at best say the ice cream alone was tastier.</span> <span class="en" lang="en">I could just ride on the impact of the ice cream, but that would make it a degraded product.</span></p>
+<p><span class="ja">「……こっちもちゃんと評価してよ」</span> <span class="en" lang="en">Sherry poured a green liquid from the teapot.</span> <span class="en" lang="en">It was the third kind, following one close to brown rice tea and another close to barley tea.</span> <span class="ja">期待するなと言われた物だ。</span> <span class="en" lang="en">But its color and scent surprised me.</span> <span class="en" lang="en">It&#x27;s green tea, isn&#x27;t it?</span></p>
+<p><span class="ja">「ああ、これが一番羊羹の甘さに合いそうですね」</span> <span class="en" lang="en">Alfina said.</span> <span class="en" lang="en">Back then, the taste of the red bean paste stimulated my associations, and I just blurted it out.</span> <span class="ja">餡子よりもハードルが高いと思ってたんだから。</span></p>
+<p><span class="ja">「……まあ、羊羹のためだけに、新しいお茶って訳には行かないから、問題解決にはならないけど。</span><span class="ja">値段も安くないのよ。</span><span class="ja">初夏のごく限られた季節にしか採れないハーブで、産地では粉末にして薬にするくらいなのよ」</span> <span class="en" lang="en">Come to think of it, tea was introduced to Japan as medicine, wasn&#x27;t it?</span> <span class="ja">お茶も餡も元々は外から入ってきた物だ。</span> <span class="en" lang="en">The Japanese refined them into the tea ceremony and Japanese sweets.</span></p>
+<p class="ja"><span class="ja">「洗練されて和菓子に、でも…………」</span></p>
+<p class="ja"><span class="ja">「リカルドくん？</span><span class="ja">」</span></p>
+<p><span class="ja">「どうしたのヴィンダー」</span> <span class="en" lang="en">The Japanese independently developed things brought in from the outside and refined them to a level that can only be described as Japanese style.</span> <span class="ja">羊羹はその最たる物だ。</span> <span class="en" lang="en">But the modern Japanese food culture I know didn&#x27;t stop there.</span></p>
+<p class="ja"><span class="ja">「シェリー。</span><span class="ja">この茶葉、ハーブだけど今言った薬の状態で手に入らないか」</span></p>
+<p class="ja"><span class="ja">「……ウチは野菜屋よ。</span><span class="ja">ま、まあ、少量ならなんとかなるけど」</span></p>
+<p><span class="ja">「頼む。</span><span class="ja">リルカにも用意してもらいたい物がある。</span><span class="ja">クリームだけじゃなくて……」</span> <span class="en" lang="en">I asked the two of them for ingredients for a new recipe.</span></p>
+<p><span class="en" lang="en">Alright, it&#x27;s revenge for the Japanese venture.</span> <span class="en" lang="en">I&#x27;ll show them the true value of Japan&#x27;s soft power.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="en" lang="en">I had made ice cream in elementary school science class.</span> <span class="ja">塩と氷で温度を下げる実験。</span> <span class="en" lang="en">Changing it from making popsicles to ice cream must have been the teacher&#x27;s extra effort.</span> <span class="ja">申し訳ないが正直あまりおいしかった記憶がない。</span> <span class="en" lang="en">It had a rough taste with a very strong egg flavor.</span> <span class="ja">バニラエッセンス辺りが足りなかったんだろう。</span></p>
+<p><span class="en" lang="en">But the process is simple.</span> <span class="en" lang="en">I&#x27;d be in trouble if I were asked to bake a cake, but I can manage ice cream.</span></p>
+<p><span class="en" lang="en">The ingredients are just mixing fresh cream, milk, sugar, and egg yolks.</span> <span class="ja">生クリームと牛乳の割合が一番問題だったが、配分を変えて試したところ、生クリームを増やした方が軟らかくなると分った。</span> <span class="en" lang="en">It&#x27;s probably a matter of moisture content.</span></p>
+<p><span class="en" lang="en">At times like this, I&#x27;m grateful for Rilka, who can supply at wholesale prices.</span> <span class="en" lang="en">Handling the fresh cream, preserving the milk—if it wasn&#x27;t for her, it would have been a disaster.</span></p>
+<p><span class="ja">「さあ、食べてみてくれ。</span><span class="ja">溶けやすいから急いでな」</span> <span class="en" lang="en">I scooped the white ice cream with a spoon and placed it neatly on a plate.</span> <span class="en" lang="en">Rilka quickly put it in her mouth as told and grimaced at the coldness.</span> <span class="en" lang="en">But her cheeks immediately relaxed.</span></p>
+<p><span class="ja">「うわあ、乳製品を扱う商会の娘として、この味を知らなかったのはちょっと屈辱。</span><span class="ja">最初、氷に塩を入れた時は気でも狂ったかと思ったのに」</span> <span class="en" lang="en">Alright, this ice cream recipe is good to go.</span></p>
+<p><span class="ja">「ヴィンダーが言ったとおりに、一番細かく挽いてもらったわよ」</span> <span class="en" lang="en">With perfect timing, Sherry brought the green powder.</span> <span class="en" lang="en">I faintly remembered how matcha was made.</span> <span class="en" lang="en">It was displayed in a souvenir shop in Kyoto I visited on a school trip.</span> <span class="ja">蒸した後で石臼で挽くという工程だ。</span> <span class="en" lang="en">The one Sherry got for me seems to have been made in the same way.</span></p>
+<p><span class="ja">「よし、じゃあ本命を試作するぞ」</span> <span class="en" lang="en">I poured milk and fresh cream into a bowl at the ratio decided earlier.</span> <span class="en" lang="en">Less sugar; since I&#x27;m going to color it anyway, I&#x27;ll mix in brown sugar too.</span></p>
+<p><span class="ja">「……薬をお菓子に入れるなんて、本当に大丈夫？</span><span class="ja">」</span> <span class="en" lang="en">Sherry looked at me with half-doubting eyes.</span></p>
+<p><span class="ja">「”ハーブ”をお菓子の香りと色づけに使うだけ、普通だろ」</span> <span class="en" lang="en">I smiled broadly.</span> <span class="ja">これで餡子菓子の土台の完成だ。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「ヴィンダー。</span><span class="ja">僕は黄砂糖の方で忙しいんだ。</span><span class="ja">試食が終わったらすぐに戻らせてもらうよ」</span> <span class="en" lang="en">Purura said, looking distracted.</span></p>
+<p><span class="ja">「今日は後悔させませんから」</span> <span class="en" lang="en">Saying that, I pulled a metal can out of the rock salt ice.</span> <span class="ja">ふたを開いて中身を白い皿に盛り付ける。</span> <span class="en" lang="en">It&#x27;s a pale green, according to my preference.</span> <span class="ja">リルカ達の意見を聞いて決めた結果だ。</span> <span class="en" lang="en">Apparently, if you add too much, it smells like medicine.</span></p>
+<p><span class="ja">「どうぞヴィンダーさん」</span> <span class="en" lang="en">Natalie brought the chunky red bean paste.</span> <span class="en" lang="en">I arranged it next to the ice cream.</span> <span class="ja">量的にはアイスの三分の一くらい。</span> <span class="en" lang="en">The bright green of the matcha and the black of the red bean paste.</span> <span class="en" lang="en">Since this alone is too dark, I added fresh cream.</span> <span class="ja">生クリームの上には、黄砂糖を作った時に出た糖蜜を垂らした。</span></p>
+<p><span class="ja">「氷菓とはね。</span><span class="ja">それにしても美しいね……」</span> <span class="en" lang="en">Purura&#x27;s eyes grew more serious.</span></p>
+<p><span class="en" lang="en">&quot;Matcha Ice Cream with Red Bean Paste, accompanied by Fresh Cream,&quot; I suppose.</span> <span class="ja">羊羹のような純粋な和菓子ではない。</span> <span class="en" lang="en">But there&#x27;s nothing more fitting to represent Japan&#x27;s soft power.</span></p>
+<p><span class="ja">「では…………。</span><span class="ja">ふむ、ふ……、ぐっ。</span><span class="ja">こ、これは！</span><span class="ja">」</span> <span class="en" lang="en">Purura tried to act calm and failed.</span> <span class="en" lang="en">The moment he swallowed what was in his mouth, he looked up at the ceiling.</span> <span class="ja">その後で、冷えた口の中を暖めるように、紅茶を口に含む。</span> <span class="en" lang="en">And then, pressing his forehead, he rested his arms on the desk.</span></p>
+<p class="ja"><span class="ja">「…………この緑色の氷菓、これは一体何だい」</span></p>
+<p class="ja"><span class="ja">「何の変哲もないものですよ。</span><span class="ja">生クリームと牛乳と砂糖を氷で固めて、ハーブで香り付したものです」</span></p>
+<p><span class="ja">「なるほど、クリームとアンコが渋みのあるハーブでつながっているのか。</span><span class="ja">以前、ワンプレートランチをヤイルの香りで整えたことがあったね。</span><span class="ja">同じ発想というわけか……」</span> <span class="en" lang="en">The three-color combination, the cold texture, the scent of matcha.</span> <span class="en" lang="en">We utilize various senses to create an impact.</span> <span class="en" lang="en">And the miraculous combination of East and West connected by matcha.</span> <span class="ja">つまり、アイスと餡子のコラボを楽しんでもらう。</span> <span class="en" lang="en">That&#x27;s the concept.</span></p>
+<p><span class="en" lang="en">Originally, the scent of matcha isn&#x27;t familiar either.</span> <span class="ja">量が少なめなことに加え、抹茶の香りがアイスのくどさを適度に抑えてくれる。</span> <span class="en" lang="en">If we had real vanilla or chocolate, we might have lost.</span></p>
+<p class="ja"><span class="ja">「な、何よの美味しさ。</span><span class="ja">おかしいんじゃないの。</span><span class="ja">アンコとクリームが混ざって……」</span></p>
+<p><span class="ja">「アンコの風味とこんなにぴったりの味になるなんて」</span> <span class="en" lang="en">Vinaldia and Natalie cheered.</span></p>
+<p class="ja"><span class="ja">「何というか、あきれたよ。</span><span class="ja">こんな物があるなら最初から出したまえ」</span></p>
+<p><span class="ja">「はは、皆の助けを借りるまで気がつかなかったんですよ」</span> <span class="en" lang="en">&quot;Japan&#x27;s other characteristic too,&quot; I added in my heart.</span></p>
+<p><span class="en" lang="en">The etymology of yokan is apparently sheep meat aspic.</span> <span class="ja">日本に渡ってきた後、肉食を嫌う日本の事情に合せて今の形になったらしい。</span> <span class="en" lang="en">Avoiding meat was due to the influence of Buddhism, but I think the view of life and death that existed in Japan originally was also involved.</span></p>
+<p><span class="en" lang="en">Yokan and red bean paste originated in China, and Buddhism in India.</span> <span class="ja">それが日本で禅に源流を持つ茶道とそれに合わせて発展した和菓子になったと言っても良いかもしれない。</span></p>
+<p><span class="en" lang="en">It&#x27;s safe to say that one of the characteristics of Japanese culture is to change things brought in from the outside to a level that can be called unique, and further &quot;refine&quot; them.</span> <span class="en" lang="en">In economic terms, it&#x27;s the power that swept the world with automobiles and home appliances.</span></p>
+<p><span class="en" lang="en">Of course, I pay respect to the ancients of China and India who created yokan, red bean paste, and Buddhism, but I don&#x27;t think I&#x27;d be cursed for being proud of the ancestors who produced such refinement.</span> <span class="ja">というか、そうしないと罰が当たりそうだ。</span> <span class="en" lang="en">To me, they&#x27;re ancestors from my previous life, though.</span></p>
+<p><span class="en" lang="en">Of course, the geographical condition of being an island nation in the Far East must have been a major factor.</span> <span class="ja">もう少し中国に近かったら中華文明に飲まれていたかもしれないのだから。</span></p>
+<p><span class="en" lang="en">And the other power emerged at the boundary between modern and contemporary times.</span> <span class="ja">東洋と西洋の文化の日本における融合だ。</span> <span class="en" lang="en">Anpan is famous, but I think matcha ice cream is the prime example.</span></p>
+<p><span class="en" lang="en">I believe that precisely because they refined Eastern culture into Japanese style, they were able to fuse it with the West without being swallowed up.</span> <span class="ja">よその物とよその物を組み合わせて上手くいくわけがないのだから。</span></p>
+<p><span class="en" lang="en">It&#x27;s interesting that the exquisite blending of Eastern and Western cultures happened at the eastern edge.</span></p>
+<p class="ja"><span class="ja">「コストはどうするんだい。</span><span class="ja">氷まで使ってるよね」</span></p>
+<p><span class="ja">「氷に関しては、例の馬車のおかげで少しは値段を下げれるかもしれませんが、この品は餡子の魅力に触れてもらうための宣伝用ですよ。</span><span class="ja">そうですね、実際に提供を開始する夏までに黄砂糖の生産効率を上げてください。</span><span class="ja">一応アイデアはあります」</span><span class="ja">蜂蜜、クリーム、砂糖。</span><span class="ja">全て遠心分離で生産効率は上がる。</span> <span class="en" lang="en">I plan to standardize the windmill mechanism used for beekeeping and increase efficiency with bearings.</span> <span class="ja">ノエルの頑張りに期待だ。</span></p>
+<p class="ja"><span class="ja">「クリームと牛乳、卵はウチをごひいきに」</span></p>
+<p><span class="ja">「……ハーブと豆は任せて」</span> <span class="en" lang="en">Rilka and Sherry promoted their families&#x27; products.</span></p>
+<p><span class="ja">「これで餡子の評判が高まれば、いずれは羊羹を売ることだって出来るかもしれない」</span> <span class="en" lang="en">I said to Natalie and Vinaldia.</span> <span class="ja">アイスクリームというきっかけがあれば、ギャップを乗り越える人間も増えると願いたい。</span></p>
+<p><span class="ja">「宣伝か。</span><span class="ja">今が夏なら大公閣下のご所望の菓子はこれで決まりだったのにね」</span> <span class="en" lang="en">In my original world, we ate it even in the dead of winter.</span> <span class="ja">こっちでは嫌がらせになりかねない。</span></p>
+<p><span class="ja">「そうですね。</span><span class="ja">最高の宣伝になったでしょうけど。</span><span class="ja">まあ、そちらは任せますよ」</span> <span class="en" lang="en">In the end, I was still completely relying on the knowledge of my predecessors, but I guess I managed to fulfill my role as an angel investor.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec17">
+<div class="star">＊</div>
+<div class="rubric">17</div>
+<h2>９話　黒くて、ツヤツヤしてて、粘っこい</h2>
+<hr class="rule">
+<p class="ja"><span class="ja">「……とんでもないものを食べさせおる」</span></p>
+<p><span class="ja">「評価するのは早いですよ。</span><span class="ja">これの真価は暖かくなってからですから」</span> <span class="en" lang="en">Eufilia, who had emptied her plate of Ogura Matcha Ice Cream, said.</span></p>
+<p class="ja"><span class="ja">「やめよ。</span><span class="ja">氷室を氷で満たしたくなるではないか。</span><span class="ja">東大公の様な浪費家と思われたらどうするのじゃ」</span></p>
+<p><span class="ja">「例の馬車を使えば多少は値段も下げられますよ。</span><span class="ja">マレルの山頂近くには冬は凍る湖があるそうですし」</span> <span class="en" lang="en">I relayed the information I heard from the Knights Order.</span> <span class="en" lang="en">An increase in transport efficiency means that resources previously out of reach can now be accessed.</span></p>
+<p><span class="ja">「悪魔のささやきじゃな」</span> <span class="en" lang="en">Eufilia sighed.</span> <span class="en" lang="en">Then, setting down her spoon, she looked at me again.</span> <span class="en" lang="en">It seemed a serious talk was about to begin.</span></p>
+<p class="ja"><span class="ja">「今日のご用件は？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「むろん茶会のことじゃ。</span><span class="ja">状況が少し変わってきて、役割分担に変更があった」</span></p>
+<p><span class="ja">「確か第一王女が会場を提供して第二王女が準備を手伝い、第三王女とアルフィーナは菓子を持っていくという話でしたが……」</span> <span class="en" lang="en">What was the Third Princess&#x27;s name again?</span></p>
+<p><span class="ja">「茶会の参加人数が増えた。</span><span class="ja">それで、下の二人も準備の分担という話が出たのじゃ」</span> <span class="en" lang="en">Apparently, the Second and Third Princesses would handle the venue&#x27;s interior decoration, while Alfina would be in charge of heating.</span> <span class="ja">俺は首をかしげた。</span> <span class="en" lang="en">I didn&#x27;t think it was that much of a problem.</span></p>
+<p><span class="en" lang="en">Tapestries and other fabrics used to decorate walls are expensive and rare.</span> <span class="ja">言うまでもなくオーダーメイド。</span> <span class="en" lang="en">Basically, the owner&#x27;s crest is engraved on them.</span> <span class="ja">欲しければ買ってこれるという物ではない。</span></p>
+<p><span class="en" lang="en">On the other hand, no matter how expensive firewood is this year, it&#x27;s still just firewood.</span></p>
+<p><span class="ja">「第一王女……公爵夫人としてみれば化粧料が少ないアルフィーに配慮したのじゃろう。</span><span class="ja">第二、第三王女にしても、自分の屋敷の物を持ちよれば良いだけじゃがな」</span> <span class="en" lang="en">To the Third Princess, it doesn&#x27;t cost her money, while Alfina&#x27;s burden increases, is that it?</span> <span class="ja">かわいい嫌がらせだ。</span></p>
+<p class="ja"><span class="ja">「参加人数を増やしたのはドリスディアじゃ。</span><span class="ja">おかげで、会場が倍の広さの大部屋になった。</span><span class="ja">同時に薪の値段が引き上げられている兆候がある。</span><span class="ja">必要な量が三倍、値段が倍というところじゃな」</span></p>
+<p><span class="ja">「薪の値段ですか？</span><span class="ja">」</span> <span class="en" lang="en">I tilted my head in confusion.</span> <span class="en" lang="en">I buy firewood, but I hadn&#x27;t noticed that.</span></p>
+<p class="ja"><span class="ja">「其方はしらんじゃろうが。</span><span class="ja">薪にも格式という物があってな」</span></p>
+<p><span class="ja">「勘弁してください」</span> <span class="en" lang="en">In the kingdom, farming villages burn peat, while commoners in the royal capital burn things like bamboo.</span> <span class="ja">木材は高価。</span> <span class="en" lang="en">Among them, the high-quality firewood used by nobles for official banquets—which produces little smell and doesn&#x27;t crackle like bamboo when burned—is even more expensive and scarce in quantity.</span></p>
+<p><span class="en" lang="en">I see, if they hoard it, the price goes up easily.</span> <span class="ja">しかも、関係ない庶民には恨まれない。</span> <span class="en" lang="en">Nobles would just use ordinary firewood if it came down to it anyway.</span></p>
+<p class="ja"><span class="ja">「買い占めだけじゃなくて供給も操作されてそうですね。</span><span class="ja">クルトハイトあたりが……。</span><span class="ja">で、そのつまらない嫌がらせで、向こうが得るものはなんでしょう？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「薪の費用で菓子が貧弱になればそれを笑い、薪が足りなくて会場が冷えていれば文句を付ける。</span><span class="ja">アルフィーの経済力の低さをアピールするつもりじゃろう」</span></p>
+<p><span class="ja">「なるほど、そちらできましたか。</span><span class="ja">王女といえど普通は自由になる金銭は多くないですからね」</span> <span class="en" lang="en">Nobles are undoubtedly wealthy asset owners.</span> <span class="ja">だが、よほどの大貴族でない限り大”金”持ちではない。</span> <span class="en" lang="en">Because the vast majority of their assets are land, agricultural products, and their people (labor force).</span> <span class="en" lang="en">They are served by many servants in large mansions, but the cash they can freely use is not that much.</span></p>
+<p><span class="en" lang="en">When preparing sweets for a large number of people, which are already expensive, if a massive additional cost arises, they would consider it an unbearable burden.</span> <span class="en" lang="en">Usually, that is.</span></p>
+<p><span class="ja">「なかなか考えましたね」</span> <span class="en" lang="en">Since they can&#x27;t win in fame no matter what they do, they plan to attack financially, huh.</span> <span class="ja">金がないところに人は集まらない。</span> <span class="en" lang="en">They want to brand her as the poor princess.</span></p>
+<p class="ja"><span class="ja">「そなた、あまり深刻じゃないの」</span></p>
+<p class="ja"><span class="ja">「薪ぐらい大公閣下が親しい貴族から買い上げてくださいよ」</span></p>
+<p><span class="ja">「いくら金が掛かると思っておる。</span><span class="ja">妾が出しても良いが名分がな」</span> <span class="en" lang="en">The great noble frowned.</span></p>
+<p class="ja"><span class="ja">「金で解決出来るなんて安い話ですよ。</span><span class="ja">人や物を出せと言われた方が困るでしょう。</span><span class="ja">ミーアアレを頼む」</span></p>
+<p><span class="ja">「はい。</span><span class="ja">本年の新しい決算の予想です」</span> <span class="en" lang="en">Mia handed the financial report to Eufilia.</span> <span class="ja">今日のもう一つの報告だ。</span> <span class="en" lang="en">The major shareholder stared at the new earnings forecast.</span> <span class="en" lang="en">And then sighed.</span></p>
+<p><span class="ja">「貨幣収入で言えば領地が二つあるようなものか。</span><span class="ja">金のことは心配いらんな」</span> <span class="en" lang="en">In addition to honey, there&#x27;s the license fee for French toast, the usage fee for the bearing molds, and the contract fee for yellow sugar.</span> <span class="ja">来年はその全てがさらに増える。</span></p>
+<p><span class="ja">「第三王女だかは、アルフィーナの財力の半分を知らないんですよ。</span><span class="ja">言うまでもないですけど、今年の分なんて小手調べですよ」</span> <span class="en" lang="en">Setting aside total assets, when it comes to freely usable cash, she probably surpasses the Third Princess, who has more than double her allowance.</span></p>
+<p><span class="en" lang="en">Of course, it&#x27;s irritating to waste money on such trivial things.</span> <span class="ja">だが、向こうだって仕掛けるためにいろいろリソースを消費している。</span> <span class="en" lang="en">Since the advantage shifts to us as time goes on, an attack that can be fended off with money is considered cheap.</span></p>
+<p><span class="en" lang="en">In the meantime, we should just overtake her total assets as well.</span> <span class="ja">勝つ見込みがあるときと、負けそうなときでは戦略が違う。</span></p>
+<p><span class="ja">「分った。</span><span class="ja">確かにこちらは問題ではないようじゃ。</span><span class="ja">じゃが、もう一つあるのじゃ。</span><span class="ja">菓子のことだが。</span><span class="ja">向こうは珍しい品を入手したらしい。</span><span class="ja">最近こちらに付いた貴族を使って手に入れたのがこれじゃ。</span><span class="ja">何か分るか」</span> <span class="en" lang="en">One of the maids placed a plate on the table.</span> <span class="ja">白い皿の上に黒いチップが乗っている。</span> <span class="en" lang="en">I knew what it was immediately from its characteristic aroma.</span></p>
+<p><span class="ja">「……どこで手に入れたんですか」</span> <span class="en" lang="en">I said reproachfully.</span> <span class="en" lang="en">Why is there cacao mass, which I searched so hard for in the past and couldn&#x27;t find?</span> <span class="ja">こっちの世界にあの呪われた二月十四日が出来たらどうしてくれるんだ。</span></p>
+<p class="ja"><span class="ja">「国外から来たものですよね。</span><span class="ja">でも王国の南には……」</span></p>
+<p><span class="ja">「ほう、どうして即座にそう判断したのかは興味深いが。</span><span class="ja">半分は外れじゃ。</span><span class="ja">どうも出所は帝国の商人らしい。</span><span class="ja">あの馬車ギルド長の屋敷に出入りしてたな」</span> <span class="en" lang="en">Why is there cacao in the northern countries?</span> <span class="ja">生態系仕事しろ。</span></p>
+<p class="ja"><span class="ja">「で、どうじゃ」</span></p>
+<p><span class="ja">「……ちょっと普通の物じゃ勝てないですね」</span> <span class="en" lang="en">I answered honestly.</span> <span class="en" lang="en">If they bring out chocolate sweets, no matter how hard Purura tries with yellow sugar, the chances of winning are slim.</span> <span class="ja">だが問題はもっと深刻だ。</span></p>
+<p class="ja"><span class="ja">「それより。</span><span class="ja">第二、第三王女に加えて招かれる側の帝国皇女までが組んでいるということでしょ。</span><span class="ja">勝負なんかどうでも良いから、アルフィーナの安全が第一でしょう。</span><span class="ja">いっそ仮病か水晶にかこつけて欠席しても」</span></p>
+<p><span class="ja">「ルィーツアとクラウディアも当然同席させる。</span><span class="ja">会場の警護にはクレイグ派からも人数を出させる。</span><span class="ja">そちのセントラルガーデンからも手伝いの名目で人を出して欲しい」</span> <span class="en" lang="en">I frowned.</span></p>
+<p class="ja"><span class="ja">「木材の交渉が良いところまで進んでいてな。</span><span class="ja">来春にはまとまった量をベルトルドに運ばせられる。</span><span class="ja">帝国を邪険にできんし。</span><span class="ja">中立の第一王女の顔も潰せんといったじゃろ。</span><span class="ja">ついでに言えば、夫の公爵は王都に隣接する中では一番の大貴族じゃ。</span><span class="ja">影響力も大きい」</span></p>
+<p class="ja"><span class="ja">「……これは手に入らないんですよね」</span></p>
+<p><span class="ja">「無理じゃな」</span> <span class="en" lang="en">Even if I could get it, I don&#x27;t know the process of turning cacao mass into chocolate.</span> <span class="ja">粉末にして砂糖を加えれば終わりじゃないよな。</span> <span class="en" lang="en">I wouldn&#x27;t make it in time.</span></p>
+<p><span class="ja">「冬じゃなければこれで申し分ないのだがな。</span><span class="ja">出来れば体が暖かくなるような物が望ましい。</span><span class="ja">何かないか」</span> <span class="en" lang="en">Eufilia looked at the plate.</span> <span class="ja">確かに、今じゃなければチョコレートにも対抗出来るのに。</span></p>
+<p><span class="en" lang="en">I see, they might be aiming for exactly that.</span> <span class="ja">確かチョコレートは元々飲み物だ。</span> <span class="en" lang="en">If hot chocolate is served in a cold room, combined with its taste, it would have an incredible impact.</span></p>
+<p><span class="en" lang="en">This is getting increasingly tough.</span> <span class="ja">いや、待てよ…………。</span></p>
+<p class="ja"><span class="ja">「一つ思いつきました」</span></p>
+<p class="ja"><span class="ja">「おお、そうか。</span><span class="ja">で、どんな菓子じゃ」</span></p>
+<p><span class="ja">「まずは、会場の左右のスペースの状況を教えてください。</span><span class="ja">公爵夫人の第一王女には準備のためにこちらの勝手がどれほど通るか確認してもらってください」</span> <span class="en" lang="en">To Eufilia, who leaned forward, I rapidly conveyed what was necessary.</span></p>
+<p class="ja"><span class="ja">「ああ、それは良いが菓子は……」</span></p>
+<p class="ja"><span class="ja">「あっ、宣伝費ということで薪代金はこちらも負担します。</span><span class="ja">名目上は、レイリアの蜂蜜代金の先払いでいいでしょ」</span></p>
+<p class="ja"><span class="ja">「先輩……？</span><span class="ja">」</span></p>
+<p><span class="ja">「だ、大丈夫。</span><span class="ja">費用のことはちゃんとミーアにチェックを頼むから」</span> <span class="en" lang="en">I started crunching numbers as a merchant.</span> <span class="ja">あの道楽では原価計算もしてなかったとミーアからこってり絞られたのだ。</span></p>
+<p><span class="en" lang="en">If they are up for it, I&#x27;ll turn it back on them.</span> <span class="en" lang="en">An tea party where all the princesses gather is the perfect opportunity to promote red bean paste.</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec18">
+<div class="star">＊</div>
+<div class="rubric">18</div>
+<h2>１０話：前半　アフタヌーンティーパーティー</h2>
+<hr class="rule">
+<p><span class="ja">「外の火はもう消して良いんだよな。</span><span class="ja">そろそろ煙を止めないと不味いぜ」</span> <span class="en" lang="en">Wiping his sweat, Dargan said while pushing a cart loaded with many boxes.</span></p>
+<p class="ja"><span class="ja">「そうですね。</span><span class="ja">テーブルの数を考えたらこれで十分だと思います。</span><span class="ja">ロストン先輩はどうですか？</span><span class="ja">」</span></p>
+<p class="ja"><span class="ja">「――あっちの部屋も準備完了だね。</span><span class="ja">そろそろ音を消さないと。</span><span class="ja">それにしても、僕のことは外しておいてこういう時だけ駆り出すとは」</span></p>
+<p><span class="ja">「はは、先輩は最近まで王都の外だったでしょ。</span><span class="ja">そのうち埋め合わせはしますから」</span> <span class="en" lang="en">Roston waved his hand and headed toward the hallway.</span> <span class="ja">俺は小さくドアを開けた、ひやりとした空気が顔に触れた。</span></p>
+<p><span class="en" lang="en">The adjacent room was equipped with two magnificent fireplaces.</span> <span class="ja">暖炉のそばには第一王女の公爵夫人とアルフィーナがいる。</span> <span class="en" lang="en">The two princesses seemed to be keeping the Imperial Princess company.</span> <span class="ja">どんな話をしているんだか。</span></p>
+<p><span class="en" lang="en">By Alfina&#x27;s side stood Claudia and Luiza.</span> <span class="ja">少し離れたところでリルカとシェリーが直立不動だ。</span> <span class="en" lang="en">Noticing me opening the door, they looked at me reproachfully.</span></p>
+<p><span class="en" lang="en">It&#x27;s an all-female tea party.</span> <span class="ja">俺たちは裏方に徹するしかないんだから仕方がない。</span></p>
+<p><span class="en" lang="en">Through the window, I could see carriages arriving one after another.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="en" lang="en">The tea party began.</span> <span class="ja">まずはホスト役の三人の王女が年齢順に歓迎の言葉を述べる。</span> <span class="en" lang="en">Every time they spoke, loud applause erupted from the gathered young ladies.</span> <span class="ja">学院で見たことがある女の子が多い、のだと思う。</span></p>
+<p><span class="en" lang="en">Finally, Lisabeth stood up.</span> <span class="ja">全員の視線を受けて柔らかく微笑む。</span> <span class="en" lang="en">If it were me, it would be a scene where I&#x27;d think I was dragged into a torture chamber.</span></p>
+<p><span class="en" lang="en">The greeting was a standard one expressing gratitude for the welcome.</span> <span class="ja">儀礼が終わると、壁際に控えていた侍女達がテーブルを回る。</span> <span class="en" lang="en">Amber-colored tea was poured into the cups.</span> <span class="ja">参加者は口を付け、少しほっとした顔になる。</span></p>
+<p><span class="en" lang="en">On the tables, light meals were prepared, consisting of thinly sliced scones topped with vegetables, cheese, and meat.</span></p>
+<p><span class="en" lang="en">The participants nibbled on them while expressing words of praise to the Duchess and the Second Princess who had prepared them.</span> <span class="ja">そして、ドリスディアとアルフィーナが立ち上がる。</span></p>
+<p><span class="en" lang="en">Here it comes.</span> <span class="ja">リルカとシェリーが緊張しているのが分る。</span> <span class="en" lang="en">Natalie and Vinaldia in the kitchen must be even more so.</span> <span class="ja">まあ、プルラが付いているのだから大丈夫だと思うが。</span></p>
+<p><span class="en" lang="en">Just when I thought it was about time, a young lady in a gorgeous red dress stood up.</span></p>
+<p><span class="ja">「アルフィーナ……殿下。</span><span class="ja">いささか暖が足りないように感じるのですけれど」</span> <span class="en" lang="en">It&#x27;s Hilda.</span> <span class="ja">大公令嬢の言葉に控えめに頷くその周囲の令嬢達。</span> <span class="en" lang="en">Are they from the Second Prince&#x27;s faction or the Third Princess&#x27;s entourage?</span> <span class="ja">まあ、そう言えないことはない程度に、押さえているからな。</span></p>
+<p class="ja"><span class="ja">「まあ、確かに少し肌寒いですけれど、急な準備で苦労したのは仕方ないですわね」</span></p>
+<p><span class="ja">「ええ、今年は暖の費用がかさんでいるそうですから。</span><span class="ja">ただ、せっかくの歓迎会。</span><span class="ja">ましてや同級生となるのですから万全を尽くすのが礼儀ですよ。</span><span class="ja">申し訳ありませんリーザベルト殿下」</span> <span class="en" lang="en">The Second Princess and Dorisdia demeaned Alfina while pretending to follow up.</span> <span class="ja">妹の不首尾をわびる姉の形だが、意図は明らかだ。</span> <span class="en" lang="en">I peeked at the people in the venue.</span> <span class="ja">口に手をやるご令嬢達が半分弱、頬が歪んでいる。</span> <span class="en" lang="en">A third of the young ladies looked down, appearing troubled.</span> <span class="ja">そして、アルフィーナに同情の目を向けるのが残りだ。</span></p>
+<p><span class="en" lang="en">It&#x27;s interesting that the ratio is like this even though there are many people invited by the self-proclaimed genuine princesses.</span> <span class="ja">アルフィーナに同情的な人間や中立の人間が思ったよりも多い。</span></p>
+<p><span class="en" lang="en">No wonder they are getting desperate.</span> <span class="ja">それにしても、ヒルダは本当に良い仕事をしてくれた。</span></p>
+<p><span class="ja">「なるほど。</span><span class="ja">では、よろしいでしょうかアルフィーナ様」</span> <span class="en" lang="en">At Luiza&#x27;s words, Alfina nodded.</span> <span class="ja">俺は大きく扉を開いた。</span> <span class="en" lang="en">The warm, heavy air from the room I was in flowed into the venue.</span></p>
+<p><span class="en" lang="en">At the same time, the opposite room opened.</span> <span class="ja">暖気と湿気の挟み撃ち。</span> <span class="en" lang="en">Furthermore, as the center door opened, Dargan brought in a cart loaded with square boxes.</span> <span class="ja">侍女達の助けを借り、テーブルの下に箱を入れていく。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="en" lang="en">This morning, we stormed the Duke&#x27;s mansion quite early.</span></p>
+<p><span class="ja">ダルガン先輩が庭で泥炭を燃やし大量の石を暖める。</span> <span class="en" lang="en">The boxes placed under the tables contained the components for makeshift kotatsu.</span></p>
+<p><span class="en" lang="en">At the same time, I brought a massive amount of bamboo firewood into the room next to the venue and kept it burning fiercely.</span> <span class="ja">暖炉には水の入った鍋を置き。</span> <span class="en" lang="en">I also raised the humidity.</span></p>
+<p><span class="en" lang="en">Stones take a long time to warm up, but once they do, they can retain a lot of heat.</span> <span class="ja">会場の左右の部屋が大きな熱を蓄えたわけだ。</span> <span class="en" lang="en">It was so hot that I had to endure the heat myself.</span></p>
+<p><span class="en" lang="en">The venue itself, which was the crucial part, was heated to a degree that felt slightly insufficient.</span> <span class="ja">もちろん、燃えているのは高価な薪だ。</span></p>
+<p><span class="en" lang="en">I did this intentionally to make the enemy think things were going according to their plan, but thanks to Hilda, it worked better than expected.</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p><span class="ja">「まあ、なんて暖かいのでしょう」</span> <span class="en" lang="en">The temperature of the room rose all at once.</span> <span class="ja">参加者の顔がほころぶ。</span></p>
+<p class="ja"><span class="ja">「これほどの準備を整えておられたとは、流石アルフィーナ殿下ですわ」</span></p>
+<p><span class="ja">「本当に。</span><span class="ja">アルフィーナ殿下のお心の温かさが伝わるようですわ」</span> <span class="en" lang="en">Picture-perfect praises started to come out.</span> <span class="ja">さっきドリスディアの言葉に顔を伏せた娘達かな。</span> <span class="en" lang="en">It&#x27;s really a hassle.</span></p>
+<p><span class="en" lang="en">Dorisdia made a face as if she had bitten a bitter bug.</span> <span class="ja">視線を向けられたヒルダがびくっと首をすくめた。</span> <span class="en" lang="en">Poor thing.</span></p>
+<p><span class="ja">「で、では私たちの歓迎のデザートを味わって頂きますわ」</span> <span class="en" lang="en">Dorisdia, having somehow recovered her expression, declared.</span> <span class="ja">そりゃ、出し物には自信があるよな。</span></p>
+<p><span class="en" lang="en">Two large trays were carried into the venue.</span></p>
+<p><span class="ja">「まあ、何というかぐわしい香りでしょう」</span> <span class="en" lang="en">The first to be uncovered was Dorisdia&#x27;s dessert.</span> <span class="ja">中央に厚手のカップが置かれ、左右に細長い焼き菓子。</span> <span class="en" lang="en">Colorful fruits were placed above and below.</span> <span class="ja">運んできた侍女達がカップの上に白いクリームで模様を描いていく。</span> <span class="en" lang="en">Latte art?</span> <span class="en" lang="en">Not bad at all.</span></p>
+<p class="ja"><span class="ja">……黒一色の菓子を出す間抜けは俺くらいという訳か。</span></p>
+<p><span class="ja">「まあ、何と美しい。</span><span class="ja">ドリスディア殿下、この見たこともないような素晴らしいお菓子はどのような物なのでしょうか」</span> <span class="en" lang="en">Hilda was the one desperately flattering her.</span></p>
+<p><span class="ja">「ええ、とても珍しい木の実で作られていますの。</span><span class="ja">入手するには苦労しましたのよ」</span> <span class="en" lang="en">Dorisdia nodded in satisfaction and looked at Alfina.</span></p>
+<p><span class="ja">「アルフィーナはいつものフレンチトーストかしら。</span><span class="ja">確かにありきたりの材料を使う割には美味しいのだけど……」</span> <span class="en" lang="en">Well, I did bring ingredients that might lead to such a misunderstanding, though.</span> <span class="ja">そんなこと口には出すなよ。</span></p>
+<p><span class="ja">「いいえ、私も少し目新しい菓子を持って参りました。</span><span class="ja">フレンチトーストに負けないと思います」</span> <span class="en" lang="en">Alfina said with her usual gentle smile.</span> <span class="ja">いや、そこはフレンチトースト以上といって欲しい。</span> <span class="en" lang="en">At Luiza&#x27;s signal, our dessert was uncovered.</span> <span class="ja">途端に驚きの声が上がった。</span></p>
+<p><span class="ja">「まあ、冬に氷菓子ですの」</span> <span class="en" lang="en">Voices of surprise went up.</span> <span class="ja">会場がざわつく。</span> <span class="en" lang="en">Stares, as if looking at something creepy, converged on the tray.</span></p>
+<p><span class="en" lang="en">Ice was laid out on the tray, with a plate resting on top of it.</span></p>
+<p><span class="ja">「さあ皆さん。</span><span class="ja">暖かいうちにどうぞ」</span> <span class="en" lang="en">Dorisdia said as if to rush them.</span> <span class="en" lang="en">Did she plan to have them eat the chocolate first, hoping its impact would overshadow the next dish?</span> <span class="ja">好都合だ。</span></p>
+<p class="ja"><span class="ja">「このようなコクのある甘さは初めてですわ」</span></p>
+<p><span class="ja">「なんと深みのある芳香でしょう。</span><span class="ja">初めてなのに素晴らしく心惹かれますわ」</span> <span class="en" lang="en">Unreserved praise arose from the venue.</span> <span class="ja">初めてチョコ食わされればそうなるのは分る。</span> <span class="en" lang="en">Regardless of how they obtained it, it&#x27;s a top-tier offering.</span></p>
+<p><span class="ja">「どうでしょうか。</span><span class="ja">リーザベルト殿下」</span> <span class="en" lang="en">Dorisdia proudly puffed out her chest and asked the Imperial Princess with a confident expression.</span></p>
+<p><span class="ja">「え、ええ、とても素晴らしいですわ」</span> <span class="en" lang="en">Lisabeth responded with a slightly awkward smile.</span> <span class="ja">なんか反応が微妙だ。</span> <span class="en" lang="en">Well, it probably isn&#x27;t a novelty to her, though.</span></p>
+<p class="ja"><span class="ja">まあいい、次はこちらのターンだ。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec19">
+<div class="star">＊</div>
+<div class="rubric">19</div>
+<h2>１０話：後半　贅沢の形</h2>
+<hr class="rule">
+<p><span class="ja">「では、私が準備した菓子をご賞味ください」</span> <span class="en" lang="en">Alfina spoke exactly when the praise for the hot chocolate had gone around once.</span> <span class="ja">リルカとシェリーの指示で侍女達がトレイの氷から皿を運んでいく。</span></p>
+<p><span class="en" lang="en">The young ladies looked at the cold sweets with eager eyes.</span> <span class="ja">先ほどまでの忌避感は無い。</span></p>
+<p><span class="en" lang="en">For a while now, some had been dabbing their foreheads with handkerchiefs, while others conspicuously handed their stoles and lap blankets to the maids by the wall.</span> <span class="ja">熱い紅茶を飲んでいた後に部屋が暖まったのだ。</span> <span class="en" lang="en">And on top of that came the hot chocolate.</span></p>
+<p><span class="en" lang="en">Pushed by the gazes of everyone in the room, Lisabeth took a bite of the ice cream and covered her mouth.</span> <span class="ja">それを合図に、参加者達は次々とスプーンを手に取る。</span></p>
+<p class="ja"><span class="ja">「まあ、何という口溶けと甘さでしょう」</span></p>
+<p class="ja"><span class="ja">「珍しい香りですけれどすっきりとした風味ですね」</span></p>
+<p><span class="ja">「上に掛かった黒いジャム。</span><span class="ja">甘さが素晴らしいですわよ」</span> <span class="en" lang="en">Cheers arose for Alfina&#x27;s sweets.</span> <span class="ja">黒でそろえる趣向だと勘違いしている人間もいるかもしれない。</span> <span class="en" lang="en">It&#x27;s just fine if they think that way.</span></p>
+<p><span class="ja">「このお菓子はどういう物ですの？</span><span class="ja">　口当たりと良い、香りと良いすばらしいですわ。</span><span class="ja">それに、この上に乗った黒いジャムが相まって。</span><span class="ja">どれも味わったことがないのですが」</span> <span class="en" lang="en">A young lady in a blue dress asked.</span></p>
+<p class="ja"><span class="ja">「は、はい。</span><span class="ja">氷菓子はクリームと牛乳を氷で固めたものとなります」</span></p>
+<p class="ja"><span class="ja">「……緑の色はハーブの色でございます。</span><span class="ja">黒いジャムは、見て頂ければ分るかと思いますが、豆を砂糖で煮込んだ物です。</span><span class="ja">特別な砂糖を使い甘さを特に引き上げております」</span></p>
+<p class="ja"><span class="ja">「まあ、これは豆のジャムですの」</span></p>
+<p class="ja"><span class="ja">「信じられません。</span><span class="ja">でも、ハーブの香りととても合いますわね」</span></p>
+<p class="ja"><span class="ja">「特別な砂糖ですか。</span><span class="ja">確かに、この甘さは素晴らしいですわ」</span></p>
+<p><span class="ja">「ま、豆を菓子に使うなんてリーザベルト殿下を馬鹿にしているのかしら。</span><span class="ja">そんな物は……」</span> <span class="en" lang="en">Dorisdia, who had tasted Alfina&#x27;s sweet, wore an expression of sheer shock.</span> <span class="ja">プルプルと肩をふるわせて、文句を止めた。</span></p>
+<p><span class="ja">「いかがでしょうかリーザベルト殿下」</span> <span class="en" lang="en">Alfina asked Lisabeth.</span></p>
+<p><span class="ja">「はい。</span><span class="ja">このような素晴らしいお菓子初めて味合わせて頂きました。</span><span class="ja">私の母の故郷では豆をよく食べるのです。</span><span class="ja">このような美味が隠されているとは、本当に驚きました。</span><span class="ja">先ほどのドリスディア殿下のお菓子も素晴らしかったですし。</span><span class="ja">これほどの歓迎を受けて、私は幸せ者ですね」</span> <span class="en" lang="en">Lisabeth said.</span> <span class="en" lang="en">She was being considerate by treating them as equals, but the difference in reaction was obvious.</span> <span class="ja">ヒルダが焦った顔になる。</span></p>
+<p><span class="en" lang="en">Even so, they eat a lot of beans, huh.</span> <span class="ja">単に領民がってことかな。</span> <span class="en" lang="en">Or perhaps the beans over there are special.</span> <span class="ja">少し調べてみるか。</span> <span class="en" lang="en">I wonder where in the Empire the Imperial Princess&#x27;s hometown is.</span></p>
+<p class="ja"><span class="ja">まあ、何にせよ上手くいったか。</span></p>
+<p><span class="ja">「ヴィンダー。</span><span class="ja">……確認しといた方が良いでしょ」</span> <span class="en" lang="en">Rilka came to the door where I was observing the situation.</span> <span class="ja">カップと細長い焼き菓子を渡される。</span></p>
+<p><span class="ja">「あ、ああ。</span><span class="ja">助かった」</span> <span class="en" lang="en">There were lip marks left by Rilka on the cup.</span> <span class="ja">俺は正反対に回転させると。</span> <span class="en" lang="en">I dipped the tip of the baked sweet into the hot chocolate and tasted it.</span></p>
+<p class="ja"><span class="ja">「……旨いけど。</span><span class="ja">ちょっと微妙だな」</span></p>
+<p><span class="ja">「うそ。</span><span class="ja">私一瞬負けたと思ったわよ」</span> <span class="en" lang="en">Rilka was surprised by my impression.</span> <span class="en" lang="en">No, it&#x27;s definitely chocolate.</span> <span class="ja">懐かしい味であることに変わりはない。</span> <span class="en" lang="en">It also has a strong aroma; perhaps the cacao percentage is higher than the 100-yen bars from my previous life.</span></p>
+<p><span class="en" lang="en">But the flavor feels somewhat disjointed.</span> <span class="ja">完成形を知っている俺には少し物足りない。</span> <span class="en" lang="en">The fact that they threw in a massive amount of unrefined sugar, molasses and all, is probably another reason.</span></p>
+<p><span class="en" lang="en">Well, even so, I couldn&#x27;t have won with yokan.</span> <span class="ja">小倉抹茶アイスでもなんとか見劣りしないというところだろう。</span> <span class="en" lang="en">After all, chocolate is a universally loved flavor.</span> <span class="en" lang="en">On the other hand, we barely managed to compete using the foul play known as Ogura Matcha Ice Cream.</span> <span class="ja">本来ならだけど……。</span></p>
+<p><span class="ja">「それにしても、室内を暖かくしてから氷菓を味わうなど、何という贅沢でしょう」</span> <span class="en" lang="en">Enchanted by the ice cream melting on her tongue, one of the young ladies said.</span> <span class="ja">室温まで含めた演出だと言うことに気がついたらしい。</span></p>
+<p><span class="en" lang="en">Dorisdia and Hilda looked startled.</span> <span class="ja">アルフィーナの財力を見誤っていたことに気がついたか。</span> <span class="en" lang="en">Just a moment ago, the ladies who had covered their mouths when Alfina&#x27;s room temperature was criticized now wore expressions of confusion and anxiety.</span></p>
+<p><span class="en" lang="en">It&#x27;s a luxury that even royalty and nobility cannot easily afford.</span> <span class="ja">前世では誰でも出来た贅沢だけど。</span> <span class="en" lang="en">In a reverse version, there&#x27;s also the luxury of blasting the air conditioner and eating hot pot in summer.</span> <span class="ja">こちらでは無理だけど。</span></p>
+<p><span class="en" lang="en">Some guests were taking on the chocolate while blowing on it to cool it down, but it seemed more participants were smacking their lips over the ice cream, sidelining their cups.</span></p>
+<p><span class="en" lang="en">There must be people who dislike matcha or red bean paste.</span> <span class="ja">だが、アイスでこちらの好みに合わせたのと室温のおかげでそれを乗り越えることが出来た。</span> <span class="en" lang="en">As for the ice dessert surpassing it, personal preference probably played a large role.</span></p>
+<p><span class="ja">「豆のジャムというから抵抗がありましたけど、穏やかで深みのある味わいですわ」</span> <span class="en" lang="en">Someone said.</span> <span class="ja">抹茶の香りと餡子の組み合わせは本物の組み合わせだ。</span> <span class="en" lang="en">Once they overcome the cultural gap, there are people it resonates with.</span></p>
+<p><span class="en" lang="en">The venue was in high spirits.</span> <span class="ja">チョコレートにも小倉抹茶アイスにも文句を言う人間はいない。</span> <span class="en" lang="en">The Duchess, who was the host, also looked pleased.</span> <span class="ja">彼女にとってはベストな結果だろう。</span> <span class="en" lang="en">In the first place, with the premise of princesses gathering to entertain an Imperial Princess, there was no way a winner or loser would be decided.</span></p>
+<p><span class="en" lang="en">We thwarted their intentions, and we managed to advertise the red bean paste.</span> <span class="ja">まあまあ、満足のいく結果だといって良いだろう。</span> <span class="en" lang="en">I felt relieved for the time being.</span></p>
+<p><span class="ja">「わ、私のお菓子とアルフィーナのと、リーザベルト殿下はどちらがお気に召しましたかしら」</span> <span class="en" lang="en">However, an astonishing remark flew out from Dorisdia.</span> <span class="ja">暖かい会場の空気が下がったような錯覚する覚える。</span> <span class="en" lang="en">No way, did she say that to give the chocolate an advantage?</span> <span class="ja">なわけないか。</span></p>
+<p><span class="en" lang="en">Everyone&#x27;s gaze gathered on Lisabeth.</span> <span class="ja">室内に緊張感が高まった。</span></p>
+<p><span class="ja">「そうですわね。</span><span class="ja">ドリスディアもアルフィーナもリーザベルト殿下のために全力を尽くしたようです。</span><span class="ja">どちらの品も味はもちろん、珍しさも甲乙付けがたいできでした。</span><span class="ja">二人の妹の頑張りを私は心から喜んでいますよ」</span> <span class="en" lang="en">Stepping forward, the Duchess&#x27;s words broke the tension in the venue.</span> <span class="en" lang="en">Confirming this, the King&#x27;s eldest daughter, as the main host, offered a gentle smile to Alfina.</span></p>
+<p class="ja"><span class="ja">「特に、部屋の温度まで上げて冬に氷菓を楽しませたアルフィーナの趣向には本当に驚かされましたし。</span><span class="ja">朝早くから準備を頑張っていましたから」</span></p>
+<p class="ja"><span class="ja">「そ、そんな。</span><span class="ja">お姉様」</span></p>
+<p><span class="ja">「ドリスディア」</span> <span class="en" lang="en">Glared at by her older sister, Dorisdia became flustered.</span> <span class="ja">側に居たヒルダが慌てて耳打ちをした。</span> <span class="en" lang="en">The Third Princess looked around the venue in a panic, squeezed her palms tightly, and cast her eyes down.</span> <span class="ja">やっと自分が何を言っていたのか気がついたらしい。</span></p>
+<p class="ja"><span class="ja">◇◇</span></p>
+<p class="ja"><span class="ja">「素晴らしいお茶会でしたわ」</span></p>
+<p class="ja"><span class="ja">「流石王女殿下」</span></p>
+<p class="ja"><span class="ja">「これは皆に自慢出来ますわ」</span></p>
+<p class="ja"><span class="ja">「ええ、特にあの氷菓」</span></p>
+<p class="ja"><span class="ja">「そうですね、上に掛かった黒いソースも珍しかったですし」</span></p>
+<p><span class="ja">「まあ、私はアレが豆で出来ていることに一番驚きました。</span><span class="ja">どこで手に入るのかしら」</span> <span class="en" lang="en">Still filled with excitement, I could hear the conversations of the young ladies heading home.</span> <span class="ja">多くの人間にとってアイスに掛けられた珍しいソースという認識だろう。</span> <span class="en" lang="en">However, there were a few who became interested in the red bean paste itself.</span></p>
+<p><span class="en" lang="en">I don&#x27;t intend to completely dye the kingdom&#x27;s food culture in a Japanese style.</span> <span class="ja">独占事業だし、餡子が成立しうるだけのニッチを切り開けばいいのだ。</span></p>
+<p><span class="en" lang="en">Some of the young ladies were asking Sherry about the red bean paste.</span> <span class="ja">少しずつでも羊羹を売り出しても良いかもしれない。</span> <span class="en" lang="en">I can&#x27;t sell ice cream, but I can sell yokan.</span></p>
+<p class="ja"><span class="ja">「リカルドくん」</span></p>
+<p><span class="ja">「アルフィーナ様」</span> <span class="en" lang="en">Having finished her conversation with the Duchess, Alfina came toward me.</span></p>
+<p class="ja"><span class="ja">「ありがとうございます。</span><span class="ja">おかげでリーザベルト殿下に喜んで頂けました」</span></p>
+<p><span class="ja">「趣旨が変わってますよ」</span> <span class="en" lang="en">Rather, I felt it was a battle against the princess alliance, including the Imperial Princess.</span> <span class="ja">第一王女がちゃんとしていて良かった。</span></p>
+<p><span class="en" lang="en">In the corner of the venue, Hilda was hanging her head in front of Dorisdia.</span> <span class="ja">しかられたか。</span> <span class="en" lang="en">I feel sorry for her since she only fulfilled the role she was told to do.</span></p>
+<p><span class="en" lang="en">Come to think of it, the Imperial Princess&#x27;s reaction when asked for her impression of the chocolate was subtle.</span> <span class="ja">食べ慣れている物だから反応が鈍ったのだろう。</span> <span class="en" lang="en">Since it was a setup, she must have known chocolate was going to be served, so is she just not good at acting?</span></p>
+<p><span class="en" lang="en">I was toyed with in many ways the other day, but any ordinary person should be able to toy with me easily.</span></p>
+<p><span class="en" lang="en">No wait, conversely, there is a possibility that it was an act to get into Alfina&#x27;s good graces.</span> <span class="ja">すぐに学院に乗り込んで来るわけだし、油断は禁物だ。</span></p>
+<p><span class="en" lang="en">Besides, I&#x27;m also curious about the origin of the cacao and the Imperial Princess&#x27;s hometown.</span></p>
+<p><span class="en" lang="en">I looked at Luiza, who was apparently asked to act as an intermediary to Alfina.</span> <span class="ja">今日のお茶会で揺さぶられた第三王女の取り巻きから情報が入ると良いが。</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
+<section class="ep" id="sec20">
+<div class="star">＊</div>
+<div class="rubric">20</div>
+<h2>１１話　新しい同級生と予言の地</h2>
+<hr class="rule">
+<p class="first"><span class="en" lang="en">The classroom felt slightly less chilly than before.</span> <span class="ja">俺は部屋の中心の人だかりを観察していた。</span> <span class="en" lang="en">At the center stood Lisabeth.</span> <span class="ja">上品で穏やかな笑みで王国人に接する留学生は大人気のようだ。</span></p>
+<p class="ja"><span class="ja">「ねえシェリー。</span><span class="ja">この前のハーブを練り込んだヨウカン。</span><span class="ja">もうないの」</span></p>
+<p><span class="ja">「あれはナタリーと試しに作っただけだから……」</span> <span class="en" lang="en">Rilka, standing in front of me, was talking with Sherry about red bean paste.</span> <span class="en" lang="en">As the reputation of that tea party spread, orders for yokan started coming in through Purura from nobles who wanted to know at least the taste of the bean jam.</span></p>
+<p><span class="en" lang="en">They let them taste it, and due to the price, the orders apparently dropped to a fraction, but Natalie, who is making yokan alongside yellow sugar, is currently extremely busy.</span></p>
+<p class="ja"><span class="ja">「……ちょっと待て、リルカは羊羹否定派だっただろ。</span><span class="ja">なんで抹茶羊羹なんてマニアックな味を食いたがってるんだ」</span></p>
+<p><span class="ja">「うるさいわね。</span><span class="ja">慣れたらあの味が癖になるのよ。</span><span class="ja">シェリーの家の豆とハーブだし。</span><span class="ja">べ、別にあんたの好みに染まった訳じゃないんだからね」</span> <span class="en" lang="en">Setting aside that overly convoluted tsundere remark, is it really okay for the daughter of a dairy products company to be like that?</span></p>
+<p><span class="en" lang="en">You should stay faithful to the ice cream.</span></p>
+<p><span class="ja">「そういえば豆の確保は大丈夫なのか」</span> <span class="en" lang="en">I asked Sherry.</span> <span class="ja">一度は失敗と断じられたアンコプロジェクトだ。</span> <span class="en" lang="en">Wouldn&#x27;t the Bermini Company, having been dragged into this, be struggling?</span></p>
+<p><span class="ja">「…………超高級品だもの、あの程度の量だったら対応出来るから」</span> <span class="en" lang="en">Sherry said.</span> <span class="ja">リルカがなぜか口元を押さえた。</span></p>
+<p class="ja"><span class="ja">「そうよね、ヴィンダーの羊羹が失敗したとしても、豆の仕入れ予定は止めなかったんだもんね」</span></p>
+<p class="ja"><span class="ja">「わ、私は最初から、ヨウカンの可能性を信じてたし」</span></p>
+<p class="ja"><span class="ja">「まあ、ヨウカンというのは何でしょうか。</span><span class="ja">もしかして、この前のお茶会の豆のジャムと関係するのですか？</span><span class="ja">」</span></p>
+<p><span class="ja">「リ、リーザベルト殿下」</span> <span class="en" lang="en">A calm, elegant voice interrupted.</span> <span class="ja">慌てて振り向くと、そこには話題の留学生が微笑んでいた。</span></p>
+<p><span class="ja">「そういえばお二人はお茶会でお世話になりましたね。</span><span class="ja">リカルド殿もおられたのでしょう？</span><span class="ja">　この前アルフィーナ様と一緒に歩いていましたし」</span> <span class="en" lang="en">Lisabeth smiled as she looked at the three of us.</span></p>
+<p><span class="ja">「そういえばセントラルガーデンという商会の集まりが、アルフィーナ殿下の御用達だという噂ですね。</span><span class="ja">その中心がつい先ほどまで小さな商会だったというのは本当なのでしょうか」</span> <span class="en" lang="en">Lisabeth looked at me and said.</span> <span class="ja">俺は冷や汗をかいた。</span> <span class="en" lang="en">She is investigating me.</span> <span class="en" lang="en">It&#x27;s something you can find out if you look into it, but why would an Imperial Princess be interested in a mere merchant?</span></p>
+<p><span class="en" lang="en">I wonder which secret she&#x27;s after.</span> <span class="ja">馬車か、花粉か、それとも年輪。</span></p>
+<p><span class="ja">「ドリスディア殿下にお聞きしたのですが、クレイグ殿下とも親しい間柄とか。</span><span class="ja">竜討伐に同行されたというお話も聞きました」</span> <span class="en" lang="en">She is investigating me.</span> <span class="ja">調べられている。</span><span class="ja">やっぱり竜、いや水晶ということも……。</span></p>
+<p class="ja"><span class="ja">「貪竜討伐はあくまで、クレイグ殿下の御武勇でなされたもの。</span><span class="ja">私などは後ろで震えていただけです」</span></p>
+<p><span class="ja">「それはそうでしょうけれども、上位の魔獣との戦いはとても厳しい物なのですから。</span><span class="ja">戦う力がないのに討伐に協力するのは、それだけで立派な行為ではありませんか」</span> <span class="en" lang="en">Lisabeth praised me to an unnatural degree.</span> <span class="ja">行きたくて行ったんじゃない……。</span> <span class="en" lang="en">Instead of correcting her, I thought, &quot;I knew it.&quot;</span> <span class="ja">これはどう対応するのが良いんだ。</span></p>
+<p><span class="en" lang="en">While I, unable to deal with an opponent I had so little information about, stood frozen, Lisabeth shifted her gaze to Rilka and the others.</span></p>
+<p class="ja"><span class="ja">「お茶会で頂いたあの素晴らしいお菓子は。</span><span class="ja">お二人の商会の品なのでしょうか」</span></p>
+<p class="ja"><span class="ja">「は、はい。</span><span class="ja">材料を提供させて頂いただけですが」</span></p>
+<p><span class="ja">「……豆とハーブをたまたま扱っていたのです」</span> <span class="en" lang="en">The two of them answered.</span> <span class="ja">ちらちらと俺を見る。</span> <span class="en" lang="en">The Imperial Princess&#x27;s gaze has returned here, hasn&#x27;t it?</span></p>
+<p><span class="ja">「ははは、リーザベルト殿下は餡子がお気に召したのでしょうか。</span><span class="ja">てっきり、チョコレートがお好みだとばかり」</span> <span class="en" lang="en">I threw a pick-off throw, seizing the opportunity.</span> <span class="ja">牽制球って、こっちでは通じないな。</span> <span class="en" lang="en">A pick-off arrow, maybe?</span> <span class="en" lang="en">Sounds dangerous.</span></p>
+<p><span class="ja">「ええ、帝国でもとても希少な品です。</span><span class="ja">王国で味わえるとは驚きました」</span> <span class="en" lang="en">However, Lisabeth said it nonchalantly.</span> <span class="en" lang="en">Does she mean she has no intention of hiding it?</span></p>
+<p><span class="ja">「どのような場所に実るのでしょうか？</span><span class="ja">　帝国では多くの魔獣を討伐していると聞きます。</span><span class="ja">もしや、赤い森になど、はは……」</span> <span class="en" lang="en">With the monster materials from that carriage in mind, rather than cacao, I threw out my next trick question.</span></p>
+<p class="ja"><span class="ja">「…………残念ながら、故郷とは反対側の領地から入ってくるのです。</span><span class="ja">ですから、私も詳しいことは。</span><span class="ja">ごめんなさいね」</span></p>
+<p><span class="ja">「いえとんでもないです。</span><span class="ja">ぶしつけな質問をお許しください」</span> <span class="en" lang="en">Lisabeth&#x27;s expression clouded.</span> <span class="en" lang="en">Now then, I wonder what caught her attention.</span></p>
+<p><span class="ja">「あ、あのさ、シェリー。</span><span class="ja">ヨウカンだけどリーザベルト殿下にも試して頂いたら？</span><span class="ja">」</span> <span class="en" lang="en">Rilka spoke up as if to cover up the awkwardness.</span> <span class="ja">シェリーはコクコクと頷いた。</span></p>
+<p><span class="ja">「まあ、あの豆のお菓子ですか、それはとても興味があります」</span> <span class="en" lang="en">Lisabeth started talking about sweets with Rilka and Sherry.</span> <span class="en" lang="en">From an outsider&#x27;s perspective, it just looks like a conversation between girls.</span></p>
+<p><span class="en" lang="en">I was grateful to the two of them.</span> <span class="en" lang="en">Come to think of it, I&#x27;m walking a pretty dangerous tightrope.</span> <span class="en" lang="en">It&#x27;s unlike me to forget about self-preservation.</span></p>
+<p><span class="ja">「アルフィーナ殿下にも改めてお礼を言わなければと思っているのですが。</span><span class="ja">ご公務でお忙しくされていてなかなか機会がないのです。</span><span class="ja">リカルド殿からもくれぐれもよろしくお伝えください」</span> <span class="en" lang="en">Finishing her conversation with Rilka and the others, Lisabeth smiled pleasantly.</span> <span class="en" lang="en">Damn it, how should I interpret this?</span></p>
+<p><span class="ja">「は、はい。</span><span class="ja">お会いする機会がありましたら是非」</span> <span class="en" lang="en">Today again, Alfina is at the cathedral.</span> <span class="en" lang="en">As always, the crystal&#x27;s reaction is ambiguous, but recently its pattern seems to have changed.</span> <span class="en" lang="en">Of course, there&#x27;s no way I would know such a state secret.</span> <span class="ja">保身的にな。</span></p>
+<p><span class="en" lang="en">But at that moment, the classroom door opened.</span></p>
+<p><span class="ja">「リカルドくん」</span> <span class="en" lang="en">Calling my name, Alfina entered.</span> <span class="ja">クラウディアとルィーツアまで付いている。</span></p>
+<p><span class="en" lang="en">Alfina, who was walking straight toward me, noticed Lisabeth and stopped in her tracks.</span></p>
+<p><span class="en" lang="en">Lisabeth bowed to Alfina and began to thank her for the tea party.</span> <span class="ja">アルフィーナもそれに応じる。</span> <span class="en" lang="en">A polite exchange of social pleasantries.</span> <span class="en" lang="en">To an onlooker, a conversation that could only be seen as friendly continued.</span></p>
+<p><span class="en" lang="en">Luiza invited me out into the hallway.</span> <span class="en" lang="en">After waiting for a while, the classroom door opened, and Alfina came out with Claudia.</span></p>
+<p><span class="en" lang="en">Arriving at the corner of the hallway, Claudia and Luiza guarded our left and right sides.</span> <span class="en" lang="en">So it&#x27;s a conversation that can&#x27;t be overheard after all.</span></p>
+<p><span class="ja">「それで、どうなされました」</span> <span class="en" lang="en">I asked Alfina, who looked grim.</span> <span class="en" lang="en">Even so, since she came straight from the cathedral, the business could only be about the prophecy.</span></p>
+<p><span class="ja">「水晶が突然光って。</span><span class="ja">ベルトルドが、ベルトルドが危ないのです」</span> <span class="en" lang="en">Looking at my face, Alfina said, her face still pale.</span> <span class="en" lang="en">As I thought, it&#x27;s a prophecy.</span> <span class="en" lang="en">No, this is different from before.</span> <span class="en" lang="en">What does it mean that the location is specified?</span></p>
+<a class="top" href="#">▲ 話の目次へ</a>
+</section>
 </article>
 </div>
 <script src="search-index.js"></script>
 <script>
+(function(){
+  var sel=document.getElementById('width');
+  if(!sel) return;
+  var cur=parseFloat(getComputedStyle(document.documentElement)
+                     .getPropertyValue('--sheet-w'))||0;
+  if(cur){
+    if(!sel.querySelector('option[value="'+cur+'"]')){
+      var o=document.createElement('option'); o.value=cur; o.textContent=cur+'%';
+      sel.appendChild(o);
+    }
+    sel.value=String(cur);
+  }
+  sel.addEventListener('change',function(){
+    document.documentElement.style.setProperty('--sheet-w', sel.value+'vw');
+    try{ localStorage.setItem('sheet-width', sel.value); }catch(e){}
+  });
+})();
+
 (function(){
   var flip=function(id, label, cls, on){
     var b=document.getElementById(id);
